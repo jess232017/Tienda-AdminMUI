@@ -1,0 +1,96 @@
+// todo: disabled button styles
+
+button {
+  &:disabled {
+    cursor: default;
+  }
+  &.disabled {
+    cursor: default;
+  }
+}
+
+// todo: brand button icon margin
+.btn-brand:not(:only-child) {
+  .c-icon {
+    margin-top: 0 !important;
+  }
+}
+
+.p-password,
+.p-inputtext	 {
+    width: 100%;
+    input {
+        width: 100%;
+    }
+}
+
+
+.c-main {
+  padding-top: 1rem;
+}
+
+.c-sidebar {
+  -webkit-box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+  box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+  .c-sidebar-brand {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.05rem;
+      z-index: 1;
+      align-items: center;
+      transition: all .10s ease;
+      img{
+          padding-left: 20px;
+      }
+      span {
+          padding: 0 30px;
+          display:inline-block;
+          color: #ffffff;
+          font-weight: 700;
+      }
+  }
+}
+
+.c-sidebar-minimized .c-sidebar-brand{
+  span{
+      display: none;
+  }
+  img{
+      padding: 0;
+  }
+}
+
+.c-sidebar-nav-link.c-active,
+.c-sidebar-nav-link:hover{
+  position: relative;
+  color: rgb(40, 88, 254)!important;
+  box-shadow: rgb(40 88 254) 3px 0px 0px inset!important;
+  background: linear-gradient(-135deg, rgba(255, 255, 255, 0), rgb(223, 227, 255))!important;
+  &::before{
+      position: absolute;
+      content: '';
+      left: 0;
+      width: 3px;
+      //border-top-right-radius: 6px;
+      //border-bottom-right-radius: 6px;
+      height: 100%;
+      background-color: rgb(40, 88, 254);
+  }
+}
+
+.p-tabmenu-nav .p-menuitem-text {
+  line-height: 1;
+  font-size: 14px;
+  &:hover{
+    text-decoration: none;
+  }
+}
+
+/*.c-header {
+  border-bottom:none!important;
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+}*/

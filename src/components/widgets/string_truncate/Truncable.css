@@ -1,0 +1,21 @@
+[data-title] {
+	position: relative;
+	cursor: help;
+}
+
+[data-title]:hover::before {
+	content: attr(data-title);
+	position: absolute;
+    z-index: 10;
+	bottom: -46px;
+	padding: 10px;
+	background: #fff;
+	color: #000;
+    border: 1px solid rgb(97, 97, 97);
+	font-size: 14px;
+	white-space: nowrap;
+}
+
+.title-text{
+	font-size: 14px;
+}

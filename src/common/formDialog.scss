@@ -1,0 +1,61 @@
+.first-group,
+.second-group {
+    padding: 20px;
+}
+.second-group {
+    background-color: rgba(191, 191, 191, 0.15);
+}
+
+.form-avatar {
+    height: 128px;
+    width: 128px;
+    /*background-image: url(./girl.png);*/
+    margin-right: 10px;
+    border: 1px solid #d2d3d5;
+    border-radius: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+div.image-uploader{
+    position: relative;
+    label{
+        position: absolute;
+        cursor: pointer;
+        padding: .75rem;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        input{
+            display: none;
+        }        
+    }
+
+    p{
+        top: 50%;
+        left: 50%;
+        color: black;
+        position: absolute;
+        text-align: center;
+        content: 'Subir Imagen';
+        transform: translate(-50%,-50%);
+    }
+
+    /*.dx-fileuploader-file{
+        position: absolute;
+        bottom: 0;
+    }*/
+}
+
+
+/*
+    height: auto;
+    border-radius: 50em;
+    align-self: center;
+    height: 40px;
+    min-width: 40px;
+    background-color: white;
+    border-radius: 50%;
+*/

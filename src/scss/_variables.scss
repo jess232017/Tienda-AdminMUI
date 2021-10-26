@@ -1,0 +1,40 @@
+// Variable overrides
+//$sidebar-brand-height:  4rem;
+$sidebar-dark-brand-bg: #2962ff;
+$sidebar-width: 220px;
+
+$sidebar-dark-bg:                          #ffffff; 
+
+$sidebar-dark-nav-dropdown-indicator-color: #607d8b;
+
+$sidebar-dark-nav-link-color:              #607d8b;
+$sidebar-dark-nav-link-hover-color:        #006df0;
+
+$sidebar-dark-nav-link-bg:                 #ffffff;
+$sidebar-dark-nav-link-hover-bg:           #e7e5e5;
+$sidebar-dark-nav-link-active-bg:          #e7e5e5;
+$sidebar-dark-nav-link-active-color:       #006df0;
+
+$sidebar-dark-nav-link-icon-color:         #607d8b;
+$sidebar-dark-nav-link-hover-icon-color:   #006df0;
+$sidebar-dark-nav-link-active-icon-color:  #006df0;
+
+$sidebar-dark-nav-dropdown-color:          #607d8b;
+
+
+// Header
+//$header-height:   3rem;
+
+//$header-light-bg: #006df0;
+$header-light-color: #ffffff;
+$header-light-hover-color: #e7e5e5;
+
+$header-light-bg: linear-gradient(-45deg, #3949ab, #2962ff);
+
+$sidebar-nav-link-padding-y: .7rem;
+
+//Prime
+*:root{
+    --primary-color: #006df0;
+    --primary-color-text: #3c4b64;
+}

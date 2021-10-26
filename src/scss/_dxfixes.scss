@@ -1,0 +1,19 @@
+
+.master-detail-caption {
+    padding-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.modal-backdrop.show {
+    opacity: 0.6;
+}
+
+.dx-button.dx-button-outlined.dx-button-mode-contained.dx-widget.dx-button-has-icon.dx-button-has-text{
+    background-color: #ffffff;
+    border-color: #3e5569!important;
+    color: #212529;
+    &.dx-state-hover{
+        background-color: #dfdede;
+    }
+}
