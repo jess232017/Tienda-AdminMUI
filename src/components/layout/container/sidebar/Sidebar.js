@@ -4,7 +4,7 @@ import { makeStyles, useMediaQuery, useTheme, Divider, Drawer, Grid, Hidden } fr
 
 import MenuList from './menuList/MenuList';
 
-import logo from 'src/assets/images/logo.svg';
+import logo from 'src/assets/img/tienda.png';
 import { drawerWidth } from 'src/services/constant';
 
 const useStyles = makeStyles((theme) => ({
@@ -63,7 +63,10 @@ const MainLayout = (props) => {
                     className={[classes.toolbar, classes.logoContainer].join(' ')}
                 >
                     <Grid item>
-                        <img src={logo} alt="Logo" />
+                        <div style={{display: "flex", gap:".5rem", alignItems:"center"}}>
+                            <img src={logo} alt="Logo" height="35"  />
+                            <span style={{fontWeight: "700", color: "#fff"}}>Abarroteria San Jose</span>
+                        </div>
                     </Grid>
                 </Grid>
             </Hidden>

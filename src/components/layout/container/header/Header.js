@@ -51,8 +51,8 @@ const Header = ({drawerToggle}) => {
                             <Grid item>
                                 <Box mt={0.5}>
                                     <div style={{display: "flex", gap:".5rem", alignItems:"center"}}>
-                                    <img src={logo} alt="Logo" height="35"  />
-                                    <span style={{fontWeight: "700", maxWidth:"100px"}}>Abarroteria San Jose</span>
+                                        <img src={logo} alt="Logo" height="35"  />
+                                        <span style={{fontWeight: "700", maxWidth:"100px"}}>Abarroteria San Jose</span>
                                     </div>
                                 </Box>
                             </Grid>
