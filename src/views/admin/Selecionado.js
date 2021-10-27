@@ -1,10 +1,18 @@
 import React from 'react';
 
-import { Button } from 'devextreme-react/button';
+import Button from '@material-ui/core/Button';
 import { NumberBox } from 'devextreme-react/number-box';
 import DataGrid, { Column, Scrolling, Button as GrdButton, Editing } from 'devextreme-react/data-grid';
 
+
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Divider from '@material-ui/core/Divider';
+
 import useCarrito from 'src/services/context/carrito';
+
 
 const Selecionado = () => {
     const {carrito, editItem, removeItem} = useCarrito();
@@ -28,11 +36,13 @@ const Selecionado = () => {
 
     return ( 
         <div className="col-md-4">
-            <div className="card">
-                <div className="card-header">
-                    Venta Actual: 
-                </div>
-                <div className="card-body">
+            <Card>
+                <CardHeader
+                    title="Listado de este pedido"
+                />
+                <Divider/>
+
+                <CardContent>
                     <DataGrid
                         height={264}
                         dataSource={carrito}
@@ -63,11 +73,11 @@ const Selecionado = () => {
                             <GrdButton name="delete" onClick={e => removeItem(null, e.row.data.key)} />
                         </Column>
                     </DataGrid>
-                </div>
+                </CardContent>
 
-                <hr/>
+                <Divider/>
 
-                <div className="card-body">
+                <CardContent>
                     <dl className="m-0 d-flex justify-content-between">
                         <dt>Impuesto: </dt>
                         <dd className="text-right">15%</dd>
@@ -85,22 +95,24 @@ const Selecionado = () => {
                         <dd className="text-right h4 b">C$ {(suma + (suma * .15)).toFixed(2)}</dd>
                     </dl>
                     
-                </div>
+                </CardContent>
 
-                <div className="card-footer d-flex" style={{gap: ".5rem"}}>
-                    <Button width="100%" 
-                        text="Cancelar"
-                        icon="pi pi-times" 
-                        iconPos="right"
-                    />
-                    <Button width="100%" 
-                        text="Cobrar" 
-                        type="default"
-                        icon="pi pi-ticket" 
-                        iconPos="right"
-                    />
-                </div>
-            </div>
+                <CardActions>
+                    <Button 
+                        fullWidth
+                        variant="outlined"
+                    >
+                        Cancelar
+                    </Button>
+                    <Button 
+                        fullWidth
+                        color="primary"
+                        variant="outlined"
+                    >
+                        Cobrar
+                    </Button>
+                </CardActions>
+            </Card>
         </div>
     );
 }

@@ -1,6 +1,7 @@
 import React, {Suspense} from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
+import RequireRole from 'src/services/auth/RequireRole'
 import Loader from 'src/common/loader/Loader';
 import routes from 'src/Routes';
 
@@ -15,7 +16,13 @@ const Content = () => {
                             path={route.path}
                             exact={route.exact}
                             name={route.name}
-                            render={props => <route.component {...props} />} 
+                            render={props => (
+                                <RequireRole
+                                    roles={route.roles}
+                                >
+                                    <route.component {...props} />
+                                </RequireRole> 
+                            )} 
                         />
                     )
                 })}

@@ -2,7 +2,7 @@ import React from 'react';
 import {ROLES} from './services/auth/permission-maps'
 
 const Ventas = React.lazy(() => import('./views/admin/ventas/Venta'));
-const TomarVenta = React.lazy(() => import('./views/admin/ventas/nueva/AddVenta'));
+const TomarVenta = React.lazy(() => import('./views/admin/ventas/nueva/TomarVenta'));
 const DetalleVenta = React.lazy(() => import('./views/admin/ventas/detalles/Detalle'));
 const Movimiento = React.lazy(() => import('./views/admin/movimientos/Movimiento'));
 const Inventario = React.lazy(() => import('./views/admin/inventario/Inventario'));

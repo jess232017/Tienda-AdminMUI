@@ -8,7 +8,7 @@ import api from 'src/services/api/tasks/ApiFactura';
 import PageTable, { itemDialog, itemTool } from 'src/components/tables/PageTable';
 
 import DetalleTable from 'src/components/tables/DetalleTable';
-import { Badge } from 'react-bootstrap';
+import Chip from '@material-ui/core/Chip';
 import { useHistory } from 'react-router';
 
 const Ventas = () => {
@@ -71,6 +71,6 @@ const Ventas = () => {
 export default Ventas;
 
 function cellRender({value}) {
-    const severity = (value === "PAGADO") ? "success" : "warning";
-    return <Badge value={value} severity ={severity}></Badge>
+    const severity = (value === "PAGADO") ? "primary" : "secondary";
+    return <Chip color={severity} label={value} size="small" />
 }

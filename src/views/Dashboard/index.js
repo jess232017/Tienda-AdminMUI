@@ -64,10 +64,10 @@ const Default = () => {
                 <Grid container spacing={gridSpacing}>
                     <Grid item lg={3} sm={6} xs={12}>
                         <ReportCard
-                            primary="$30200"
-                            secondary="All Earnings"
+                            primary="C$30200"
+                            secondary="Todas las ventas"
                             color={theme.palette.warning.main}
-                            footerData="10% changes on profit"
+                            footerData="10% de ganancias"
                             iconPrimary={MonetizationOnTwoTone}
                             iconFooter={TrendingUpIcon}
                         />
@@ -75,9 +75,9 @@ const Default = () => {
                     <Grid item lg={3} sm={6} xs={12}>
                         <ReportCard
                             primary={145}
-                            secondary="Task"
+                            secondary="Lotes vencidos"
                             color={theme.palette.error.main}
-                            footerData="28% task performance"
+                            footerData="28% de perdidas"
                             iconPrimary={CalendarTodayTwoTone}
                             iconFooter={TrendingDownIcon}
                         />
@@ -85,9 +85,9 @@ const Default = () => {
                     <Grid item lg={3} sm={6} xs={12}>
                         <ReportCard
                             primary="290+"
-                            secondary="Page Views"
+                            secondary="Clientes nuevos"
                             color={theme.palette.success.main}
-                            footerData="10k daily views"
+                            footerData="1k de visitas"
                             iconPrimary={DescriptionTwoTone}
                             iconFooter={TrendingUpIcon}
                         />
@@ -95,9 +95,9 @@ const Default = () => {
                     <Grid item lg={3} sm={6} xs={12}>
                         <ReportCard
                             primary={500}
-                            secondary="Downloads"
+                            secondary="Descargas"
                             color={theme.palette.primary.main}
-                            footerData="1k download in App store"
+                            footerData="1k de descargas"
                             iconPrimary={ThumbUpAltTwoTone}
                             iconFooter={TrendingUpIcon}
                         />
@@ -113,17 +113,17 @@ const Default = () => {
                                     <Grid item xs={12}>
                                         <SalesLineCard
                                             chartData={SalesLineCardData}
-                                            title="Sales Per Day"
+                                            title="Ventas en el dia"
                                             percentage="3%"
                                             icon={<TrendingDownIcon />}
                                             footerData={[
                                                 {
                                                     value: '$4230',
-                                                    label: 'Total Revenue',
+                                                    label: 'Total Vendido',
                                                 },
                                                 {
                                                     value: '321',
-                                                    label: 'Today Sales',
+                                                    label: 'Cantidad Vendida',
                                                 },
                                             ]}
                                         />
@@ -267,7 +267,7 @@ const Default = () => {
                 </Grid>
             </Grid>
             <Grid item xs={12}>
-                <LatestorderCard title="Latest Order" />
+                <LatestorderCard title="Ultimos pedidos" />
             </Grid>
         </Grid>
     );

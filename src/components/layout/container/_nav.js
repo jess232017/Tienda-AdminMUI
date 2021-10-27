@@ -9,6 +9,8 @@ import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
 import ClassOutlinedIcon from '@material-ui/icons/ClassOutlined';
 import HotTubIcon from '@material-ui/icons/HotTub';
 import HomeIcon from '@material-ui/icons/Home';
+import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
+import AccessibilityOutlinedIcon from '@material-ui/icons/AccessibilityOutlined';
 
 const nav = {
     items: [
@@ -115,6 +117,29 @@ const nav = {
                 },
             ],
         },
+        {
+            id: 'tools',
+            title: 'Herramientas',
+            //caption: 'Material UI Components',
+            type: 'group',
+            icon: HotTubIcon,
+            children: [
+                {
+                    id: 'help',
+                    title: 'Ayuda',
+                    type: 'item',
+                    icon: HelpOutlineOutlinedIcon,
+                    url: '/admin/proveedor',
+                },
+                {
+                    id: 'accessibility',
+                    title: 'Accesibilidad',
+                    type: 'item',
+                    icon: AccessibilityOutlinedIcon,
+                    url: '/admin/proveedor',
+                },
+            ]
+        }
     ],
 };
 

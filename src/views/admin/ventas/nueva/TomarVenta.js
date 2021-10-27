@@ -1,26 +1,47 @@
 import React, { useEffect, useState } from 'react';
 
-import { DataView } from 'primereact/dataview';
 import { Skeleton } from 'primereact/skeleton';
 
 import TileView from 'devextreme-react/tile-view';
 import { Avatar } from 'primereact/avatar';
 import { Button } from 'devextreme-react';
-import Tabs from 'devextreme-react/tabs';
+
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Divider from '@material-ui/core/Divider';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+
+import TablePagination from '@material-ui/core/TablePagination';
+
+
 
 import apiCategoria from 'src/services/api/tasks/ApiCategoria';
 import useSide from 'src/services/context/sidebarShow';
 import useCarrito from 'src/services/context/carrito';
-import NanoItem from '../../../../components/widgets/NanoItem';
+import NanoItem from 'src/components/widgets/NanoItem';
 import Selecionado from '../../Selecionado';
-import Paginator from 'src/common/Paginator';
+
+const useStyles = makeStyles({
+    root: {
+        flexGrow: 1,
+        borderRadius: 0,
+        border: "1px solid grey",
+    },
+});
 
 const TomarVenta = () => {
     const {data, isLoading, isSuccess,  isError} = apiCategoria.obtener();
-    const [fetched, setFetched] = useState(false)
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [categorias, setCategorias] = useState([]);
+    const [fetched, setFetched] = useState(false)
     const carritoStore = useCarrito();
+    const classes = useStyles();
     const {setShow} = useSide();
 
     useEffect(() => {
@@ -39,35 +60,51 @@ const TomarVenta = () => {
         return NanoItem(product, carritoStore)
     }
 
-    const onTabsSelectionChanged = (args) =>{
-        if(args.name === 'selectedIndex'){
-            setSelectedIndex(args.value);
-        }
+    const onTabsSelectionChanged = (event, newValue) =>{
+        setSelectedIndex(newValue);
     }
 
-
+    const handleChange = (event, newValue) => {
+        setSelectedIndex(newValue);
+    };
+    
+    
     return ( 
         <section className="section-content padding-y-sm bg-default ">
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-8">
                         {/*Carrito*/}
-                        <div className="card">
-                            <div className="card-header">
+                        <Card>
+                            <CardHeader
+                                title="Productos disponibles"
+                            />
+
+                            <Divider/>
+
+                            <CardContent>
                                 {isLoading ?
                                     <Skeleton width="100%" height="2.5rem"></Skeleton>
                                 :isError ?
                                     <p>Error</p>
                                 :
-                                    <Tabs
-                                        width= "100%"
-                                        showNavButtons
-                                        dataSource={categorias}
-                                        onOptionChanged={e => onTabsSelectionChanged(e)}
-                                    />
+                                    <Paper className={classes.root}>
+                                        <Tabs
+                                            value={selectedIndex}
+                                            onChange={handleChange}
+                                            indicatorColor="primary"
+                                            textColor="primary"
+                                            variant="scrollable"
+                                            scrollButtons="auto"
+                                            aria-label="scrollable auto tabs example"
+                                        >
+                                            {categorias?.map(value => (
+                                                <Tab label={value.text}  key={value.text}/>
+                                            ))}
+                                        </Tabs>
+                                    </Paper>
                                 }
-                            </div>
-                            <div className="card-body pt-0">
+
                                 {isLoading?
                                     <div className="d-flex flex-column justify-content-center align-items-center">
                                         <Skeleton width="100%" className="mt-2" height="25rem"></Skeleton>
@@ -76,21 +113,6 @@ const TomarVenta = () => {
                                 :isError ?
                                     <p>Error</p>
                                 :
-                                    <>
-                                    <DataView 
-                                        style = {{display: "none"}}
-                                        paginator
-                                        rows={12}
-                                        paginatorClassName="card-footer"
-                                        layout="list" 
-                                        itemTemplate={itemTemplate}
-                                        value={ (categorias[selectedIndex] != null) ?
-                                            categorias[selectedIndex].content
-                                            :
-                                            []    
-                                        } 
-                                    />
-
                                     <TileView
                                         baseItemWidth = "230"
                                         showScrollbar = "true"
@@ -101,26 +123,31 @@ const TomarVenta = () => {
                                         } 
                                         itemRender={itemTemplate}
                                     />
-
-                                    </>
                                 }
+                            </CardContent>
 
-                                
-                                <Paginator
-                                    method = "get"
-                                    url = "/Factura"
-                                    queryKey = "testeo"
+                            <Divider/>
+
+                            <CardActions>
+                                <TablePagination
+                                    component="div"
+                                    count={100}
+                                    page={1}
+                                    onPageChange={e => console.log}
+                                    rowsPerPage={10}
+                                    onRowsPerPageChange={e => console.log}
                                 />
-                            </div>
-                        </div>
+                            </CardActions>
+                        </Card>
 
-                        <div className="card d-flex flex-row">
+                        <Card className="d-flex mt-2">
+                            
                             {/*Selecionar usuario*/}
                             <div style={{width: '33rem'}}>
-                                <div className="card-header">
-                                    El cliente es: 
-                                </div>
-                                <div className="card-body d-flex">
+                                <CardHeader
+                                    title="El cliente es:"
+                                />
+                                <CardContent className="d-flex">
                                     <Avatar
                                         size="xlarge"
                                         shape="square"
@@ -135,17 +162,17 @@ const TomarVenta = () => {
                                             stylingMode="outlined"
                                         />
                                     </div>
-                                </div>
+                                </CardContent>
                             </div>
 
                             <div style={{width: "1px", backgroundColor: "#d8dbe0"}}/>
 
                             <div className="w-100" >
-                                <div className="card-header">
-                                    Seleccione un descuento disponible para aplicar: 
-                                    <span className="text-muted text-sm ml-2">(1 por orden)</span>
-                                </div>
-                                <div className="card-body">
+                                <CardHeader
+                                    title="Seleccione un descuento disponible para aplicar:"
+                                    subheader="(1 Por orden)"
+                                />
+                                <CardContent>
                                         <div>
                                         <Button
                                             type="success"
@@ -164,9 +191,9 @@ const TomarVenta = () => {
                                             stylingMode="outlined"
                                         />
                                         </div>
-                                </div>
+                                </CardContent>
                             </div>
-                        </div>
+                        </Card>
                     </div>
 
 
