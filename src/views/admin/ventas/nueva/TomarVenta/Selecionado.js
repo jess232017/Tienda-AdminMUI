@@ -28,7 +28,6 @@ const useStyles = makeStyles({
     }
 });
 
-
 const Selecionado = () => {
     const classes = useStyles();
     const {carrito, editItem, removeItem} = useCarrito();
@@ -51,7 +50,7 @@ const Selecionado = () => {
     );
 
     return ( 
-        <Card className={classes.root}>
+        <div className={classes.root}>
             <div>
                 <CardHeader
                     title="Listado de este pedido"
@@ -129,7 +128,7 @@ const Selecionado = () => {
                     </Button>
                 </CardActions>
             </div>
-        </Card>
+        </div>
     );
 }
  

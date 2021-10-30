@@ -16,7 +16,7 @@ const NanoItem = ({productoId, descripcion, imagen, precioVenta}, carritoStore) 
     const exist = carrito.find(value => value.key === productoId);
 
     return ( 
-        <div className="p-col-4 p-sm-1 p-md-2 p-lg-3">
+        <div className="p-col-8 p-sm-8 p-md-4 p-lg-2">
             <article className="d-flex">
                 <Avatar 
                     variant="rounded"

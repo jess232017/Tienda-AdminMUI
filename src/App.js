@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import { IntlProvider } from 'react-intl';
 import { ThemeProvider } from '@material-ui/styles';
@@ -19,7 +19,6 @@ import './assets/css/dx.generic.ecommerce-scheme.css'
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
-import './scss/style.scss'
 import 'src/assets/scss/style.scss'
 
 const Layout = React.lazy(() => import('./components/layout/container/Layout'))
@@ -39,7 +38,7 @@ const App = () => {
     }
 
     return (
-        <BrowserRouter>
+        <HashRouter>
             {messages && (
                 <IntlProvider locale={show.locale} defaultLocale="es" messages={messages}>
                     <CssBaseline />
@@ -62,7 +61,7 @@ const App = () => {
                     </ThemeProvider>
                 </IntlProvider>
             )}
-        </BrowserRouter>
+        </HashRouter>
     );
 };
 

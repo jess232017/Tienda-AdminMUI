@@ -2,21 +2,17 @@ import React, { useState, useEffect } from 'react';
 
 import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider'
-import { InputText } from 'primereact/inputtext';
 import CardContent from '@mui/material/CardContent'
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-
 
 import ViewListIcon from '@mui/icons-material/ViewList';
 import GridViewIcon from '@mui/icons-material/GridView';
 
+import { InputText } from 'primereact/inputtext';
 import { DataView } from 'primereact/dataview';
 import { Dropdown } from 'primereact/dropdown';
 
 import NanoItem from 'src/common/global/NanoItem';
 import ListItem from 'src/common/global/ListItem';
-import ToggleGroup from 'src/common/global/ToggleGroup';
 import apiCategoria from 'src/services/api/tasks/ApiCategoria';
 
 
@@ -29,18 +25,15 @@ const ViewItem = ({carritoStore}) => {
         if(isSuccess) setProducts(data.data[2]);
     }, [data?.data, isLoading, isSuccess]);
 
-
     const itemTemplate = (product) => {
-        return (view === "list") ? NanoItem(product, carritoStore) : ListItem(product, carritoStore)
+        return (view === "grid") ? NanoItem(product, carritoStore) : ListItem(product, carritoStore);
     }
 
     const checkSelected = (value) => (value != null) && setProducts(value);
 
-    const handleChange = (_, value) => (value != null) && setView(value);
-
     return ( 
 
-        <Card>
+        <div>
             <CardContent>
                 <div className="pb-0 d-flex justify-content-between">
                     <div className="form-inline d-inline-flex mr-auto">
@@ -61,29 +54,28 @@ const ViewItem = ({carritoStore}) => {
                     <form className="pr-3">
                         <span className="p-input-icon-left">
                             <i className="pi pi-search" />
-                            <InputText placeholder="Search" />
+                            <InputText placeholder="Buscar..." />
                         </span>
                     </form>
 
-                    <ToggleButtonGroup
-                        exclusive
-                        size="small"
-                        value={view}
-                        onChange={handleChange}
-                    >
-                        <ToggleButton value="list">
+                    <div class="btn-group">
+                        <button className={`btn btn-${view === "list" ? "primary" : "light"}`}
+                            onClick={() => setView("list")}
+                        >
                             <ViewListIcon/>
-                        </ToggleButton>
-                        <ToggleButton value="grid">
+                        </button>
+                        <button className={`btn btn-${view === "grid" ? "primary" : "light"}`}
+                            onClick={() => setView("grid")}
+                        >
                             <GridViewIcon/>
-                        </ToggleButton>
-                    </ToggleButtonGroup>
+                        </button>
+                    </div>
                 </div>
             </CardContent>
             <Divider/>
 
             <CardContent className="col">
-             <div className="pb-0 d-flex mt-3">
+                <div className="pb-0 d-flex mt-3">
                     <DataView className="col"
                         rows={12}
                         paginator 
@@ -93,9 +85,8 @@ const ViewItem = ({carritoStore}) => {
                         emptyMessage = {isLoading ? "cargando" : "No se encontraron registros"}
                     />
                 </div>
-
             </CardContent>
-        </Card>
+        </div>
     );
 }
  
