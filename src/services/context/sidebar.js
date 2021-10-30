@@ -19,10 +19,11 @@ const [useStore] = create( set =>({
         show.locale = value;
         return show;
     }),
-    setDarkMode: (value) => set( state =>{
-        localStorage.setItem("darkMode", value)
+    setDarkMode: () => set( state =>{
         const show = state?.show;
-        show.darkMode = value;
+        show.darkMode = !show.darkMode;
+        localStorage.setItem("darkMode", show.darkMode)
+        console.log(show);
         return show;
     }),
 }));

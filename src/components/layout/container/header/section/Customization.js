@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
 const Customization = () => {
     const theme = useTheme();
     const classes = useStyles();
-    const {show, setLocale} = useStore();
+    const {show, setLocale, setDarkMode} = useStore();
     const matchDownSm = useMediaQuery(theme.breakpoints.down('xs'));
 
     const [currency, setCurrency] = React.useState(show.locale);
@@ -133,7 +133,9 @@ const Customization = () => {
                 </Box>
             </Tooltip>
             <Tooltip title='Modo Obscuro'>
-                <Button className={classes.menuButton} color="inherit">
+                <Button className={classes.menuButton} color="inherit"
+                    onClick={setDarkMode}
+                >
                     <Brightness6Icon className={classes.menuIcon} />
                 </Button>
             </Tooltip>

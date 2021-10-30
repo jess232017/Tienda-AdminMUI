@@ -2,20 +2,23 @@ import React, { useState, useEffect } from 'react';
 
 import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider'
-import { DataView } from 'primereact/dataview';
-import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import CardContent from '@mui/material/CardContent'
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
+
 import ViewListIcon from '@mui/icons-material/ViewList';
 import GridViewIcon from '@mui/icons-material/GridView';
+
+import { DataView } from 'primereact/dataview';
+import { Dropdown } from 'primereact/dropdown';
 
 import NanoItem from 'src/common/global/NanoItem';
 import ListItem from 'src/common/global/ListItem';
 import ToggleGroup from 'src/common/global/ToggleGroup';
 import apiCategoria from 'src/services/api/tasks/ApiCategoria';
+
 
 const ViewItem = ({carritoStore}) => {
     const { data, isLoading, isSuccess } = apiCategoria.obtener();
@@ -36,6 +39,7 @@ const ViewItem = ({carritoStore}) => {
     const handleChange = (_, value) => (value != null) && setView(value);
 
     return ( 
+
         <Card>
             <CardContent>
                 <div className="pb-0 d-flex justify-content-between">
@@ -75,14 +79,12 @@ const ViewItem = ({carritoStore}) => {
                         </ToggleButton>
                     </ToggleButtonGroup>
                 </div>
-
-                
             </CardContent>
             <Divider/>
 
-            <CardContent>
-            <div className="pb-0 d-flex mt-3">
-                    <DataView 
+            <CardContent className="col">
+             <div className="pb-0 d-flex mt-3">
+                    <DataView className="col"
                         rows={12}
                         paginator 
                         layout={view}
