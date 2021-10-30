@@ -2,7 +2,7 @@ import React, {Suspense} from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import RequireRole from 'src/services/auth/RequireRole'
-import Loader from 'src/common/loader/Loader';
+import Loader from 'src/components/Loader';
 import routes from 'src/Routes';
 
 const Content = () => {

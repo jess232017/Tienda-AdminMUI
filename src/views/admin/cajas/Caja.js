@@ -6,7 +6,7 @@ import PageCard from 'src/common/PageCard';
 import Form from 'src/components/forms/FormCaja';
 import api from 'src/services/api/tasks/ApiCaja';
 import PageTable, { itemDialog, itemTool } from 'src/components/tables/PageTable';
-import Breadcrumb from 'src/common/breadcrumb/Breadcrumb';
+import Breadcrumb from 'src/components/Breadcrumb';
 
 const Caja = () => {
     const { data, isLoading, isError} = api.obtener();

@@ -20,6 +20,7 @@ ReactDOM.render(
                 <NiceModal.Provider>
                     <App/>
                 </NiceModal.Provider>
+                <ReactQueryDevtools initialIsOpen={false}/>
             </QueryClientProvider>
         </AuthProvider>
     </React.StrictMode>,

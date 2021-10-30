@@ -1,5 +1,6 @@
 import React from 'react';
-import './Truncable.css'
+
+import { Tooltip, Typography } from '@material-ui/core';
 
 const Truncable = ({text, length}) => {
     const truncar = (str) => {
@@ -7,7 +8,9 @@ const Truncable = ({text, length}) => {
     }
 
     return ( 
-        <div className="title-text" data-title={text}>{truncar(text)}</div>
+        <Tooltip title={text}>
+            <Typography>{truncar(text)}</Typography>
+        </Tooltip>
     );
 }
  

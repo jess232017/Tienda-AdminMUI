@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import Loader from 'src/common/loader/Loader';
+import Loader from 'src/components/Loader';
 import theme from 'src/services/themes/themes';
 import useStore from 'src/services/context/sidebar';
 import location from 'src/services/locales/locales-map';

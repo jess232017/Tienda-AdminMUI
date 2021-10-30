@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Avatar, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import Chip from 'src/common/chip/Chip';
+import Chip from 'src/components/Chip';
 
 import useStore from 'src/services/context/sidebar';
 

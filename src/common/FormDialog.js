@@ -1,8 +1,11 @@
 import React from 'react';
-import CModal from 'react-bootstrap/Modal';
+
+import Dialog from '@material-ui/core/Dialog';
+import { useModal } from '@ebay/nice-modal-react';
+
 import { Button } from 'devextreme-react/button';
 import Form, {ButtonItem , GroupItem} from 'devextreme-react/form';
-import { useModal } from '@ebay/nice-modal-react';
+
 import './formDialog.scss'
 
 const FormDialog = ({title, callback, children, data = {}}) => {
@@ -14,13 +17,12 @@ const FormDialog = ({title, callback, children, data = {}}) => {
     };
 
     return ( 
-        <CModal aria-labelledby="contained-modal-title-vcenter"
-            show = {modal.visible} 
-            onHide= {modal.hide}
-            onHided = {modal.remove}
-            size="lg"
-            centered>
-            
+        <Dialog aria-labelledby="contained-modal-title-vcenter"
+            open = {modal.visible} 
+            onClose= {modal.hide}
+            onExited = {modal.remove}
+            maxWidth="md"
+            fullWidth={true}>
         
             <div className="modal-header" style={{display: 'none'}}>
                 <h5 className="modal-title">{title}</h5>
@@ -41,7 +43,6 @@ const FormDialog = ({title, callback, children, data = {}}) => {
                     onClick={modal.hide}
                 />
             </div>
-
             
             <form onSubmit = {handleSubmit}>
                 <Form
@@ -71,7 +72,7 @@ const FormDialog = ({title, callback, children, data = {}}) => {
                     </GroupItem>
                 </Form>
             </form>
-        </CModal>  
+        </Dialog>  
     );
 }
  
