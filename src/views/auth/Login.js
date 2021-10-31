@@ -1,6 +1,16 @@
 import React, {useState, useRef} from 'react';
 
-import { Card } from 'primereact/card';
+
+import Alert from "@material-ui/lab/Alert";
+import { Divider } from '@material-ui/core';
+
+import Card from '@material-ui/core/Card';
+
+import Typography from '@material-ui/core/Typography';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+
 import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
 import { Checkbox } from 'primereact/checkbox';
@@ -12,7 +22,7 @@ import { Link, useHistory  } from 'react-router-dom';
 import apiAuth from '../../services/api/tasks/ApiService';
 
 
-const Login = () => {
+const Login = ({isExpired = true}) => {
     const [remember, setRemember] = useState(false);
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
@@ -22,11 +32,9 @@ const Login = () => {
 
     const {isLoading, mutate} = apiAuth.ingresar();
 
-    const enviarForm = async(e) =>{
+    const enviarForm = (e) =>{
         e.preventDefault();
-        const values = {email, password}
-        mutate(
-            values,
+        mutate({email, password},
             {
                 onSuccess: ({data : {token, estado: authState}}) => {                    
                     const {exp: expiresIn} = JSON.parse(atob(token.split('.')[1]));
@@ -37,7 +45,7 @@ const Login = () => {
                 },
                 onError: ({response: {data: {error}}}) => {
                     toast.current.show({severity:'error', summary: 'Algo salió mal', detail: error.mensaje});
-                }
+                },
             }
         );
     }
@@ -45,35 +53,65 @@ const Login = () => {
     return ( 
         <>
             <Toast ref={toast} />
-            <Card title="Inicio de sesión" 
-                subTitle="Hola, bienvenido de nuevo! 👋👋" 
-                footer = {
-                    <div className="text-sm text-muted">
-                        ¿No tienes una cuenta? <Link to="/sign-up">Registrate</Link>.
-                    </div>
-                }
-            >
-                <p className="text-muted text-sm mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                <form id="loginForm" onSubmit={enviarForm}>
-                    
-                    <h6>Dirección de correo electrónico</h6>
-                    <InputText required value={email} onChange={(e) => setEmail(e.target.value)} />
+            <Card>
+                <CardHeader
+                    title="Inicio de sesión"
+                    subheader="Hola, bienvenido de nuevo! 👋👋"
+                />
+                <Divider/>
 
-                    <h6 className="mt-4">Contraseña</h6>
-                    <Password required value={password} onChange={(e) => setPassword(e.target.value)} 
-                            promptLabel="Ingrese su contraseña"
+                <CardContent>
+                    {isExpired ?
+                        <Alert variant="outlined" severity="info">
+                            Su sesión ha caducado. Inicie sesión de nuevo.
+                        </Alert>
+                    :
+                        <p className="text-muted text-sm mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                    }
+               
+                    <form id="loginForm" 
+                        className="mt-3"
+                        onSubmit={enviarForm}
+                    >
+                        
+                        <Typography variant="h6">Correo electrónico</Typography>
+                        <InputText 
+                            required
+                            value={email}
+                            className="mb-3"
+                            onChange={(e) => setEmail(e.target.value)} 
+                        />
+
+                        <Typography variant="h6">Contraseña</Typography>
+
+                        <Password required  
+                            value={password} 
+                            feedback = {false}
+                            toggleMask = {true}
                             weakLabel = "Débil"
                             mediumLabel = "Medio"
                             strongLabel = "Fuerte"
-                            feedback = {false}
-                            toggleMask = {true}/>
+                            promptLabel="Ingrese su contraseña"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
 
-                    <div className="p-field-checkbox mt-1">
-                        <Checkbox inputId="recordar" checked={remember} onChange={e => setRemember(e.checked)}></Checkbox>
-                        <label htmlFor="recordar" className="mt-1 ml-1 text-muted text-sm">Recordar contraseña</label>
-                    </div>
-                    <Button loading = {isLoading} label="Ingresar"/>
-                </form>
+                        <div className="p-field-checkbox  mb-3">
+                            <Checkbox 
+                                checked={remember}
+                                onChange={e => setRemember(e.checked)}
+                            />
+                            <label htmlFor="recordar" className="mt-3 ml-1 text-muted text-sm">
+                                Recordar contraseña
+                            </label>
+                        </div>
+                        <Button loading = {isLoading} label="Ingresar"/>
+                    </form>
+                </CardContent>
+                <CardActions>
+                    <span className="text-sm text-muted">
+                        ¿No tienes una cuenta? <Link to="/sign-up">Registrate</Link>.
+                    </span>
+                </CardActions>
             </Card>
         </>
     );

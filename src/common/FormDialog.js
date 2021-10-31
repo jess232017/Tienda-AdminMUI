@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Dialog from '@material-ui/core/Dialog';
+import Dialog from '@mui/material/Dialog';
 import { useModal } from '@ebay/nice-modal-react';
 
 import { Button } from 'devextreme-react/button';
@@ -9,6 +9,7 @@ import Form, {ButtonItem , GroupItem} from 'devextreme-react/form';
 import './formDialog.scss'
 
 const FormDialog = ({title, callback, children, data = {}}) => {
+    const [fullScreen, setFullScreen] = React.useState(false)
     const modal = useModal();   
 
     const handleSubmit = (event) => {
@@ -22,26 +23,25 @@ const FormDialog = ({title, callback, children, data = {}}) => {
             onClose= {modal.hide}
             onExited = {modal.remove}
             maxWidth="md"
-            fullWidth={true}>
-        
-            <div className="modal-header" style={{display: 'none'}}>
-                <h5 className="modal-title">{title}</h5>
-                <Button
-                    icon="close"
-                    type="normal"
-                    stylingMode="text"
-                    onClick={modal.hide}
-                />
-            </div>
+            fullWidth={true}
+            fullScreen={fullScreen}>
 
             <div className="modal-header">
                 <h5 className="modal-title">{title}</h5>
-                <Button
-                    icon="close"
-                    type="normal"
-                    stylingMode="text"
-                    onClick={modal.hide}
-                />
+                <div>
+                    <Button
+                        icon="fullscreen"
+                        type="normal"
+                        stylingMode="text"
+                        onClick={() => setFullScreen(!fullScreen)}
+                    />
+                    <Button
+                        icon="close"
+                        type="normal"
+                        stylingMode="text"
+                        onClick={modal.hide}
+                    />
+                </div>
             </div>
             
             <form onSubmit = {handleSubmit}>

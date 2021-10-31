@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Skeleton } from 'primereact/skeleton';
 
-import { Card, CardHeader, Divider, CardContent, Grid, Typography } from '@material-ui/core';
+import { Card, CardHeader, Divider, CardContent } from '@material-ui/core';
 
 const PageCard = ({icon, titulo, subTitulo, isLoading, isError, children}) => {
     return (

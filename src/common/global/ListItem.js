@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
-import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 import { Button } from 'primereact/button';
 
@@ -11,7 +10,7 @@ import UriName from 'src/common/global/UriName';
 import Item from '../../services/context/class/Item'
 
 const ListItem = ({productoId, descripcion, imagen, precioVenta}, carritoStore) => {
-    const {carrito ,addItem, editItem}  = carritoStore;
+    const {carrito ,addItem, removeItem, editItem}  = carritoStore;
 
     const agregarItem = () =>{
         addItem(new Item(productoId, descripcion, precioVenta, 1, 5, imagen));
@@ -20,9 +19,9 @@ const ListItem = ({productoId, descripcion, imagen, precioVenta}, carritoStore) 
     const exist = carrito.find(value => value.key === productoId);
 
     return ( 
-        <article key={productoId} className="card card-product-list">
+        <article key={productoId} className="card card-product-list mb-2">
             <div className="row no-gutters">
-                <aside className="col-md-3">
+                <aside className="col-md-2">
                     <Avatar 
                         variant="rounded"
                         alt={descripcion}
@@ -30,18 +29,18 @@ const ListItem = ({productoId, descripcion, imagen, precioVenta}, carritoStore) 
                         sx={{ width: 120, height: 120 }}
                     />    
                 </aside>
-                <div className="col-md-6">
-                    <div className="info-main">
+                <div className="col-md-7">
+                    <div className="pt-2 pl-2">
                         <UriName uri={`/item?productoId=${productoId}`}>
                             {descripcion}
                         </UriName>
 
                         <Link to={`/item?productoId=${productoId}`} className="h5 title d-none">{descripcion}</Link>
-                        <p> Take it as demo specs, ipsum dolor sit amet, consectetuer adipiscing elit, Lorem ipsum dolor sit amet, consectetuer adipiscing elit, Ut wisi enim ad minim veniam </p>
+                        <p> Take it as demo specs, ipsum dolor sit amet, consectetuer adipiscing elit, Lorem ipsum dolor sit amet...</p>
                     </div>
                 </div> 
                 <aside className="col-sm-3">
-                    <div className="info-aside">
+                    <div className="pt-3">
                         <div className="price-wrap">
                             <span className="price h5">C$ {precioVenta} </span>  
                             <del className="price-old">C$ 198</del>
@@ -49,26 +48,35 @@ const ListItem = ({productoId, descripcion, imagen, precioVenta}, carritoStore) 
                         <br />
                         <p>
                             {(exist != null) ?
-                                <InputNumber 
-                                    className="w-100"
-                                    style = {{height: "40px", width: "105px"}}
-                                    inputId="minmax" 
-                                    value={exist.cantidad}
-                                    onValueChange={(e) => editItem(exist.key, e.value)}
-                                    mode="decimal"
-                                    showButtons
-                                    min={1} 
-                                    max={10} />
+                                <>
+                                    <InputNumber 
+                                        inputId="minmax" 
+                                        value={exist.cantidad}
+                                        style = {{height: "40px", width: "110px"}}
+                                        onValueChange={(e) => editItem(exist.key, e.value)}
+                                        mode="decimal"
+                                        showButtons
+                                        min={1} 
+                                        max={10} 
+                                    />
+                                    <Button className="ml-2 p-button-danger p-button-outlined fix-padding"
+                                        icon="pi pi-trash"
+                                        onClick={(e) => removeItem(e, exist.key)}
+                                    />
+                                </>
                             :
-                                <Button className="btn btn-primary mr-1 w-100"
-                                    label="Comprar"
-                                    icon="pi pi-shopping-cart"
-                                    onClick={() => agregarItem()}/>
+                                <>
+                                    <Button className="btn-light p-button-secondary"
+                                        label="Comprar"
+                                        icon="pi pi-shopping-cart m-1"
+                                        onClick={() => agregarItem()}
+                                    />
+                                        
+                                    <Button className="ml-2 p-button-secondary p-button-outlined fix-padding"
+                                        icon="pi pi-heart m-1"
+                                    />
+                                </>
                             }
-                            <Button className="btn btn-light mr-1 w-100"
-                                label="Guardar"
-                                icon="pi pi-heart"
-                                onClick={() => agregarItem()}/>
                         </p>
                     </div> 
                 </aside> 

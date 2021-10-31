@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider'
 import CardContent from '@mui/material/CardContent'
 
@@ -11,7 +10,7 @@ import { InputText } from 'primereact/inputtext';
 import { DataView } from 'primereact/dataview';
 import { Dropdown } from 'primereact/dropdown';
 
-import NanoItem from 'src/common/global/NanoItem';
+import GridItem from 'src/common/global/GridItem';
 import ListItem from 'src/common/global/ListItem';
 import apiCategoria from 'src/services/api/tasks/ApiCategoria';
 
@@ -26,7 +25,7 @@ const ViewItem = ({carritoStore}) => {
     }, [data?.data, isLoading, isSuccess]);
 
     const itemTemplate = (product) => {
-        return (view === "grid") ? NanoItem(product, carritoStore) : ListItem(product, carritoStore);
+        return (view === "grid") ? GridItem(product, carritoStore) : ListItem(product, carritoStore);
     }
 
     const checkSelected = (value) => (value != null) && setProducts(value);
@@ -58,7 +57,7 @@ const ViewItem = ({carritoStore}) => {
                         </span>
                     </form>
 
-                    <div class="btn-group">
+                    <div className="btn-group">
                         <button className={`btn btn-${view === "list" ? "primary" : "light"}`}
                             onClick={() => setView("list")}
                         >
