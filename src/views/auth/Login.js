@@ -4,7 +4,7 @@ import React from 'react';
 import { useSnackbar } from 'notistack';
 import { useForm } from "react-hook-form";
 import { useSignIn } from 'react-auth-kit';
-import { Link, useHistory  } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
@@ -19,13 +19,13 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 //owned
 import apiAuth from 'src/services/api/tasks/ApiService';
-import {Input, CheckBox} from 'src/common/global/control/index';
+import { Input, CheckBox } from 'src/common/global/control/index';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
         .required('El correo es requerido')
         .min(6, 'El correo debe tener al menos 6 caracteres')
-        .max(20, 'El correo no debe exceder los 20 caracteres')
+        .max(50, 'El correo no debe exceder los 50 caracteres')
         .email('El correo es invalido'),
     password: Yup.string()
         .required('La contraseña es requerida')
@@ -34,37 +34,37 @@ const validationSchema = Yup.object().shape({
     remember: Yup.bool().oneOf([true], 'Aceptar guardar la cuenta es requerido')
 });
 
-const Login = ({isExpired = true}) => {
+const Login = ({ isExpired = true }) => {
     //Controlar formularios
     const { handleSubmit, formState: { errors }, control } = useForm({
         resolver: yupResolver(validationSchema),
     });
 
-    const {isLoading, mutate} = apiAuth.ingresar();
+    const { isLoading, mutate } = apiAuth.ingresar();
     const { enqueueSnackbar } = useSnackbar();
 
     const history = useHistory();
     const signIn = useSignIn();
 
-    const enviarForm = (data) =>{
+    const enviarForm = (data) => {
 
         mutate(data, {
-            onSuccess: ({data : {token, estado: authState}}) => {                    
-                const {exp} = JSON.parse(atob(token.split('.')[1]));
+            onSuccess: ({ data: { token, estado: authState } }) => {
+                const { exp } = JSON.parse(atob(token.split('.')[1]));
 
                 //calcular los minutos que faltan para que caduque el token
                 const today = new Date();
                 const expire = new Date(exp * 1000);
-                const diffMs = (expire - today); 
+                const diffMs = (expire - today);
                 const diffDays = Math.floor(diffMs / 86400000) * 24 * 60;
-                const diffHrs = Math.floor((diffMs % 86400000) / 3600000) * 60; 
-                const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); 
+                const diffHrs = Math.floor((diffMs % 86400000) / 3600000) * 60;
+                const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
 
                 const expiresIn = diffDays + diffHrs + diffMins;
-                const signInConfig = { token, expiresIn, authState, tokenType: "Bearer"};
+                const signInConfig = { token, expiresIn, authState, tokenType: "Bearer" };
 
-                if(signIn(signInConfig)) history.push('/')
-                else enqueueSnackbar('Algo salió mal', { 
+                if (signIn(signInConfig)) history.push('/')
+                else enqueueSnackbar('Algo salió mal', {
                     variant: 'error',
                     anchorOrigin: {
                         vertical: 'bottom',
@@ -72,8 +72,8 @@ const Login = ({isExpired = true}) => {
                     },
                 });
             },
-            onError: ({response: {data: {error}}}) => {
-                enqueueSnackbar('Algo salió mal',  { 
+            onError: ({ response: { data: { error } } }) => {
+                enqueueSnackbar('Algo salió mal', {
                     variant: 'error',
                     anchorOrigin: {
                         vertical: 'bottom',
@@ -86,23 +86,23 @@ const Login = ({isExpired = true}) => {
         });
     }
 
-    return ( 
+    return (
         <Card>
             <CardHeader
                 title="Inicio de sesión"
                 subheader="Hola, bienvenido de nuevo! 👋👋"
             />
-            <Divider/>
+            <Divider />
             <CardContent>
                 {isExpired ?
                     <Alert variant="filled" severity="warning">
                         Su sesión ha caducado. Inicie sesión de nuevo.
                     </Alert>
-                :
+                    :
                     <p className="text-muted text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
                 }
-            
-                <form 
+
+                <form
                     className="mt-3"
                     onSubmit={handleSubmit(enviarForm)}
                 >
@@ -110,7 +110,7 @@ const Login = ({isExpired = true}) => {
                         <Input
                             name="email"
                             label="Correo electrónico"
-                            control = {control}
+                            control={control}
                             helperText={errors.email?.message}
                             error={errors.email ? true : false}
                         />
@@ -119,7 +119,7 @@ const Login = ({isExpired = true}) => {
                             type="password"
                             name="password"
                             label="Contraseña"
-                            control = {control}
+                            control={control}
                             helperText={errors.password?.message}
                             error={errors.password ? true : false}
                         />
@@ -127,14 +127,14 @@ const Login = ({isExpired = true}) => {
                         <CheckBox
                             name="remember"
                             label="Recordar contraseña"
-                            control = {control}
+                            control={control}
                             helperText={errors.remember?.message}
                             error={errors.remember ? true : false}
                         />
                         <LoadingButton
                             type="submit"
                             size="large"
-                            loading= {isLoading}
+                            loading={isLoading}
                             loadingPosition="start"
                             variant="contained"
                             fullWidth
@@ -144,7 +144,7 @@ const Login = ({isExpired = true}) => {
                     </Stack>
                 </form>
             </CardContent>
-            <Divider/>
+            <Divider />
             <CardContent>
                 <span className="text-sm text-muted">
                     ¿No tienes una cuenta? <Link to="/auth/sign-up">Registrate</Link>.
@@ -153,5 +153,5 @@ const Login = ({isExpired = true}) => {
         </Card>
     );
 }
- 
+
 export default Login;
