@@ -4,10 +4,17 @@ import PageCard from 'src/common/PageCard';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+
+//Icon
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
-const make = (title, subtitle, link) => ({title, subtitle, link});
+//owned
+import { show } from '@ebay/nice-modal-react';
+import ReportViewer from 'src/common/ReportViewer';
+
+const make = (title, subtitle, link) => ({ title, subtitle, link });
 const URL = process.env.REACT_APP_API_URL;
+
 
 const reportes = [
     make("Clientes", "Listado de todos los clientes", URL + "/Reporte/clientes"),
@@ -23,24 +30,24 @@ const reportes = [
 ]
 
 const Reporte = () => {
-    return ( 
+
+
+    return (
         <PageCard
             icon="pi-shopping-cart"
-            titulo = "Reportes"
-            subTitulo = "Lista de Reportes disponibles"
+            titulo="Reportes"
+            subTitulo="Lista de Reportes disponibles"
         >
-            <Grid container  columns={{ xs: 4, sm: 8, md: 12 }}>
-                {reportes.map((value, index) => (
+            <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
+                {reportes.map(({ title, subtitle, link }, index) => (
                     <Grid item xs={2} sm={4} md={4} key={index}>
                         <Box component="article" sx={{ p: 2, borderBottom: '1px dashed grey' }}>
-                            <h5>{value.title}</h5>
-                            <p style={{minHeight: '3rem'}}> 
-                                {value.subtitle}
-                                {/*This example handle multiple cases of the countdown, show <code class="highlighter-rouge">%-w</code> weeks and <code class="highlighter-rouge">%-d</code> days only when necessary and handle pluralization, display the time as <code class="highlighter-rouge">%H:%M:%S</code>.*/
-                                }  
+                            <h5>{title}</h5>
+                            <p style={{ minHeight: '3rem' }}>
+                                {subtitle}
                             </p>
                             <p>
-                                <Button target="_blank" href={value.link}
+                                <Button onClick={() => show(ReportViewer, { title, link })}
                                     endIcon={<NavigateNextIcon />}
                                     variant="outlined"
                                 >
@@ -54,5 +61,5 @@ const Reporte = () => {
         </PageCard>
     );
 }
- 
+
 export default Reporte;

@@ -15,6 +15,7 @@ const Categoria = React.lazy(() => import('src/views/admin/categorias/Categoria'
 const Cliente = React.lazy(() => import('src/views/admin/clientes/Cliente'));
 const Caja = React.lazy(() => import('src/views/admin/cajas/Caja'));
 const Reporte = React.lazy(() => import('src/views/admin/reportes/Reporte'));
+const ReportViewer = React.lazy(() => import('src/views/admin/reportes/ReportViewer'));
 const noFound = React.lazy(() => import('src/views/error/NoFound'));
 
 const routes = [
@@ -48,7 +49,8 @@ const routes = [
         path: '/admin/empleado', name: 'Empleado', component: Empleado,
         roles: [ROLES.administrador]
     },
-    { path: '/admin/reporte', name: 'Reporte', component: Reporte },
+    { path: '/admin/reporte', exact: true, name: 'Reporte', component: Reporte },
+    { path: '/admin/reporte/ver', name: 'Reporte', component: ReportViewer },
     { name: 'No encontrado', component: noFound }
 ];
 

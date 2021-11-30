@@ -1,7 +1,7 @@
 import React from 'react';
 
 //Responsive
-import  {PriorityNav, ToggleButton } from 'react-priority-navigation';
+import { PriorityNav, ToggleButton } from 'react-priority-navigation';
 import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks'
 
 //Mui
@@ -53,22 +53,22 @@ const MyIconButton = styled(Button)(({ theme }) => ({
     },
 }));
 
-const Toolbar = ({items}) => {
+const Toolbar = ({ items, auxValue }) => {
     const popupState = usePopupState({ variant: 'popover', popupId: 'demoMenu' })
 
-    return ( 
-        <MyToolbar variant="dense"> 
+    return (
+        <MyToolbar variant="dense">
             <PriorityNav
                 dropdown={({ dropdownItems, buttonProps }) => (
                     <>
                         <MyIconButton color="primary"
                             aria-label="mas opciones"
-                            {...buttonProps.bind} {...bindTrigger(popupState)} 
+                            {...buttonProps.bind} {...bindTrigger(popupState)}
                         >
                             <MoreVertIcon />
                         </MyIconButton>
                         <Menu {...bindMenu(popupState)}>
-                            {dropdownItems.map((item, i) => 
+                            {dropdownItems.map((item, i) =>
                                 <MenuItem key={i} {...item.props} />)
                             }
                         </Menu>
@@ -85,7 +85,7 @@ const Toolbar = ({items}) => {
                         >
                             {value?.title}
                         </ButtonItem>
-                    :
+                        :
                         <GroupItem
                             key={value?.id}
                             value={value}
@@ -94,15 +94,15 @@ const Toolbar = ({items}) => {
             </PriorityNav>;
 
 
-           
-            
+
+
             <Box sx={{ flexGrow: 1 }} />
 
             <MyIconButton color="primary" aria-label="hide rows">
                 <PictureInPictureIcon />
             </MyIconButton>
-            <Search/>
-                
+            <Search />
+
         </MyToolbar>
     );
 }
@@ -111,7 +111,7 @@ const Toolbar = ({items}) => {
     id: , title: , type:, icon: , url: ,
 */
 
-const item = (id, title, type, icon, fn) => ({id, title, type, icon, fn});
+const item = (id, title, type, icon, fn) => ({ id, title, type, icon, fn });
 
-export {item};
+export { item };
 export default Toolbar;

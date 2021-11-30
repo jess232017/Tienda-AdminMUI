@@ -4,94 +4,95 @@ import DataGrid, {
     Pager,
     Paging, Editing,
     Grouping, FilterRow,
-    GroupPanel, SearchPanel, ColumnChooser } from 'devextreme-react/data-grid';
+    GroupPanel, SearchPanel, ColumnChooser
+} from 'devextreme-react/data-grid';
 
-const PageTable = ({data, isLoading, setSelect, children}) => {
-    
+const PageTable = ({ data, isLoading, setSelect, children }) => {
 
-    const onSelectionChanged = ({ selectedRowsData }) =>{
+
+    const onSelectionChanged = ({ selectedRowsData }) => {
         setSelect(selectedRowsData[0]);
     }
 
-    const onToolbarPreparing = (e)=>{
-        e.toolbarOptions.visible = false;  
+    const onToolbarPreparing = (e) => {
+        e.toolbarOptions.visible = false;
     }
 
-    return ( 
+    return (
         <DataGrid
-            width = "100%"
+            width="100%"
             id="gridContainer"
             showBorders={true}
             columnAutoWidth={true}
             onToolbarPreparing={onToolbarPreparing}
             hoverStateEnabled={true}
             focusedRowEnabled={true}
-            errorRowEnabled = {false}
+            errorRowEnabled={false}
             allowColumnResizing={true}
             rowAlternationEnabled={true}
             columnHidingEnabled={true}
             allowColumnReordering={true}
             selection={{ mode: 'single' }}
             onSelectionChanged={onSelectionChanged}
-            dataSource = {data?.data}
-            noDataText = {(isLoading) ? "Cargando..." : "No se encontraron resultados"}>
-                
+            dataSource={data?.data}
+            noDataText={(isLoading) ? "Cargando..." : "No se encontraron resultados"}>
+
             <FilterRow visible={false} />
 
             <ColumnChooser enabled={true}
                 title="Selector de Columna"
                 emptyPanelText="Arrastre una columna aqui para ocultarla"
-                allowSearch={true}/>
-            
+                allowSearch={true} />
+
             <Grouping contextMenuEnabled={true} expandMode="rowClick" />
-            <Editing  allowAdding={false} allowUpdating={false} mode="batch" />
+            <Editing allowAdding={false} allowUpdating={false} mode="batch" />
             <GroupPanel visible={false} emptyPanelText="Utilice el menú contextual de las columnas de encabezado para agrupar datos" />
-            
-            <SearchPanel 
+
+            <SearchPanel
                 visible={true}
-                placeholder="Buscar..."/>
+                placeholder="Buscar..." />
 
             <Pager
                 allowedPageSizes={[5, 8, 15, 30]}
                 showInfo={false}
                 showNavigationButtons={true}
                 showPageSizeSelector={true}
-                visible={true}/>
+                visible={true} />
 
-            <Paging 
+            <Paging
                 defaultPageSize={8} />
 
             {children}
         </DataGrid>
     );
 }
- 
+
 const itemDialog = (text, icon, Template, title, method, queryKey, data) => ({
     location: "before",
     widget: "dxButton",
     locateInMenu: "auto",
-    options:{
+    options: {
         icon,
         text,
-        type:"default",
+        type: "default",
         stylingMode: "outlined",
     }
 });
 
-const itemTool = ( text, icon, onClick ) => {
+const itemTool = (text, icon, onClick) => {
     return {
         location: "before",
         widget: "dxButton",
         locateInMenu: "auto",
-        options:{
+        options: {
             icon,
             text,
             onClick,
-            type:"default",
+            type: "default",
             stylingMode: "outlined"
         }
     }
 }
 
-export {itemDialog, itemTool};
+export { itemDialog, itemTool };
 export default PageTable;
