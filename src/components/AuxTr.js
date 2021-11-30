@@ -1,16 +1,20 @@
 import React from 'react';
+import Avatar from '@mui/material/Avatar';
+import {Link} from 'react-router-dom';
 
 const AuxTr = ({imagen, descripcion, cantidad, precio}) => {
     return ( 
         <>
             <tr>
                 <td>
-                    <a className="itemside d-flex align-items-center" href="#">
+                    <Link className="itemside d-flex align-items-center"
+                        to="/admin/producto"
+                    >
                         <div className="left">
-                            <img className="img-xs" width={40} height={40} src={`data:image/jpeg;charset=utf-8;base64,${imagen}`} alt={descripcion}/> 
+                            <Avatar src={`data:image/jpeg;charset=utf-8;base64,${imagen}`} alt={descripcion} variant="rounded"/>
                         </div>
                         <div className="info ml-2"> {descripcion} </div>
-                    </a>
+                    </Link>
                 </td>
                 <td> C${precio}</td>
                 <td> {cantidad}</td>

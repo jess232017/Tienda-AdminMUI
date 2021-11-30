@@ -1,13 +1,14 @@
 import React from 'react';
-import { makeStyles, Grid, Card, CardHeader, CardContent, Hidden, Typography, Divider, LinearProgress } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
+import {  Grid, Card, CardHeader, CardContent, Hidden, Typography, Divider, LinearProgress } from '@mui/material';
 
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
-import TrendingDownIcon from '@material-ui/icons/TrendingDown';
-import MonetizationOnTwoTone from '@material-ui/icons/MonetizationOnTwoTone';
-import DescriptionTwoTone from '@material-ui/icons/DescriptionTwoTone';
-import ThumbUpAltTwoTone from '@material-ui/icons/ThumbUpAltTwoTone';
-import CalendarTodayTwoTone from '@material-ui/icons/CalendarTodayTwoTone';
+import { makeStyles, useTheme } from '@mui/styles';
+
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
+import MonetizationOnTwoTone from '@mui/icons-material/MonetizationOnTwoTone';
+import DescriptionTwoTone from '@mui/icons-material/DescriptionTwoTone';
+import ThumbUpAltTwoTone from '@mui/icons-material/ThumbUpAltTwoTone';
+import CalendarTodayTwoTone from '@mui/icons-material/CalendarTodayTwoTone';
 
 import SalesLineCard from './SalesLineCard';
 import SalesLineCardData from './chart/sale-chart-1';

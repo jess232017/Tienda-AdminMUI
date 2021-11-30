@@ -1,12 +1,12 @@
-import withAxios from '../utilities/provider';
 import {axiosQuery, axiosMutator} from '../utilities/core';
 
 const apiCategoria = {
-    obtener: axiosQuery("get", "/categoria", "categoriaProductos"),
-    obtenerCategoria :   withAxios("get", "/categoria"),
-    agregarCategoria :   withAxios("post", "/categoria"),
-    editarCategoria :    withAxios("put", "/categoria"),
-    eliminarCategoria :  withAxios("delete", "/categoria"),
+    obtener: axiosQuery("get", "/categoria", "category"),
+    obtenerCategoria :   axiosQuery("get", "/categoria", "category-only"),
+    obtenerProductos :   axiosQuery("get", "/producto/categoria", "categoryItems"),
+    agregarCategoria :   axiosMutator("post", "/categoria", "category"),
+    editarCategoria :    axiosMutator("put", "/categoria", "category"),
+    eliminarCategoria :  axiosMutator("delete", "/categoria", "category"),
 }
 
 export default apiCategoria;

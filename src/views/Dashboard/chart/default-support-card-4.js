@@ -1,6 +1,6 @@
-import value from '../../../../assets/scss/_themes-vars.scss';
+import value from 'src/assets/scss/themes-vars';
 
-export default {
+const support = {
     type: 'area',
     height: 125,
     options: {
@@ -40,3 +40,5 @@ export default {
         },
     ],
 };
+
+export default support;

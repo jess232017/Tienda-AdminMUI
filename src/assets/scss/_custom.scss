@@ -1,68 +1,52 @@
-.btn-group{
-    border: 1px solid #cad0d6;
-    border-radius: 5px;
-}
-
 //#region authentication
+
 .auth-bg {
     background-color: #f8f9fa !important;
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 2rem;
-    &.expire{
-        background-color: #1764E7!important;
+    &.expire {
+        background-color: #1764e7 !important;
     }
 }
 
-@media(min-width: 768px){
-    .auth-bg{
+@media (min-width: 768px) {
+    .auth-bg {
         height: 100vh;
         margin-bottom: -25px;
     }
 
-    .grid-columns-2{
+    .grid-columns-2 {
         display: grid;
-        grid-template-columns: repeat(2 , 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 4rem;
     }
 }
 
-.main-logo{
-    transform: rotate(10deg);
-    margin-top: 6rem;
-}
-
-@media(min-width: 768px){
-    .main-logo{
-        margin-top: 0;
-    }
-}
-
 //#endregion
 
-//#region PrimeReact
-.p-password,
-.p-inputtext	 {
-    width: 100%;
-    input {
-        width: 100%;
-    }
+body,
+div#root {
+    background-color: #f0f2f8;
 }
 
-.p-inputtext{
-    padding: 0.5rem 0.75rem;
+legend {
+    float: none;
 }
 
 .p-dataview.p-dataview-list .p-dataview-content > .p-grid > div {
-    border: none;
+    border: none !important;
+    border-width: 0 !important;
 }
 
-.p-button.p-component.btn-light.p-button-secondary {
-    background-color: #f2f2f2;
-    color: #3167eb;
-    font-size: 1rem;
-    border-radius: 0.36rem;
-    border: 1px solid #f2f2f2;
+.p-grid {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
 }
-//#endregion
+
+hr {
+    color: azure;
+}

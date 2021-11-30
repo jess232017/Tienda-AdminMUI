@@ -4,34 +4,38 @@ import { Splitter, SplitterPanel } from 'primereact/splitter';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Card from '@mui/material/Card'
 
-import Selecionado from 'src/views/admin/ventas/nueva/TomarVenta/Selecionado';
-import useCarrito from 'src/services/context/carrito';
+import styled from 'styled-components'
 import ViewItem from 'src/common/global/ViewItem';
+import useCarrito from 'src/services/context/carrito';
+import Selecionado from 'src/views/admin/ventas/nueva/TomarVenta/Selecionado';
+
+const SplitterRound = styled(Splitter)`
+    border: none;
+    box-shadow: 0 4px 6px -2px rgb(0 0 0 / 12%), 0 2px 2px -1px rgb(0 0 0 / 5%);
+    border-radius: 10px
+`;
 
 const TomarVenta = () => {
     const matches = useMediaQuery('(min-width:600px)');
-    const carritoStore = useCarrito();
     
     return matches ? 
-        <Splitter >
+        <SplitterRound style={{borderRadius: "10px"}} >
             <SplitterPanel
                 size={68}
             >
-                <ViewItem carritoStore = {carritoStore}/>
+                <ViewItem/>
             </SplitterPanel>
             <SplitterPanel
                 size={32}
             >
                 <Selecionado/>
             </SplitterPanel>
-        </Splitter>
+        </SplitterRound>
     :
         <div className="row">
             <div className="col-md-8">
                 <Card>
-                    <ViewItem
-                        carritoStore = {carritoStore}
-                    />
+                    <ViewItem/>
                 </Card>
             </div>
             <div className="col-md-4">

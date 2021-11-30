@@ -1,34 +1,36 @@
 import React, {useState} from 'react';
 
+import { show } from '@ebay/nice-modal-react';
 import { Column, MasterDetail } from 'devextreme-react/data-grid';
 
 import PageCard from 'src/common/PageCard';
-import Form from 'src/components/forms/FormCaja';
 import api from 'src/services/api/tasks/ApiFactura';
+import MyToolbar, { item } from 'src/components/Toolbar'
+import DetalleTable from 'src/components/tables/DetalleTable';
 import PageTable, { itemDialog, itemTool } from 'src/components/tables/PageTable';
 
-import DetalleTable from 'src/components/tables/DetalleTable';
-import Chip from '@material-ui/core/Chip';
+//
+import TimerIcon from '@mui/icons-material/Timer';
+import UpdateIcon from '@mui/icons-material/Update';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import ShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import Chip from '@mui/material/Chip';
 import { useHistory } from 'react-router';
 
 const Ventas = () => {
-    const { data, isLoading, isError} = api.obtener();
-    const [selected, setSelected] = useState({})
     let history = useHistory();
+    const [ selected, setSelected ] = useState({})
+    const { data, isLoading, isError} = api.obtener();
+    const { facturaId } = selected;
+   
+    const onClickTomar = () =>  history.push("/admin/venta/nueva");
+    const onClickDetail = () =>  history.push("/admin/venta/detalle?facturaId=" + facturaId);
 
-    const btnTomar = () => {
-        history.push("/admin/venta/nueva");
-    }
-
-    const btnDetalle = () => {
-        history.push("/admin/venta/detalle?facturaId=" + selected?.facturaId);
-    }
-
-    const tools = [
-        itemTool('Tomar Venta', 'plus', btnTomar),
-        itemTool('Ver Venta', 'info', btnDetalle),
-        itemTool('En Espera', 'clock', btnTomar),
-        itemTool('Refrescar', 'refresh', btnTomar),
+    const myTools = [
+        item("add", "Tomar Venta", 'item', <ShoppingCartIcon/>, onClickTomar),
+        item("detail", "Ver Venta", 'item', <ReceiptIcon/>, onClickDetail),
+        item("waiting", "En Espera", 'item', <TimerIcon/>, null),
+        item("update", "Refrescar", 'item', <UpdateIcon/>, null),
     ]
 
     return (
@@ -39,9 +41,12 @@ const Ventas = () => {
             isLoading={isLoading}
             isError={isError}
         >
+             <MyToolbar
+                items={myTools}
+            />
+
             <PageTable
                 data={data}
-                tools={tools}
                 isLoading={isLoading}
                 setSelect={setSelected}
             >

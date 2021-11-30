@@ -1,20 +1,33 @@
 import React, {useState} from 'react';
 
-import { Column, MasterDetail } from 'devextreme-react/data-grid';
+import { show } from '@ebay/nice-modal-react';
+import { Column } from 'devextreme-react/data-grid';
 
 import PageCard from 'src/common/PageCard';
 import Form from 'src/components/forms/FormMovimiento';
 import api from 'src/services/api/tasks/ApiMovimiento';
-import PageTable, { itemDialog, itemTool } from 'src/components/tables/PageTable';
+import PageTable from 'src/components/tables/PageTable';
+import MyToolbar, { item } from 'src/components/Toolbar';
+
+//
+
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
 
 const Movimiento = () => {
-    const { data, isLoading, isError} = api.obtener();
     const [selected, setSelected] = useState({})
+    const { data, isLoading, isError} = api.obtener();
 
-    const tools = [
-        itemDialog("Agregar", "add", Form, "Agregar Movimiento", "post", "movimientoId"),
-        itemDialog("Editar", "edit", Form, "Editar Movimiento", "put", "movimientoId", selected),
-        itemDialog("Eliminar", "trash", Form, "Eliminar Movimiento", "delete", "movimientoId", selected),
+    const onClickAdd = () => show(Form, { title: 'Agregar Movimiento', method: 'post', data: data, queryKey: 'Movimiento' });
+    const onClickEdit = () => show(Form, { title: 'Editar Movimiento', method: 'put', data: data, queryKey: 'Movimiento' });
+    const onClickDelete = () => show(Form, { title: 'Eliminar Movimiento', method: 'delete', data: data, queryKey: 'Movimiento' });
+
+    const myTools = [
+        item("add", "Agregar", 'item', <AddIcon/>, onClickAdd),
+        item("edit", "Editar", 'item', <EditIcon/>, onClickEdit),
+        item("delete", "Eliminar", 'item', <DeleteIcon/>, onClickDelete),
     ]
 
     return (
@@ -25,9 +38,12 @@ const Movimiento = () => {
             isLoading={isLoading}
             isError={isError}
         >
+            <MyToolbar
+                items={myTools}
+            />
+            
             <PageTable
                 data={data}
-                tools={tools}
                 isLoading={isLoading}
                 setSelect={setSelected}
             >
@@ -44,7 +60,7 @@ const Movimiento = () => {
                 <Column dataField="Movimiento"  key="Movimiento" width={75}/>, 
                 <Column dataField="empleado"  key="empleado" width={75}/>, 
                 <Column dataField="contables"  key="contables" width={75}/>, 
-                <Column dataField="inventarios"  key="inventarios" width={75}/>,
+                <Column dataField="Movimientos"  key="Movimientos" width={75}/>,
             </PageTable>
         </PageCard>
     );

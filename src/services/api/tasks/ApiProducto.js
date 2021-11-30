@@ -1,12 +1,12 @@
-import withAxios from '../utilities/provider';
 import {axiosQuery, axiosMutator} from '../utilities/core';
 
 const apiProducto = {
     obtener: axiosQuery("get", "/producto", "producto"),
-    obtenerProducto :   withAxios("get", "/Producto"),
-    agregarProducto :   withAxios("post", "/Producto"),
-    editarProducto :    withAxios("put", "/Producto"),
-    eliminarProducto :  withAxios("delete", "/Producto"),
+    obtenerProducto :   axiosQuery("get", "/Producto", "producto-only"),
+    getByCategory : axiosQuery("get", "/producto/categoria"),
+    agregarProducto :   axiosMutator("post", "/Producto", "producto"),
+    editarProducto :    axiosMutator("put", "/Producto", "producto"),
+    eliminarProducto :  axiosMutator("delete", "/Producto", "producto"),
 }
 
 export default apiProducto;

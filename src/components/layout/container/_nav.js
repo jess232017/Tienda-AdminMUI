@@ -1,16 +1,17 @@
-import SettingsRemoteIcon from '@material-ui/icons/SettingsRemote';
-import NavigationOutlinedIcon from '@material-ui/icons/NavigationOutlined';
-import LocalGroceryStoreOutlinedIcon from '@material-ui/icons/LocalGroceryStoreOutlined';
-import SupervisedUserCircleOutlinedIcon from '@material-ui/icons/SupervisedUserCircleOutlined';
-import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
-import RecentActorsOutlinedIcon from '@material-ui/icons/RecentActorsOutlined';
-import EmojiSymbolsOutlinedIcon from '@material-ui/icons/EmojiSymbolsOutlined';
-import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
-import ClassOutlinedIcon from '@material-ui/icons/ClassOutlined';
-import HotTubIcon from '@material-ui/icons/HotTub';
-import HomeIcon from '@material-ui/icons/Home';
-import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
-import AccessibilityOutlinedIcon from '@material-ui/icons/AccessibilityOutlined';
+import SettingsRemoteIcon from '@mui/icons-material/SettingsRemote';
+import NavigationOutlinedIcon from '@mui/icons-material/NavigationOutlined';
+import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
+import SupervisedUserCircleOutlinedIcon from '@mui/icons-material/SupervisedUserCircleOutlined';
+import SupervisorAccountOutlinedIcon from '@mui/icons-material/SupervisorAccountOutlined';
+import RecentActorsOutlinedIcon from '@mui/icons-material/RecentActorsOutlined';
+import AccessibilityOutlinedIcon from '@mui/icons-material/AccessibilityOutlined';
+import EmojiSymbolsOutlinedIcon from '@mui/icons-material/EmojiSymbolsOutlined';
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
+import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
+import DescriptionIcon from '@mui/icons-material/Description';
+import HotTubIcon from '@mui/icons-material/HotTub';
+import HomeIcon from '@mui/icons-material/Home';
 
 const nav = {
     items: [
@@ -84,7 +85,7 @@ const nav = {
                     type: 'item',
                     icon: SettingsRemoteIcon,
                     url: '/admin/caja',
-                }
+                },
             ],
         },
         {
@@ -124,6 +125,13 @@ const nav = {
             type: 'group',
             icon: HotTubIcon,
             children: [
+                {
+                    id: 'report',
+                    title: 'Reportes',
+                    type: 'item',
+                    icon: DescriptionIcon,
+                    url: '/admin/reporte',
+                },
                 {
                     id: 'help',
                     title: 'Ayuda',

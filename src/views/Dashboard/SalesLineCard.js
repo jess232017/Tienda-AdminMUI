@@ -1,18 +1,12 @@
 import React from 'react';
-import { useTheme } from '@material-ui/styles';
+
+import { useTheme } from '@mui/styles';
 import Chart from 'react-apexcharts';
 
-import { Box, Card, CardContent, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Box, Card, CardContent, Grid,  Typography } from '@mui/material';
 
-const useStyles = makeStyles((theme) => ({
-    content: {
-        padding: 0,
-        paddingBottom: '0 !important',
-    },
-}));
 
 const SalesLineCard = (props) => {
-    const classes = useStyles();
     const theme = useTheme();
 
     const { bgColor, chartData, footerData, icon, title, percentage } = props;
@@ -23,7 +17,12 @@ const SalesLineCard = (props) => {
             return (
                 <Grid item key={index}>
                     <Box mt={3} mb={3} p={1}>
-                        <Grid container direction="column" spacing={1} alignItems="center">
+                        <Grid
+                            container
+                            spacing={1}
+                            direction="column"
+                            alignItems="center"
+                        >
                             <Typography variant="h4">{item.value}</Typography>
                             <Typography variant="subtitle2" color="secondary">
                                 {item.label}
@@ -37,10 +36,12 @@ const SalesLineCard = (props) => {
 
     return (
         <Card>
-            <CardContent className={classes.content}>
+            <CardContent 
+                sx={{padding: 0, paddingBottom: "0px!important"}}
+            >
                 <Box color="#fff" bgcolor={bgColor ? bgColor : theme.palette.primary.main} p={3}>
                     <Grid container direction="column" spacing={1}>
-                        <Grid item container justify="space-between" alignItems="center">
+                        <Grid item container sx={{justifyContent: "space-between", alignItems: "center"}}>
                             {title && (
                                 <Grid item>
                                     <Typography variant="subtitle1" color="inherit">
@@ -49,7 +50,7 @@ const SalesLineCard = (props) => {
                                 </Grid>
                             )}
                             <Grid item>
-                                <Grid container alignItems="center">
+                                <Grid container sx={{alignItems: "center"}}>
                                     {icon && (
                                         <Box component="span" mr={2}>
                                             {icon}
@@ -71,7 +72,7 @@ const SalesLineCard = (props) => {
                     </Grid>
                 </Box>
                 {footerData && (
-                    <Grid container justify="space-around" alignItems="center">
+                    <Grid container justifyContent="space-around" alignItems="center">
                         {footerHtml}
                     </Grid>
                 )}

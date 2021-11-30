@@ -1,19 +1,26 @@
 import React from 'react';
+
 import { Link } from 'react-router-dom';
 
+//mui
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button';
+
+import NotFoundImage from 'src/views/error/images/not_found.svg';
+
 const NoFound = () => {
-    return ( 
-        <section className="content-main">
+    return (
+        <Box sx={{ mt: 15, mb: 15 }}>
             <div className="w-50 mx-auto text-center mt-5 mb-5">
-                <img src="https://www.ecommerce-admin.com/demo/images/not-found.png" width={350} alt="Pagina no encontrada" />
+                <img src={NotFoundImage} width={350} alt="Pagina no encontrada" />
                 <h3 className="mt-4">Uy! Pagina no encontrada</h3>
-                <p>Parece que haz tomado un mal camino, No te preocupes... Le pasa a los mejores. Aqui un pequeño consejo que puede ayudarte a enderezar tu camino.</p>
-                <Link className="btn btn-primary mt-4" to="/">
+                <p>La pagina que estas buscando no existe o su direccion esta mal escrita.</p>
+                <Button sx={{ mt: 2 }} component={Link} to="/" variant="contained" size="large">
                     Regresar al inicio
-                </Link>
+                </Button>
             </div>
-        </section>
+        </Box>
     );
 }
- 
+
 export default NoFound;

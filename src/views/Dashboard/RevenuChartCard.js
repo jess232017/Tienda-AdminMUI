@@ -1,7 +1,8 @@
 import React from 'react';
+
 import Chart from 'react-apexcharts';
-import { useTheme } from '@material-ui/styles';
-import { Box, Card, CardContent, CardHeader, Divider, Hidden, Grid, Typography, useMediaQuery } from '@material-ui/core';
+import { useTheme } from '@mui/styles';
+import { Box, Card, CardContent, CardHeader, Divider, Hidden, Grid, Typography, useMediaQuery } from '@mui/material';
 
 const RevenuChartCard = (props) => {
     const theme = useTheme();
@@ -13,8 +14,8 @@ const RevenuChartCard = (props) => {
         <Card>
             <CardHeader
                 title={
-                    <Typography t="div" className="card-header">
-                        Total Revenue
+                    <Typography variant="h6" gutterBottom component="div">
+                        Los mas vendidos
                     </Typography>
                 }
             />
@@ -33,7 +34,7 @@ const RevenuChartCard = (props) => {
                         item
                         container
                         direction={matchDownMd && !matchDownXs ? 'column' : 'row'}
-                        justify="space-around"
+                        justifyContent="space-around"
                         alignItems="center"
                         xs={12}
                         sm={5}

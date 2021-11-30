@@ -5,13 +5,10 @@ import api from 'src/services/api/tasks/ApiFactura';
 
 
 const DetalleTable = ({data}) => {
-    const {data : parentData } = data;
-    const { cliente, facturaId} = parentData;
+    const {data : { cliente, facturaId} } = data;
+    const { data: source, isLoading, isError } = api.obtenerDetalle("/"+ facturaId);
+    const noDataText = isLoading ? "Cargando..." : isError ? "Hubo un error" : "No hay datos";
 
-    const { data: source, isLoading, isError } = api.obtenerDetalle("?facturaId="+ facturaId);
-
-    console.log(cliente, source);
-    
     return ( 
         <React.Fragment>
             <div className="master-detail-caption">
@@ -29,7 +26,7 @@ const DetalleTable = ({data}) => {
                 columnHidingEnabled={true}
                 allowColumnReordering={true}
                 selection={{ mode: 'single' }}
-                noDataText={(isLoading) ? "Cargando...": "Error o no hay datos"}
+                noDataText={noDataText}
             >
                 <Scrolling mode="virtual" />
                 

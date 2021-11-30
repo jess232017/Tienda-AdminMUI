@@ -1,7 +1,8 @@
 import React from 'react';
 
-import {
-    makeStyles,
+import { styled } from '@mui/system';
+
+import {    
     Button,
     Chip,
     ClickAwayListener,
@@ -17,97 +18,42 @@ import {
     ListSubheader,
     ListItemSecondaryAction,
     Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import QueryBuilderTwoToneIcon from '@mui/icons-material/QueryBuilderTwoTone';
 
-import QueryBuilderTwoToneIcon from '@material-ui/icons/QueryBuilderTwoTone';
-
-import NotificationsNoneTwoToneIcon from '@material-ui/icons/NotificationsNoneTwoTone';
+import NotificationsNoneTwoToneIcon from '@mui/icons-material/NotificationsNoneTwoTone';
 
 import User1 from 'src/assets/images/users/avatar-1.jpg';
 import User2 from 'src/assets/images/users/avatar-2.jpg';
 import User3 from 'src/assets/images/users/avatar-3.jpg';
 import User4 from 'src/assets/images/users/avatar-4.jpg';
 
-const useStyles = makeStyles((theme) => ({
-    grow: {
-        flex: 1,
-    },
-    root: {
-        width: '100%',
-        maxWidth: '350px',
-        minWidth: '250px',
-        backgroundColor: theme.palette.background.paper,
-        paddingBottom: 0,
-        borderRadius: '10px',
-    },
-    inline: {
-        display: 'inline',
-    },
-    paper: {
-        marginRight: theme.spacing(2),
-    },
-    subHeader: {
-        backgroundColor: theme.palette.grey.A400,
-        color: theme.palette.common.white,
-        padding: '5px 15px',
-    },
-    subFooter: {
-        backgroundColor: theme.palette.grey.A400,
-        color: theme.palette.common.white,
-        padding: 0,
-    },
-    iconButton: {
-        padding: '5px',
-    },
-    showIcon: {
-        transform: 'rotate(90deg)',
-    },
-    listSection: {
-        backgroundColor: 'inherit',
-        display: 'block',
-    },
-    ul: {
-        backgroundColor: 'inherit',
-        padding: 0,
-    },
-    listAction: {
-        top: '22px',
-    },
-    actionIcon: {
-        fontSize: '0.75rem',
-        marginRight: '4px',
-        color: theme.palette.grey[400],
-    },
-    actionColor: {
-        color: theme.palette.grey[400],
-    },
-    ScrollHeight: {
-        height: '320px',
-        overflowX: 'hidden',
-    },
-    p0: {
-        padding: 0,
-    },
-    pT0: {
-        paddingTop: 0,
-    },
-    menuIIcon: {
-        fontSize: '1.5rem',
-    },
-    menuButton: {
-        [theme.breakpoints.down('sm')]: {
-            minWidth: '50px',
-        },
-        [theme.breakpoints.down('xs')]: {
-            minWidth: '35px',
-        },
-    },
+const ListAction = styled(ListItemSecondaryAction)({
+    top: '22px',
+});
+
+const ListRoot = styled(List)(({ theme }) => ({
+    width: '100%',
+    maxWidth: '350px',
+    minWidth: '250px',
+    paddingBottom: 0,
+    borderRadius: '10px',
+    backgroundColor: theme.palette.background.paper,
+}));
+
+const ActionIcon = styled(QueryBuilderTwoToneIcon)(({theme}) => ({
+    fontSize: '0.75rem',
+    marginRight: '4px',
+    color: theme.palette.grey[400],
+}));
+
+const ActionColor = styled(Typography)(({theme}) => ({
+    color: theme.palette.grey[400],
 }));
 
 const NotificationSection = () => {
-    const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
 
@@ -133,44 +79,54 @@ const NotificationSection = () => {
     return (
         <React.Fragment>
             <Button
-                className={classes.menuButton}
                 ref={anchorRef}
+                sx={{minWidth: { xs: '35px', sm: '50px', md: '65px'}}}
                 aria-controls={open ? 'menu-list-grow' : undefined}
                 aria-haspopup="true"
                 onClick={handleToggle}
                 color="inherit"
             >
-                <NotificationsNoneTwoToneIcon className={classes.menuIIcon} />
+                <NotificationsNoneTwoToneIcon sx={{ fontSize: '1.5rem' }} />
             </Button>
             <Popper
-                placement="bottom-end"
                 open={open}
+                disablePortal={true}
+                placement="bottom-end"
                 anchorEl={anchorRef.current}
                 role={undefined}
                 transition
-                disablePortal
                 popperOptions={{
-                    modifiers: {
-                        offset: {
-                            enable: true,
-                            offset: '0px, 10px',
+                    modifiers: [{
+                        name: "Notificacion",
+                        enabled: true,
+                        phase: 'main',
+                        options: {
+                            offset: {
+                                enable: true,
+                                offset: '0px, 10px',
+                            },
+                            preventOverflow: {
+                                padding: 0,
+                            },
                         },
-                        preventOverflow: {
-                            padding: 0,
+                        fn({ state }) {
+                            if (state.placement === 'top') {
+                              console.log('Popper is on the top');
+                            }
                         },
-                    },
+                    }],
                 }}
             >
                 {({ TransitionProps, placement }) => (
                     <Fade {...TransitionProps}>
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
-                                <List className={classes.root}>
-                                    <PerfectScrollbar className={classes.ScrollHeight}>
+                                <ListRoot>
+                                    <PerfectScrollbar style={{height: '320px', overflowX: 'hidden'}}>
                                         <ListSubheader disableSticky>
                                             <Chip size="small" color="primary" label="New" />
                                         </ListSubheader>
-                                        <ListItem button alignItems="flex-start" className={classes.pT0}>
+                                        <ListItem button alignItems="flex-start" sx={{ paddingTop: 0 }}>
                                             <ListItemAvatar>
                                                 <Avatar alt="John Doe" src={User1} />
                                             </ListItemAvatar>
@@ -178,28 +134,27 @@ const NotificationSection = () => {
                                                 primary={<Typography variant="subtitle1">John Doe</Typography>}
                                                 secondary={<Typography variant="subtitle2">New ticket Added</Typography>}
                                             />
-                                            <ListItemSecondaryAction className={classes.listAction}>
+                                            <ListAction>
                                                 <Grid container justify="flex-end">
                                                     <Grid item>
-                                                        <QueryBuilderTwoToneIcon className={classes.actionIcon} />
+                                                        <ActionIcon />
                                                     </Grid>
                                                     <Grid item>
-                                                        <Typography
+                                                        <ActionColor
                                                             variant="caption"
                                                             display="block"
                                                             gutterBottom
-                                                            className={classes.actionColor}
                                                         >
                                                             now
-                                                        </Typography>
+                                                        </ActionColor>
                                                     </Grid>
                                                 </Grid>
-                                            </ListItemSecondaryAction>
+                                            </ListAction>
                                         </ListItem>
                                         <ListSubheader disableSticky>
                                             <Chip size="small" variant="outlined" label="EARLIER" />
                                         </ListSubheader>
-                                        <ListItem button alignItems="flex-start" className={classes.pT0}>
+                                        <ListItem button alignItems="flex-start" sx={{ paddingTop: 0 }}>
                                             <ListItemAvatar>
                                                 <Avatar alt="Joseph William" src={User2} />
                                             </ListItemAvatar>
@@ -207,23 +162,22 @@ const NotificationSection = () => {
                                                 primary={<Typography variant="subtitle1">Joseph William</Typography>}
                                                 secondary={<Typography variant="subtitle2">Purchase a new product</Typography>}
                                             />
-                                            <ListItemSecondaryAction className={classes.listAction}>
+                                            <ListAction>
                                                 <Grid container justify="flex-end">
                                                     <Grid item>
-                                                        <QueryBuilderTwoToneIcon className={classes.actionIcon} />
+                                                        <ActionIcon />
                                                     </Grid>
                                                     <Grid item>
-                                                        <Typography
+                                                        <ActionColor
                                                             variant="caption"
                                                             display="block"
                                                             gutterBottom
-                                                            className={classes.actionColor}
                                                         >
                                                             10 min
-                                                        </Typography>
+                                                        </ActionColor>
                                                     </Grid>
                                                 </Grid>
-                                            </ListItemSecondaryAction>
+                                            </ListAction>
                                         </ListItem>
                                         <ListItem button alignItems="flex-start">
                                             <ListItemAvatar>
@@ -233,23 +187,22 @@ const NotificationSection = () => {
                                                 primary={<Typography variant="subtitle1">Sara Soudein</Typography>}
                                                 secondary={<Typography variant="subtitle2">Currently Login</Typography>}
                                             />
-                                            <ListItemSecondaryAction className={classes.listAction}>
+                                            <ListAction>
                                                 <Grid container justify="flex-end">
                                                     <Grid item>
-                                                        <QueryBuilderTwoToneIcon className={classes.actionIcon} />
+                                                        <ActionIcon />
                                                     </Grid>
                                                     <Grid item>
-                                                        <Typography
+                                                        <ActionColor
                                                             variant="caption"
                                                             display="block"
                                                             gutterBottom
-                                                            className={classes.actionColor}
                                                         >
                                                             12 min
-                                                        </Typography>
+                                                        </ActionColor>
                                                     </Grid>
                                                 </Grid>
-                                            </ListItemSecondaryAction>
+                                            </ListAction>
                                         </ListItem>
                                         <ListItem button alignItems="flex-start">
                                             <ListItemAvatar>
@@ -259,26 +212,25 @@ const NotificationSection = () => {
                                                 primary={<Typography variant="subtitle1">Sepha Wilon</Typography>}
                                                 secondary={<Typography variant="subtitle2">Purchase a new product</Typography>}
                                             />
-                                            <ListItemSecondaryAction className={classes.listAction}>
+                                            <ListAction>
                                                 <Grid container justify="flex-end">
                                                     <Grid item>
-                                                        <QueryBuilderTwoToneIcon className={classes.actionIcon} />
+                                                        <ActionIcon />
                                                     </Grid>
                                                     <Grid item>
-                                                        <Typography
+                                                        <ActionColor
                                                             variant="caption"
                                                             display="block"
                                                             gutterBottom
-                                                            className={classes.actionColor}
                                                         >
                                                             30 min
-                                                        </Typography>
+                                                        </ActionColor>
                                                     </Grid>
                                                 </Grid>
-                                            </ListItemSecondaryAction>
+                                            </ListAction>
                                         </ListItem>
                                     </PerfectScrollbar>
-                                </List>
+                                </ListRoot>
                             </ClickAwayListener>
                         </Paper>
                     </Fade>

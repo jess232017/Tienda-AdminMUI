@@ -1,20 +1,33 @@
 import React, {useState} from 'react';
 
-import { Column, MasterDetail } from 'devextreme-react/data-grid';
+import { show } from '@ebay/nice-modal-react';
+import { Column } from 'devextreme-react/data-grid';
 
 import PageCard from 'src/common/PageCard';
 import Form from 'src/components/forms/FormCliente';
 import api from 'src/services/api/tasks/ApiCliente';
-import PageTable, { itemDialog, itemTool } from 'src/components/tables/PageTable';
+import PageTable from 'src/components/tables/PageTable';
+import MyToolbar, { item } from 'src/components/Toolbar';
+
+//
+
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
 
 const Cliente = () => {
-    const { data, isLoading, isError} = api.obtener();
     const [selected, setSelected] = useState({})
+    const { data, isLoading, isError} = api.obtener();
 
-    const tools = [
-        itemDialog("Agregar", "add", Form, "Agregar Cliente", "post", "clienteId"),
-        itemDialog("Editar", "edit", Form, "Editar Cliente", "put", "clienteId", selected),
-        itemDialog("Eliminar", "trash", Form, "Eliminar Cliente", "delete", "clienteId", selected),
+    const onClickAdd = () => show(Form, { title: 'Agregar Cliente', method: 'post', data: data, queryKey: 'Cliente' });
+    const onClickEdit = () => show(Form, { title: 'Editar Cliente', method: 'put', data: data, queryKey: 'Cliente' });
+    const onClickDelete = () => show(Form, { title: 'Eliminar Cliente', method: 'delete', data: data, queryKey: 'Cliente' });
+
+    const myTools = [
+        item("add", "Agregar", 'item', <AddIcon/>, onClickAdd),
+        item("edit", "Editar", 'item', <EditIcon/>, onClickEdit),
+        item("delete", "Eliminar", 'item', <DeleteIcon/>, onClickDelete),
     ]
 
     return (
@@ -25,9 +38,12 @@ const Cliente = () => {
             isLoading={isLoading}
             isError={isError}
         >
+            <MyToolbar
+                items={myTools}
+            />
+        
             <PageTable
                 data={data}
-                tools={tools}
                 isLoading={isLoading}
                 setSelect={setSelected}
             >

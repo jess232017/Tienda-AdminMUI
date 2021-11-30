@@ -1,34 +1,68 @@
 import React from 'react'
-import FormDialog from 'src/common/FormDialog';
-import {SimpleItem, GroupItem} from 'devextreme-react/form';
 
+import Grid from '@mui/material/Grid';
+import { useForm } from "react-hook-form";
 import NiceModal from '@ebay/nice-modal-react';
 
-const FormCaja = NiceModal.create( ({title, method, data: source, queryKey}) =>{
+//Owned
+import FormDialog from 'src/common/FormDialog';
+import { Input, CheckBox } from 'src/common/global/control/index';
 
-    const callback = (data) =>{
-        console.log(data);
-    }
+const FormCaja = NiceModal.create( ({title, method, data: source, queryKey}) =>{
+    const { handleSubmit, reset, control } = useForm();
+    const onSubmit = (data) => console.log(data);
+
 
     return (
         <FormDialog
             title= {title}
-            callback= {callback}
+            callback= {onSubmit}
             data = {source}
         >
-            <GroupItem cssClass="first-group">
-                <SimpleItem dataField="CajaId"
-                    editorOptions={{ disabled: true }} />
-                <GroupItem colCount={2}>
-                    <SimpleItem isRequired
-                        dataField="Descripcion" />
-                    <SimpleItem dataField="SerialPC"/>
-                    <SimpleItem dataField="Impresora Ticket"/>
-                    <SimpleItem dataField="Impresora A4"/>
-                    <SimpleItem dataField="Estado"
-                        editorType="dxCheckBox"/>
-                </GroupItem>
-            </GroupItem>
+            <Grid container spacing={{ xs: 1, md: 2 }} columns={{ xs: 2, sm: 4, md: 6}}>
+                <Grid item xs={2} sm={4} md={4}>
+                    <Input
+                        name="descripcion"
+                        label="Descripcion"
+                        control = {control}
+                    />
+                </Grid>
+                <Grid item xs={1} sm={2} md={2}>
+                    <Input
+                        name="cajaId"
+                        label="Caja Id"
+                        control = {control}
+                    />
+                </Grid>
+                <Grid item xs={1} sm={2} md={2}>
+                    <Input
+                        name="serialPC"
+                        label="Serial PC"
+                        control = {control}
+                    />
+                </Grid>
+                <Grid item xs={1} sm={2} md={2}>
+                    <Input
+                        name="impresoraTicket"
+                        label="Impresora Ticket"
+                        control = {control}
+                    />
+                </Grid>
+                <Grid item xs={1} sm={2} md={2}>
+                    <Input
+                        name="impresoraA4"
+                        label="Impresora A4"
+                        control = {control}
+                    />
+                </Grid>
+                <Grid item xs={1} sm={2} md={2}>
+                    <CheckBox
+                        name="estado"
+                        label="Estado"
+                        control = {control}
+                    />
+                </Grid>
+            </Grid>
         </FormDialog>
     )
 });

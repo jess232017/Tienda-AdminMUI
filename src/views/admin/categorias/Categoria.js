@@ -1,23 +1,34 @@
 import React, {useState} from 'react';
 
-import { Column, MasterDetail } from 'devextreme-react/data-grid';
+import { show } from '@ebay/nice-modal-react';
+import { Column } from 'devextreme-react/data-grid';
 
 import PageCard from 'src/common/PageCard';
 import Form from 'src/components/forms/FormCategoria';
 import api from 'src/services/api/tasks/ApiCategoria';
-import PageTable, { itemDialog, itemTool } from 'src/components/tables/PageTable';
+import PageTable from 'src/components/tables/PageTable';
+import MyToolbar, { item } from 'src/components/Toolbar';
+
+//
+
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
 
 const Categoria = () => {
-    const { data, isLoading, isError} = api.obtener();
     const [selected, setSelected] = useState({})
+    const { data, isLoading, isError} = api.obtener();
 
-    const tools = [
-        itemDialog("Agregar", "add", Form, "Agregar Categoria", "post", "categoriaId"),
-        itemDialog("Editar", "edit", Form, "Editar Categoria", "put", "categoriaId", selected),
-        itemDialog("Eliminar", "trash", Form, "Eliminar Categoria", "delete", "categoriaId", selected),
+    const onClickAdd = () => show(Form, { title: 'Agregar Categoria', method: 'post', data: data, queryKey: 'Categoria' });
+    const onClickEdit = () => show(Form, { title: 'Editar Categoria', method: 'put', data: data, queryKey: 'Categoria' });
+    const onClickDelete = () => show(Form, { title: 'Eliminar Categoria', method: 'delete', data: data, queryKey: 'Categoria' });
+
+    const myTools = [
+        item("add", "Agregar", 'item', <AddIcon/>, onClickAdd),
+        item("edit", "Editar", 'item', <EditIcon/>, onClickEdit),
+        item("delete", "Eliminar", 'item', <DeleteIcon/>, onClickDelete),
     ]
-
-    console.log(data?.data);
 
     return (
         <PageCard
@@ -27,9 +38,12 @@ const Categoria = () => {
             isLoading={isLoading}
             isError={isError}
         >
+            <MyToolbar
+                items={myTools}
+            />
+
             <PageTable
                 data={data}
-                tools={tools}
                 isLoading={isLoading}
                 setSelect={setSelected}
             >

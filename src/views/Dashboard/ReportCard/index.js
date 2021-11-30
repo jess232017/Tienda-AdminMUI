@@ -1,26 +1,24 @@
 import React from 'react';
 
-import { makeStyles, Card, CardContent, Grid, Typography } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
-    secondary: {
-        marginTop: '.5rem',
-    },
-    footer: {
-        textAlign: 'center',
-        padding: theme.spacing(1.2),
-        paddingLeft: '20px',
-        paddingRight: '20px',
-        color: theme.palette.common.white,
-    },
+import { styled } from '@mui/system';
+import {  Card, CardContent, Grid, Typography } from '@mui/material';
+
+const GridText = styled(Grid)(({ theme }) => ({
+    padding: theme.spacing(1.2),
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    color: theme.palette.common.white,
+    justifyContent: "space-between",
+    alignItems: "center"
 }));
+
 
 const ReportCard = (props) => {
     const { primary, secondary, iconPrimary, color, footerData, iconFooter } = props;
-    const classes = useStyles();
 
     const IconPrimary = iconPrimary;
-    const primaryIcon = iconPrimary ? <IconPrimary fontSize="large" /> : null;
+    const primaryIcon = iconPrimary ? <IconPrimary sx={{ fontSize: "2.18rem" }} /> : null;
 
     const IconFooter = iconFooter;
     const footerIcon = iconFooter ? <IconFooter /> : null;
@@ -28,12 +26,12 @@ const ReportCard = (props) => {
     return (
         <Card>
             <CardContent>
-                <Grid container justify="space-between" alignItems="center">
+                <GridText container sx={{padding: 0}}>
                     <Grid item>
                         <Typography variant="h3" style={{ color: color }}>
                             {primary}
                         </Typography>
-                        <Typography variant="subtitle1" className={classes.secondary}>
+                        <Typography variant="subtitle1" sx={{ marginTop: '.5rem' }}>
                             {secondary}
                         </Typography>
                     </Grid>
@@ -42,17 +40,17 @@ const ReportCard = (props) => {
                             {primaryIcon}
                         </Typography>
                     </Grid>
-                </Grid>
+                </GridText>
             </CardContent>
             <div style={{ background: color }}>
-                <Grid container justify="space-between" className={classes.footer}>
+                <GridText container>
                     <Grid item>
                         <Typography variant="body2">{footerData}</Typography>
                     </Grid>
                     <Grid item>
                         <Typography variant="body2">{footerIcon}</Typography>
                     </Grid>
-                </Grid>
+                </GridText>
             </div>
         </Card>
     );

@@ -1,41 +1,37 @@
 import React from 'react';
 
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 import { NumberBox } from 'devextreme-react/number-box';
 import DataGrid, { Column, Scrolling, Button as GrdButton, Editing } from 'devextreme-react/data-grid';
 
+import { styled } from '@mui/system';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Divider from '@mui/material/Divider';
 
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Divider from '@material-ui/core/Divider';
-
-import { makeStyles } from '@mui/styles';
-
+import { show } from '@ebay/nice-modal-react';
 import useCarrito from 'src/services/context/carrito';
+import FormPago from 'src/components/forms/FormPago';
 
-const useStyles = makeStyles({
-    root: {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between"
-    },
-    
-    content: {
-        display: "flex",
-        flex: 1
-    }
+const Card = styled('div')({
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
 });
 
+const CustomContent = styled(CardContent)({
+    display: "flex",
+    flex: 1
+});
+
+
 const Selecionado = () => {
-    const classes = useStyles();
     const {carrito, editItem, removeItem} = useCarrito();
+    const onClick = () => show(FormPago, {title: "Metodo de Pago"});
 
     let suma = 0;
-    Object.values(carrito).forEach(value => {
-        suma += value.precio * value.cantidad;
-    });
+    Object.values(carrito).forEach(value => suma += value.precio * value.cantidad);
 
     const cellRender = ({data}) => (
         <NumberBox
@@ -49,17 +45,18 @@ const Selecionado = () => {
         />
     );
 
+    console.log(carrito)
+
     return ( 
-        <div className={classes.root}>
+        <Card>
             <div>
                 <CardHeader
                     title="Listado de este pedido"
                 />
                 <Divider/>
-                <Divider/>
             </div>
 
-            <CardContent className={classes.content}>
+            <CustomContent>
                 <DataGrid
                     dataSource={carrito}
                     showBorders
@@ -89,7 +86,7 @@ const Selecionado = () => {
                         <GrdButton name="delete" onClick={e => removeItem(null, e.row.data.key)} />
                     </Column>
                 </DataGrid>
-            </CardContent>
+            </CustomContent>
 
             <div>
                 <Divider/>
@@ -123,12 +120,13 @@ const Selecionado = () => {
                         fullWidth
                         color="primary"
                         variant="outlined"
+                        onClick={onClick}
                     >
                         Cobrar
                     </Button>
                 </CardActions>
             </div>
-        </div>
+        </Card>
     );
 }
  

@@ -1,119 +1,156 @@
-import React, {useState, useRef} from 'react';
+import React from 'react';
 
-
-import Alert from "@material-ui/lab/Alert";
-import { Divider } from '@material-ui/core';
-
-import Card from '@material-ui/core/Card';
-
-import Typography from '@material-ui/core/Typography';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-
-import { Toast } from 'primereact/toast';
-import { Button } from 'primereact/button';
-import { Checkbox } from 'primereact/checkbox';
-import { Password } from 'primereact/password';
-import { InputText } from 'primereact/inputtext';
-
+//control
+import { useSnackbar } from 'notistack';
+import { useForm } from "react-hook-form";
 import { useSignIn } from 'react-auth-kit';
 import { Link, useHistory  } from 'react-router-dom';
-import apiAuth from '../../services/api/tasks/ApiService';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
 
+//mui
+import Alert from '@mui/lab/Alert'
+import Card from '@mui/material/Card';
+import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import LoadingButton from '@mui/lab/LoadingButton';
+
+//owned
+import apiAuth from 'src/services/api/tasks/ApiService';
+import {Input, CheckBox} from 'src/common/global/control/index';
+
+const validationSchema = Yup.object().shape({
+    email: Yup.string()
+        .required('El correo es requerido')
+        .min(6, 'El correo debe tener al menos 6 caracteres')
+        .max(20, 'El correo no debe exceder los 20 caracteres')
+        .email('El correo es invalido'),
+    password: Yup.string()
+        .required('La contraseña es requerida')
+        .min(6, 'La contraseña debe tener al menos 6 caracteres')
+        .max(40, 'La contraseña debe exceder los 20 caracteres'),
+    remember: Yup.bool().oneOf([true], 'Aceptar guardar la cuenta es requerido')
+});
 
 const Login = ({isExpired = true}) => {
-    const [remember, setRemember] = useState(false);
-    const [password, setPassword] = useState("");
-    const [email, setEmail] = useState("");
-    const history = useHistory();
-    const signIn = useSignIn();
-    const toast = useRef(null);
+    //Controlar formularios
+    const { handleSubmit, formState: { errors }, control } = useForm({
+        resolver: yupResolver(validationSchema),
+    });
 
     const {isLoading, mutate} = apiAuth.ingresar();
+    const { enqueueSnackbar } = useSnackbar();
 
-    const enviarForm = (e) =>{
-        e.preventDefault();
-        mutate({email, password},
-            {
-                onSuccess: ({data : {token, estado: authState}}) => {                    
-                    const {exp: expiresIn} = JSON.parse(atob(token.split('.')[1]));
-                    const signInConfig = { token, expiresIn, authState, tokenType: "Bearer"};
+    const history = useHistory();
+    const signIn = useSignIn();
 
-                    if(signIn(signInConfig)) history.push('/')
-                    else toast.current.show({severity:'info', summary: 'Algo salió mal', detail: "No se pudo almacenar el usuario"});
-                },
-                onError: ({response: {data: {error}}}) => {
-                    toast.current.show({severity:'error', summary: 'Algo salió mal', detail: error.mensaje});
-                },
-            }
-        );
+    const enviarForm = (data) =>{
+
+        mutate(data, {
+            onSuccess: ({data : {token, estado: authState}}) => {                    
+                const {exp} = JSON.parse(atob(token.split('.')[1]));
+
+                //calcular los minutos que faltan para que caduque el token
+                const today = new Date();
+                const expire = new Date(exp * 1000);
+                const diffMs = (expire - today); 
+                const diffDays = Math.floor(diffMs / 86400000) * 24 * 60;
+                const diffHrs = Math.floor((diffMs % 86400000) / 3600000) * 60; 
+                const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); 
+
+                const expiresIn = diffDays + diffHrs + diffMins;
+                const signInConfig = { token, expiresIn, authState, tokenType: "Bearer"};
+
+                if(signIn(signInConfig)) history.push('/')
+                else enqueueSnackbar('Algo salió mal', { 
+                    variant: 'error',
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                });
+            },
+            onError: ({response: {data: {error}}}) => {
+                enqueueSnackbar('Algo salió mal',  { 
+                    variant: 'error',
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    },
+                });
+
+                //toast.current.show({severity:'error', summary: '', detail: error.mensaje});
+            },
+        });
     }
 
     return ( 
-        <>
-            <Toast ref={toast} />
-            <Card>
-                <CardHeader
-                    title="Inicio de sesión"
-                    subheader="Hola, bienvenido de nuevo! 👋👋"
-                />
-                <Divider/>
-
-                <CardContent>
-                    {isExpired ?
-                        <Alert variant="outlined" severity="info">
-                            Su sesión ha caducado. Inicie sesión de nuevo.
-                        </Alert>
-                    :
-                        <p className="text-muted text-sm mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                    }
-               
-                    <form id="loginForm" 
-                        className="mt-3"
-                        onSubmit={enviarForm}
-                    >
-                        
-                        <Typography variant="h6">Correo electrónico</Typography>
-                        <InputText 
-                            required
-                            value={email}
-                            className="mb-3"
-                            onChange={(e) => setEmail(e.target.value)} 
+        <Card>
+            <CardHeader
+                title="Inicio de sesión"
+                subheader="Hola, bienvenido de nuevo! 👋👋"
+            />
+            <Divider/>
+            <CardContent>
+                {isExpired ?
+                    <Alert variant="filled" severity="warning">
+                        Su sesión ha caducado. Inicie sesión de nuevo.
+                    </Alert>
+                :
+                    <p className="text-muted text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                }
+            
+                <form 
+                    className="mt-3"
+                    onSubmit={handleSubmit(enviarForm)}
+                >
+                    <Stack direction="column" spacing={2} pt={2}>
+                        <Input
+                            name="email"
+                            label="Correo electrónico"
+                            control = {control}
+                            helperText={errors.email?.message}
+                            error={errors.email ? true : false}
                         />
 
-                        <Typography variant="h6">Contraseña</Typography>
-
-                        <Password required  
-                            value={password} 
-                            feedback = {false}
-                            toggleMask = {true}
-                            weakLabel = "Débil"
-                            mediumLabel = "Medio"
-                            strongLabel = "Fuerte"
-                            promptLabel="Ingrese su contraseña"
-                            onChange={(e) => setPassword(e.target.value)}
+                        <Input
+                            type="password"
+                            name="password"
+                            label="Contraseña"
+                            control = {control}
+                            helperText={errors.password?.message}
+                            error={errors.password ? true : false}
                         />
 
-                        <div className="p-field-checkbox  mb-3">
-                            <Checkbox 
-                                checked={remember}
-                                onChange={e => setRemember(e.checked)}
-                            />
-                            <label htmlFor="recordar" className="mt-3 ml-1 text-muted text-sm">
-                                Recordar contraseña
-                            </label>
-                        </div>
-                        <Button loading = {isLoading} label="Ingresar"/>
-                    </form>
-                </CardContent>
-                <CardActions>
-                    <span className="text-sm text-muted">
-                        ¿No tienes una cuenta? <Link to="/sign-up">Registrate</Link>.
-                    </span>
-                </CardActions>
-            </Card>
-        </>
+                        <CheckBox
+                            name="remember"
+                            label="Recordar contraseña"
+                            control = {control}
+                            helperText={errors.remember?.message}
+                            error={errors.remember ? true : false}
+                        />
+                        <LoadingButton
+                            type="submit"
+                            size="large"
+                            loading= {isLoading}
+                            loadingPosition="start"
+                            variant="contained"
+                            fullWidth
+                        >
+                            Ingresar
+                        </LoadingButton>
+                    </Stack>
+                </form>
+            </CardContent>
+            <Divider/>
+            <CardContent>
+                <span className="text-sm text-muted">
+                    ¿No tienes una cuenta? <Link to="/auth/sign-up">Registrate</Link>.
+                </span>
+            </CardContent>
+        </Card>
     );
 }
  

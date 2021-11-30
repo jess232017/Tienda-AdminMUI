@@ -1,19 +1,26 @@
 import React from 'react';
+
 import { Link } from 'react-router-dom';
 
+//mui
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button';
+
+import SecureImage from 'src/views/error/images/secure_login.svg';
+
 const NoFound = () => {
-    return ( 
-        <section className="content-main">
+    return (
+        <Box sx={{ mt: 15, mb: 15 }}>
             <div className="w-50 mx-auto text-center mt-5 mb-5">
-                <img src="https://conectemos.com/wp-content/uploads/2021/03/Error-403-Prohibido.png" width={350} alt="No tiene permiso para ver este sitio" />
+                <img src={SecureImage} width={350} alt="No tiene permiso para ver este sitio" />
                 <h3 className="mt-4">Uy! No tiene permiso para ver este sitio</h3>
-                <p>Parece que haz tomado un mal camino, No te preocupes... Le pasa a los mejores. Aqui un pequeño consejo que puede ayudarte a enderezar tu camino.</p>
-                <Link className="p-button mt-4" to="/">
+                <p>La pagina que estas buscando no se encuentra disponible actualmente de acuerdo a los privilegios del sitio otorgados</p>
+                <Button sx={{ mt: 2 }} component={Link} to="/" variant="contained" size="large">
                     Regresar al inicio
-                </Link>
+                </Button>
             </div>
-        </section>
+        </Box>
     );
 }
- 
+
 export default NoFound;

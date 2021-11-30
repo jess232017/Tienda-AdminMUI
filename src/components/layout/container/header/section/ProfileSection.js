@@ -1,47 +1,29 @@
 import React from 'react';
 
-import { makeStyles, Fade, Button, ClickAwayListener, Paper, Popper, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
+import { styled } from '@mui/system';
+import { makeStyles } from '@mui/styles';
+import {  Fade, Button, ClickAwayListener, Paper, Popper, List, ListItem, ListItemText, ListItemIcon } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useSignOut } from 'react-auth-kit'
 
-import PersonTwoToneIcon from '@material-ui/icons/PersonTwoTone';
-import DraftsTwoToneIcon from '@material-ui/icons/DraftsTwoTone';
-import LockOpenTwoTone from '@material-ui/icons/LockOpenTwoTone';
-import SettingsTwoToneIcon from '@material-ui/icons/SettingsTwoTone';
-import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
-import MeetingRoomTwoToneIcon from '@material-ui/icons/MeetingRoomTwoTone';
+import PersonTwoToneIcon from '@mui/icons-material/PersonTwoTone';
+import DraftsTwoToneIcon from '@mui/icons-material/DraftsTwoTone';
+import LockOpenTwoTone from '@mui/icons-material/LockOpenTwoTone';
+import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
+import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
+import MeetingRoomTwoToneIcon from '@mui/icons-material/MeetingRoomTwoTone';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
-        maxWidth: '350px',
-        minWidth: '250px',
-        backgroundColor: theme.palette.background.paper,
-        paddingBottom: 0,
-        borderRadius: '10px',
-    },
-    subHeader: {
-        backgroundColor: theme.palette.grey.A400,
-        color: theme.palette.common.white,
-        padding: '5px 15px',
-    },
-    menuIcon: {
-        fontSize: '1.5rem',
-    },
-    menuButton: {
-        [theme.breakpoints.down('sm')]: {
-            minWidth: '50px',
-        },
-        [theme.breakpoints.down('xs')]: {
-            minWidth: '35px',
-        },
-    },
+const ListRoot = styled(List)(({ theme }) => ({
+    width: '100%',
+    paddingBottom: 0,
+    maxWidth: '350px',
+    minWidth: '250px',
+    borderRadius: '10px',
+    backgroundColor: theme.palette.background.paper,
 }));
 
 const ProfileSection = () => {
-    const classes = useStyles();
     const signOut = useSignOut();
-
 
     const [selectedIndex, setSelectedIndex] = React.useState(1);
     const [open, setOpen] = React.useState(false);
@@ -51,6 +33,7 @@ const ProfileSection = () => {
         setSelectedIndex(index);
         if (index === 4) {
             //handleLogout;
+            signOut();
         }
     };
 
@@ -78,39 +61,49 @@ const ProfileSection = () => {
     return (
         <React.Fragment>
             <Button
-                className={classes.menuButton}
                 ref={anchorRef}
+                sx={{minWidth: { xs: '35px', sm: '50px', md: '65px'}}}
                 aria-controls={open ? 'menu-list-grow' : undefined}
                 aria-haspopup="true"
                 onClick={handleToggle}
                 color="inherit"
             >
-                <AccountCircleTwoToneIcon className={classes.menuIcon} />
+                <AccountCircleTwoToneIcon sx={{ fontSize: '1.5rem' }}/>
             </Button>
             <Popper
                 placement="bottom-end"
                 open={open}
                 anchorEl={anchorRef.current}
+                disablePortal={true}
                 role={undefined}
                 transition
-                disablePortal
                 popperOptions={{
-                    modifiers: {
-                        offset: {
-                            enable: true,
-                            offset: '0px, 10px',
+                    modifiers: [{
+                        name: "Pefil",
+                        enabled: true,
+                        phase: 'main',
+                        options: {
+                            offset: {
+                                enable: true,
+                                offset: '0px, 10px',
+                            },
+                            preventOverflow: {
+                                padding: 0,
+                            },
                         },
-                        preventOverflow: {
-                            padding: 0,
+                        fn({ state }) {
+                            if (state.placement === 'top') {
+                              console.log('Popper is on the top');
+                            }
                         },
-                    },
+                    }]
                 }}
             >
                 {({ TransitionProps, placement }) => (
                     <Fade {...TransitionProps}>
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
-                                <List component="nav" className={classes.root}>
+                                <ListRoot component="nav">
                                     <ListItem button selected={selectedIndex === 0} onClick={(event) => handleListItemClick(event, 0)}>
                                         <ListItemIcon>
                                             <SettingsTwoToneIcon />
@@ -144,14 +137,14 @@ const ProfileSection = () => {
                                     <ListItem 
                                         button 
                                         selected={selectedIndex === 4}
-                                        onClick={() => signOut()}
+                                        onClick={(event) => handleListItemClick(event, 4)}
                                     >
                                         <ListItemIcon>
                                             <MeetingRoomTwoToneIcon />
                                         </ListItemIcon>
                                         <ListItemText primary="Cerrar Sesion" />
                                     </ListItem>
-                                </List>
+                                </ListRoot>
                             </ClickAwayListener>
                         </Paper>
                     </Fade>

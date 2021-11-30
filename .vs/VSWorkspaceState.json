@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\forms",
+    "\\src\\views",
+    "\\src\\views\\Dashboard",
+    "\\src\\views\\Dashboard\\Default",
+    "\\src\\views\\Dashboard\\LatestorderCard",
+    "\\src\\views\\Dashboard\\ReportCard"
+  ],
+  "SelectedNode": "\\src\\components\\forms\\FormCaja.js",
+  "PreviewInSolutionExplorer": false
+}

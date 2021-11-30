@@ -1,190 +1,179 @@
 import React from 'react';
-import { fade, Box, Button, makeStyles, InputBase, Hidden, Popper, Fade, Card, CardContent, Grid } from '@material-ui/core';
-import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
-import CloseTwoToneIcon from '@material-ui/icons/CloseTwoTone';
+
+import { styled } from '@mui/system';
+import { makeStyles } from '@mui/styles';
+
+import { Button,  InputBase, Popper, Fade, Card, CardContent, Grid } from '@mui/material';
+
+import Box from '@mui/material/Box';
+import { alpha } from '@mui/material/styles'
+
+
+import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
+import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 import PopupState, { bindToggle, bindPopper } from 'material-ui-popup-state';
 
-const useStyles = makeStyles((theme) => ({
-    search: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: fade(theme.palette.common.white, 0.15),
+
+const Search = styled('div')(({ theme }) => ({
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+        backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(2),
+    width: 'auto',
+    
+    [theme.breakpoints.down("sm")]: {
+        marginLeft: 0,
+        marginRight: 0,
+        backgroundColor: 'transparent',
         '&:hover': {
-            backgroundColor: fade(theme.palette.common.white, 0.25),
-        },
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(2),
-        width: 'auto',
-        [theme.breakpoints.down('xs')]: {
-            marginLeft: 0,
-            marginRight: 0,
             backgroundColor: 'transparent',
-            '&:hover': {
-                backgroundColor: 'transparent',
-            },
         },
     },
-    searchIcon: {
-        padding: theme.spacing(0.75, 1.25),
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+}));
+  
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: 'inherit',
+    '& .MuiInputBase-input': {
         color: theme.palette.grey[100],
-        [theme.breakpoints.down('xs')]: {
-            padding: theme.spacing(1.25),
-        },
-    },
-    closeIcon: {
-        cursor: 'pointer',
-        padding: theme.spacing(1.25),
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        display: 'flex',
-        color: theme.palette.grey[100],
-    },
-    inputRoot: {
-        color: 'inherit',
-    },
-    inputInput: {
         padding: theme.spacing(1, 1, 1, 0),
-        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+        // vertical padding + font size from searchIcon
+        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
-        color: theme.palette.grey[100],
-        [theme.breakpoints.down('sm')]: {
-            width: '100%',
-        },
-        [theme.breakpoints.up('mobile')]: {
-            width: '100%',
-        },
+        width: '100%',
         [theme.breakpoints.up('sm')]: {
-            width: '125px',
+            width: '12ch',
             '&:focus': {
-                width: '225px',
+            width: '20ch',
             },
         },
-    },
-    searchControl: {
-        borderColor: theme.palette.grey[100],
-        width: '434px',
-        marginLeft: '16px',
-        paddingRight: '8px',
-        paddingLeft: '16px',
-        [theme.breakpoints.down('lg')]: {
-            width: '250px',
-        },
-        [theme.breakpoints.down('md')]: {
-            width: '100%',
-            marginLeft: 0,
-            background: '#fff',
-            borderRadius: '12px',
-        },
-    },
-    popperContainer: {
-        zIndex: 1100,
-        width: '100%',
-        top: '10px !important',
-        padding: '0',
-    },
-    cardContent: {
-        padding: '12px !important',
-        backgroundColor: theme.palette.secondary.main,
-    },
-    card: {
-        borderRadius: 0,
-        background: theme.palette.primary[200],
-        [theme.breakpoints.down('sm')]: {
-            border: 0,
-            boxShadow: 'none',
-        },
-    },
-    menuButton: {
-        [theme.breakpoints.down('xs')]: {
-            minWidth: '35px',
-        },
-    },
-    menuIcon: {
-        fontSize: '1.5rem',
     },
 }));
 
-const SearchSection = () => {
-    const classes = useStyles();
+const PopperContainer = styled(Popper)({
+    zIndex: 1100,
+    width: '100%',
+    top: '10px !important',
+    padding: '0',
+});
 
+const CustCard = styled(Card)(({ theme }) => ({
+    borderRadius: 0,
+    background: theme.palette.primary[200],
+    [theme.breakpoints.down('sm')]: {
+        border: 0,
+        boxShadow: 'none',
+    },
+}));
+
+const CustCardContent = styled(CardContent)(({ theme }) => ({
+    padding: '12px !important',
+    backgroundColor: theme.palette.secondary.main,
+}));
+
+const MobileIconWrapper = styled('div')(({ theme }) => ({
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    color: theme.palette.grey[100],
+    padding: theme.spacing(1.25),
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+}));
+
+const SearchSection = () => {
     return (
-        <div className={classes.search}>
-            <Hidden smUp>
-                <PopupState variant="popper" popupId="demo-popup-popper">
+        <Search>
+            <Box
+                sx={{display: {sm : 'none', xs: "block"}}}
+            >
+                <PopupState variant="popper" 
+                    popupId="demo-popup-popper"
+                >
                     {(popupState) => (
                         <React.Fragment>
-                            <Button className={classes.menuButton} aria-haspopup="true" {...bindToggle(popupState)} color="inherit">
-                                <SearchTwoToneIcon className={classes.menuIcon} />
+                            <Button aria-haspopup="true" {...bindToggle(popupState)} color="inherit"
+                                sx={{minWidth: {xs : '35px'}}}
+                            >
+                                <SearchTwoToneIcon sx={{fontSize: '1.5rem'}} />
                             </Button>
-                            <Popper
+                            <PopperContainer
                                 {...bindPopper(popupState)}
                                 transition
-                                className={classes.popperContainer}
                                 popperOptions={{
-                                    modifiers: {
-                                        offset: {
-                                            enable: true,
-                                            offset: '0px, 0px',
+                                    modifiers: [{
+                                        name: "Search",
+                                        enabled: true,
+                                        phase: 'main',
+                                        options: {
+                                            offset: {
+                                                enable: true,
+                                                offset: '0px, 10px',
+                                            },
+                                            preventOverflow: {
+                                                padding: 0,
+                                            },
                                         },
-                                        preventOverflow: {
-                                            padding: 0,
+                                        fn({ state }) {
+                                            if (state.placement === 'top') {
+                                                console.log('Popper is on the top');
+                                            }
                                         },
-                                    },
+                                    }],
                                 }}
                             >
                                 {({ TransitionProps }) => (
                                     <Fade {...TransitionProps} timeout={350}>
-                                        <Card className={classes.card}>
-                                            <CardContent className={classes.cardContent}>
+                                        <CustCard>
+                                            <CustCardContent>
                                                 <Grid container alignItems="center" justify="space-between">
                                                     <Grid item xs>
                                                         <Box display="flex" p={0}>
-                                                            <div className={classes.searchIcon}>
+                                                            <MobileIconWrapper sx={{color: 'text.secondary'}}>
                                                                 <SearchTwoToneIcon color="inherit" />
-                                                            </div>
-                                                            <InputBase
+                                                            </MobileIconWrapper>
+                                                            <StyledInputBase
                                                                 fullWidth
-                                                                placeholder="Search…"
-                                                                classes={{
-                                                                    root: classes.inputRoot,
-                                                                    input: classes.inputInput,
-                                                                }}
+                                                                placeholder="Buscar..."
                                                                 inputProps={{ 'aria-label': 'buscar' }}
                                                             />
-                                                            <div className={classes.closeIcon} {...bindToggle(popupState)}>
+                                                            <MobileIconWrapper {...bindToggle(popupState)}>
                                                                 <CloseTwoToneIcon color="inherit" />
-                                                            </div>
+                                                            </MobileIconWrapper>
                                                         </Box>
                                                     </Grid>
                                                 </Grid>
-                                            </CardContent>
-                                        </Card>
+                                            </CustCardContent>
+                                        </CustCard>
                                     </Fade>
                                 )}
-                            </Popper>
+                            </PopperContainer>
                         </React.Fragment>
                     )}
                 </PopupState>
-            </Hidden>
-            <Hidden xsDown>
-                <div className={classes.searchIcon}>
-                    <SearchTwoToneIcon />
-                </div>
-                <InputBase
+            </Box>
+            <Box sx={{display: {sm: 'block', xs: "none"}}}>
+                <SearchIconWrapper>
+                    <SearchTwoToneIcon color="inherit" />
+                </SearchIconWrapper>
+                <StyledInputBase
                     placeholder="Buscar..."
-                    classes={{
-                        root: classes.inputRoot,
-                        input: classes.inputInput,
-                    }}
-                    inputProps={{ 'aria-label': 'buscar' }}
+                    inputProps={{ 'aria-label': 'search' }}
                 />
-            </Hidden>
-        </div>
+            </Box>
+        </Search>
     );
 };
 

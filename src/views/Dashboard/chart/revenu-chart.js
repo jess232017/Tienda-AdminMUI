@@ -1,6 +1,6 @@
-import value from '../../../assets/scss/_themes-vars.scss';
+import value from 'src/assets/scss/themes-vars';
 
-export default {
+const revenueChart = {
     height: 228,
     type: 'donut',
     options: {
@@ -24,3 +24,5 @@ export default {
     },
     series: [1258, 975, 500],
 };
+
+export default revenueChart;

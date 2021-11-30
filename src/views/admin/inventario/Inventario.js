@@ -1,22 +1,45 @@
 import React, {useState} from 'react';
 
-import { Column, MasterDetail } from 'devextreme-react/data-grid';
+import { show } from '@ebay/nice-modal-react';
+import { Column } from 'devextreme-react/data-grid';
 
 import PageCard from 'src/common/PageCard';
 import Form from 'src/components/forms/FormInventario';
 import api from 'src/services/api/tasks/ApiInventario';
-import PageTable, { itemDialog, itemTool } from 'src/components/tables/PageTable';
+import PageTable from 'src/components/tables/PageTable';
+import MyToolbar, { item } from 'src/components/Toolbar';
 
+//
+
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
+
+const URL = process.env.REACT_APP_API_URL;
 
 const Inventario = () => {
-    const { data: Inventario, isLoading, isError} = api.obtener();
     const [data, setData] = useState({});
+    const { data: Inventario, isLoading, isError} = api.obtener();
 
-    const tools = [
-        itemDialog("Agregar", "add", Form, "Agregar Inventario", "post", "InventarioId"),
-        itemDialog("Editar", "edit", Form, "Editar Inventario", "put", "InventarioId", data),
-        itemDialog("Eliminar", "trash", Form, "Eliminar Inventario", "delete", "InventarioId", data),
-    ];
+    const onClickAdd = () => show(Form, { title: 'Agregar Inventario', method: 'post', data: data, queryKey: 'inventario' });
+    const onClickEdit = () => show(Form, { title: 'Editar Inventario', method: 'put', data: data, queryKey: 'inventario' });
+    const onClickDelete = () => show(Form, { title: 'Eliminar Inventario', method: 'delete', data: data, queryKey: 'inventario' });
+    const onClickExpiring = () =>  window.open(URL + '/reporte/productos/vence', '_blank').focus();
+    const onClickExpired = () =>  window.open(URL + '/reporte/productos/vencido', '_blank').focus();
+
+    const myReports = [
+        item("expiring", "Por vencer", 'group', <AnalyticsIcon/>, onClickExpiring),
+        item("expired", "Vencidos", 'group', <AnalyticsIcon/>, onClickExpired),
+        item("print", "Imprimir", 'group', <AnalyticsIcon/>, null),
+    ]
+    
+    const myTools = [
+        item("add", "Agregar", 'item', <AddIcon/>, onClickAdd),
+        item("edit", "Editar", 'item', <EditIcon/>, onClickEdit),
+        item("delete", "Eliminar", 'item', <DeleteIcon/>, onClickDelete),
+        item("report", "Reporte", 'group', <AnalyticsIcon/>, myReports),
+    ]
 
     return (
         <PageCard
@@ -26,9 +49,12 @@ const Inventario = () => {
             isLoading={isLoading}
             isError={isError}
         >
+            <MyToolbar
+                items={myTools}
+            />
+
             <PageTable
                 data={Inventario}
-                tools={tools}
                 isLoading={isLoading}
                 setSelect={setData}
             >

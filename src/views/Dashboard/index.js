@@ -1,13 +1,15 @@
 import React from 'react';
-import { makeStyles, Grid, Card, CardHeader, CardContent, Hidden, Typography, Divider, LinearProgress } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
+import {  Grid, Card, CardHeader, CardContent, Hidden, Typography, Divider, LinearProgress } from '@mui/material';
 
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
-import TrendingDownIcon from '@material-ui/icons/TrendingDown';
-import MonetizationOnTwoTone from '@material-ui/icons/MonetizationOnTwoTone';
-import DescriptionTwoTone from '@material-ui/icons/DescriptionTwoTone';
-import ThumbUpAltTwoTone from '@material-ui/icons/ThumbUpAltTwoTone';
-import CalendarTodayTwoTone from '@material-ui/icons/CalendarTodayTwoTone';
+import { styled } from '@mui/system';
+import { makeStyles, useTheme } from '@mui/styles';
+
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
+import MonetizationOnTwoTone from '@mui/icons-material/MonetizationOnTwoTone';
+import DescriptionTwoTone from '@mui/icons-material/DescriptionTwoTone';
+import ThumbUpAltTwoTone from '@mui/icons-material/ThumbUpAltTwoTone';
+import CalendarTodayTwoTone from '@mui/icons-material/CalendarTodayTwoTone';
 
 import SalesLineCard from './SalesLineCard';
 import SalesLineCardData from './chart/sale-chart-1';
@@ -20,42 +22,27 @@ import LatestorderCard from './LatestorderCard';
 
 import { gridSpacing } from 'src/services/constant';
 
-const useStyles = makeStyles((theme) => ({
-    arrowicon: {
-        '& svg': {
-            width: '20px',
-            height: '20px',
-            verticalAlign: 'top',
-        },
+const FlatCardBody = styled(CardContent)({
+    padding: '0px !important',
+    '& svg': {
+        width: '40px',
+        height: '40px',
     },
-    flatcardbody: {
-        padding: '0px !important',
-        '& svg': {
-            width: '40px',
-            height: '40px',
-        },
+});
+
+const FlatCardBlock = styled(Grid)(({ theme }) => ({
+    padding: '25px 25px',
+    borderLeft: '1px solid' + theme.palette.background.default,
+    [theme.breakpoints.down('xs')]: {
+        borderLeft: 'none',
+        borderBottom: '1px solid' + theme.palette.background.default,
     },
-    flatcardblock: {
-        padding: '25px 25px',
-        borderLeft: '1px solid' + theme.palette.background.default,
-        [theme.breakpoints.down('xs')]: {
-            borderLeft: 'none',
-            borderBottom: '1px solid' + theme.palette.background.default,
-        },
-        [theme.breakpoints.down('sm')]: {
-            borderBottom: '1px solid' + theme.palette.background.default,
-        },
-    },
-    textsuccess: {
-        color: theme.palette.success.main,
-    },
-    texterror: {
-        color: theme.palette.error.main,
+    [theme.breakpoints.down('sm')]: {
+        borderBottom: '1px solid' + theme.palette.background.default,
     },
 }));
 
 const Default = () => {
-    const classes = useStyles();
     const theme = useTheme();
 
     return (
@@ -131,9 +118,9 @@ const Default = () => {
                                     <Hidden only="sm">
                                         <Grid item xs={12}>
                                             <Card>
-                                                <CardContent className={classes.flatcardbody}>
+                                                <FlatCardBody>
                                                     <Grid container alignItems="center" spacing={0}>
-                                                        <Grid item sm={6} xs={12} className={classes.flatcardblock}>
+                                                        <FlatCardBlock item sm={6} xs={12}>
                                                             <Grid container alignItems="center" spacing={1}>
                                                                 <Grid item>
                                                                     <Typography variant="subtitle2" align="left">
@@ -141,13 +128,13 @@ const Default = () => {
                                                                     </Typography>
                                                                 </Grid>
                                                                 <Grid item sm zeroMinWidth>
-                                                                    <Typography variant="h5" className={classes.texterror} align="right">
+                                                                    <Typography variant="h5" sx={{color: 'error.main'}} align="right">
                                                                         -0.99
                                                                     </Typography>
                                                                 </Grid>
                                                             </Grid>
-                                                        </Grid>
-                                                        <Grid item sm={6} xs={12} className={classes.flatcardblock}>
+                                                        </FlatCardBlock>
+                                                        <FlatCardBlock item sm={6} xs={12}>
                                                             <Grid container alignItems="center" spacing={1}>
                                                                 <Grid item>
                                                                     <Typography variant="subtitle2" align="left">
@@ -155,14 +142,14 @@ const Default = () => {
                                                                     </Typography>
                                                                 </Grid>
                                                                 <Grid item sm zeroMinWidth>
-                                                                    <Typography variant="h5" className={classes.textsuccess} align="right">
+                                                                    <Typography variant="h5" sx={{color: 'success.main'}} align="right">
                                                                         -7.66
                                                                     </Typography>
                                                                 </Grid>
                                                             </Grid>
-                                                        </Grid>
+                                                        </FlatCardBlock>
                                                     </Grid>
-                                                </CardContent>
+                                                </FlatCardBody>
                                             </Card>
                                         </Grid>
                                     </Hidden>
@@ -177,8 +164,8 @@ const Default = () => {
                         <Card>
                             <CardHeader
                                 title={
-                                    <Typography component="div" className="card-header">
-                                        Traffic Sources
+                                    <Typography variant="h6" gutterBottom component="div">
+                                        Origen de trafico
                                     </Typography>
                                 }
                             />

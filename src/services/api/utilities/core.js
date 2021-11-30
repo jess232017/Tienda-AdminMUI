@@ -8,7 +8,7 @@ const axiosQuery = (method, url, queryKey) => (urlParams = "") => {
     const authHeader = useAuthHeader()();
 
     const axios = withAxios(method, url + urlParams, authHeader)
-    return useQuery(queryKey, axios)
+    return useQuery([queryKey, urlParams], axios)
 }
 
 const axiosMutator = (method, url, queryKey) => () =>{

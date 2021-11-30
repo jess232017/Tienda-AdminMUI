@@ -15,7 +15,19 @@ const confirmarBorrar = (event, carrito, key) => {
     }
 
     return new Promise( (resolve) =>{
-        const props = {
+        confirmPopup({
+            target: event.currentTarget,
+            message: '¿Seguro que quieres eliminar este producto?',
+            header: '¿Confirmar acción?',
+            icon: 'pi pi-info-circle',
+            acceptClassName: 'p-button-danger',
+            acceptLabel: "Estoy seguro",
+            acceptIcon: "pi pi-trash",
+            rejectLabel: "No estoy seguro",
+            accept: () => resolve(filtrar()),
+            reject: () => resolve(carrito)
+        });
+        /*const props = {
             message: '¿Seguro que quieres eliminar este producto?',
             header: '¿Confirmar acción?',
             icon: 'pi pi-info-circle',
@@ -32,14 +44,14 @@ const confirmarBorrar = (event, carrito, key) => {
             confirmPopup(props);
         }else{
             confirmDialog(props);
-        }
+        }*/
     })
 }
 
 const [useCarrito] = create( (set, get) =>({
     carrito: fetchLocalCarrito(),
-    addItem: (key, nombre, precio, cantidad, maximo, imagen) => set( state => {
-        const carrito = [...state.carrito, {key, nombre, precio, cantidad, maximo, imagen}];
+    addItem: (item) => set( state => {
+        const carrito = [...state.carrito, item];
         localStorage.setItem("carrito", JSON.stringify(carrito))
         return {
             carrito

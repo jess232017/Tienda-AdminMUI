@@ -1,7 +1,9 @@
 import React from 'react';
+
+import { styled } from '@mui/system';
+import { useTheme } from '@mui/styles';
+
 import {
-    makeStyles,
-    useTheme,
     useMediaQuery,
     AppBar,
     ClickAwayListener,
@@ -11,42 +13,31 @@ import {
     Popper,
     Toolbar,
     Grid,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import SearchSection from './SearchSection';
 import NotificationSection from './NotificationSection';
 import ProfileSection from './ProfileSection';
 
-import MoreVertTwoToneIcon from '@material-ui/icons/MoreVertTwoTone';
+import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 
-const useStyles = makeStyles((theme) => ({
-    grow: {
-        flexGrow: 1,
-        [theme.breakpoints.down('xs')]: {
-            flexGrow: 0,
-        },
-    },
-    popperContainer: {
-        width: '100%',
-        zIndex: 1,
-    },
-    flexContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        padding: 0,
-    },
-    menuIcon: {
-        fontSize: '1.5rem',
+const PopperContainer = styled(Popper)({
+    width: '100%',
+    zIndex: 1,
+});
+
+const DivGrow = styled('div')(({ theme }) => ({
+    flexGrow: 1,
+    [theme.breakpoints.down('xs')]: {
+        flexGrow: 0,
     },
 }));
 
 const MobileSection = () => {
-    const classes = useStyles();
     const theme = useTheme();
-    const matchMobile = useMediaQuery(theme.breakpoints.down('mobile'));
-
-    const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
+    const [open, setOpen] = React.useState(false);
+    const matchMobile = useMediaQuery(theme.breakpoints.down('mobile'));
 
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -76,16 +67,15 @@ const MobileSection = () => {
                 onClick={handleToggle}
                 color="inherit"
             >
-                <MoreVertTwoToneIcon className={classes.menuIcon} />
+                <MoreVertTwoToneIcon sx={{ fontSize: '1.5rem' }} />
             </IconButton>
-            <Popper
+            <PopperContainer
                 open={open}
                 placement="bottom-end"
                 anchorEl={anchorRef.current}
                 role={undefined}
                 transition
                 disablePortal
-                className={classes.popperContainer}
                 popperOptions={{
                     modifiers: {
                         offset: {
@@ -102,7 +92,7 @@ const MobileSection = () => {
                     <Grow {...TransitionProps} in={open}>
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
-                                <div className={classes.grow}>
+                                <DivGrow>
                                     <AppBar color="default">
                                         <Toolbar>
                                             <Grid
@@ -117,12 +107,12 @@ const MobileSection = () => {
                                             </Grid>
                                         </Toolbar>
                                     </AppBar>
-                                </div>
+                                </DivGrow>
                             </ClickAwayListener>
                         </Paper>
                     </Grow>
                 )}
-            </Popper>
+            </PopperContainer>
         </React.Fragment>
     );
 };

@@ -1,8 +1,8 @@
 import React from 'react';
 
-
-import { Box, Grid, makeStyles, IconButton, Hidden, Toolbar, AppBar } from '@material-ui/core';
-import MenuTwoToneIcon from '@material-ui/icons/MenuTwoTone';
+import { styled } from '@mui/system';
+import { Box, Grid,  IconButton, Toolbar, AppBar } from '@mui/material';
+import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 
 import SearchSection from './section/SearchSection';
 import Customization from './section/Customization';
@@ -12,65 +12,44 @@ import NotificationSection from './section/NotificationSection';
 import logo from 'src/assets/img/tienda.png';
 import { drawerWidth } from 'src/services/constant';
 
-const useStyles = makeStyles((theme) => ({
-    grow: {
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(1.25),
-    },
-    sectionDesktop: {
-        display: 'none',
-        [theme.breakpoints.up('md')]: {
-            display: 'flex',
-        },
-    },
-    sectionMobile: {
-        display: 'flex',
-        [theme.breakpoints.up('md')]: {
-            display: 'none',
-        },
-    },
-    menuIcon: {
-        fontSize: '1.5rem',
-    },
-    header: {
-        zIndex: 1201,
-    },
+const Grow = styled('div')({
+    flexGrow: 1,
+});
+
+const MenuButton = styled(IconButton)(({ theme }) => ({
+    marginRight: theme.spacing(1.25),
 }));
 
 const Header = ({drawerToggle}) => {
-    const classes = useStyles();
 
     return (
-        <AppBar position="fixed" className={classes.header}>
+        <AppBar position="fixed" sx={{zIndex: { xs: 1000, md: 1201}}}>
             <Toolbar>
                 <Box width={drawerWidth}>
-                    <Grid container justify="space-between" alignItems="center">
-                        <Hidden smDown>
-                            <Grid item>
-                                <Box mt={0.5}>
-                                    <div style={{display: "flex", gap:".5rem", alignItems:"center"}}>
-                                        <img src={logo} alt="Logo" height="35"  />
-                                        <span style={{fontWeight: "700", maxWidth:"100px"}}>Abarroteria San Jose</span>
-                                    </div>
-                                </Box>
-                            </Grid>
-                        </Hidden>
+                    <Grid container justifyContent="space-between" alignItems="center">
+                        <Grid item
+                            sx={{ display: { xs: 'none' , md: 'block' }}}
+                        >
+                            <Box mt={0.5}>
+                                <div style={{display: "flex", gap:".5rem", alignItems:"center"}}>
+                                    <img src={logo} alt="Logo" height="35"  />
+                                    <span style={{fontWeight: "700", maxWidth:"100px"}}>Abarroteria San Jose</span>
+                                </div>
+                            </Box>
+                        </Grid>
                         <Grid item>
-                            <IconButton
+                            <MenuButton
                                 edge="start"
-                                className={classes.menuButton}
                                 color="inherit"
                                 aria-label="open drawer"
                                 onClick={drawerToggle}
                             >
-                                <MenuTwoToneIcon className={classes.menuIcon} />
-                            </IconButton>
+                                <MenuTwoToneIcon sx={{ fontSize: '1.5rem' }}/>
+                            </MenuButton>
                         </Grid>
                     </Grid>
                 </Box>
-                <div className={classes.grow} />
+                <Grow/>
 
                 <SearchSection theme="light" />
                 <Customization />

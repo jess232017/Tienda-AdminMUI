@@ -1,62 +1,102 @@
-import React, {useState} from 'react';
-import { Card } from 'primereact/card';
-import { Button } from 'primereact/button';
-import {Checkbox} from 'primereact/checkbox';
-import { Password } from 'primereact/password';
-import { InputText } from 'primereact/inputtext';
+import React, {useState, useRef} from 'react';
 
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useSignIn } from 'react-auth-kit';
+import { Link, useHistory  } from 'react-router-dom';
+
+import Card from '@mui/material/Card';
+import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import LoadingButton from '@mui/lab/LoadingButton';
+
+import { Toast } from 'primereact/toast';
+
+//Owned
+import apiAuth from 'src/services/api/tasks/ApiService';
+import {Input, CheckBox} from 'src/common/global/control/index';
 
 const Register = () => {
+    const {isLoading, mutate} = apiAuth.ingresar();
+    const [remember, setRemember] = useState(false);
     const [password, setPassword] = useState("");
     const [agree, setAgree] = useState(false);
     const [email, setEmail] = useState("");
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState("")
+    const history = useHistory();
+    const signIn = useSignIn();
+    const toast = useRef(null);
+    
+    const { handleSubmit, reset, control } = useForm();
 
     const enviarForm = (e) =>{
         e.preventDefault();
-        const data = {
-            Email : email,
-            Password : password
-        }
-
-        console.log("enviando: ", data);
     }
 
-    return (  
-        <Card title="Registro" subTitle="Crear tu cuenta ahora" footer = {
-            <div className="text-sm text-muted">
-                ¿Ya tienes una cuenta? <Link to="/login">Ingresa</Link>.
-            </div>
-        }>
-
-            <p className="text-muted text-sm mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-            <form id="loginForm" onSubmit={enviarForm}>
-                
-                <h6>Nombre de Usuario</h6>
-                <InputText required value={user} onChange={(e) => setUser(e.target.value)} />
-
-                <h6 className="mt-4">Dirección de correo electrónico</h6>
-                <InputText required value={email} onChange={(e) => setEmail(e.target.value)} />
-
-                <h6 className="mt-4">Contraseña</h6>
-                <Password required value={password} onChange={(e) => setPassword(e.target.value)} 
-                        promptLabel="Ingrese su contraseña"
-                        weakLabel = "Débil"
-                        mediumLabel = "Medio"
-                        strongLabel = "Fuerte"
-                        toggleMask = {true}/>
-
-                <div className="p-field-checkbox mt-1">
-                    <Checkbox inputId="recordar" checked={agree} onChange={e => setAgree(e.checked)}></Checkbox>
-                    <label htmlFor="recordar" className="mt-1 ml-1 text-muted text-sm">
-                        Estoy de acuerdo con los <Link to="/policy">Terminos y Condiciones</Link>.
-                    </label>
-                </div>
-                <Button label="Registrarse"/>
-            </form>
+    return (
+        <>
+            <Toast ref={toast} />
+            <Card>
+                <CardHeader
+                    title="Registro"
+                    subheader="Crear tu cuenta ahora"
+                />
+                <Divider/>
+                <CardContent>
+                    <p className="text-muted text-sm mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
             
-        </Card>
+                    <form id="registerForm" 
+                        className="mt-3"
+                        onSubmit={enviarForm}
+                    >
+                        <Stack direction="column" spacing={2} pt={2}>
+                            <Input
+                                name="userName"
+                                label="Nombre de Usuario"
+                                control = {control}
+                            />
+                            
+                            <Input
+                                name="email"
+                                label="Correo electrónico"
+                                control = {control}
+                            />
+
+                            <Input
+                                type="password"
+                                name="password"
+                                label="Contraseña"
+                                control = {control}
+                            />
+                            
+                            
+                            <CheckBox
+                                name="recordar"
+                                label="Recordar contraseña"
+                                control = {control}
+                            />
+
+                            <LoadingButton
+                                type="submit"
+                                loading= {isLoading}
+                                loadingPosition="start"
+                                variant="contained"
+                                fullWidth
+                            >
+                                Registrarse
+                            </LoadingButton>
+                        </Stack>
+                    </form>
+                </CardContent>
+                <Divider/>
+                <CardContent>
+                    <span className="text-sm text-muted">
+                        ¿Ya tienes una cuenta? <Link to="/login">Ingresa</Link>.
+                    </span>
+                </CardContent>
+            </Card>
+        </>
     );
 }
  

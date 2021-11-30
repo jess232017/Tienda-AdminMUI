@@ -1,23 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import { Avatar, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
 
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { styled } from '@mui/system';
+import { Avatar, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
+
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Chip from 'src/components/Chip';
 
 import useStore from 'src/services/context/sidebar';
 
-const useStyles = makeStyles((theme) => ({
+const SubMenuCaption = styled(Typography)(({ theme }) => ({
+    ...theme.typography.subMenuCaption,
+}));
+
+const styles = {
     listIcon: {
         minWidth: '25px',
     },
     listItem: {
         borderRadius: '5px',
         marginBottom: '5px',
-    },
-    subMenuCaption: {
-        ...theme.typography.subMenuCaption,
     },
     listItemNoBack: {
         backgroundColor: 'transparent !important',
@@ -26,25 +28,27 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '5px',
     },
     errorChip: {
-        color: theme.palette.error.main,
+        color: 'error.main',
         backgroundColor: '#ffcdd2',
         marginRight: '20px',
     },
-}));
+}
+
 
 const NavItem = (props) => {
-    const classes = useStyles();
     const {show, setOpen} = useStore();
     const { item, level } = props;
 
     const Icon = item.icon;
+    const fontSize = level > 0 ? 'inherit' : 'default';
+
     const itemIcon = item.icon ? (
-        <Icon className={classes.listCustomIcon} color="inherit" />
+        <Icon color="inherit" />
     ) : (
-        <ArrowForwardIcon className={classes.listCustomIcon} color="inherit" fontSize={level > 0 ? 'inherit' : 'default'} />
+        <ArrowForwardIcon color="inherit" sx={{fontSize}}/>
     );
 
-    let itemIconClass = !item.icon ? classes.listIcon : classes.menuIcon;
+    let itemIconClass = !item.icon ? styles.listIcon : styles.menuIcon;
 
     let itemTarget = '';
     if (item.target) {
@@ -59,7 +63,7 @@ const NavItem = (props) => {
     return (
         <ListItem
             disabled={item.disabled}
-            className={level > 1 ? classes.listItemNoBack : classes.listItem}
+            sx={level > 1 ? styles.listItemNoBack : styles.listItem}
             selected={show.isOpen === item.id}
             component={Link}
             onClick={() => setOpen(item.id)}
@@ -69,32 +73,31 @@ const NavItem = (props) => {
             style={{ paddingLeft: level * 16 + 'px' }}
             {...listItemProps}
         >
-            <ListItemIcon className={itemIconClass}>{itemIcon}</ListItemIcon>
+            <ListItemIcon sx={itemIconClass}>{itemIcon}</ListItemIcon>
             <ListItemText
                 primary={
                     <Typography
                         variant={show.isOpen === item.id ? 'subtitle1' : 'body1'}
                         color="inherit"
-                        className={classes.listItemTypography}
                     >
                         {item.title}
                     </Typography>
                 }
                 secondary={
                     item.caption && (
-                        <Typography variant="caption" className={classes.subMenuCaption} display="block" gutterBottom>
+                        <SubMenuCaption variant="caption" display="block" gutterBottom>
                             {item.caption}
-                        </Typography>
+                        </SubMenuCaption>
                     )
                 }
             />
             {item.chip && (
                 <Chip
-                    className={item.chip.error && classes.errorChip}
-                    color={item.chip.color}
-                    variant={item.chip.variant}
                     size={item.chip.size}
                     label={item.chip.label}
+                    color={item.chip.color}
+                    variant={item.chip.variant}
+                    sx={item.chip.error && styles.errorChip}
                     avatar={item.chip.avatar && <Avatar>{item.chip.avatar}</Avatar>}
                 />
             )}

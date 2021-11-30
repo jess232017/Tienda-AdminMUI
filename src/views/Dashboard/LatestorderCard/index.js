@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 
 import {
     Card,
@@ -13,47 +12,37 @@ import {
     CardMedia,
     Typography,
     Button,
-} from '@material-ui/core';
+} from '@mui/material';
 
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { gridSpacing } from '../../../services/constant';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 
 import Phone1 from 'src/assets/images/widget/PHONE1.jpg';
 import Phone2 from 'src/assets/images/widget/PHONE2.jpg';
 import Phone3 from 'src/assets/images/widget/PHONE3.jpg';
 import Phone4 from 'src/assets/images/widget/PHONE4.jpg';
 
-const useStyles = makeStyles({
-    table: {
-        minWidth: 350,
-    },
-    imgproduct: {
-        width: '20px',
-        height: 'auto',
-    },
-});
 
 function createData(customer, cid, photo, product, quantity, date, status, statuscolor) {
     return { customer, cid, photo, product, quantity, date, status, statuscolor };
 }
 
 const rows = [
-    createData('John Deo', '#81412314', Phone1, 'Moto G5', '10', '17-2-2017', 'Pending', 'secondary'),
-    createData('Jenny William', '#68457898', Phone2, 'iPhone 8', '16', '20-2-2017', 'Paid', 'primary'),
-    createData('Lori Moore', '#45457898', Phone3, 'Redmi 4', '20', '17-2-2017', 'Success', 'secondary'),
-    createData('Austin Pena', '#62446232', Phone4, 'Jio', '15', '25-4-2017', 'Failed', 'primary'),
+    createData('John Deo', '#81412314', Phone1, 'Moto G5', '10', '17-2-2017', 'Pendiente', 'secondary'),
+    createData('Jenny William', '#68457898', Phone2, 'iPhone 8', '16', '20-2-2017', 'Pagado', 'primary'),
+    createData('Lori Moore', '#45457898', Phone3, 'Redmi 4', '20', '17-2-2017', 'Exitoso', 'secondary'),
+    createData('Austin Pena', '#62446232', Phone4, 'Jio', '15', '25-4-2017', 'Fallado', 'primary'),
 ];
 
 export default function LatestorderCard() {
-    const classes = useStyles();
 
     return (
         <Grid container spacing={gridSpacing}>
@@ -61,25 +50,25 @@ export default function LatestorderCard() {
                 <Card>
                     <CardHeader
                         title={
-                            <Typography component="div" className="card-header">
-                                Latest Order
+                            <Typography variant="h6" gutterBottom component="div">
+                                Ultimas ordenes
                             </Typography>
                         }
                     />
                     <Divider />
                     <CardContent className="p-0">
                         <TableContainer>
-                            <Table className={classes.table} aria-label="simple table">
+                            <Table sx={{minWidth: 350}} aria-label="simple table">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Customer</TableCell>
-                                        <TableCell>Order Id</TableCell>
-                                        <TableCell>Photo</TableCell>
-                                        <TableCell>Product</TableCell>
-                                        <TableCell>Quantity</TableCell>
-                                        <TableCell>Date</TableCell>
-                                        <TableCell>Status</TableCell>
-                                        <TableCell>Action</TableCell>
+                                        <TableCell>Cliente</TableCell>
+                                        <TableCell>Orden Id</TableCell>
+                                        <TableCell>Foto</TableCell>
+                                        <TableCell>Producto</TableCell>
+                                        <TableCell>Cantidad</TableCell>
+                                        <TableCell>Fecha</TableCell>
+                                        <TableCell>Estado</TableCell>
+                                        <TableCell>Acción</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -88,7 +77,7 @@ export default function LatestorderCard() {
                                             <TableCell>{row.customer}</TableCell>
                                             <TableCell>{row.cid}</TableCell>
                                             <TableCell>
-                                                <CardMedia component="img" image={row.photo} title="image" className={classes.imgproduct} />
+                                                <CardMedia component="img" image={row.photo} title="image" sx={{ width: '20px',  height: 'auto' }} />
                                             </TableCell>
                                             <TableCell>{row.product}</TableCell>
                                             <TableCell>{row.quantity}</TableCell>
@@ -112,7 +101,7 @@ export default function LatestorderCard() {
                     </CardContent>
                     <CardActions className="f-right">
                         <Button variant="text" size="small" color="primary">
-                            View all Orders
+                            Ver todas las ordenes
                         </Button>
                     </CardActions>
                 </Card>

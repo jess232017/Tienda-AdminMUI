@@ -1,18 +1,19 @@
-import {useAuthHeader, useIsAuthenticated} from 'react-auth-kit'
+import { useAuthHeader, useIsAuthenticated } from 'react-auth-kit'
 
 const useHeaderJwt = () => {
     const isAuthenticated = useIsAuthenticated();
     const authHeader = useAuthHeader();
-    let decodedJwtJsonData = {
-        isAuthenticated : false
-    };
+    let jwtHeader = {};
 
     if(isAuthenticated()){
-        decodedJwtJsonData = JSON.parse(window.atob(authHeader().split('.')[1]));
-        decodedJwtJsonData.isAuthenticated = true;
+        jwtHeader = JSON.parse(window.atob(authHeader().split('.')[1]))
+    }
+
+    const isExpired = () => {
+        return isAuthenticated() ? jwtHeader.exp * 1000 < Date.now() : true;
     }
     
-    return decodedJwtJsonData;
+    return {jwtHeader, isAuthenticated, isExpired};
 }
  
 export default useHeaderJwt;

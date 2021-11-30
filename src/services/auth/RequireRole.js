@@ -4,7 +4,8 @@ import useHeaderJwt from '../hooks/useHeaderJwt';
 import Forbidden from '../../views/error/Forbidden';
 
 const RequireRole = ({children, roles}) => {
-    const {role: currentRole} = useHeaderJwt();
+    const { jwtHeader } = useHeaderJwt();
+    const { role: currentRole } = jwtHeader || {};
 
     const permissionGranted = roles?.some( role => role === currentRole);
 

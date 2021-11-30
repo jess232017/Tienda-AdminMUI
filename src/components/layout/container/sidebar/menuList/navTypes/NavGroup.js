@@ -1,22 +1,21 @@
 import React from 'react';
 
-import { makeStyles, List, Typography } from '@material-ui/core';
+import { styled } from '@mui/system';
+import {  List, Typography } from '@mui/material';
 
 import NavItem from './NavItem';
 import NavCollapse from './NavCollapse';
 
-const useStyles = makeStyles((theme) => ({
-    menuCaption: {
-        ...theme.typography.menuCaption,
-    },
-    subMenuCaption: {
-        ...theme.typography.subMenuCaption,
-    },
+const MenuCaption = styled(Typography)(({ theme }) => ({
+    ...theme.typography.menuCaption,
+}));
+
+const SubMenuCaption = styled(Typography)(({ theme }) => ({
+    ...theme.typography.subMenuCaption,
 }));
 
 const NavGroup = (props) => {
     const { item } = props;
-    const classes = useStyles();
 
     const items = item.children.map((menu) => {
         switch (menu.type) {
@@ -36,14 +35,14 @@ const NavGroup = (props) => {
     return (
         <List
             subheader={
-                <Typography variant="caption" className={classes.menuCaption} display="block" gutterBottom>
+                <MenuCaption variant="caption" display="block" gutterBottom>
                     {item.title}
                     {item.caption && (
-                        <Typography variant="caption" className={classes.subMenuCaption} display="block" gutterBottom>
+                        <SubMenuCaption variant="caption" display="block" gutterBottom>
                             {item.caption}
-                        </Typography>
+                        </SubMenuCaption>
                     )}
-                </Typography>
+                </MenuCaption>
             }
         >
             {items}

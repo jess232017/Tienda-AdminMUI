@@ -1,7 +1,8 @@
-import { createTheme } from '@material-ui/core/styles';
 import value from 'src/assets/scss/themes-vars';
 
-import grey from '@material-ui/core/colors/grey';
+import { createTheme } from '@mui/material/styles';
+
+import grey from '@mui/material/colors/grey';
 
 export function theme(customization) {
     let textPrimary;
@@ -38,7 +39,7 @@ export function theme(customization) {
     return createTheme({
         direction: customization.rtlLayout ? 'rtl' : 'ltr',
         palette: {
-            type: 'light',
+            mode: 'light',
             common: {
                 black: value.paperDark,
             },
@@ -95,7 +96,7 @@ export function theme(customization) {
             },
         },
         typography: {
-            fontFamily: `'Poppins', sans-serif`,
+            fontFamily: ['Poppins', 'sans-serif'].join(','),
             h6: {
                 fontWeight: 600,
                 color: textSecondary,
@@ -178,164 +179,237 @@ export function theme(customization) {
                 color: textDark,
             },
         },
-        overrides: {
+        components: {
             MuiAccordion: {
-                root: {
-                    boxShadow: 'none',
+                styleOverrides: {
+                    root: {
+                        boxShadow: 'none',
+                    },
                 },
             },
             MuiAccordionSummary: {
-                root: {
-                    fontWeight: 600,
-                    fontSize: '0.875rem',
-                },
-                content: {
-                    color: textSecondary,
-                    fontWeight: 500,
+                styleOverrides: {
+                    root: {
+                        fontWeight: 600,
+                        fontSize: '0.875rem',
+                    },
+                    content: {
+                        color: textSecondary,
+                        fontWeight: 500,
+                    },
                 },
             },
             MuiPaper: {
-                elevation1: {
-                    boxShadow: '0 4px 6px -2px rgb(0 0 0 / 12%), 0 2px 2px -1px rgb(0 0 0 / 5%)',
-                },
-                rounded: {
-                    borderRadius: '10px',
+                styleOverrides: {
+                    elevation1: {
+                        boxShadow: '0 4px 6px -2px rgb(0 0 0 / 12%), 0 2px 2px -1px rgb(0 0 0 / 5%)',
+                    },
+                    rounded: {
+                        borderRadius: '10px',
+                    },
                 },
             },
-            MuiCard: {
-                root: {
-                    // border:'1px solid rgba(33, 40, 50, 0.125)'
-                },
+            MuiCard:{
+                styleOverrides: {
+                    root:{
+                    }
+                }
             },
             MuiCardHeader: {
-                root: {
-                    color: textDark,
-                    padding: '24px',
-                    //backgroundColor: headerBackColor,
+                styleOverrides: {
+                    root: {
+                        color: textDark,
+                        padding: '24px',
+                        //backgroundColor: headerBackColor,
+                    },
                 },
             },
             MuiCardContent: {
-                root: {
-                    padding: '24px',
+                styleOverrides: {
+                    root: {
+                        padding: '24px',
+                    },
                 },
             },
-            MuiCardActions: {
-                root: {
-                    padding: '24px',
-                },
+            MuiDivider: {
+                styleOverrides:{
+                    border: 'none',
+                    height: '1px',
+                    margin: 0,
+                    flexShrink: 0,
+                    backgroundColor: 'rgba(0, 0, 0, 0.12)'
+                }
             },
             MuiSvgIcon: {
-                root: {
-                    fontSize: '1.3rem',
+                styleOverrides: {
+                    root: {
+                        fontSize: '1.3rem',
+                    },
                 },
             },
-            // Table
             MuiTableCell: {
-                root: {
-                    padding: '16px 36px 16px 36px',
-                    whiteSpace: 'nowrap',
-                },
-                head: {
-                    padding: '16px 36px 16px 36px',
-                    color: textDark,
-                    fontWeight: 600,
-                },
-                paddingCheckbox: {
-                    paddingLeft: '36px',
-                    position: 'relative',
+                styleOverrides: {
+                    root: {
+                        padding: '16px 36px 16px 36px',
+                        whiteSpace: 'nowrap',
+                    },
+                    head: {
+                        padding: '16px 36px 16px 36px',
+                        color: textDark,
+                        fontWeight: 600,
+                    },
+                    paddingCheckbox: {
+                        paddingLeft: '36px',
+                        position: 'relative',
+                    },
                 },
             },
             MuiList: {
-                root: {
-                    overflow: 'hidden',
+                styleOverrides: {
+                    root: {
+                        overflow: 'hidden',
+                    },
                 },
             },
             MuiListItem: {
-                root: {
-                    color: textInversePrimary,
-                    paddingTop: '12px',
-                    paddingBottom: '12px',
-                    '&$selected': {
-                        color: customization.navType === 'dark' ? value.menuHover : value.primary,
-                        backgroundColor: customization.navType !== 'dark' ? value.menuHover : value.primary,
+                styleOverrides: {
+                    root: {
+                        color: textInversePrimary,
+                        paddingTop: '12px',
+                        paddingBottom: '12px',
+                        '&.Mui-selected': {
+                            color: customization.navType === 'dark' ? value.menuHover : value.primary,
+                            backgroundColor: customization.navType !== 'dark' ? value.menuHover : value.primary,
+                            '&:hover': {
+                                backgroundColor: customization.navType !== 'dark' ? value.menuHover : value.primary,
+                            },
+                            '& .MuiListItemIcon-root': {
+                                color: customization.navType === 'dark' ? value.menuHover : value.primary,
+                            },
+                        },
+                        '&:hover': {
+                            color: customization.navType === 'dark' ? value.menuHover : value.primary,
+                            '& .MuiListItemIcon-root': {
+                                color: customization.navType === 'dark' ? value.menuHover : value.primary,
+                            },
+                        },
+                    },
+                    button: {
                         '&:hover': {
                             backgroundColor: customization.navType !== 'dark' ? value.menuHover : value.primary,
                         },
-                        '& .MuiListItemIcon-root': {
-                            color: customization.navType === 'dark' ? value.menuHover : value.primary,
-                        },
-                    },
-                    '&:hover': {
-                        color: customization.navType === 'dark' ? value.menuHover : value.primary,
-                        '& .MuiListItemIcon-root': {
-                            color: customization.navType === 'dark' ? value.menuHover : value.primary,
-                        },
-                    },
-                },
-                button: {
-                    '&:hover': {
-                        backgroundColor: customization.navType !== 'dark' ? value.menuHover : value.primary,
                     },
                 },
             },
             MuiListItemIcon: {
-                root: {
-                    minWidth: '36px',
-                    color: textInversePrimary,
+                styleOverrides: {
+                    root: {
+                        minWidth: '36px',
+                        color: textInversePrimary,
+                    },
                 },
             },
             MUIDataTableSelectCell: {
-                fixedLeft: {
-                    position: 'relative',
+                styleOverrides: {
+                    fixedLeft: {
+                        position: 'relative',
+                    },
                 },
             },
             MuiTableHead: {
-                root: {
-                    background: background,
-                    //background: '#fbfdfe'
+                styleOverrides: {
+                    root: {
+                        background: background,
+                        //background: '#fbfdfe'
+                    },
                 },
             },
             MuiChip: {
-                colorSecondary: {
-                    color: grey[100],
-                },
-                colorPrimary: {
-                    color: grey[100],
-                },
-                root: {
-                    color: grey[100],
-                },
-                outlined: {
-                    color: grey[500],
+                styleOverrides: {
+                    colorSecondary: {
+                        color: grey[100],
+                    },
+                    colorPrimary: {
+                        color: grey[100],
+                    },
+                    root: {
+                        color: grey[100],
+                    },
+                    outlined: {
+                        color: grey[500],
+                    },
                 },
             },
             MuiTimelineDot: {
-                defaultGrey: {
-                    background: grey[300],
+                styleOverrides: {
+                    defaultGrey: {
+                        background: grey[300],
+                    },
                 },
             },
             MuiTimelineConnector: {
-                root: {
-                    background: grey[300],
+                styleOverrides: {
+                    root: {
+                        background: grey[300],
+                    },
                 },
             },
             MuiTableContainer: {
-                root: {
-                    boxShadow: 'none',
+                styleOverrides: {
+                    root: {
+                        boxShadow: 'none',
+                    },
                 },
             },
             MuiAvatar: {
-                colorDefault: {
-                    backgroundColor: value.textHint,
-                    color: grey[100],
+                styleOverrides: {
+                    colorDefault: {
+                        backgroundColor: value.textHint,
+                        color: grey[100],
+                    },
                 },
             },
             MuiInputBase: {
-                input: {
-                    color: textDark,
+                styleOverrides: {
+                    input: {
+                        color: textDark,
+                    },
                 },
             },
-        },
+            MuiButton:{
+                variants: [
+                    {
+                        props: { variant: 'contained' },
+                        style: {
+                            '&:hover': {
+                                color: 'white',
+                            },
+                        },
+                    },
+                    {
+                        props: { variant: 'contained', shadow: false },
+                        style: {
+                            boxShadow: 'none',
+                        },
+                    },
+                    {
+                        props: { variant: 'light' },
+                        style: {
+                            backgroundColor: '#fff',
+                            border: '1px solid #e4e4e4',
+                        },
+                    },
+                    {
+                        props: { variant: 'light', size: "large" },
+                        style: {
+                            padding: '8px',
+                            backgroundColor: '#fff',
+                            border: '1px solid #e4e4e4',
+                        },
+                    },
+                  ],
+            }
+        }
     });
 }
 

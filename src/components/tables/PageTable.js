@@ -5,16 +5,16 @@ import DataGrid, {
     Paging, Editing,
     Grouping, FilterRow,
     GroupPanel, SearchPanel, ColumnChooser } from 'devextreme-react/data-grid';
-    
-import { show } from '@ebay/nice-modal-react';
 
-const PageTable = ({tools, data, isLoading, setSelect, children}) => {
-    const onToolbarPreparing = (e) =>{
-        e.toolbarOptions.items.unshift(...tools);
-    }
+const PageTable = ({data, isLoading, setSelect, children}) => {
+    
 
     const onSelectionChanged = ({ selectedRowsData }) =>{
         setSelect(selectedRowsData[0]);
+    }
+
+    const onToolbarPreparing = (e)=>{
+        e.toolbarOptions.visible = false;  
     }
 
     return ( 
@@ -23,6 +23,7 @@ const PageTable = ({tools, data, isLoading, setSelect, children}) => {
             id="gridContainer"
             showBorders={true}
             columnAutoWidth={true}
+            onToolbarPreparing={onToolbarPreparing}
             hoverStateEnabled={true}
             focusedRowEnabled={true}
             errorRowEnabled = {false}
@@ -32,7 +33,6 @@ const PageTable = ({tools, data, isLoading, setSelect, children}) => {
             allowColumnReordering={true}
             selection={{ mode: 'single' }}
             onSelectionChanged={onSelectionChanged}
-            onToolbarPreparing = {onToolbarPreparing}
             dataSource = {data?.data}
             noDataText = {(isLoading) ? "Cargando..." : "No se encontraron resultados"}>
                 
@@ -75,7 +75,6 @@ const itemDialog = (text, icon, Template, title, method, queryKey, data) => ({
         text,
         type:"default",
         stylingMode: "outlined",
-        onClick: () => show(Template, {title, method, data, queryKey}),
     }
 });
 

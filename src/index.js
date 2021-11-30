@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
+import { SnackbarProvider } from 'notistack';
 import { AuthProvider } from 'react-auth-kit'; 
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -18,7 +19,9 @@ ReactDOM.render(
         >
             <QueryClientProvider client={queryClient}>
                 <NiceModal.Provider>
-                    <App/>
+                    <SnackbarProvider>
+                        <App />
+                    </SnackbarProvider>
                 </NiceModal.Provider>
                 <ReactQueryDevtools initialIsOpen={false}/>
             </QueryClientProvider>

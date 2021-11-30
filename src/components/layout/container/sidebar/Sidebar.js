@@ -1,98 +1,73 @@
 import React from 'react';
+
+
+import { styled } from '@mui/system';
+import { useTheme } from '@mui/styles';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { makeStyles, useMediaQuery, useTheme, Divider, Drawer, Grid, Hidden } from '@material-ui/core';
+import {  useMediaQuery, Divider, Drawer, Grid, Toolbar, Box } from '@mui/material';
 
 import MenuList from './menuList/MenuList';
 
 import logo from 'src/assets/img/tienda.png';
 import { drawerWidth } from 'src/services/constant';
 
-const useStyles = makeStyles((theme) => ({
-    drawer: {
-        [theme.breakpoints.up('md')]: {
-            width: drawerWidth,
-            flexShrink: 0,
-        },
-    },
-
-    toolbar: theme.mixins.toolbar,
-    logoContainer: {
-        lineHeight: 0,
-        background: theme.palette.primary.main,
-        boxShadow: '0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)',
-    },
-    drawerPaper: {
+const NavResponsive = styled('nav')(({ theme }) => ({
+    [theme.breakpoints.up('md')]: {
         width: drawerWidth,
-        background: theme.palette.common.black,
-        color: theme.palette.text.primary,
-    },
-    drawerPaperLight: {
-        width: drawerWidth,
-        borderRight: 'none',
-        boxShadow: '0 0.15rem 1.75rem 0 rgba(33, 40, 50, 0.15)',
-        top: '64px',
-        [theme.breakpoints.down('sm')]: {
-            top: 0,
-        },
-    },
-    menuCaption: {
-        ...theme.typography.menuCaption,
-    },
-    ScrollHeight: {
-        height: 'calc(100vh - 65px)',
-        padding: '10px',
+        flexShrink: 0,
     },
 }));
 
+const ToolContainer = styled(Toolbar)(({ theme }) => ({
+    lineHeight: 0,
+    background: theme.palette.primary.main,
+    boxShadow: '0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)',
+    justifyContent: "center",
+    alignItems: "center",
+    gap:".5rem",
+}));
+
+const ScrollHeight = styled(PerfectScrollbar)({
+    height: 'calc(100vh - 65px)',
+    padding: '10px',
+});
+
 const MainLayout = (props) => {
     const { drawerOpen, drawerToggle, window } = props;
-    const classes = useStyles();
     const theme = useTheme();
     const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
 
     const drawer = (
         <React.Fragment>
-            <Hidden mdUp>
-                <Grid
-                    container
-                    direction="row"
-                    justify="center"
-                    elevation={5}
-                    alignItems="center"
-                    spacing={0}
-                    className={[classes.toolbar, classes.logoContainer].join(' ')}
-                >
-                    <Grid item>
-                        <div style={{display: "flex", gap:".5rem", alignItems:"center"}}>
-                            <img src={logo} alt="Logo" height="35"  />
-                            <span style={{fontWeight: "700", color: "#fff"}}>Abarroteria San Jose</span>
-                        </div>
-                    </Grid>
-                </Grid>
-            </Hidden>
+            <ToolContainer
+                sx={{display: { xs: 'flex', md: 'none'}}}
+            >
+                <img src={logo} alt="Logo" height="35"  />
+                <span style={{fontWeight: "700", color: '#fff'}}>Abarroteria San Jose</span>
+            </ToolContainer>
             <Divider />
-            <PerfectScrollbar className={classes.ScrollHeight}>
+            <ScrollHeight>
                 <MenuList />
-            </PerfectScrollbar>
+            </ScrollHeight>
         </React.Fragment>
     );
 
     const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <nav className={classes.drawer} aria-label="mailbox folders">
+        <NavResponsive aria-label="mailbox folders">
             <Drawer
-                container={container}
-                variant={matchUpMd ? 'persistent' : 'temporary'}
                 anchor="left"
                 open={drawerOpen}
+                container={container}
                 onClose={drawerToggle}
-                classes={{ paper: classes.drawerPaperLight }}
+                classes={{ paper: 'drawer-paper-light' }}
+                variant={matchUpMd ? 'persistent' : 'temporary'}
                 ModalProps={{ keepMounted: true }}
             >
                 {drawer}
             </Drawer>
-        </nav>
+        </NavResponsive>
     );
 };
 
