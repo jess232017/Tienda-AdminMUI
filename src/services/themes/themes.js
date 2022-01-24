@@ -1,4 +1,4 @@
-import value from 'src/assets/scss/themes-vars';
+import value from '_@/assets/scss/themes-vars';
 
 import { createTheme } from '@mui/material/styles';
 
@@ -100,15 +100,15 @@ export function theme(customization) {
             h6: {
                 fontWeight: 600,
                 color: textSecondary,
-                fontSize: '0.875rem',
+                fontSize: '0.8rem',
             },
             h5: {
-                fontSize: '1.125rem',
+                fontSize: '1.1rem',
                 color: textSecondary,
                 fontWeight: 600,
             },
             h4: {
-                fontSize: '1.25rem',
+                fontSize: '1.2rem',
                 color: textSecondary,
                 fontWeight: 500,
             },
@@ -123,18 +123,18 @@ export function theme(customization) {
                 fontWeight: 600,
             },
             h1: {
-                fontSize: '2.2rem',
+                fontSize: '2rem',
                 color: textDark,
                 fontWeight: 600,
             },
             subtitle1: {
-                fontSize: '0.875rem',
+                fontSize: '0.8rem',
                 fontWeight: 500,
                 color: textSecondary,
-                lineHeight: '1.643em',
+                lineHeight: '1.6em',
             },
             subtitle2: {
-                fontSize: '0.8125rem',
+                fontSize: '0.8rem',
                 fontWeight: 400,
             },
             caption: {
@@ -143,17 +143,17 @@ export function theme(customization) {
                 fontWeight: 500,
             },
             body1: {
-                fontSize: '0.875rem',
+                fontSize: '0.8rem',
                 fontWeight: 400,
                 lineHeight: '1.643em',
             },
             body2: {
                 letterSpacing: '0em',
                 fontWeight: 400,
-                lineHeight: '1.643em',
+                lineHeight: '1.6em',
             },
             menuCaption: {
-                fontSize: '0.6875rem',
+                fontSize: '0.68rem',
                 fontWeight: 600,
                 color: value.primary,
                 padding: '5px 15px 5px',
@@ -161,7 +161,7 @@ export function theme(customization) {
                 marginTop: '10px',
             },
             subMenuCaption: {
-                fontSize: '0.6875rem',
+                fontSize: '0.68rem',
                 fontWeight: 400,
                 color: menuCaption,
                 textTransform: 'capitalize',
@@ -175,11 +175,20 @@ export function theme(customization) {
             },
             breadcrumbTitle: {
                 fontWeight: 500,
-                fontSize: '1.5rem',
+                fontSize: '1.rem',
                 color: textDark,
             },
         },
         components: {
+            MuiToolbar: {
+                styleOverrides: {
+                    root: {
+                        '@media (min-width: 600px)': {
+                            minHeight: "58px"
+                        }
+                    },
+                },
+            },
             MuiAccordion: {
                 styleOverrides: {
                     root: {
@@ -209,9 +218,9 @@ export function theme(customization) {
                     },
                 },
             },
-            MuiCard:{
+            MuiCard: {
                 styleOverrides: {
-                    root:{
+                    root: {
                     }
                 }
             },
@@ -219,22 +228,27 @@ export function theme(customization) {
                 styleOverrides: {
                     root: {
                         color: textDark,
-                        padding: '24px',
-                        //backgroundColor: headerBackColor,
+                        padding: '21px',
+                        '.MuiCardHeader-title': {
+                            fontSize: '1rem',
+                        },
+                        '.MuiCardHeader-subheader': {
+                            fontSize: "0.8rem",
+                        }
                     },
                 },
             },
             MuiCardContent: {
                 styleOverrides: {
                     root: {
-                        padding: '24px',
+                        padding: '21px',
                     },
                 },
             },
             MuiDivider: {
-                styleOverrides:{
+                styleOverrides: {
                     border: 'none',
-                    height: '1px',
+                    height: '.5px',
                     margin: 0,
                     flexShrink: 0,
                     backgroundColor: 'rgba(0, 0, 0, 0.12)'
@@ -376,7 +390,7 @@ export function theme(customization) {
                     },
                 },
             },
-            MuiButton:{
+            MuiButton: {
                 variants: [
                     {
                         props: { variant: 'contained' },
@@ -407,7 +421,12 @@ export function theme(customization) {
                             border: '1px solid #e4e4e4',
                         },
                     },
-                  ],
+                ],
+                styleOverrides: {
+                    root: {
+                        fontSize: "0.79rem",
+                    },
+                },
             }
         }
     });

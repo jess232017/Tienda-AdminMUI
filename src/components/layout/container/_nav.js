@@ -27,7 +27,7 @@ const nav = {
                     title: 'Panel de datos',
                     type: 'item',
                     icon: HomeIcon,
-                    url: '/admin/dashboard',
+                    url: '/admin',
                 },
             ],
         },

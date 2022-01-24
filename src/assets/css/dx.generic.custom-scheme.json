@@ -1,0 +1,862 @@
+{
+    "items": [
+        {
+            "key": "$base-font-family",
+            "value": "system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\""
+        },
+        {
+            "key": "$base-accent",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$base-label-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$base-link-color",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$base-icon-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$base-text-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$base-bg",
+            "value": "#fff"
+        },
+        {
+            "key": "$base-border-color",
+            "value": "#dee2e6"
+        },
+        {
+            "key": "$base-border-radius",
+            "value": "4px"
+        },
+        {
+            "key": "$base-success",
+            "value": "#00ac69"
+        },
+        {
+            "key": "$base-warning",
+            "value": "#f4a100"
+        },
+        {
+            "key": "$base-danger",
+            "value": "#dc3545"
+        },
+        {
+            "key": "$base-hover-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$base-hover-bg",
+            "value": "rgba(0, 0, 0, 0.04)"
+        },
+        {
+            "key": "$base-focus-color",
+            "value": "#fff"
+        },
+        {
+            "key": "$base-focus-bg",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$base-invalid-color",
+            "value": "#dc3545"
+        },
+        {
+            "key": "$base-invalid-faded-border-color",
+            "value": "rgba(220, 53, 69, 0.4)"
+        },
+        {
+            "key": "$base-border-radius-small",
+            "value": "3px"
+        },
+        {
+            "key": "$base-border-radius-large",
+            "value": "5px"
+        },
+        {
+            "key": "$button-normal-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$button-normal-bg",
+            "value": "#f8f9fa"
+        },
+        {
+            "key": "$button-normal-border-color",
+            "value": "#f8f9fa"
+        },
+        {
+            "key": "$button-default-color",
+            "value": "#fff"
+        },
+        {
+            "key": "$button-default-bg",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$button-default-border-color",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$button-danger-color",
+            "value": "#fff"
+        },
+        {
+            "key": "$button-danger-bg",
+            "value": "#dc3545"
+        },
+        {
+            "key": "$button-danger-border-color",
+            "value": "#dc3545"
+        },
+        {
+            "key": "$button-success-color",
+            "value": "#fff"
+        },
+        {
+            "key": "$button-success-bg",
+            "value": "#00ac69"
+        },
+        {
+            "key": "$button-success-border-color",
+            "value": "#00ac69"
+        },
+        {
+            "key": "$list-border-color",
+            "value": "rgba(0, 0, 0, 0.125)"
+        },
+        {
+            "key": "$list-group-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$list-group-header-bg",
+            "value": "rgba(238, 238, 238, 0.05)"
+        },
+        {
+            "key": "$list-normal-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$list-item-hover-bg",
+            "value": "#f8f9fa"
+        },
+        {
+            "key": "$list-item-selected-bg",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$list-item-focused-selected-bg",
+            "value": "rgba(51, 102, 255, 0.7)"
+        },
+        {
+            "key": "$list-focused-bg",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$list-item-active-bg",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$fieldset-field-label-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$checkbox-border-color",
+            "value": "#dee2e6"
+        },
+        {
+            "key": "$checkbox-focused-borderd-color",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$checkbox-bg",
+            "value": "#fff"
+        },
+        {
+            "key": "$checkbox-hover-border-color",
+            "value": "#003df5"
+        },
+        {
+            "key": "$checkbox-active-icon-bg",
+            "value": "rgba(96, 96, 96, 0.2)"
+        },
+        {
+            "key": "$button-group-normal-selected-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$button-group-normal-selected-bg",
+            "value": "rgba(0, 0, 0, 0.17)"
+        },
+        {
+            "key": "$button-group-default-selected-color",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$button-group-default-selected-bg",
+            "value": "rgba(51, 102, 255, 0.3)"
+        },
+        {
+            "key": "$button-group-danger-selected-color",
+            "value": "#dc3545"
+        },
+        {
+            "key": "$button-group-danger-selected-bg",
+            "value": "rgba(220, 53, 69, 0.3)"
+        },
+        {
+            "key": "$button-group-success-selected-color",
+            "value": "#00ac69"
+        },
+        {
+            "key": "$button-group-success-selected-bg",
+            "value": "rgba(0, 172, 105, 0.3)"
+        },
+        {
+            "key": "$scrollable-scroll-bg",
+            "value": "rgba(191, 191, 191, 0.7)"
+        },
+        {
+            "key": "$scrollable-scrollbar-active-bg",
+            "value": "rgba(191, 191, 191, 0.2)"
+        },
+        {
+            "key": "$switch-border-color",
+            "value": "#dee2e6"
+        },
+        {
+            "key": "$switch-on-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$switch-container-active-bg",
+            "value": "rgba(96, 96, 96, 0.2)"
+        },
+        {
+            "key": "$switch-off-color",
+            "value": "#7e8b98"
+        },
+        {
+            "key": "$tabs-tab-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$tabs-tab-selected-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$tabs-tab-bg",
+            "value": "#f7f7f7"
+        },
+        {
+            "key": "$tabs-tab-selected-bg",
+            "value": "#fff"
+        },
+        {
+            "key": "$tabs-border-color",
+            "value": "#dee2e6"
+        },
+        {
+            "key": "$tabs-focused-border-color",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$tabs-tab-hover-bg",
+            "value": "#fff"
+        },
+        {
+            "key": "$badge-color",
+            "value": "#fff"
+        },
+        {
+            "key": "$badge-bg",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$navbar-tab-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$navbar-tab-selected-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$navbar-tab-bg",
+            "value": "#f7f7f7"
+        },
+        {
+            "key": "$navbar-tab-selected-bg",
+            "value": "#fff"
+        },
+        {
+            "key": "$overlay-content-bg",
+            "value": "#fff"
+        },
+        {
+            "key": "$overlay-shader-bg",
+            "value": "rgba(255, 255, 255, 0.8)"
+        },
+        {
+            "key": "$overlay-focus-border-color",
+            "value": "#dee2e6"
+        },
+        {
+            "key": "$textbox-search-icon-color",
+            "value": "#7e8b98"
+        },
+        {
+            "key": "$texteditor-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$texteditor-placeholder-color",
+            "value": "#6c757d"
+        },
+        {
+            "key": "$texteditor-bg",
+            "value": "#fff"
+        },
+        {
+            "key": "$texteditor-filled-bg",
+            "value": "rgba(33, 37, 41, 0.05)"
+        },
+        {
+            "key": "$texteditor-border-color",
+            "value": "#ced4da"
+        },
+        {
+            "key": "$texteditor-focused-border-color",
+            "value": "#99b3ff"
+        },
+        {
+            "key": "$texteditor-hover-border-color",
+            "value": "rgba(51, 102, 255, 0.4)"
+        },
+        {
+            "key": "$dropdowneditor-button-hover-bg",
+            "value": "#dae0e5"
+        },
+        {
+            "key": "$dropdowneditor-button-active-bg",
+            "value": "#9fadba"
+        },
+        {
+            "key": "$dropdowneditor-icon-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$dropdowneditor-icon-active-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$numberbox-spin-active-bg",
+            "value": "#9fadba"
+        },
+        {
+            "key": "$numberbox-spin-hover-border-color",
+            "value": "transparent"
+        },
+        {
+            "key": "$numberbox-spin-icon-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$calendar-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$calendar-header-color",
+            "value": "#7e8b98"
+        },
+        {
+            "key": "$calendar-cell-other-color",
+            "value": "#98a2ac"
+        },
+        {
+            "key": "$calendar-bg",
+            "value": "#fff"
+        },
+        {
+            "key": "$calendar-hover-bg",
+            "value": "rgba(0, 0, 0, 0.04)"
+        },
+        {
+            "key": "$calendar-cell-selected-bg",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$calendar-cell-active-bg",
+            "value": "rgba(96, 96, 96, 0.2)"
+        },
+        {
+            "key": "$calendar-border-color",
+            "value": "#dee2e6"
+        },
+        {
+            "key": "$calendar-navigator-border-color",
+            "value": "#f8f9fa"
+        },
+        {
+            "key": "$calendar-navigator-hover-border-color",
+            "value": "#f8f9fa"
+        },
+        {
+            "key": "$calendar-shevron-icon-color",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$loadindicator-bg",
+            "value": "#49525a"
+        },
+        {
+            "key": "$treeview-focused-bg",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$treeview-hover-bg",
+            "value": "rgba(0, 0, 0, 0.04)"
+        },
+        {
+            "key": "$treeview-border-color",
+            "value": "#dee2e6"
+        },
+        {
+            "key": "$treeview-item-selected-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$treeview-spin-icon-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$menu-popup-bg",
+            "value": "#fff"
+        },
+        {
+            "key": "$menu-item-hover-bg",
+            "value": "rgba(0, 0, 0, 0.04)"
+        },
+        {
+            "key": "$menu-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$menu-item-hovered-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$menu-item-expanded-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$menu-item-selected-bg",
+            "value": "#e6e6e6"
+        },
+        {
+            "key": "$menu-popup-border-color",
+            "value": "#dee2e6"
+        },
+        {
+            "key": "$selectbox-list-bg",
+            "value": "#fff"
+        },
+        {
+            "key": "$toolbar-bg",
+            "value": "#fff"
+        },
+        {
+            "key": "$popup-title-bg",
+            "value": "transparent"
+        },
+        {
+            "key": "$tileview-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$toast-color",
+            "value": "#fff"
+        },
+        {
+            "key": "$toast-info-bg",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$toast-warning-bg",
+            "value": "#f4a100"
+        },
+        {
+            "key": "$toast-error-bg",
+            "value": "#dc3545"
+        },
+        {
+            "key": "$toast-success-bg",
+            "value": "#00ac69"
+        },
+        {
+            "key": "$progressbar-bg",
+            "value": "#e9ecef"
+        },
+        {
+            "key": "$progressbar-range-bg",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$tooltip-color",
+            "value": "#fff"
+        },
+        {
+            "key": "$tooltip-bg",
+            "value": "#000"
+        },
+        {
+            "key": "$tooltip-border-color",
+            "value": "#dee2e6"
+        },
+        {
+            "key": "$slider-bar-bg",
+            "value": "#dee2e6"
+        },
+        {
+            "key": "$slider-range-bg",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$gallery-indicator-bg",
+            "value": "#fff"
+        },
+        {
+            "key": "$gallery-indicator-item-selected-bg",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$gallery-indicator-focused-bg",
+            "value": "#0039e6"
+        },
+        {
+            "key": "$gallery-navbutton-hover-color",
+            "value": "rgba(51, 102, 255, 0.5)"
+        },
+        {
+            "key": "$gallery-nav-arrow-color",
+            "value": "#fff"
+        },
+        {
+            "key": "$gallery-navbutton-active-color",
+            "value": "rgba(51, 102, 255, 0.7)"
+        },
+        {
+            "key": "$loadpanel-content-bg",
+            "value": "#fff"
+        },
+        {
+            "key": "$tagbox-tag-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$tagbox-tag-bg",
+            "value": "#dddddd"
+        },
+        {
+            "key": "$tagbox-tag-button-remove-bg",
+            "value": "#aaaaaa"
+        },
+        {
+            "key": "$radiogroup-checked-bg",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$radiobutton-active-bg",
+            "value": "rgba(96, 96, 96, 0.2)"
+        },
+        {
+            "key": "$accordion-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$accordion-title-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$accordion-item-title-opened-bg",
+            "value": "transparent"
+        },
+        {
+            "key": "$accordion-item-border-color",
+            "value": "#dee2e6"
+        },
+        {
+            "key": "$accordion-item-focused-border-color",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$accordion-title-active-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$accordion-item-hover-bg",
+            "value": "rgba(0, 0, 0, 0.04)"
+        },
+        {
+            "key": "$accordion-icon-active-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$colorbox-overlay-bg",
+            "value": "#fff"
+        },
+        {
+            "key": "$datagrid-base-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$datagrid-base-background-color",
+            "value": "#fff"
+        },
+        {
+            "key": "$datagrid-border-color",
+            "value": "#dee2e6"
+        },
+        {
+            "key": "$datagrid-drag-header-border-color",
+            "value": "rgba(51, 102, 255, 0.5)"
+        },
+        {
+            "key": "$datagrid-selection-bg",
+            "value": "#e6e6e6"
+        },
+        {
+            "key": "$datagrid-row-selected-border-color",
+            "value": "#dee2e6"
+        },
+        {
+            "key": "$datagrid-row-selected-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$datagrid-row-focused-color",
+            "value": "#fff"
+        },
+        {
+            "key": "$datagrid-row-focused-bg",
+            "value": "#5c85ff"
+        },
+        {
+            "key": "$datagrid-hover-bg",
+            "value": "rgba(0, 0, 0, 0.04)"
+        },
+        {
+            "key": "$datagrid-menu-icon-color",
+            "value": "#6e7b88"
+        },
+        {
+            "key": "$datagrid-cell-modified-border-color",
+            "value": "rgba(0, 172, 105, 0.5)"
+        },
+        {
+            "key": "$datagrid-row-invalid-faded-border-color",
+            "value": "rgba(220, 53, 69, 0.4)"
+        },
+        {
+            "key": "$datagrid-nodata-color",
+            "value": "#7e8b98"
+        },
+        {
+            "key": "$datagrid-group-row-color",
+            "value": "#7a8794"
+        },
+        {
+            "key": "$datagrid-group-row-bg",
+            "value": "#f7f7f7"
+        },
+        {
+            "key": "$datagrid-search-color",
+            "value": "#fff"
+        },
+        {
+            "key": "$datagrid-spin-icon-color",
+            "value": "#7a8794"
+        },
+        {
+            "key": "$datagrid-search-bg",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$datagrid-row-error-color",
+            "value": "#fff"
+        },
+        {
+            "key": "$datagrid-row-error-bg",
+            "value": "#ea868f"
+        },
+        {
+            "key": "$datagrid-link-color",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$datagrid-focused-border-color",
+            "value": "#5c85ff"
+        },
+        {
+            "key": "$datagrid-editor-bg",
+            "value": "#fff"
+        },
+        {
+            "key": "$datagrid-columnchooser-bg",
+            "value": "#fff"
+        },
+        {
+            "key": "$datagrid-row-alternation-bg",
+            "value": "whitesmoke"
+        },
+        {
+            "key": "$datagrid-summary-color",
+            "value": "rgba(33, 37, 41, 0.7)"
+        },
+        {
+            "key": "$pager-page-selected-color",
+            "value": "#fff"
+        },
+        {
+            "key": "$pager-page-selected-bg",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$pivotgrid-area-color",
+            "value": "#7a8794"
+        },
+        {
+            "key": "$pivotgrid-totalcolor",
+            "value": "rgba(221, 221, 221, 0.2)"
+        },
+        {
+            "key": "$pivotgrid-grandtotalcolor",
+            "value": "whitesmoke"
+        },
+        {
+            "key": "$pivotgrid-field-area-text-color",
+            "value": "#3d444c"
+        },
+        {
+            "key": "$pivotgrid-spin-icon-color",
+            "value": "#7a8794"
+        },
+        {
+            "key": "$fileuploader-filename-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$fileuploader-falename-status-color",
+            "value": "#7e8b98"
+        },
+        {
+            "key": "$fileuploader-border-color",
+            "value": "#dee2e6"
+        },
+        {
+            "key": "$scheduler-base-border-color",
+            "value": "rgba(222, 226, 230, 0.6)"
+        },
+        {
+            "key": "$scheduler-accent-border-color",
+            "value": "#c1c9d0"
+        },
+        {
+            "key": "$scheduler-appointment-text-color",
+            "value": "#fff"
+        },
+        {
+            "key": "$scheduler-appointment-base-color",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$scheduler-appointment-start-color",
+            "value": "rgba(0, 0, 0, 0.3)"
+        },
+        {
+            "key": "$scheduler-first-month-border-color",
+            "value": "#a4afba"
+        },
+        {
+            "key": "$scheduler-workspace-focused-cell-color",
+            "value": "white"
+        },
+        {
+            "key": "$scheduler-current-time-cell-color",
+            "value": "#3366ff"
+        },
+        {
+            "key": "$scheduler-time-indicator-color",
+            "value": "#809fff"
+        },
+        {
+            "key": "$form-field-item-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$form-group-border-color",
+            "value": "#dee2e6"
+        },
+        {
+            "key": "$filterbuilder-text-color",
+            "value": "#212529"
+        },
+        {
+            "key": "$filterbuilder-text-focus-color",
+            "value": "#fff"
+        },
+        {
+            "key": "$filterbuilder-plus-icon-color",
+            "value": "rgba(0, 172, 105, 0.3)"
+        },
+        {
+            "key": "$filterbuilder-remove-icon-color",
+            "value": "rgba(220, 53, 69, 0.3)"
+        },
+        {
+            "key": "$filterbuilder-group-operation-color",
+            "value": "rgba(220, 53, 69, 0.3)"
+        },
+        {
+            "key": "$filterbuilder-item-field-color",
+            "value": "rgba(51, 102, 255, 0.3)"
+        },
+        {
+            "key": "$filterbuilder-item-operator-color",
+            "value": "rgba(0, 172, 105, 0.3)"
+        },
+        {
+            "key": "$filterbuilder-item-value-color",
+            "value": "rgba(222, 226, 230, 0.5)"
+        },
+        {
+            "key": "$filterbuilder-menu-icon-color",
+            "value": "#6e7b88"
+        },
+        {
+            "key": "$drawer-shader-background-color",
+            "value": "rgba(0, 0, 0, 0.5)"
+        },
+        {
+            "key": "$datagrid-columnchooser-item-color",
+            "value": "rgba(60, 75, 100, 1)"
+        },
+        {
+            "key": "$datagrid-columnchooser-font-weight",
+            "value": "bold"
+        }
+    ],
+    "baseTheme": "generic.light",
+    "outputColorScheme": "custom-scheme",
+    "makeSwatch": false,
+    "version": "21.2.4",
+    "widgets": [],
+    "removeExternalResources": false
+}

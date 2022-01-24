@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthHeader } from 'react-auth-kit';
 import { useQuery, useQueryClient } from 'react-query';
-import withAxios from 'src/services/api/utilities/provider';
+import withAxios from '_@/services/api/utilities/provider';
 import ReactPaginate from 'react-paginate';
 
 
