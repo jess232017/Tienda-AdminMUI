@@ -1,105 +1,120 @@
 import React from 'react';
 import { useParams } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 //Controls
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { ColumnDirective, ColumnsDirective, Filter, GridComponent, Group, Inject, Sort } from '@syncfusion/ej2-react-grids';
-
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import { DataGrid } from '@mui/x-data-grid';
 
 //Icon
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import CalendarTodayIcon from '@mui/icons-material/CalendarTodayTwoTone';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AccountWalletIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 
 //own
+import Article from './Article';
 import PageCard from '_@/common/PageCard';
-import api from '_@/services/api/tasks/ApiFactura';
+import NoData from '_@/pages/error/NoData';
+import api from '_@/services/api/tasks/ApiOrder';
+
+const calculateTotal = ({ row }) => {
+    const { price, quantity, discount } = row || 0;
+    return ((price * quantity) - (discount * quantity)).toFixed(2);
+}
+
+const columns = [
+    { field: 'id', headerName: 'Id', width: 20 },
+    { field: 'name', headerName: 'Nombre', flex: 1 },
+    { field: 'quantity', headerName: 'Cantidad', flex: 1 },
+    { field: 'price', headerName: 'Precio', flex: 1 },
+    { field: 'discount', headerName: 'Descuento', flex: 1 },
+    { valueGetter: calculateTotal, headerName: 'Total', flex: 1 },
+]
 
 const Detalle = () => {
+    //get data from api
     const facturaId = useParams().invoiceId;
-
-    const { data: dataDetalle } = api.obtenerDetalle("/" + facturaId);
-    const { data: dataFactura } = api.obtenerFactura("/" + facturaId);
+    const { mutateAsync } = api.editNote(facturaId);
+    const { data: dataFactura } = api.getById(facturaId);
+    const { data: dataDetalle } = api.getDetails(facturaId);
     const reportURL = import.meta.env.VITE_API_URL + "/Reporte/factura?Id=" + facturaId;
 
     const { data: detalle } = dataDetalle || {};
     const { data: factura } = dataFactura || {};
 
-    const calculateTotal = (_, data) => {
-        const { precio, cantidad } = data || 0;
-        return (precio * cantidad).toFixed(2);
-    }
+    const handleNote = () => {
+        toast.promise(mutateAsync({ note: "Viva el porno" }), {
+            pending: 'Guardando los cambios...',
+            success: "Guardado correctamente",
+            error: {
+                render({ data }) {
+                    const error = data?.response?.data?.error;
+                    return error?.message || data?.message;
+                }
+            }
+        });
+    };
 
     return (
         <PageCard
-            titulo={factura?.fechaVenta}
-            subTitulo={"Id Factura:" + facturaId}
+            headerProps={{
+                title: factura?.date,
+                subheader: "Id Factura: " + facturaId,
+                avatar: <CalendarTodayIcon />
+            }}
         >
-            <div className="row mb-5 order-info-wrap">
-                <div className="col-md-4">
-                    <article className="d-flex align-items-start">
-                        <Avatar variant="circular" sx={{ backgroundColor: "rgba(49,103,235,.2)", height: 48, width: 48 }}>
-                            <PermIdentityIcon sx={{ color: "#3167eb" }} />
-                        </Avatar>
-                        <div className="text ms-4">
-                            <Typography variant='h6' className="mb-1">Cliente</Typography>
-                            <p className="mb-1">
-                                John Alexander <br /> alguien@ejemplo.com <br /> +505 2212-3456
-                            </p>
-                            <a href="#">Ver Perfil</a>
-                        </div>
-                    </article>
-                </div> {/* col// */}
-                <div className="col-md-4">
-                    <article className="d-flex align-items-start">
-                        <Avatar variant="circular" sx={{ backgroundColor: "rgba(49,103,235,.2)", height: 48, width: 48 }}>
-                            <ShoppingCartIcon sx={{ color: "#3167eb" }} />
-                        </Avatar>
-                        <div className="text ms-4">
-                            <Typography variant='h6' className="mb-1">Venta</Typography>
-                            <p className="mb-1">
-                                Total: C${factura?.total} <br /> Pago con: C$ {factura?.pagoCon} <br /> Estado: {factura?.estado}
-                            </p>
-                            <a href={reportURL} rel="noreferrer" target="_blank">Descargar Recibo</a>
-                        </div>
-                    </article>
-                </div> {/* col// */}
-                <div className="col-md-4">
-                    <article className="d-flex align-items-start">
-                        <Avatar variant="circular" sx={{ backgroundColor: "rgba(49,103,235,.2)", height: 48, width: 48 }}>
-                            <AccountWalletIcon sx={{ color: "#3167eb" }} />
-                        </Avatar>
-                        <div className="text ms-4">
-                            <Typography variant='h6' className="mb-1">Metodo de pago</Typography>
-                            <p className="mb-1">
-                                Metodo: Efectivo
-                            </p>
-                            <a href="#">Ver Metodos</a>
-                        </div>
-                    </article>
-                </div> {/* col// */}
-            </div> {/* row // */}
-            <div className="row">
-                <div className="col-lg-8">
-                    <GridComponent
-                        height='250'
-                        dataSource={detalle}
-                        enableStickyHeader={true}
-                    >
-                        <ColumnsDirective>
-                            <ColumnDirective field='detalleId' headerText="Codigo" width='100' />
-                            <ColumnDirective field='descripcion' headerText="Producto" width='100' />
-                            <ColumnDirective field='cantidad' headerText="Cantidad" width='100' />
-                            <ColumnDirective field='precio' headerText="Precio Unitario" width='100' />
-                            <ColumnDirective field='cantidad' headerText="Total" width='100' valueAccessor={calculateTotal} />
-                        </ColumnsDirective>
+            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} mb={2}>
+                <Article
+                    title="Cliente"
+                    subtitle=""
+                    link="#"
+                    linkText="Ver Perfil"
+                    icon={PermIdentityIcon}
+                >
+                    {factura?.clientName} <br /> alguien@ejemplo.com <br /> +505 2212-3456
+                </Article>
+                <Article
+                    title="Venta"
+                    link={reportURL}
+                    linkText="Descargar Recibo"
+                    icon={ShoppingCartIcon}
+                >
+                    Total: C${factura?.total} <br /> Pago con: C$ {factura?.paidWith} <br /> Estado: {factura?.status}
+                </Article>
+                <Article
+                    title="Metodo de pago"
+                    link="#"
+                    linkText="Ver Metodos"
+                    icon={AccountWalletIcon}
+                >
+                    Metodo: {factura?.paymentName} <br /> Estado: {factura?.status}
+                </Article>
+            </Grid>
 
-                        <Inject services={[Sort, Filter, Group]} />
-                    </GridComponent>
-                </div>  {/* col// */}
-                <div className="col-lg-4">
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={12} md={8}>
+                    <div style={{ height: 400, width: '100%' }}>
+                        <div style={{ display: 'flex', height: '100%', padding: '7px' }}>
+                            <div style={{ flexGrow: 1 }} >
+                                <DataGrid
+                                    columns={columns}
+                                    rows={detalle || []}
+                                    hideFooter
+                                    components={{
+                                        NoRowsOverlay: NoData
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </Grid>
+                <Grid item xs={12} sm={12} md={4}>
                     <div className="box shadow-sm bg-light p-5 d-none pb-4">
                         <h6>Informacion de Pago</h6>
                         <p>
@@ -108,17 +123,24 @@ const Detalle = () => {
                             Phone: +1 (800) 555-154-52
                         </p>
                     </div>
-                    <div className="h-25">
-                        <div className="mb-3">
-                            <label>Notas</label>
-                            <textarea className="form-control" name="notas" id="notas" placeholder="Escribe alguna nota" defaultValue={""} />
-                        </div>
-                        <Button variant="contained">
+                    <div>
+                        <Box mb={1}>
+                            <label><Typography variant='subtitle1'>Notas</Typography></label>
+                            <TextareaAutosize
+                                name="notas"
+                                id="notas"
+                                defaultValue={factura?.note}
+                                aria-label="empty textarea"
+                                placeholder="Escribe alguna nota"
+                                style={{ width: 300, height: 100 }}
+                            />
+                        </Box>
+                        <Button variant="contained" size="small" onClick={handleNote}>
                             Guardar Nota
                         </Button>
                     </div>
-                </div> {/* col// */}
-            </div>
+                </Grid>
+            </Grid>
         </PageCard>
     );
 }

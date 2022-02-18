@@ -1,5 +1,6 @@
 @import 'custom';
 @import 'variables';
+@import 'input';
 @import 'material';
 
 .e-tbar-btn .e-icons {
@@ -12,6 +13,8 @@
     text-transform: none;
 }
 
+
+
 #container {
     visibility: hidden;
 }
@@ -23,6 +26,16 @@
     position: absolute;
     top: 45%;
     width: 30%;
+}
+
+.e-upload.e-control-wrapper.e-lib.e-keyboard{
+    border-radius: .3rem;
+    border: 1px solid rgb(209 213 219/ 1);
+    margin-bottom: .5rem;
+}
+
+p {
+    margin-bottom: 0;
 }
 
 @font-face {

@@ -1,49 +1,55 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 
 //controls
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { ColumnDirective, ColumnsDirective, ColumnChooser, Filter, GridComponent, Group, Inject, Sort, VirtualScroll } from '@syncfusion/ej2-react-grids';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
 //icons
 import TimerIcon from '@mui/icons-material/Timer';
 import UpdateIcon from '@mui/icons-material/Update';
 import ReceiptIcon from '@mui/icons-material/Receipt';
+import LocalMallIcon from '@mui/icons-material/LocalMallTwoTone';
 import ShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+
 
 import PageCard from '_@/common/PageCard';
 import Toolbar from '_@/components/Toolbar';
-import api from '_@/services/api/tasks/ApiFactura';
+import api from '_@/services/api/tasks/ApiOrder';
+import usePagination from '_@/services/hooks/usePagination';
+
+const columns = [
+    { field: 'id', headerName: 'Codigo', width: 100 },
+    { field: 'vendorName', headerName: 'Vendedor', width: 150 },
+    { field: 'clientName', headerName: 'Cliente', width: 150 },
+    { field: 'date', headerName: 'Fecha', width: 100 },
+    { field: 'subTotal', headerName: 'SubTotal', width: 100 },
+    { field: 'total', headerName: 'Total', width: 100 },
+    { field: 'paidWith', headerName: 'Pago con', width: 100 },
+    { field: 'paymentMethod', headerName: 'Metodo Pago', width: 100 },
+    { field: 'status', headerName: 'Estado', width: 100 },
+    { field: 'note', headerName: 'Comentario', width: 100 },
+];
 
 const Ventas = () => {
-    const grid = useRef(null);
     const navigate = useNavigate();
-    const [selected, setSelected] = useState({})
-    const { data, isLoading, isError } = api.obtener();
+    const { control, data, selected, isLoading, isError } = usePagination(api, columns);
 
     const onClickTomar = () => navigate("/admin/venta/nueva");
-    const onClickDetail = () => navigate("/admin/venta/" + selected?.facturaId);
-    const onClickDetail2 = () => console.log(selected);
-
-    const handleSelected = (e) => {
-        if (e.data != null) {
-            setSelected(e.data);
-        }
-    }
+    const onClickDetail = () => navigate("/admin/venta/" + selected[0]);
+    const onClickDetail2 = () => console.log(selected[0]);
 
     const handleChooser = () => {
-        grid.current.columnChooserModule.openColumnChooser();
-    }
-
-    const handlePrint = () => {
-        grid.current.print();
+        //grid.current.columnChooserModule.openColumnChooser();
     }
 
     return (
         <PageCard
-            icon="pi-shopping-cart"
-            titulo="Gestión de Ventas"
-            subTitulo="Listado de Ventas"
+            headerProps={{
+                title: "Gestión de Ventas",
+                subheader: "Listado de Ventas",
+                avatar: <LocalMallIcon />
+            }}
             isLoading={isLoading}
             isError={isError}
         >
@@ -87,29 +93,9 @@ const Ventas = () => {
                 </Button>
             </Toolbar>
 
-            <GridComponent
-                ref={grid}
-                height='350'
-                dataSource={data?.data}
-                showColumnChooser={true}
-                enableStickyHeader={true}
-                enableVirtualization={true}
-                rowSelected={handleSelected}
-            >
-                <ColumnsDirective>
-                    <ColumnDirective field='facturaId' headerText="Codigo" width='100' />
-                    <ColumnDirective field='vendedor' headerText="Vendedor" width='100' />
-                    <ColumnDirective field='cliente' headerText="Cliente" width='100' />
-                    <ColumnDirective field='fechaVenta' headerText="Fecha de Venta" width='100' />
-                    <ColumnDirective field='subTotal' headerText="Subtotal" width='100' />
-                    <ColumnDirective field='pagoCon' headerText="Pago con" width='100' />
-                    <ColumnDirective field='estado' headerText="Estado" width='100' />
-                    <ColumnDirective field='comentario' headerText="Comentario" width='100' />
-                </ColumnsDirective>
-
-                <Inject services={[Sort, Filter, Group, VirtualScroll, ColumnChooser]} />
-            </GridComponent>
-
+            <DataGrid
+                {...control}
+            />
         </PageCard>
     );
 }

@@ -35,18 +35,20 @@ legend {
     float: none;
 }
 
-.p-dataview.p-dataview-list .p-dataview-content > .p-grid > div {
-    border: none !important;
-    border-width: 0 !important;
-}
-
-.p-grid {
-    --bs-gutter-x: 1.5rem;
-    --bs-gutter-y: 0;
-    display: flex;
-    flex-wrap: wrap;
-}
-
 hr {
     color: azure;
+}
+
+.__dbk__container{
+    background-color: white;
+    border-radius: .3rem;
+}
+
+.__dbk__gutter.Horizontal.Dark{
+    height: unset;
+    background-color: #efefef;
+    width: 4px;
+    .__dbk__dragger.Horizontal.Dark{
+        background-color: #dee2e6;
+    }
 }

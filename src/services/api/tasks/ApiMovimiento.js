@@ -1,12 +1,12 @@
 import withAxios from '../utilities/provider';
-import {axiosQuery, axiosMutator} from '../utilities/core';
+import { axiosQuery, axiosMutator } from '../utilities/core';
 
 const apiMovimiento = {
-    obtener: axiosQuery("get", "/movimiento", "movimiento"),
-    obtenerMovimiento :   withAxios("get", "/movimiento"),
-    agregarMovimiento :   withAxios("post", "/movimiento"),
-    editarMovimiento :    withAxios("put", "/movimiento"),
-    eliminarMovimiento :  withAxios("delete", "/movimiento"),
+    new: axiosMutator("post", "/movimiento", "movimiento"),
+    edit: axiosMutator("put", "/movimiento", "movimiento"),
+    delete: axiosMutator("delete", "/movimiento", "movimiento"),
+    get: axiosQuery("get", "/movimiento", "movimiento"),
+    getById: axiosQuery("get", "/movimiento", "movimiento-only"),
 }
 
 export default apiMovimiento;

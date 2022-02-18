@@ -1,10 +1,12 @@
 //[DEPRECATED FOR React-RouterV6]
 
 import React from 'react';
+import NiceModal from '@ebay/nice-modal-react';
 import { HashRouter, Route, Routes, Navigate } from 'react-router-dom';
 
 
 import Loader from '_@/components/Loader';
+import CssBaseline from '@mui/material/CssBaseline';
 
 import RequireAuth from '_@/services/auth/RequireAuth';
 import RequireRole from '_@/services/auth/RequireRole';
@@ -14,21 +16,21 @@ import { ROLES } from '_@/services/auth/permission-maps';
 //Pages
 const Layout = React.lazy(() => import('./components/layout/container/Layout'));
 const Auth = React.lazy(() => import('./pages/auth/Auth'));
-const Login = React.lazy(() => import('./pages/auth/login/Login'));
+const Login = React.lazy(() => import('./pages/auth/Login'));
 const Register = React.lazy(() => import('./pages/auth/register/Register'));
 const Ventas = React.lazy(() => import('_@/pages/admin/Venta'));
 const DetalleVenta = React.lazy(() => import('_@/pages/admin/Venta/Detalle'));
-const TomarVenta = React.lazy(() => import('_@/pages/admin/Venta/Nueva'));
+const VentaNueva = React.lazy(() => import('_@/pages/admin/Venta/Nueva'));
 const Movimiento = React.lazy(() => import('_@/pages/admin/Movimiento'));
 const Inventario = React.lazy(() => import('_@/pages/admin/Inventario'));
-const Proveedor = React.lazy(() => import('_@/pages/admin/Proveedor'));
+const Supplier = React.lazy(() => import('_@/pages/admin/Supplier'));
 const Dashboard = React.lazy(() => import('_@/pages/admin/Dashboard'));
-const Empleado = React.lazy(() => import('_@/pages/admin/Empleado'));
-const Producto = React.lazy(() => import('_@/pages/admin/Producto'));
+const Employee = React.lazy(() => import('_@/pages/admin/Employee'));
+const Product = React.lazy(() => import('_@/pages/admin/Product'));
 const Registro = React.lazy(() => import('_@/pages/admin/Registro'));
-const Categoria = React.lazy(() => import('_@/pages/admin/Categoria'));
-const Cliente = React.lazy(() => import('_@/pages/admin/Cliente'));
-const Caja = React.lazy(() => import('_@/pages/admin/Caja'));
+const Category = React.lazy(() => import('_@/pages/admin/Category'));
+const Brand = React.lazy(() => import('_@/pages/admin/Brand'));
+const Client = React.lazy(() => import('_@/pages/admin/Client'));
 const Reporte = React.lazy(() => import('_@/pages/admin/Report'));
 const ReportViewer = React.lazy(() => import('_@/pages/admin/Report/ReportViewer'));
 const Setting = React.lazy(() => import('_@/pages/admin/Setting'));
@@ -37,6 +39,8 @@ const NoFound = React.lazy(() => import('_@/pages/error/NoFound'));
 const index = () => {
     return (
         <HashRouter>
+            <CssBaseline />
+            <NiceModal.Provider />
             <React.Suspense fallback={<Loader />}>
                 <Routes>
                     <Route index
@@ -100,7 +104,7 @@ const index = () => {
                             element={
                                 <RequireRole
                                     roles={[ROLES.administrador, ROLES.vendedor]}
-                                    children={<TomarVenta />}
+                                    children={<VentaNueva />}
                                 />
                             }
                         />
@@ -109,7 +113,16 @@ const index = () => {
                             element={
                                 <RequireRole
                                     roles={[ROLES.administrador, ROLES.vendedor]}
-                                    children={<Categoria />}
+                                    children={<Category />}
+                                />
+                            }
+                        />
+
+                        <Route path="marca"
+                            element={
+                                <RequireRole
+                                    roles={[ROLES.administrador, ROLES.vendedor]}
+                                    children={<Brand />}
                                 />
                             }
                         />
@@ -145,16 +158,7 @@ const index = () => {
                             element={
                                 <RequireRole
                                     roles={[ROLES.administrador, ROLES.bodeguero]}
-                                    children={<Producto />}
-                                />
-                            }
-                        />
-
-                        <Route path="caja"
-                            element={
-                                <RequireRole
-                                    roles={[ROLES.administrador, ROLES.cajero]}
-                                    children={<Caja />}
+                                    children={<Product />}
                                 />
                             }
                         />
@@ -163,7 +167,7 @@ const index = () => {
                             element={
                                 <RequireRole
                                     roles={[ROLES.administrador, ROLES.cajero, ROLES.vendedor]}
-                                    children={<Cliente />}
+                                    children={<Client />}
                                 />
                             }
                         />
@@ -172,7 +176,7 @@ const index = () => {
                             element={
                                 <RequireRole
                                     roles={[ROLES.administrador, ROLES.cajero, ROLES.vendedor]}
-                                    children={<Proveedor />}
+                                    children={<Supplier />}
                                 />
                             }
                         />
@@ -181,7 +185,7 @@ const index = () => {
                             element={
                                 <RequireRole
                                     roles={[ROLES.administrador]}
-                                    children={<Empleado />}
+                                    children={<Employee />}
                                 />
                             }
                         />
@@ -223,7 +227,6 @@ const index = () => {
                 </Routes>
             </React.Suspense>
         </HashRouter>
-
     );
 }
 

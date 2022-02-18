@@ -120,21 +120,21 @@ const ProfileSection = () => {
                                         button
                                         component={Link}
                                         to="/user/profile"
-                                        selected={selectedIndex === 1}
-                                        onClick={(event) => handleListItemClick(event, 1)}
+                                        selected={selectedIndex === 2}
+                                        onClick={(event) => handleListItemClick(event, 2)}
                                     >
                                         <ListItemIcon>
                                             <PersonTwoToneIcon />
                                         </ListItemIcon>
                                         <ListItemText primary="Perfil" />
                                     </ListItem>
-                                    <ListItem button selected={selectedIndex === 2} onClick={(event) => handleListItemClick(event, 2)}>
+                                    <ListItem button selected={selectedIndex === 3} onClick={(event) => handleListItemClick(event, 3)}>
                                         <ListItemIcon>
                                             <DraftsTwoToneIcon />
                                         </ListItemIcon>
                                         <ListItemText primary="Mis Mensajes" />
                                     </ListItem>
-                                    <ListItem button selected={selectedIndex === 3} onClick={(event) => handleListItemClick(event, 3)}>
+                                    <ListItem button selected={selectedIndex === 4} onClick={(event) => handleListItemClick(event, 4)}>
                                         <ListItemIcon>
                                             <LockOpenTwoTone />
                                         </ListItemIcon>

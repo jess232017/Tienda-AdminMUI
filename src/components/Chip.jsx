@@ -1,7 +1,10 @@
 import React from 'react';
+import MuiChip from '@mui/material/Chip';
 
-const Chip = () => {
-    return (<p>Borrame ya no quiero vivir</p>);
-}
+const Chip = (props) => {
+    const { ...rest } = props;
+
+    return <MuiChip {...rest} />;
+};
 
 export default Chip;

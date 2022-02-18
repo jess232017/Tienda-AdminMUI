@@ -1,56 +1,63 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 
 //controls
-import { show } from '@ebay/nice-modal-react';
 import { Button } from '@mui/material';
-import { ColumnDirective, ColumnsDirective, ColumnChooser, Filter, GridComponent, Group, Inject, Sort, VirtualScroll } from '@syncfusion/ej2-react-grids';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
-//icons
+//Icons
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
+import InventoryIcon from '@mui/icons-material/InventoryTwoTone';
 
 //owned
 import PageCard from '_@/common/PageCard';
 import Toolbar from '_@/components/Toolbar';
 import Form from '_@/components/forms/FormInventario';
-import api from '_@/services/api/tasks/ApiInventario';
+import api from '_@/services/api/tasks/ApiInventory';
+import usePagination from '_@/services/hooks/usePagination';
 import DropButton, { MenuItem } from '_@/components/DropButton';
+import useCrud from '_@/services/hooks/useCrud';
 
 const URL = import.meta.env.VITE_API_URL;
 
-const Inventario = () => {
-    const grid = useRef(null);
-    const [selected, setSelected] = useState({})
-    const { data, isLoading, isError } = api.obtener();
+const columns = [
+    { field: 'id', headerName: 'Codigo', width: 100 },
+    { field: 'movimientoId', headerName: 'Nombre', width: 300 },
+    { field: 'loteId', headerName: 'Descripcion', width: 100 },
+    { field: 'motivo', headerName: 'Defecto', width: 100 },
+    { field: 'fecha', headerName: 'Defecto', width: 100 },
+    { field: 'estado', headerName: 'Defecto', width: 100 },
+    { field: 'cantidad', headerName: 'Defecto', width: 100 },
+    { field: 'costoUnit', headerName: 'Defecto', width: 100 },
+    { field: 'subTotal', headerName: 'Defecto', width: 100 },
+    { field: 'total', headerName: 'Defecto', width: 100 },
+    { field: 'nota', headerName: 'Defecto', width: 100 },
+    { field: 'movimiento', headerName: 'Defecto', width: 100 },
+    { field: 'lote', headerName: 'Defecto', width: 100 },
+];
 
-    const onClickAdd = () => show(Form, { title: 'Agregar Inventario', method: 'post', data: selected, queryKey: 'inventario' });
-    const onClickEdit = () => show(Form, { title: 'Editar Inventario', method: 'put', data: selected, queryKey: 'inventario' });
-    const onClickDelete = () => show(Form, { title: 'Eliminar Inventario', method: 'delete', data: selected, queryKey: 'inventario' });
+const Inventario = () => {
+    const { control, data, selected, isLoading, isError } = usePagination(api, columns);
+    const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected);
+
     const onClickExpiring = () => window.open(URL + '/reporte/productos/vence', '_blank').focus();
     const onClickExpired = () => window.open(URL + '/reporte/productos/vencido', '_blank').focus();
 
-
-    const handleSelected = (e) => {
-        if (e.data != null) {
-            setSelected(e.data);
-        }
-    }
-
     const handleChooser = () => {
-        grid.current.columnChooserModule.openColumnChooser();
     }
 
     const handlePrint = () => {
-        grid.current.print();
     }
 
     return (
         <PageCard
-            icon="pi-credit-card"
-            titulo="Gestión de Inventario"
-            subTitulo="Listado de Inventario"
+            headerProps={{
+                title: "Gestión de inventarios",
+                subheader: "Listado de inventarios",
+                avatar: <InventoryIcon />
+            }}
             isLoading={isLoading}
             isError={isError}
         >
@@ -60,7 +67,7 @@ const Inventario = () => {
                 <Button
                     variant="outlined"
                     size='small'
-                    onClick={onClickAdd}
+                    onClick={handleAdd}
                     startIcon={<AddIcon />}
                 >
                     Agregar
@@ -69,7 +76,7 @@ const Inventario = () => {
                 <Button
                     variant="outlined"
                     size='small'
-                    onClick={onClickEdit}
+                    onClick={handleEdit}
                     startIcon={<EditIcon />}
                 >
                     Editar
@@ -77,7 +84,7 @@ const Inventario = () => {
                 <Button
                     variant="outlined"
                     size='small'
-                    onClick={onClickDelete}
+                    onClick={handleDelete}
                     startIcon={<DeleteIcon />}
                 >
                     Eliminar
@@ -108,34 +115,10 @@ const Inventario = () => {
                 </DropButton>
             </Toolbar>
 
-            <GridComponent
-                ref={grid}
-                height='350'
-                dataSource={data?.data}
-                showColumnChooser={true}
-                enableStickyHeader={true}
-                enableVirtualization={true}
-                enableColumnVirtualization={true}
-                rowSelected={handleSelected}
-            >
-                <ColumnsDirective>
-                    <ColumnDirective field='inventarioId' headerText="inventarioId" width='100' />
-                    <ColumnDirective field='movimientoId' headerText="movimientoId" width='300' />
-                    <ColumnDirective field='loteId' headerText="loteId" width='100' />
-                    <ColumnDirective field='motivo' headerText="motivo" width='100' />
-                    <ColumnDirective field='fecha' headerText="fecha" width='100' />
-                    <ColumnDirective field='estado' headerText="estado" width='100' />
-                    <ColumnDirective field='cantidad' headerText="cantidad" width='100' />
-                    <ColumnDirective field='costoUnit' headerText="costoUnit" width='100' />
-                    <ColumnDirective field='subTotal' headerText="subTotal" width='100' />
-                    <ColumnDirective field='total' headerText="total" width='100' />
-                    <ColumnDirective field='nota' headerText="nota" width='100' />
-                    <ColumnDirective field='movimiento' headerText="movimiento" width='100' />
-                    <ColumnDirective field='lote' headerText="lote" width='100' />
-                </ColumnsDirective>
 
-                <Inject services={[Sort, Filter, Group, VirtualScroll, ColumnChooser]} />
-            </GridComponent>
+            <DataGrid
+                {...control}
+            />
         </PageCard>
     );
 }

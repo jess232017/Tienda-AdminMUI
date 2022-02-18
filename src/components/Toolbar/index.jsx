@@ -11,22 +11,33 @@ import PictureInPictureIcon from '@mui/icons-material/PictureInPicture';
 //Owned
 import Search from '_@/components/Toolbar/Search';
 
-const Stacky = styled(Stack)({
+const StackLeft = styled(Stack)({
+    flexWrap: "wrap",
+    flexDirection: "row",
     " button, div": {
         marginBottom: 4,
-        marginRight: 8
+        marginRight: 8,
+    }
+})
+
+const StackRight = styled(Stack)({
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "row",
+    " button, div": {
+        marginBottom: 4,
+        marginLeft: 8,
     }
 })
 
 const Toolbar = ({ children, onClickChooser, onClickPrint }) => {
-
     return (
         <Box display="flex" justifyContent="space-between" mb={1}>
-            <Stacky display="inline-block" direction="row" flexWrap="wrap">
+            <StackLeft>
                 {children}
-            </Stacky>
+            </StackLeft>
 
-            <Stacky direction="row">
+            <StackRight>
                 {onClickPrint != null &&
                     <Button
                         size='small'
@@ -49,7 +60,7 @@ const Toolbar = ({ children, onClickChooser, onClickPrint }) => {
                     </Button>
                 }
                 <Search />
-            </Stacky>
+            </StackRight>
         </Box>
     );
 }

@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 
 //Icon
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import SummarizeIcon from '@mui/icons-material/SummarizeTwoTone';
 
 //owned
 import reports from './data';
@@ -35,9 +36,11 @@ const Reporte = () => {
 
     return (
         <PageCard
-            icon="pi-shopping-cart"
-            titulo="Reportes"
-            subTitulo="Lista de Reportes disponibles"
+            headerProps={{
+                title: "Reportes",
+                subheader: "Lista de Reportes disponibles",
+                avatar: <SummarizeIcon />
+            }}
         >
             <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
                 {reports.map(({ title, subtitle, link }, index) => (

@@ -10,6 +10,7 @@ import Divider from '@mui/material/Divider';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import LoadingButton from '@mui/lab/LoadingButton';
+import Typography from '@mui/material/Typography';
 
 import { Toast } from 'primereact/toast';
 
@@ -91,9 +92,9 @@ const Register = () => {
                 </CardContent>
                 <Divider />
                 <CardContent>
-                    <span className="text-sm text-muted">
+                    <Typography variant="subtitle2" component="span" color="initial">
                         ¿Ya tienes una cuenta? <Link to="/auth">Ingresa</Link>.
-                    </span>
+                    </Typography>
                 </CardContent>
             </Card>
         </>

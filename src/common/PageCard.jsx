@@ -1,44 +1,31 @@
 import React from 'react';
 
-import { Skeleton } from 'primereact/skeleton';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import Divider from '@mui/material/Divider';
 
-import { Card, CardHeader, Divider, CardContent } from '@mui/material';
+import ServerDown from '_@/pages/error/ServerDown'
 
-const PageCard = ({ icon, titulo, subTitulo, isLoading = false, isError = false, children }) => {
+const PageCard = ({ headerProps = {}, isLoading = false, isError = false, children }) => {
+
     return (
-        <Card>
+        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
             <CardHeader
-                title={titulo}
-                subheader={isLoading ? "Cargando..." : subTitulo}
+                {...headerProps}
+                subheader={isLoading ? "Cargando..." : headerProps.subheader}
+                titleTypographyProps={{
+                    variant: "h5"
+                }}
             />
             <Divider />
 
-            <CardContent>
-                {isLoading ?
-                    <>
-                        <div className="d-flex justify-content-between mt-3 mb-3">
-                            <div className="d-flex">
-                                <Skeleton width="7rem" height="2rem"></Skeleton>
-                                <Skeleton width="7rem" height="2rem" className="ms-2"></Skeleton>
-                                <Skeleton width="7rem" height="2rem" className="ms-2"></Skeleton>
-                            </div>
-                            <div className="d-flex">
-                                <Skeleton width="2.4rem" height="2rem" className="ms-3"></Skeleton>
-                                <Skeleton width="10rem" height="2rem"></Skeleton>
-                            </div>
-                        </div>
-                        <Skeleton width="100%" height="18rem"></Skeleton>
-                        <div className="d-flex justify-content-between mt-3">
-                            <Skeleton width="9rem" height="2rem"></Skeleton>
-                            <Skeleton width="25rem" height="2rem"></Skeleton>
-                        </div>
-                    </>
-                    : isError ?
-                        <p>Error al cargar</p>
-                        :
-                        <>{children}</>
+            <CardContent sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                {isError ?
+                    <ServerDown />
+                    :
+                    <>{children}</>
                 }
-
             </CardContent>
         </Card>
     );

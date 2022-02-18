@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 //control
+import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
 import NiceModal from '@ebay/nice-modal-react';
 
@@ -9,191 +10,207 @@ import * as Yup from 'yup';
 
 //Mui
 import Grid from '@mui/material/Grid';
-import Avatar from '@mui/material/Avatar'
 
 //Owned
 import FormDialog from '_@/common/FormDialog';
-import ApiProducto from '_@/services/api/tasks/ApiProducto';
-import apiCategoria from '_@/services/api/tasks/ApiCategoria';
-import {Input, CheckBox, Select} from '_@/common/global/control/index';
+import apiProduct from '_@/services/api/tasks/ApiProduct';
+import apiCategoria from '_@/services/api/tasks/ApiCategory';
+import apiBrand from '_@/services/api/tasks/ApiBrand';
+import Uploader from '_@/components/Uploader';
+import Select from '_@/common/control/Select';
+import Input from '_@/common/control/Input';
 
 //descripcion categoriaId precioventa cantidad marca stockMinimo codigoqr
 const validationSchema = Yup.object().shape({
-    descripcion: Yup.string()
+    name: Yup.string()
         .required('El nombre es requerido')
         .min(3, 'El nombre debe tener al menos 3 caracteres')
         .max(20, 'El nombre no debe exceder los 20 caracteres'),
-    categoriaId: Yup.string()
-        .required('La categoria es requerida')
-        .uuid("El texto no concide con un GUID")
-        .length(36, 'El campo debe ser igual a 36 caracteres'),
-    precioventa: Yup.number("Debe ingresar un numero")
+    description: Yup.string()
+        .required('La descripcion es requerida')
+        .min(3, 'La descripcion debe tener al menos 3 caracteres')
+        .max(20, 'La descripcion no debe exceder los 20 caracteres'),
+    categoryId: Yup.number()
+        .required('La categoria es requerida'),
+    brandId: Yup.number()
+        .required('La categoria es requerida'),
+    price: Yup.number("Debe ingresar un numero")
         .required('El precio de venta es requerido')
         .positive('El precio debe ser positivo'),
-    cantidad: Yup.number("Debe ingresar un numero")
+    stock: Yup.number("Debe ingresar un numero")
         .positive('La cantidad debe ser positivo'),
-    marca: Yup.string()
-        .required('La marca es requerido')
-        .min(3, 'La marca debe tener al menos 3 caracteres')
-        .max(20, 'La marca no debe exceder los 20 caracteres'),
-    stockMinimo: Yup.number("Debe ingresar un numero")
+    safetyStock: Yup.number("Debe ingresar un numero")
         .required('El stock minimo es requerido')
         .positive('El stock minimo debe ser positivo'),
-    codigoqr: Yup.string()
-        .min(3, 'El codigoqr debe tener al menos 3 caracteres')
 });
 
-const FormProducto = NiceModal.create( ({title, method, data: source, queryKey}) =>{
-    const { handleSubmit, formState: { errors }, control } = useForm({
+const FormProducto = NiceModal.create(({ data, request }) => {
+    const { handleSubmit, formState: { errors }, register } = useForm({
         resolver: yupResolver(validationSchema),
     });
 
     //Apis
-    const {isLoading, mutate} = ApiProducto.agregarProducto('producto');
+    const isNew = data == null;
+    const { isLoading, mutateAsync } = request;
 
-    //Obtener las categorias disponibles
-    const { data } = apiCategoria.obtenerCategoria();
-    const [categories, setCategories] = useState({});
+    //get available categories
+    const { data: dataBrand } = apiBrand.get(`?PageNumber=1&PageSize=30`);
+    const { data: dataCatg } = apiCategoria.get(`?PageNumber=1&PageSize=30`);
+    const [categories, setCategories] = useState([]);
+    const [brands, setBrands] = useState([]);
 
-    //Convertir a datos admitidos por Select Control
+    //parse data from api to be admited for select control
     useEffect(() => {
-        setCategories(data?.data.map( ({categoriaId, nombre}) => ({
-            name : nombre,
-            value: categoriaId,
-        })));
-    }, [data])
+        if (dataCatg?.data != null) {
+            const { data: { data } } = dataCatg;
+            setCategories(data?.map(({ id, name }) => ({ name, value: id, })));
+        }
+    }, [dataCatg])
+
+    useEffect(() => {
+        if (dataBrand?.data != null) {
+            const { data: { data } } = dataBrand;
+            setBrands(data?.map(({ id, name }) => ({ name, value: id, })));
+        }
+    }, [dataBrand])
 
     const onSubmit = (data) => {
-        console.log(data)
-
-        mutate(data, {
-            onSuccess: (data) => {                    
-                alert(JSON.stringify(data));
+        toast.promise(mutateAsync(data), {
+            pending: 'Guardando los cambios...',
+            success: {
+                render() {
+                    return "Guardado correctamente";
+                }
             },
-            onError: (error) => {
-                alert(JSON.stringify(error));
-                //toast.current.show({severity:'error', summary: '', detail: error.mensaje});
-            },
+            error: {
+                render({ data }) {
+                    const error = data?.response?.data?.error;
+                    return error?.message || data?.message;
+                }
+            }
         });
     };
 
     return (
         <FormDialog
-            title={title}
+            title={`${isNew ? "Agregar" : "Actualizar"} producto`}
             processing={isLoading}
-            callback= {handleSubmit(onSubmit)}
+            callback={handleSubmit(onSubmit)}
         >
-            <Grid container spacing={{xs: 1, md: 2}} columns={{xs: 1, sm: 2, md: 3}}>
+            <Grid container spacing={{ xs: 1, md: 2 }} columns={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={1} sm={1} md={2}>
-                    <Grid container spacing={{ xs: 1, md: 2 }} columns={{ xs: 2, sm: 4, md: 6}}>
+                    <Grid container spacing={{ xs: 1, md: 2 }} columns={{ xs: 2, sm: 4, md: 6 }}>
                         <Grid item xs={2} sm={4} md={3}>
-                            <Input
-                                name="descripcion"
+                            <Input required
+                                label="Nombre"
+                                name="name"
+                                type="text"
+                                register={register}
+                                error={errors}
+                            />
+                        </Grid>
+                        <Grid item xs={1} sm={4} md={3}>
+                            <Input required
                                 label="Descripcion"
-                                control = {control}
-                                helperText={errors.descripcion?.message}
-                                error={errors.descripcion ? true : false}
+                                name="description"
+                                type="text"
+                                register={register}
+                                error={errors}
                             />
                         </Grid>
-                        <Grid item xs={1} sm={4} md={3}>
-                            <Select
-                                name="categoriaId"
-                                label="Categoria"
-                                control={control}
-                                items={categories}
-                                helperText={errors.categoriaId?.message}
-                                error={errors.categoriaId ? true : false}
-                            />
-                        </Grid>
-                        <Grid item xs={1} sm={4} md={3}>
-                            <Input
-                                name="precioventa"
-                                label="PrecioVenta"
-                                control = {control}
-                                type="number"
-                                helperText={errors.precioventa?.message}
-                                error={errors.precioventa ? true : false}
-                            />
-                        </Grid>
-                        <Grid item xs={1} sm={4} md={3}>
-                            <Input
-                                name="cantidad"
-                                label="Cantidad"
-                                control = {control}
-                                type="number"
-                                helperText={errors.cantidad?.message}
-                                error={errors.cantidad ? true : false}
-                            />
-                        </Grid>
-                        <Grid item xs={1} sm={2} md={3}>
-                            <Input
-                                name="marca"
+
+                        <Grid item xs={1} sm={2} md={2}>
+                            <Select required
                                 label="Marca"
-                                control = {control}
-                                helperText={errors.marca?.message}
-                                error={errors.marca ? true : false}
+                                name="brandId"
+                                type="text"
+                                options={brands}
+                                register={register}
+                                error={errors}
+                            />
+                        </Grid>
+                        <Grid item xs={1} sm={2} md={2}>
+                            <Select required
+                                label="Categoria"
+                                name="categoryId"
+                                type="number"
+                                autoComplete="on"
+                                options={categories}
+                                register={register}
+                                error={errors}
+                            />
+                        </Grid>
+                        <Grid item xs={1} sm={4} md={2}>
+                            <Input required
+                                label="Slug"
+                                name="slug"
+                                type="text"
+                                register={register}
+                                error={errors}
+                            />
+                        </Grid>
+                        <Grid item xs={1} sm={2} md={2}>
+                            <Input required
+                                label="Precio"
+                                name="price"
+                                type="number"
+                                register={register}
+                                error={errors}
+                            />
+                        </Grid>
+                        <Grid item xs={1} sm={2} md={2}>
+                            <Input required
+                                label="Cantidad actual"
+                                name="stock"
+                                type="number"
+                                disabled
+                                register={register}
+                                error={errors}
+                            />
+                        </Grid>
+                        <Grid item xs={1} sm={2} md={2}>
+                            <Input required
+                                label="Cantidad minima"
+                                name="safetyStock"
+                                type="number"
+                                register={register}
+                                error={errors}
                             />
                         </Grid>
                         <Grid item xs={1} sm={2} md={3}>
-                            <Input
-                                name="stockMinimo"
-                                label="Stock Minimo"
-                                control = {control}
-                                type="number"
-                                helperText={errors.stockMinimo?.message}
-                                error={errors.stockMinimo ? true : false}
+                            <Input required
+                                label="Inventariable"
+                                name="isInventoriable"
+                                type="checkbox"
+                                register={register}
+                                error={errors}
                             />
                         </Grid>
-                        <Grid item xs={1} sm={4} md={3}>
-                            <Input
-                                name="codigoqr"
-                                label="CodigoQR"
-                                control = {control}
-                                helperText={errors.codigoqr?.message}
-                                error={errors.codigoqr ? true : false}
-                            />
-                        </Grid>
-                        <Grid item xs={1} sm={4} md={3}>
-                        </Grid>
-
-                        <Grid item xs={1} sm={4} md={3}>
-                            <CheckBox
-                                name="granel"
+                        <Grid item xs={1} sm={2} md={3}>
+                            <Input required
                                 label="Granel"
-                                control = {control}
-                            />
-                        </Grid>
-
-                        <Grid item xs={1} sm={4} md={3}>
-                            <CheckBox
-                                name="inventariado"
-                                label="Inventariado"
-                                control = {control}
+                                name="isGranel"
+                                type="checkbox"
+                                register={register}
+                                error={errors}
                             />
                         </Grid>
                     </Grid>
                 </Grid>
-                
-                
-                <Grid item xs={1} sm={1} md={1}>
 
-                    <Avatar variant="rounded" sx={{height: '250px', width: "100%", mb: 2}}/>
-                    <Input
-                        name="image"
-                        label="Imagen"
-                        control = {control}
-                        type="file"
-                    />
-                    <Input
+                <Grid item xs={1} sm={1} md={1}>
+                    <Uploader />
+                    <Input required
+                        label="Codigo"
                         name="productoId"
-                        label="Producto Id"
-                        control = {control}
-                        helperText={errors.productoId?.message}
-                        error={errors.productoId ? true : false}
+                        type="number"
+                        register={register}
+                        error={errors}
+                        disabled
                     />
                 </Grid>
             </Grid>
-            
+
         </FormDialog>
     )
 });

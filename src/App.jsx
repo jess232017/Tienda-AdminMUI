@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { IntlProvider } from 'react-intl';
 import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+import { ConfirmProvider } from 'material-ui-confirm';
 
 import Routes from '_@/Routes';
 import theme from '_@/services/themes/themes';
@@ -21,9 +21,17 @@ const App = () => {
     <>
       {messages && (
         <IntlProvider locale={show.locale} defaultLocale="es" messages={messages}>
-          <CssBaseline />
           <ThemeProvider theme={theme(show)}>
-            <Routes />
+            <ConfirmProvider
+              defaultOptions={{
+                confirmationButtonProps: { autoFocus: true },
+                dialogProps: {
+                  maxWidth: 'xs'
+                }
+              }}
+            >
+              <Routes />
+            </ConfirmProvider>
           </ThemeProvider>
         </IntlProvider>
       )}

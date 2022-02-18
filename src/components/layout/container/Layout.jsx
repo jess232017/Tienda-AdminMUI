@@ -6,14 +6,15 @@ import clsx from 'clsx';
 
 import { styled } from '@mui/system';
 import { makeStyles, useTheme } from '@mui/styles';
-import { useMediaQuery, CssBaseline, Box, Toolbar } from '@mui/material';
+import { useMediaQuery, Box, Toolbar } from '@mui/material';
 
 import Header from './header/Header';
 import Sidebar from './sidebar/Sidebar';
 import { drawerWidth } from '_@/services/constant';
 
 const Main = styled('div')(({ theme }) => ({
-    padding: theme.spacing(3),
+    padding: theme.spacing(2.5),
+    height: "calc(100% - 20px)",
     [theme.breakpoints.down('sm')]: {
         padding: theme.spacing(2),
     },
@@ -60,7 +61,6 @@ const MainLayout = () => {
 
     return (
         <Box display="flex">
-            <CssBaseline />
             <Sidebar drawerOpen={drawerOpen} drawerToggle={handleDrawerToggle} />
             <Div className={clsx({ [classes.contentShift]: drawerOpen })}>
                 <Toolbar>

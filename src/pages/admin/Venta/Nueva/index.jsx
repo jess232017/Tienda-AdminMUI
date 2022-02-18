@@ -1,49 +1,56 @@
 import React from 'react';
 
-import { Splitter, SplitterPanel } from 'primereact/splitter';
+import Card from '@mui/material/Card';
+import Splitter from '@devbookhq/splitter';
+import { useAuthUser } from 'react-auth-kit';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Card from '@mui/material/Card'
 
-import styled from 'styled-components'
+//icon
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+
+//own
+import CartShop from './CartShop';
 import ViewItem from '_@/common/global/ViewItem';
-import useCarrito from '_@/services/context/carrito';
-import Selecionado from '_@/pages/admin/Venta/Nueva/Selecionado';
 
-const SplitterRound = styled(Splitter)`
-    border: none;
-    box-shadow: 0 4px 6px -2px rgb(0 0 0 / 12%), 0 2px 2px -1px rgb(0 0 0 / 5%);
-    border-radius: 10px
-`;
+const cancelData = {
+    title: "Acción permanente ⚠️",
+    description: '¿Seguro que quiere eliminar los productos agregados al carrito?',
+    cancellationText: 'No, Cancelar',
+    confirmationText: 'Eliminar Todo',
+    confirmationButtonProps: {
+        color: 'error',
+        startIcon: <HighlightOffIcon />
+    },
+}
+
 
 const TomarVenta = () => {
-    const matches = useMediaQuery('(min-width:600px)');
+    //Get vendor id
+    const vendorId = useAuthUser()().userCode;
+    const matches = useMediaQuery('(min-width:880px)');
 
-    return matches ?
-        <SplitterRound style={{ borderRadius: "10px" }} >
-            <SplitterPanel
-                size={68}
+    if (matches) {
+        return (
+            <Splitter
+                minWidths={[330, 330]}
+                initialSizes={[66, 34]}
             >
                 <ViewItem />
-            </SplitterPanel>
-            <SplitterPanel
-                size={32}
-            >
-                <Selecionado />
-            </SplitterPanel>
-        </SplitterRound>
-        :
-        <div className="row">
-            <div className="col-md-8">
-                <Card>
-                    <ViewItem />
-                </Card>
-            </div>
-            <div className="col-md-4">
-                <Card>
-                    <Selecionado />
-                </Card>
-            </div>
-        </div>
+                <CartShop
+                    vendorId={vendorId}
+                />
+            </Splitter >
+        )
+    }
+
+    return (
+        <Card>
+            <ViewItem />
+            <CartShop
+                vendorId={vendorId}
+            />
+        </Card>
+    )
 }
 
 export default TomarVenta;

@@ -261,6 +261,13 @@ export function theme(customization) {
                     },
                 },
             },
+            MuiDataGrid: {
+                styleOverrides: {
+                    root: {
+                        fontSize: "0.75rem",
+                    },
+                },
+            },
             MuiTableCell: {
                 styleOverrides: {
                     root: {

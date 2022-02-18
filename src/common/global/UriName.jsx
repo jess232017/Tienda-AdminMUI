@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import styled from 'styled-components';
 import Tooltip from '@mui/material/Tooltip';
-import styled from 'styled-components'
+import Typography from '@mui/material/Typography';
 
 const TitleOverFlow = styled.p`
     text-overflow: ellipsis;
@@ -20,18 +21,18 @@ const UriLink = styled.a`
     color: #1b212c;
 `
 
-const UriName = ({uri, children}) => {
-    return ( 
-        <UriLink as={Link} to={uri}>
+const UriName = ({ uri, children }) => {
+    return (
+        <Typography variant="subtitle1" component={Link} to={uri} sx={{ textDecoration: 'none' }}>
             <Tooltip
                 title={children}
             >
-                <TitleOverFlow> 
-                    {children} 
+                <TitleOverFlow>
+                    {children}
                 </TitleOverFlow>
             </Tooltip>
-        </UriLink>
+        </Typography>
     );
 }
- 
+
 export default UriName;

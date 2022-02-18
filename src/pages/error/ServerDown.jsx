@@ -1,0 +1,26 @@
+import React from 'react';
+
+import { Link } from 'react-router-dom';
+
+//mui
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button';
+
+import DownImage from '_@/pages/error/images/server_down.svg';
+
+const ServerDown = () => {
+    return (
+        <Box>
+            <div className="w-50 mx-auto text-center mt-5 mb-5">
+                <img src={DownImage} width={350} alt="Parece que hay problemas con el servidor" />
+                <h3 className="mt-4">Uy! Problemas con el servidor</h3>
+                <p>La pagina que estas visitando presento problemas al conseguir la informacion, favor intentelo mas tarde.</p>
+                <Button sx={{ mt: 2 }} component={Link} to="/" variant="contained" size="large">
+                    Regresar al inicio
+                </Button>
+            </div>
+        </Box>
+    );
+}
+
+export default ServerDown;

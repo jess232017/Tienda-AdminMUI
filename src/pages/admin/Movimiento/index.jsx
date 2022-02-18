@@ -3,12 +3,12 @@ import React, { useState, useRef } from 'react';
 //controls
 import { show } from '@ebay/nice-modal-react';
 import { Button } from '@mui/material';
-import { ColumnDirective, ColumnsDirective, ColumnChooser, Filter, GridComponent, Group, Inject, Sort, VirtualScroll } from '@syncfusion/ej2-react-grids';
 
 //icons
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SupervisedUserIcon from '@mui/icons-material/SupervisedUserCircleTwoTone';
 
 //owned
 import PageCard from '_@/common/PageCard';
@@ -37,9 +37,11 @@ const Movimiento = () => {
 
     return (
         <PageCard
-            icon="pi-book"
-            titulo="Gestión de Movimiento"
-            subTitulo="Listado de Movimiento"
+            headerProps={{
+                title: "Gestión de movimientos",
+                subheader: "Listado de movimientos",
+                avatar: <SupervisedUserIcon />
+            }}
             isLoading={isLoading}
             isError={isError}
         >
@@ -73,18 +75,8 @@ const Movimiento = () => {
                 </Button>
             </Toolbar>
 
-            <GridComponent
-                ref={grid}
-                height='350'
-                dataSource={data?.data}
-                showColumnChooser={true}
-                enableStickyHeader={true}
-                enableVirtualization={true}
-                enableColumnVirtualization={true}
-                rowSelected={handleSelected}
-            >
-                <ColumnsDirective>
-                    <ColumnDirective field='movimientoId' headerText="movimientoId" width='100' />
+            {/*
+            <ColumnDirective field='movimientoId' headerText="movimientoId" width='100' />
                     <ColumnDirective field='empleadoId' headerText="empleadoId" width='300' />
                     <ColumnDirective field='estado' headerText="estado" width='100' />
                     <ColumnDirective field='fechaInicio' headerText="fechaInicio QR" width='100' />
@@ -97,10 +89,7 @@ const Movimiento = () => {
                     <ColumnDirective field='empleado' headerText="empleado" width='100' />
                     <ColumnDirective field='contables' headerText="contables" width='100' />
                     <ColumnDirective field='Movimientos' headerText="Movimientos" width='100' />
-                </ColumnsDirective>
-
-                <Inject services={[Sort, Filter, Group, VirtualScroll, ColumnChooser]} />
-            </GridComponent>
+            */}
         </PageCard>
     );
 }

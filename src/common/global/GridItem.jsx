@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from "react-router-dom";
 
 import styled from '@mui/system/styled';
 
@@ -7,14 +6,13 @@ import styled from '@mui/system/styled';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography'
 
-import Card from '@mui/material/Card'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 //icon
-import FavoriteIcon from '@mui/icons-material/FavoriteOutlined';
 import DeleteIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
@@ -24,37 +22,40 @@ import Item from '../../services/context/class/Item'
 
 const IconButton = styled(Button)({
     minWidth: 0,
-    maxHeight:35.5,
+    maxHeight: 34.11,
     padding: '0.5rem 10px',
-    ' svg':{
+    ' svg': {
         fontSize: '1.28rem'
     },
 })
 
-const GridItem = ({productoId, descripcion, imagen, precioVenta}, carritoStore) => {
-    const {carrito ,addItem, removeItem, editItem}  = carritoStore;
+const GridItem = ({ data, store, width }) => {
+    const { id, name, image, price } = data;
+    const { carrito, addItem, removeItem, editItem } = store;
 
-    const agregarItem = () =>{
-        addItem(new Item(productoId, descripcion, precioVenta, 1, 5, imagen));
+    const agregarItem = () => {
+        addItem(new Item(id, name, price, 1, 5, image));
     }
 
-    const exist = carrito.find(value => value.key === productoId);
-    return ( 
-        <div className="col">
-            <Box component="article" m={1} display="flex">
-                <Avatar 
-                    variant="rounded"
-                    alt={descripcion}
-                    src={`data:image/jpeg;charset=utf-8;base64,${imagen}`}
-                    sx={{ width: "92.5px", height: "92.5px" }}
-                />
-                <Box ml={2}>
-                    <Box display="flex" flexDirection="column">
-                        <UriName uri={`/producto?productoId=${productoId}`}>
-                            {descripcion}
-                        </UriName>
+    const exist = carrito.find(value => value.key === id);
 
-                        <p className="mb-2">C${precioVenta}</p> 
+    return (
+        <Grid item flexGrow={1}>
+            <Box component="article" display="flex">
+                <Avatar
+                    variant="rounded"
+                    alt={name}
+                    src={`data:image/jpeg;charset=utf-8;base64,${image}`}
+                    sx={{ width: "70px", height: "70px" }}
+                />
+                <Box ml={1} width="100%">
+                    <Box display="flex" flexDirection="column">
+                        <UriName uri={`/producto?id=${id}`}>
+                            {name}
+                        </UriName>
+                        <Typography variant="caption" mb={1} >
+                            C$ {price}
+                        </Typography>
                     </Box>
 
                     {(exist != null) ?
@@ -74,39 +75,41 @@ const GridItem = ({productoId, descripcion, imagen, precioVenta}, carritoStore) 
                                 onChange={(e) => {
                                     var value = parseInt(e.target.value, 10);
                                     editItem(exist.key, value);
-                                    console.log(value);
                                 }}
                             />
 
                             <IconButton
-                                onClick={(e) => removeItem(e, exist.key)}
+                                onClick={() => removeItem(exist.key)}
                                 variant="outlined"
                                 color="error"
                             >
-                                <DeleteIcon/>
+                                <DeleteIcon />
                             </IconButton>
                         </Stack>
-                    :
+                        :
                         <Stack direction="row" spacing={2} alignItems="center" justifyContent="flex-end">
                             <Button
+                                size="small"
                                 variant="outlined"
                                 fullWidth={true}
                                 onClick={() => agregarItem()}>
-                                    Comprar
+                                Comprar
                             </Button>
-                                
+
                             <IconButton
+                                size="small"
                                 color="secondary"
                                 variant="outlined"
+                                disabled={true}
                             >
-                                <FavoriteBorderIcon/>
+                                <FavoriteBorderIcon />
                             </IconButton>
                         </Stack>
                     }
-                </Box> 
+                </Box>
             </Box>
-        </div>
+        </Grid>
     );
 }
- 
+
 export default GridItem;

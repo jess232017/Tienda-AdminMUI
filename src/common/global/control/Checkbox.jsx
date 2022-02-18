@@ -1,22 +1,71 @@
+import React from 'react'
+import { red } from '@mui/material/colors'
+import { Controller } from 'react-hook-form'
 
-import React from "react";
+import {
+    Checkbox,
+    FormControl,
+    FormControlLabel,
+    FormGroup,
+    FormHelperText
+} from '@mui/material'
 
-import { styled } from '@mui/material/styles';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import MuiCheckbox from '@mui/material/Checkbox';
-import { Controller } from "react-hook-form";
+const CheckboxElement = ({
+    name,
+    validation = {},
+    required,
+    parseError,
+    label,
+    control,
+    ...rest
+}) => {
 
-const ControlLabel = styled(FormControlLabel)({
-    marginLeft: '2px' ,
-    marginTop: '1.2rem',
-    ' .MuiTypography-root': {
-        fontWeight: 600,
-        fontSize: ".88rem"
+    if (required) {
+        validation.required = 'This field is required'
     }
-});
 
-const CheckBox = ({name, label, control}) => {
-    return(
+    return (
+        <Controller
+            name={name}
+            rules={validation}
+            control={control}
+            render={({ field: { value, onChange }, fieldState: { invalid, error } }) => {
+                const helperText = error ? (typeof parseError === 'function' ? parseError(error) : error.message) : rest.helperText
+                return (
+                    <FormControl required={required} error={invalid}>
+                        <FormGroup row>
+                            <FormControlLabel
+                                label={label || ''}
+                                control={
+                                    <Checkbox
+                                        color={'primary'}
+                                        style={{
+                                            color: invalid ? red[400] : undefined
+                                        }}
+                                        value={value}
+                                        checked={!!value}
+                                        onChange={() => {
+                                            onChange(!value)
+                                            //setValue(name, !formValue, { shouldValidate: true })
+                                        }}
+                                    />
+                                }
+                            />
+                        </FormGroup>
+                        {helperText && <FormHelperText error={invalid}>{helperText}</FormHelperText>}
+                    </FormControl>
+                )
+            }}
+        />
+    )
+}
+
+export default CheckboxElement;
+
+/*
+
+const CheckBox = ({ name, label, control }) => {
+    return (
         <ControlLabel
             control={
                 <Controller
@@ -24,8 +73,8 @@ const CheckBox = ({name, label, control}) => {
                     control={control}
                     render={({ field }) => (
                         <MuiCheckbox
-                            {...field} 
-                            helperText="Incorrect entry."
+                            {...field}
+                            helpertext="Incorrect entry."
                         />
                     )}
                 />
@@ -36,4 +85,4 @@ const CheckBox = ({name, label, control}) => {
     )
 };
 
-export default CheckBox;
+export default CheckBox;*/

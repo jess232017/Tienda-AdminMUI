@@ -3,12 +3,12 @@ import React, { useState, useRef } from 'react';
 //controls
 import { show } from '@ebay/nice-modal-react';
 import { Button } from '@mui/material';
-import { ColumnDirective, ColumnsDirective, ColumnChooser, Filter, GridComponent, Group, Inject, Sort, VirtualScroll } from '@syncfusion/ej2-react-grids';
 
 //icons
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import BookIcon from '@mui/icons-material/BookTwoTone';
 
 //owned
 import PageCard from '_@/common/PageCard';
@@ -37,9 +37,11 @@ const Registro = () => {
 
     return (
         <PageCard
-            icon="pi-desktop"
-            titulo="Gestión de Caja"
-            subTitulo="Listado de Caja"
+            headerProps={{
+                title: "Gestión de cajas",
+                subheader: "Listado de cajas",
+                avatar: <BookIcon />
+            }}
             isLoading={isLoading}
             isError={isError}
         >
@@ -73,27 +75,15 @@ const Registro = () => {
                 </Button>
             </Toolbar>
 
-            <GridComponent
-                ref={grid}
-                height='350'
-                dataSource={data?.data}
-                showColumnChooser={true}
-                enableStickyHeader={true}
-                enableVirtualization={true}
-                enableColumnVirtualization={true}
-                rowSelected={handleSelected}
-            >
-                <ColumnsDirective>
+            {/*
+            
                     <ColumnDirective field='cajaId' headerText="Codigo" width='100' />
                     <ColumnDirective field='descripcion' headerText="Descripcion" width='300' />
                     <ColumnDirective field='serial_PC' headerText="serial_PC" width='100' />
                     <ColumnDirective field='impresora_Ticket' headerText="impresora_Ticket QR" width='100' />
                     <ColumnDirective field='impresora_A4' headerText="impresora_A4" width='100' />
                     <ColumnDirective field='estado' headerText="estado" width='100' />
-                </ColumnsDirective>
-
-                <Inject services={[Sort, Filter, Group, VirtualScroll, ColumnChooser]} />
-            </GridComponent>
+            */}
         </PageCard>
     );
 }

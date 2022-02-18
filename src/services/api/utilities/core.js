@@ -6,16 +6,18 @@ import withAxios from '../utilities/provider';
 
 const axiosQuery = (method, url, queryKey) => (urlParams = "") => {
     const authHeader = useAuthHeader()();
-
     const axios = withAxios(method, url + urlParams, authHeader)
-    return useQuery([queryKey, urlParams], axios)
+
+    return useQuery([queryKey, urlParams], axios, {
+        keepPreviousData: true,
+    });
 }
 
-const axiosMutator = (method, url, queryKey) => () =>{
+const axiosMutator = (method, url, queryKey) => (urlParams = "") => {
     const queryClient = useQueryClient();
-    const authHeader = useAuthHeader();
+    const authHeader = useAuthHeader()();
 
-    const axios = withAxios(method, url, authHeader());
+    const axios = withAxios(method, url + urlParams, authHeader);
 
     return useMutation(axios, {
         retry: 2,
@@ -29,11 +31,11 @@ const axiosPaginator = (method, url, queryKey) => (page) => {
     const authHeader = useAuthHeader()();
     const axios = withAxios(method, url, authHeader)
 
-    return useQuery([queryKey, page], axios, { 
-        keepPreviousData: true, 
-        staleTime: 5000 
+    return useQuery([queryKey, page], axios, {
+        keepPreviousData: true,
+        staleTime: 5000
     });
 }
 
 
-export {axiosMutator, axiosQuery, axiosPaginator};
+export { axiosMutator, axiosQuery, axiosPaginator };

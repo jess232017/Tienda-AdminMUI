@@ -62,6 +62,12 @@ const nav = {
                             title: 'Categorias',
                             type: 'item',
                             url: '/admin/categoria',
+                        },
+                        {
+                            id: 'brands',
+                            title: 'Marcas',
+                            type: 'item',
+                            url: '/admin/marca',
                         }
                     ],
                 },
@@ -85,6 +91,12 @@ const nav = {
                     type: 'item',
                     icon: SettingsRemoteIcon,
                     url: '/admin/caja',
+                    chip: {
+                        size: "small",
+                        label: 'Obsoleto',
+                        error: true,
+                        size: 'small',
+                    },
                 },
             ],
         },
