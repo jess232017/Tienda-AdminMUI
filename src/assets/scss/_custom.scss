@@ -11,16 +11,10 @@
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
     .auth-bg {
         height: 100vh;
         margin-bottom: -25px;
-    }
-
-    .grid-columns-2 {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 4rem;
     }
 }
 

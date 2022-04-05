@@ -44,15 +44,15 @@ const ViewItem = () => {
     const [view, setView] = useState("list");
     const [selected, setSelected] = useState(1);
 
-    const { data: dataCatg } = apiCategory.get(`?PageNumber=1&PageSize=30`);
+    const { data: categories } = apiCategory.get(1, 10);
     const { data: dataItem } = apiProduct.getByCategory(selected, page);
 
     useEffect(() => {
-        if (dataCatg != null) {
-            const { data: { data } } = dataCatg;
+        if (categories != null) {
+            const { data: { data } } = categories;
             setSelected(data[0]?.id)
         }
-    }, [dataCatg]);
+    }, [categories]);
 
     useEffect(() => {
         if (dataItem != null) {
@@ -82,7 +82,7 @@ const ViewItem = () => {
                                 value={selected}
                                 onChange={handleCategory}
                             >
-                                {dataCatg?.data?.data?.map(({ id, name }) => (
+                                {categories?.data?.data?.map(({ id, name }) => (
                                     <option value={id} key={id}>{name}</option>
                                 ))}
                             </select>

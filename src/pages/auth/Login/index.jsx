@@ -47,7 +47,7 @@ const Login = ({ isExpired = false }) => {
         resolver: yupResolver(validationSchema),
     });
 
-    const { isLoading, mutateAsync } = apiAuth.SignIn();
+    const { isLoading, mutateAsync } = apiAuth.Authenticate();
     const { handleLogin } = useLogin();
 
     const enviarForm = (data) => {

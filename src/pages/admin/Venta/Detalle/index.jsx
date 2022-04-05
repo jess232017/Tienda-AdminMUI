@@ -1,6 +1,6 @@
-import React from 'react';
-import { useParams } from "react-router-dom";
+import React, {useState} from 'react';
 import { toast } from 'react-toastify';
+import { useParams } from "react-router-dom";
 
 //Controls
 import Box from '@mui/material/Box';
@@ -47,9 +47,11 @@ const Detalle = () => {
 
     const { data: detalle } = dataDetalle || {};
     const { data: factura } = dataFactura || {};
+    
+    const [note, setNote] = useState(factura?.note || "")
 
     const handleNote = () => {
-        toast.promise(mutateAsync({ note: "Viva el porno" }), {
+        toast.promise(mutateAsync({ note }), {
             pending: 'Guardando los cambios...',
             success: "Guardado correctamente",
             error: {
@@ -115,21 +117,24 @@ const Detalle = () => {
                     </div>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                    <div className="box shadow-sm bg-light p-5 d-none pb-4">
+                    <Box sx={{ boxShadow: 1, padding: 2, borderRadius: 2, display: 'none'}} className="box shadow-sm bg-light p-5 d-none pb-4">
                         <h6>Informacion de Pago</h6>
                         <p>
                             <img src="images/card-brands/2.png" className="border" height={20} /> Master Card **** **** 4768  <br />
                             Business name: Grand Market LLC <br />
                             Phone: +1 (800) 555-154-52
                         </p>
-                    </div>
+                    </Box>
                     <div>
                         <Box mb={1}>
                             <label><Typography variant='subtitle1'>Notas</Typography></label>
                             <TextareaAutosize
                                 name="notas"
                                 id="notas"
-                                defaultValue={factura?.note}
+                                value={note}
+                                onChange={event => {
+                                    setNote(event.target.value)
+                                }}
                                 aria-label="empty textarea"
                                 placeholder="Escribe alguna nota"
                                 style={{ width: 300, height: 100 }}

@@ -1,8 +1,8 @@
 import { axiosMutator } from '../utilities/core'
 
 const apiIdentity = {
-    SignIn: axiosMutator("post", "/api/Identity/sign-in"),
-    SignUp: axiosMutator("post", "/api/Identity/sign-up")
+    Authenticate: axiosMutator("post", "/Identity/sign-in"),
+    Register: axiosMutator("post", "/Identity/sign-up")
 }
 
 export default apiIdentity;

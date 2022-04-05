@@ -19,7 +19,7 @@ import useCrud from '_@/services/hooks/useCrud';
 import Toolbar from '_@/components/Toolbar';
 
 const columns = [
-    { field: 'id', headerName: 'Codigo', width: 100 },
+    { field: 'id', headerName: 'Codigo', width: 280 },
     { field: 'name', headerName: 'Nombre', width: 150 },
     { field: 'description', headerName: 'Descripcion', width: 350 },
     { field: 'byDefault', headerName: 'Defecto', width: 100 },

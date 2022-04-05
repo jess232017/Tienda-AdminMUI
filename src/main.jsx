@@ -10,21 +10,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 //Theme
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
-import 'primereact/resources/themes/bootstrap4-light-blue/theme.css';
-import 'primereact/resources/primereact.min.css';
 import '_@/assets/scss/style.scss';
-
-import '../node_modules/@syncfusion/ej2-base/styles/material.css';
-import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
-import '../node_modules/@syncfusion/ej2-calendars/styles/material.css';
-import '../node_modules/@syncfusion/ej2-dropdowns/styles/material.css';
-import '../node_modules/@syncfusion/ej2-inputs/styles/material.css';
-import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
-import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
-import '../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css';
-import '../node_modules/@syncfusion/ej2-react-navigations/styles/material.css';
-import "../node_modules/@syncfusion/ej2-react-inputs/styles/material.css";
-import "../node_modules/@syncfusion/ej2-react-dropdowns/styles/material.css";
 
 const queryClient = new QueryClient()
 

@@ -12,14 +12,12 @@ import CardContent from '@mui/material/CardContent';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Typography from '@mui/material/Typography';
 
-import { Toast } from 'primereact/toast';
-
 //Owned
-import apiAuth from '_@/services/api/tasks/ApiService';
+import apiAuth from '_@/services/api/tasks/ApiIdentity';
 import { Input, CheckBox } from '_@/common/global/control/index';
 
 const Register = () => {
-    const { isLoading, mutate } = apiAuth.ingresar();
+    const { isLoading, mutateAsync } = apiAuth.Register();
     const [remember, setRemember] = useState(false);
     const [password, setPassword] = useState("");
     const [agree, setAgree] = useState(false);
@@ -27,7 +25,6 @@ const Register = () => {
     const [user, setUser] = useState("");
     const navigate = useNavigate();
     const signIn = useSignIn();
-    const toast = useRef(null);
 
     const { handleSubmit, reset, control } = useForm();
 
@@ -37,7 +34,6 @@ const Register = () => {
 
     return (
         <>
-            <Toast ref={toast} />
             <Card>
                 <CardHeader
                     title="Registro"

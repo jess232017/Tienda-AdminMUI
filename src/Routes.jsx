@@ -1,5 +1,3 @@
-//[DEPRECATED FOR React-RouterV6]
-
 import React from 'react';
 import NiceModal from '@ebay/nice-modal-react';
 import { HashRouter, Route, Routes, Navigate } from 'react-router-dom';
@@ -14,10 +12,10 @@ import { ROLES } from '_@/services/auth/permission-maps';
 
 
 //Pages
-const Layout = React.lazy(() => import('./components/layout/container/Layout'));
-const Auth = React.lazy(() => import('./pages/auth/Auth'));
-const Login = React.lazy(() => import('./pages/auth/Login'));
-const Register = React.lazy(() => import('./pages/auth/register/Register'));
+const Layout = React.lazy(() => import('_@/components/layout/container/Layout'));
+const Auth = React.lazy(() => import('_@/pages/auth/Auth'));
+const Login = React.lazy(() => import('_@/pages/auth/Login'));
+const Register = React.lazy(() => import('_@/pages/auth/Register'));
 const Ventas = React.lazy(() => import('_@/pages/admin/Venta'));
 const DetalleVenta = React.lazy(() => import('_@/pages/admin/Venta/Detalle'));
 const VentaNueva = React.lazy(() => import('_@/pages/admin/Venta/Nueva'));

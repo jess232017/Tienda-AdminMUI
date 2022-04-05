@@ -10,7 +10,7 @@ const apiOrder = {
     },
     delete: axiosMutator("delete", "/Order", "order"),
     get: (page, size) => {
-        const fnQuery = axiosQuery("get", "/order", "order");
+        const fnQuery = axiosQuery("get", "/Order", "order");
         return fnQuery(`?PageNumber=${page}&PageSize=${size}`);
     },
     getById: (orderId) => {

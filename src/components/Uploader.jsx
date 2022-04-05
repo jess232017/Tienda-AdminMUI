@@ -5,7 +5,6 @@ import Avatar from '@mui/material/Avatar';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import { UploaderComponent } from '@syncfusion/ej2-react-inputs';
 
 const Preview = styled('div')({
     position: 'relative',
@@ -103,11 +102,11 @@ const Uploader = ({ src = "" }) => {
                     </IconButton>
                 </label>
 
-                <UploaderComponent id="uploader"
+                {/*<UploaderComponent id="uploader"
                     selected={handleSelect}
                     multiple={false}
                     ref={uploader}
-                />
+                />*/}
             </Preview>
 
 

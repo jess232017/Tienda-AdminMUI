@@ -10,15 +10,15 @@ import SecureImage from '_@/pages/error/images/secure_login.svg';
 
 const NoFound = () => {
     return (
-        <Box sx={{ mt: 15, mb: 15 }}>
-            <div className="w-50 mx-auto text-center mt-5 mb-5">
+        <Box sx={{ height: '100%', display: 'flex' }}>
+            <Box sx={{ width: '50%', margin: 'auto', textAlign: 'center' }}>
                 <img src={SecureImage} width={350} alt="No tiene permiso para ver este sitio" />
                 <h3 className="mt-4">Uy! No tiene permiso para ver este sitio</h3>
-                <p>La pagina que estas buscando no se encuentra disponible actualmente de acuerdo a los privilegios del sitio otorgados</p>
+                <p>La pagina que estas buscando no se encuentra disponible actualmente de acuerdo a los privilegios adqueridos</p>
                 <Button sx={{ mt: 2 }} component={Link} to="/" variant="contained" size="large">
                     Regresar al inicio
                 </Button>
-            </div>
+            </Box>
         </Box>
     );
 }

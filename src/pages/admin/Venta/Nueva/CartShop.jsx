@@ -143,22 +143,22 @@ const Selecionado = ({ vendorId }) => {
 
             <Divider />
             <CardContent sx={{ padding: '12px' }}>
-                <dl className="m-0 d-flex justify-content-between">
+                <Box component='dl' sx={{margin: 0, display: 'flex', justifyContent: 'space-between'}}>
                     <dt><Typography variant="subtitle1">Impuesto:</Typography></dt>
                     <dd className=''><Typography variant="subtitle2">5%</Typography></dd>
-                </dl>
-                <dl className="m-0 d-flex justify-content-between">
+                </Box>
+                <Box component='dl' sx={{margin: 0, display: 'flex', justifyContent: 'space-between'}}>
                     <dt><Typography variant="subtitle1">Descuento:</Typography></dt>
                     <dd className=''><Typography variant="subtitle2">0%</Typography></dd>
-                </dl>
-                <dl className="m-0 d-flex justify-content-between">
+                </Box>
+                <Box component='dl' sx={{margin: 0, display: 'flex', justifyContent: 'space-between'}}>
                     <dt><Typography variant="subtitle1">Subtotal:</Typography></dt>
                     <dd className=''><Typography variant="subtitle2">C$ {total.toFixed(2)}</Typography></dd>
-                </dl>
-                <dl className="m-0 d-flex justify-content-between">
+                </Box>
+                <Box component='dl' sx={{margin: 0, display: 'flex', justifyContent: 'space-between'}}>
                     <dt><Typography variant="subtitle1">Total:</Typography></dt>
                     <dd className=''><Typography variant="subtitle2">C$ {(total + (total * .5)).toFixed(2)}</Typography></dd>
-                </dl>
+                </Box>
             </CardContent>
 
             <CardActions>
