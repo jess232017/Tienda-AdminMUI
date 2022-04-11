@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 // controls
 import { Button } from '@mui/material';
@@ -14,7 +14,7 @@ import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmarkTwoT
 import PageCard from '_@/common/PageCard';
 import ProductTemplate from './ProductTemplate';
 import Form from '_@/components/forms/FormProducto';
-import api from '_@/services/api/tasks/ApiProduct';
+import api from '_@/api/tasks/ApiProduct';
 import usePagination from '_@/services/hooks/usePagination';
 import useCrud from '_@/services/hooks/useCrud';
 import Toolbar from '_@/components/Toolbar';
@@ -37,55 +37,35 @@ const Producto = () => {
 
     console.log(data);
 
-    const handlePrint = () => { }
-    const handleChooser = () => { }
+    const handlePrint = () => {};
+    const handleChooser = () => {};
 
     return (
         <PageCard
             headerProps={{
-                title: "Gestión de productos",
-                subheader: "Listado de productos",
-                avatar: <CollectionsBookmarkIcon />
+                title: 'Gestión de productos',
+                subheader: 'Listado de productos',
+                avatar: <CollectionsBookmarkIcon />,
             }}
             isLoading={isLoading}
             isError={isError}
         >
-            <Toolbar
-                onClickPrint={handlePrint}
-                onClickChooser={handleChooser}
-            >
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={handleAdd}
-                    startIcon={<AddIcon />}
-                >
+            <Toolbar onClickPrint={handlePrint} onClickChooser={handleChooser}>
+                <Button variant="outlined" size="small" onClick={handleAdd} startIcon={<AddIcon />}>
                     Agregar
                 </Button>
 
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={handleEdit}
-                    startIcon={<EditIcon />}
-                >
+                <Button variant="outlined" size="small" onClick={handleEdit} startIcon={<EditIcon />}>
                     Editar
                 </Button>
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={handleDelete}
-                    startIcon={<DeleteIcon />}
-                >
+                <Button variant="outlined" size="small" onClick={handleDelete} startIcon={<DeleteIcon />}>
                     Eliminar
                 </Button>
             </Toolbar>
 
-            <DataGrid
-                {...control}
-            />
+            <DataGrid {...control} />
         </PageCard>
     );
-}
+};
 
 export default Producto;

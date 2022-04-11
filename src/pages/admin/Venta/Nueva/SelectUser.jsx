@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import Select from 'react-select'
+import Select from 'react-select';
 import { styled } from '@mui/system';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -15,7 +15,7 @@ import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import TextField from '@mui/material/TextField';
 
-import api from '_@/services/api/tasks/ApiClient';
+import api from '_@/api/tasks/ApiClient';
 import useDialog from '_@/services/hooks/useDialog';
 
 const top100Films = [
@@ -148,31 +148,33 @@ const top100Films = [
 const options2 = [
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-]
+    { value: 'vanilla', label: 'Vanilla' },
+];
 
 const CustonSpan = styled('span')({
     padding: 0,
-    overflow: "hidden",
-    position: "relative",
-    display: "inline-block",
-    margin: "0 5px 0 5",
-    textAlign: "center",
-    textDecoration: "none",
-    textOverflow: "ellipsis",
-    whiteSpace: "nowrap",
-})
+    overflow: 'hidden',
+    position: 'relative',
+    display: 'inline-block',
+    margin: '0 5px 0 5',
+    textAlign: 'center',
+    textDecoration: 'none',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+});
 
 const DialogSelect = ({ value, set }) => {
     const { handleOpen, handleClose, isOpen } = useDialog();
     const { data } = api.get(`?PageNumber=1&PageSize=30`);
-    const [options, setOptions] = useState([])
+    const [options, setOptions] = useState([]);
 
     useEffect(() => {
-        setOptions(data?.data?.data?.map(({ id, firstName, lastName }) => {
-            return { value: id, label: `${firstName} ${lastName}`, image: "none" }
-        }))
-    }, [data])
+        setOptions(
+            data?.data?.data?.map(({ id, firstName, lastName }) => {
+                return { value: id, label: `${firstName} ${lastName}`, image: 'none' };
+            })
+        );
+    }, [data]);
 
     const handleChange = (data) => {
         set(data);
@@ -185,9 +187,9 @@ const DialogSelect = ({ value, set }) => {
                 size="small"
                 variant="outlined"
                 onClick={handleOpen}
-                endIcon={value?.label != null ? <AssignmentIndIcon /> : <  PersonAddAltIcon />}
+                endIcon={value?.label != null ? <AssignmentIndIcon /> : <PersonAddAltIcon />}
             >
-                {value?.label != null ? <CustonSpan>{value.label}</CustonSpan> : "Cliente"}
+                {value?.label != null ? <CustonSpan>{value.label}</CustonSpan> : 'Cliente'}
             </Button>
             <Dialog disableEscapeKeyDown open={isOpen} onClose={handleClose}>
                 <DialogTitle>Seleccionar usuario</DialogTitle>
@@ -215,6 +217,6 @@ const DialogSelect = ({ value, set }) => {
             </Dialog>
         </>
     );
-}
+};
 
 export default DialogSelect;

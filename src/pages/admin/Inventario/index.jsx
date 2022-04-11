@@ -15,7 +15,7 @@ import InventoryIcon from '@mui/icons-material/InventoryTwoTone';
 import PageCard from '_@/common/PageCard';
 import Toolbar from '_@/components/Toolbar';
 import Form from '_@/components/forms/FormInventario';
-import api from '_@/services/api/tasks/ApiInventory';
+import api from '_@/api/tasks/ApiInventory';
 import usePagination from '_@/services/hooks/usePagination';
 import DropButton, { MenuItem } from '_@/components/DropButton';
 import useCrud from '_@/services/hooks/useCrud';
@@ -45,82 +45,44 @@ const Inventario = () => {
     const onClickExpiring = () => window.open(URL + '/reporte/productos/vence', '_blank').focus();
     const onClickExpired = () => window.open(URL + '/reporte/productos/vencido', '_blank').focus();
 
-    const handleChooser = () => {
-    }
+    const handleChooser = () => {};
 
-    const handlePrint = () => {
-    }
+    const handlePrint = () => {};
 
     return (
         <PageCard
             headerProps={{
-                title: "Gestión de inventarios",
-                subheader: "Listado de inventarios",
-                avatar: <InventoryIcon />
+                title: 'Gestión de inventarios',
+                subheader: 'Listado de inventarios',
+                avatar: <InventoryIcon />,
             }}
             isLoading={isLoading}
             isError={isError}
         >
-            <Toolbar
-                onClickChooser={handleChooser}
-            >
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={handleAdd}
-                    startIcon={<AddIcon />}
-                >
+            <Toolbar onClickChooser={handleChooser}>
+                <Button variant="outlined" size="small" onClick={handleAdd} startIcon={<AddIcon />}>
                     Agregar
                 </Button>
 
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={handleEdit}
-                    startIcon={<EditIcon />}
-                >
+                <Button variant="outlined" size="small" onClick={handleEdit} startIcon={<EditIcon />}>
                     Editar
                 </Button>
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={handleDelete}
-                    startIcon={<DeleteIcon />}
-                >
+                <Button variant="outlined" size="small" onClick={handleDelete} startIcon={<DeleteIcon />}>
                     Eliminar
                 </Button>
 
-                <DropButton
-                    id="reporte"
-                    title="reporte"
-                    startIcon={<AnalyticsIcon />}
-                >
-                    <MenuItem
-                        startIcon={<AnalyticsIcon />}
-                        onClick={onClickExpiring}
-                        children="Por vencer"
-                    />
+                <DropButton id="reporte" title="reporte" startIcon={<AnalyticsIcon />}>
+                    <MenuItem startIcon={<AnalyticsIcon />} onClick={onClickExpiring} children="Por vencer" />
 
-                    <MenuItem
-                        startIcon={<AnalyticsIcon />}
-                        onClick={onClickExpired}
-                        children="Vencidos"
-                    />
+                    <MenuItem startIcon={<AnalyticsIcon />} onClick={onClickExpired} children="Vencidos" />
 
-                    <MenuItem
-                        startIcon={<AnalyticsIcon />}
-                        onClick={handlePrint}
-                        children="Imprimir"
-                    />
+                    <MenuItem startIcon={<AnalyticsIcon />} onClick={handlePrint} children="Imprimir" />
                 </DropButton>
             </Toolbar>
 
-
-            <DataGrid
-                {...control}
-            />
+            <DataGrid {...control} />
         </PageCard>
     );
-}
+};
 
-export default Inventario;  
+export default Inventario;

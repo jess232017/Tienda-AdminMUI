@@ -140,7 +140,7 @@
 .MuiTablePagination-select,
 .css-1y8kkd0-MuiTablePagination-selectLabel,
 .css-1ocnsrp-MuiTablePagination-displayedRows {
-    font-size: 0.75rem!important;
+    font-size: 0.75rem !important;
 }
 
 .drawer-paper-light {
@@ -149,12 +149,13 @@
     border-right: none !important;
     box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%) !important;
 }
+
 @media (min-width: 600px) {
     .drawer-paper-light {
         top: 54px !important;
     }
 }
 
-.MuiInputBase-root.MuiInputBase-colorPrimary.css-1koxfls-MuiInputBase-root-MuiTablePagination-select{
+.MuiInputBase-root.MuiInputBase-colorPrimary.css-1koxfls-MuiInputBase-root-MuiTablePagination-select {
     margin-top: 13px;
 }

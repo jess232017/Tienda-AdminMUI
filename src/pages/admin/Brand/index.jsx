@@ -13,7 +13,7 @@ import StarIcon from '@mui/icons-material/StarBorderTwoTone';
 //Owned
 import PageCard from '_@/common/PageCard';
 import Form from '_@/components/forms/FormBrand';
-import api from '_@/services/api/tasks/ApiBrand';
+import api from '_@/api/tasks/ApiBrand';
 import usePagination from '_@/services/hooks/usePagination';
 import useCrud from '_@/services/hooks/useCrud';
 import Toolbar from '_@/components/Toolbar';
@@ -29,53 +29,34 @@ const Brand = () => {
     const { control, data, selected, isLoading, isError } = usePagination(api, columns);
     const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected);
 
-    const handleChooser = () => {
-
-    }
+    const handleChooser = () => {};
 
     return (
         <PageCard
             headerProps={{
-                title: "Gestión de marcas",
-                subheader: "Listado de marca",
-                avatar: <StarIcon />
+                title: 'Gestión de marcas',
+                subheader: 'Listado de marca',
+                avatar: <StarIcon />,
             }}
             isLoading={isLoading}
             isError={isError}
         >
-
-            <Toolbar
-                onClickChooser={handleChooser}
-            >
-                <Button size='small'
-                    variant="outlined"
-                    onClick={handleAdd}
-                    startIcon={<AddIcon />}
-                >
+            <Toolbar onClickChooser={handleChooser}>
+                <Button size="small" variant="outlined" onClick={handleAdd} startIcon={<AddIcon />}>
                     Agregar
                 </Button>
 
-                <Button size='small'
-                    variant="outlined"
-                    onClick={handleEdit}
-                    startIcon={<EditIcon />}
-                >
+                <Button size="small" variant="outlined" onClick={handleEdit} startIcon={<EditIcon />}>
                     Editar
                 </Button>
-                <Button size='small'
-                    variant="outlined"
-                    onClick={handleDelete}
-                    startIcon={<DeleteIcon />}
-                >
+                <Button size="small" variant="outlined" onClick={handleDelete} startIcon={<DeleteIcon />}>
                     Eliminar
                 </Button>
             </Toolbar>
 
-            <DataGrid
-                {...control}
-            />
-        </PageCard >
+            <DataGrid {...control} />
+        </PageCard>
     );
-}
+};
 
 export default Brand;

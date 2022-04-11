@@ -13,7 +13,7 @@ import CategoryIcon from '@mui/icons-material/CategoryTwoTone';
 //Owned
 import PageCard from '_@/common/PageCard';
 import Form from '_@/components/forms/FormCategory';
-import api from '_@/services/api/tasks/ApiCategory';
+import api from '_@/api/tasks/ApiCategory';
 import usePagination from '_@/services/hooks/usePagination';
 import useCrud from '_@/services/hooks/useCrud';
 import Toolbar from '_@/components/Toolbar';
@@ -25,46 +25,39 @@ const columns = [
     { field: 'byDefault', headerName: 'Defecto', width: 100 },
 ];
 
-
 const Category = () => {
     const { control, data, selected, isLoading, isError } = usePagination(api, columns);
     const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected);
 
-    const handleChooser = () => { }
+    const handleChooser = () => {};
 
     return (
         <PageCard
             headerProps={{
-                title: "Gestión de categorias",
-                subheader: "Listado de categorias",
-                avatar: <CategoryIcon />
+                title: 'Gestión de categorias',
+                subheader: 'Listado de categorias',
+                avatar: <CategoryIcon />,
             }}
             isLoading={isLoading}
             isError={isError}
         >
-
-            <Toolbar
-                onClickChooser={handleChooser}
-            >
-                <Button size='small' variant="outlined" onClick={handleAdd} startIcon={<AddIcon />}>
+            <Toolbar onClickChooser={handleChooser}>
+                <Button size="small" variant="outlined" onClick={handleAdd} startIcon={<AddIcon />}>
                     Agregar
                 </Button>
 
-                <Button size='small' variant="outlined" onClick={handleEdit} startIcon={<EditIcon />} >
+                <Button size="small" variant="outlined" onClick={handleEdit} startIcon={<EditIcon />}>
                     Editar
                 </Button>
 
-                <Button size='small' variant="outlined" onClick={handleDelete} startIcon={<DeleteIcon />} >
+                <Button size="small" variant="outlined" onClick={handleDelete} startIcon={<DeleteIcon />}>
                     Eliminar
                 </Button>
             </Toolbar>
 
-            <DataGrid
-                {...control}
-            />
-
+            <DataGrid {...control} />
         </PageCard>
     );
-}
+};
 
 export default Category;

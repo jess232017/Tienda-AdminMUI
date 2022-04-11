@@ -15,20 +15,18 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircleTwoTone';
 import PageCard from '_@/common/PageCard';
 import Toolbar from '_@/components/Toolbar';
 import Form from '_@/components/forms/FormCliente';
-import api from '_@/services/api/tasks/ApiCliente';
+import api from '_@/api/tasks/ApiCliente';
 
 //own
 import ClientTemplate from './ClientTemplate';
 
 const statusTemplate = ({ estado }) => {
-    return (
-        <Chip label={estado ? "Activo" : "Inactivo"} color={estado ? "primary" : "secondary"} size="small" />
-    )
-}
+    return <Chip label={estado ? 'Activo' : 'Inactivo'} color={estado ? 'primary' : 'secondary'} size="small" />;
+};
 
 const Cliente = () => {
     const grid = useRef(null);
-    const [selected, setSelected] = useState({})
+    const [selected, setSelected] = useState({});
     const { data, isLoading, isError } = api.obtener();
 
     const onClickAdd = () => show(Form, { title: 'Agregar Cliente', method: 'post', data: selected, queryKey: 'Cliente' });
@@ -39,48 +37,31 @@ const Cliente = () => {
         if (e.data != null) {
             setSelected(e.data);
         }
-    }
+    };
 
     const handleChooser = () => {
         grid.current.columnChooserModule.openColumnChooser();
-    }
+    };
 
     return (
         <PageCard
             headerProps={{
-                title: "Gestión de clientes",
-                subheader: "Listado de clientes",
-                avatar: <AccountCircleIcon />
+                title: 'Gestión de clientes',
+                subheader: 'Listado de clientes',
+                avatar: <AccountCircleIcon />,
             }}
             isLoading={isLoading}
             isError={isError}
         >
-            <Toolbar
-                onClickChooser={handleChooser}
-            >
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={onClickAdd}
-                    startIcon={<AddIcon />}
-                >
+            <Toolbar onClickChooser={handleChooser}>
+                <Button variant="outlined" size="small" onClick={onClickAdd} startIcon={<AddIcon />}>
                     Agregar
                 </Button>
 
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={onClickEdit}
-                    startIcon={<EditIcon />}
-                >
+                <Button variant="outlined" size="small" onClick={onClickEdit} startIcon={<EditIcon />}>
                     Editar
                 </Button>
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={onClickDelete}
-                    startIcon={<DeleteIcon />}
-                >
+                <Button variant="outlined" size="small" onClick={onClickDelete} startIcon={<DeleteIcon />}>
                     Eliminar
                 </Button>
             </Toolbar>
@@ -95,6 +76,6 @@ const Cliente = () => {
 */}
         </PageCard>
     );
-}
+};
 
 export default Cliente;

@@ -14,34 +14,34 @@ import GridViewIcon from '@mui/icons-material/GridView';
 
 // own
 import Viewer from './Viewer';
-import apiProduct from '_@/services/api/tasks/ApiProduct';
-import apiCategory from '_@/services/api/tasks/ApiCategory';
+import apiProduct from '_@/api/tasks/ApiProduct';
+import apiCategory from '_@/api/tasks/ApiCategory';
 
 const Toggle = styled('div')({
-    display: "flex",
-    borderRadius: ".3rem",
-    border: "1px solid rgb(209 213 219/ 1)",
-    "button": {
+    display: 'flex',
+    borderRadius: '.3rem',
+    border: '1px solid rgb(209 213 219/ 1)',
+    button: {
         borderRadius: 0,
-        "&.MuiIconButton-colorPrimary": {
+        '&.MuiIconButton-colorPrimary': {
             color: 'white',
-            backgroundColor: "#3366ff"
+            backgroundColor: '#3366ff',
         },
-        "&:first-of-type": {
+        '&:first-of-type': {
             borderTopLeftRadius: 3,
             borderBottomLeftRadius: 3,
         },
-        "&:last-of-type": {
+        '&:last-of-type': {
             borderTopRightRadius: 3,
             borderBottomRightRadius: 3,
-        }
-    }
-})
+        },
+    },
+});
 
 const ViewItem = () => {
     const [page, setPage] = useState(1);
     const [total, setTotal] = useState(0);
-    const [view, setView] = useState("list");
+    const [view, setView] = useState('list');
     const [selected, setSelected] = useState(1);
 
     const { data: categories } = apiCategory.get(1, 10);
@@ -49,15 +49,19 @@ const ViewItem = () => {
 
     useEffect(() => {
         if (categories != null) {
-            const { data: { data } } = categories;
-            setSelected(data[0]?.id)
+            const {
+                data: { data },
+            } = categories;
+            setSelected(data[0]?.id);
         }
     }, [categories]);
 
     useEffect(() => {
         if (dataItem != null) {
-            const { data: { totalPages } } = dataItem;
-            setTotal(totalPages)
+            const {
+                data: { totalPages },
+            } = dataItem;
+            setTotal(totalPages);
         }
     }, [dataItem]);
 
@@ -67,9 +71,9 @@ const ViewItem = () => {
 
     const handleCategory = ({ target: { value } }) => {
         if (value != null) {
-            setSelected(value)
+            setSelected(value);
         }
-    }
+    };
 
     return (
         <>
@@ -78,26 +82,25 @@ const ViewItem = () => {
                     <Box display="flex" alignItems="center">
                         <label htmlFor="category">Categoria</label>
                         <Box ml={1} className="input-style">
-                            <select name="category" id="category"
-                                value={selected}
-                                onChange={handleCategory}
-                            >
+                            <select name="category" id="category" value={selected} onChange={handleCategory}>
                                 {categories?.data?.data?.map(({ id, name }) => (
-                                    <option value={id} key={id}>{name}</option>
+                                    <option value={id} key={id}>
+                                        {name}
+                                    </option>
                                 ))}
                             </select>
                         </Box>
                     </Box>
 
                     <Stack spacing={1} direction="row">
-                        <div className='input-style'>
+                        <div className="input-style">
                             <input type="text" placeholder="Buscar..." />
                         </div>
                         <Toggle>
-                            <IconButton color={view === "list" ? "primary" : "secondary"} onClick={() => setView("list")}>
+                            <IconButton color={view === 'list' ? 'primary' : 'secondary'} onClick={() => setView('list')}>
                                 <ViewListIcon />
                             </IconButton>
-                            <IconButton color={view === "grid" ? "primary" : "secondary"} onClick={() => setView("grid")}>
+                            <IconButton color={view === 'grid' ? 'primary' : 'secondary'} onClick={() => setView('grid')}>
                                 <GridViewIcon />
                             </IconButton>
                         </Toggle>
@@ -107,16 +110,10 @@ const ViewItem = () => {
             <Divider />
 
             <CardContent>
-                <Viewer
-                    view={view}
-                    page={page}
-                    total={total}
-                    data={dataItem}
-                    handleChange={handleChange}
-                />
+                <Viewer view={view} page={page} total={total} data={dataItem} handleChange={handleChange} />
             </CardContent>
         </>
     );
-}
+};
 
 export default ViewItem;

@@ -13,12 +13,12 @@ import BookIcon from '@mui/icons-material/BookTwoTone';
 //owned
 import PageCard from '_@/common/PageCard';
 import Form from '_@/components/forms/FormCaja';
-import api from '_@/services/api/tasks/ApiCaja';
+import api from '_@/api/tasks/ApiCaja';
 import Toolbar from '_@/components/Toolbar';
 
 const Registro = () => {
     const grid = useRef(null);
-    const [selected, setSelected] = useState({})
+    const [selected, setSelected] = useState({});
     const { data, isLoading, isError } = api.obtener();
 
     const onClickAdd = () => show(Form, { title: 'Agregar Caja', method: 'post', data: selected, queryKey: 'Caja' });
@@ -29,48 +29,31 @@ const Registro = () => {
         if (e.data != null) {
             setSelected(e.data);
         }
-    }
+    };
 
     const handleChooser = () => {
         grid.current.columnChooserModule.openColumnChooser();
-    }
+    };
 
     return (
         <PageCard
             headerProps={{
-                title: "Gestión de cajas",
-                subheader: "Listado de cajas",
-                avatar: <BookIcon />
+                title: 'Gestión de cajas',
+                subheader: 'Listado de cajas',
+                avatar: <BookIcon />,
             }}
             isLoading={isLoading}
             isError={isError}
         >
-            <Toolbar
-                onClickChooser={handleChooser}
-            >
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={onClickAdd}
-                    startIcon={<AddIcon />}
-                >
+            <Toolbar onClickChooser={handleChooser}>
+                <Button variant="outlined" size="small" onClick={onClickAdd} startIcon={<AddIcon />}>
                     Agregar
                 </Button>
 
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={onClickEdit}
-                    startIcon={<EditIcon />}
-                >
+                <Button variant="outlined" size="small" onClick={onClickEdit} startIcon={<EditIcon />}>
                     Editar
                 </Button>
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={onClickDelete}
-                    startIcon={<DeleteIcon />}
-                >
+                <Button variant="outlined" size="small" onClick={onClickDelete} startIcon={<DeleteIcon />}>
                     Eliminar
                 </Button>
             </Toolbar>
@@ -86,6 +69,6 @@ const Registro = () => {
             */}
         </PageCard>
     );
-}
+};
 
 export default Registro;

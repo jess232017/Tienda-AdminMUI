@@ -12,10 +12,9 @@ import ReceiptIcon from '@mui/icons-material/Receipt';
 import LocalMallIcon from '@mui/icons-material/LocalMallTwoTone';
 import ShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
-
 import PageCard from '_@/common/PageCard';
 import Toolbar from '_@/components/Toolbar';
-import api from '_@/services/api/tasks/ApiOrder';
+import api from '_@/api/tasks/ApiOrder';
 import usePagination from '_@/services/hooks/usePagination';
 
 const columns = [
@@ -35,69 +34,45 @@ const Ventas = () => {
     const navigate = useNavigate();
     const { control, data, selected, isLoading, isError } = usePagination(api, columns);
 
-    const onClickTomar = () => navigate("/admin/venta/nueva");
-    const onClickDetail = () => navigate("/admin/venta/" + selected[0]);
+    const onClickTomar = () => navigate('/admin/venta/nueva');
+    const onClickDetail = () => navigate('/admin/venta/' + selected[0]);
     const onClickDetail2 = () => console.log(selected[0]);
 
     const handleChooser = () => {
         //grid.current.columnChooserModule.openColumnChooser();
-    }
+    };
 
     return (
         <PageCard
             headerProps={{
-                title: "Gestión de Ventas",
-                subheader: "Listado de Ventas",
-                avatar: <LocalMallIcon />
+                title: 'Gestión de Ventas',
+                subheader: 'Listado de Ventas',
+                avatar: <LocalMallIcon />,
             }}
             isLoading={isLoading}
             isError={isError}
         >
-            <Toolbar
-                onClickChooser={handleChooser}
-            >
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={onClickTomar}
-                    startIcon={<ShoppingCartIcon />}
-                >
+            <Toolbar onClickChooser={handleChooser}>
+                <Button variant="outlined" size="small" onClick={onClickTomar} startIcon={<ShoppingCartIcon />}>
                     Tomar Venta
                 </Button>
 
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={onClickDetail}
-                    startIcon={<ReceiptIcon />}
-                >
+                <Button variant="outlined" size="small" onClick={onClickDetail} startIcon={<ReceiptIcon />}>
                     Ver Venta
                 </Button>
 
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={onClickDetail2}
-                    startIcon={<TimerIcon />}
-                >
+                <Button variant="outlined" size="small" onClick={onClickDetail2} startIcon={<TimerIcon />}>
                     En Espera
                 </Button>
 
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={onClickDetail2}
-                    startIcon={<UpdateIcon />}
-                >
+                <Button variant="outlined" size="small" onClick={onClickDetail2} startIcon={<UpdateIcon />}>
                     Refrescar
                 </Button>
             </Toolbar>
 
-            <DataGrid
-                {...control}
-            />
+            <DataGrid {...control} />
         </PageCard>
     );
-}
+};
 
 export default Ventas;

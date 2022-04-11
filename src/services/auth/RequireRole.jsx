@@ -8,17 +8,13 @@ const RequireRole = ({ children, roles }) => {
     const { jwtHeader } = useHeaderJwt();
     const { role: currentRole } = jwtHeader || {};
 
-    const permissionGranted = roles?.some(role => currentRole.includes(role));
+    const permissionGranted = roles?.some((role) => currentRole?.includes(role));
 
     if (permissionGranted || roles === undefined) {
-        return (
-            <Suspense fallback={<Loader />}>
-                {children}
-            </Suspense>
-        )
+        return <Suspense fallback={<Loader />}>{children}</Suspense>;
     }
 
-    return <Forbidden />
-}
+    return <Forbidden />;
+};
 
 export default RequireRole;

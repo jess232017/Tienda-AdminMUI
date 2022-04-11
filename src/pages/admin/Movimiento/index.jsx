@@ -13,12 +13,12 @@ import SupervisedUserIcon from '@mui/icons-material/SupervisedUserCircleTwoTone'
 //owned
 import PageCard from '_@/common/PageCard';
 import Form from '_@/components/forms/FormMovimiento';
-import api from '_@/services/api/tasks/ApiMovimiento';
+import api from '_@/api/tasks/ApiMovimiento';
 import Toolbar from '_@/components/Toolbar';
 
 const Movimiento = () => {
     const grid = useRef(null);
-    const [selected, setSelected] = useState({})
+    const [selected, setSelected] = useState({});
     const { data, isLoading, isError } = api.obtener();
 
     const onClickAdd = () => show(Form, { title: 'Agregar Movimiento', method: 'post', data: selected, queryKey: 'Movimiento' });
@@ -29,48 +29,31 @@ const Movimiento = () => {
         if (e.data != null) {
             setSelected(e.data);
         }
-    }
+    };
 
     const handleChooser = () => {
         grid.current.columnChooserModule.openColumnChooser();
-    }
+    };
 
     return (
         <PageCard
             headerProps={{
-                title: "Gestión de movimientos",
-                subheader: "Listado de movimientos",
-                avatar: <SupervisedUserIcon />
+                title: 'Gestión de movimientos',
+                subheader: 'Listado de movimientos',
+                avatar: <SupervisedUserIcon />,
             }}
             isLoading={isLoading}
             isError={isError}
         >
-            <Toolbar
-                onClickChooser={handleChooser}
-            >
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={onClickAdd}
-                    startIcon={<AddIcon />}
-                >
+            <Toolbar onClickChooser={handleChooser}>
+                <Button variant="outlined" size="small" onClick={onClickAdd} startIcon={<AddIcon />}>
                     Agregar
                 </Button>
 
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={onClickEdit}
-                    startIcon={<EditIcon />}
-                >
+                <Button variant="outlined" size="small" onClick={onClickEdit} startIcon={<EditIcon />}>
                     Editar
                 </Button>
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={onClickDelete}
-                    startIcon={<DeleteIcon />}
-                >
+                <Button variant="outlined" size="small" onClick={onClickDelete} startIcon={<DeleteIcon />}>
                     Eliminar
                 </Button>
             </Toolbar>
@@ -92,6 +75,6 @@ const Movimiento = () => {
             */}
         </PageCard>
     );
-}
+};
 
 export default Movimiento;

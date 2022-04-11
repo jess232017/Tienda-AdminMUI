@@ -1,96 +1,65 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 
 //controls
 import { Button } from '@mui/material';
-import { show } from '@ebay/nice-modal-react';
+import { DataGrid } from '@mui/x-data-grid';
 
-//icons
+//Icons
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import BadgeIcon from '@mui/icons-material/BadgeTwoTone';
+import UserIcon from '@mui/icons-material/Person';
 
-//controls
+//Owned
 import PageCard from '_@/common/PageCard';
+import Form from '_@/components/forms/FormCategory';
+import api from '_@/api/tasks/ApiUser';
+import usePagination from '_@/services/hooks/usePagination';
+import useCrud from '_@/services/hooks/useCrud';
 import Toolbar from '_@/components/Toolbar';
-import Form from '_@/components/forms/FormEmpleado';
-import api from '_@/services/api/tasks/ApiEmpleado';
 
+const columns = [
+    { field: 'id', headerName: 'Codigo', width: 280 },
+    { field: 'firstName', headerName: 'Nombres', width: 150 },
+    { field: 'lastName', headerName: 'Apellidos', width: 150 },
+    { field: 'userName', headerName: 'Usuario', width: 100 },
+    { field: 'email', headerName: 'Correo', width: 200 },
+    { field: 'password', headerName: 'Contraseña', width: 100 },
+];
 
-const Empleado = () => {
-    const grid = useRef(null);
-    const [selected, setSelected] = useState({})
-    const { data, isLoading, isError } = api.obtener();
+const User = () => {
+    const { control, selected, isLoading, isError } = usePagination(api, columns);
+    const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected);
 
-    const onClickAdd = () => show(Form, { title: 'Agregar Empleado', method: 'post', data: selected, queryKey: 'Empleado' });
-    const onClickEdit = () => show(Form, { title: 'Editar Empleado', method: 'put', data: selected, queryKey: 'Empleado' });
-    const onClickDelete = () => show(Form, { title: 'Eliminar Empleado', method: 'delete', data: selected, queryKey: 'Empleado' });
-
-    const handleSelected = (e) => {
-        if (e.data != null) {
-            setSelected(e.data);
-        }
-    }
-
-    const handleChooser = () => {
-        grid.current.columnChooserModule.openColumnChooser();
-    }
+    const handleChooser = () => {};
 
     return (
         <PageCard
             headerProps={{
-                title: "Gestión de empleados",
-                subheader: "Listado de empleados",
-                avatar: <BadgeIcon />
+                title: 'Gestión de Usuarios',
+                subheader: 'Listado de Usuarios',
+                avatar: <UserIcon />,
             }}
             isLoading={isLoading}
             isError={isError}
         >
-            <Toolbar
-                onClickChooser={handleChooser}
-            >
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={onClickAdd}
-                    startIcon={<AddIcon />}
-                >
+            <Toolbar onClickChooser={handleChooser}>
+                <Button size="small" variant="outlined" onClick={handleAdd} startIcon={<AddIcon />}>
                     Agregar
                 </Button>
 
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={onClickEdit}
-                    startIcon={<EditIcon />}
-                >
+                <Button size="small" variant="outlined" onClick={handleEdit} startIcon={<EditIcon />}>
                     Editar
                 </Button>
-                <Button
-                    variant="outlined"
-                    size='small'
-                    onClick={onClickDelete}
-                    startIcon={<DeleteIcon />}
-                >
+
+                <Button size="small" variant="outlined" onClick={handleDelete} startIcon={<DeleteIcon />}>
                     Eliminar
                 </Button>
             </Toolbar>
 
-            {/*
-           
-                    <ColumnDirective field='empleadoId' headerText="empleadoId" width='100' />
-                    <ColumnDirective field='tienda' headerText="tienda" width='300' />
-                    <ColumnDirective field='rol' headerText="rol" width='100' />
-                    <ColumnDirective field='nombres' headerText="nombres" width='100' />
-                    <ColumnDirective field='apellidos' headerText="apellidos" width='100' />
-                    <ColumnDirective field='usuario' headerText="usuario" width='100' />
-                    <ColumnDirective field='foto' headerText="foto" width='100' />
-                    <ColumnDirective field='estado' headerText="estado" width='100' />
-                    <ColumnDirective field='correo' headerText="correo" width='100' />
-           
-           */}
+            <DataGrid {...control} />
         </PageCard>
     );
-}
+};
 
-export default Empleado;
+export default User;
