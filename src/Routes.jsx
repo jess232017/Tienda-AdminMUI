@@ -17,7 +17,6 @@ const Register = React.lazy(() => import('@/pages/auth/Register'));
 const Ventas = React.lazy(() => import('@/pages/admin/Venta'));
 const DetalleVenta = React.lazy(() => import('@/pages/admin/Venta/Detalle'));
 const VentaNueva = React.lazy(() => import('@/pages/admin/Venta/Nueva'));
-const Movimiento = React.lazy(() => import('@/pages/admin/Movimiento'));
 const Inventory = React.lazy(() => import('@/pages/admin/Inventory'));
 const Supplier = React.lazy(() => import('@/pages/admin/Supplier'));
 const Dashboard = React.lazy(() => import('@/pages/admin/Dashboard'));
@@ -68,8 +67,6 @@ const index = () => {
                         />
 
                         <Route path="marca" element={<RequireRole roles={[ROLES.administrador, ROLES.vendedor]} children={<Brand />} />} />
-
-                        <Route path="movimiento" element={<RequireRole roles={[ROLES.administrador]} children={<Movimiento />} />} />
 
                         <Route
                             path="Inventario"
