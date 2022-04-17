@@ -15,8 +15,8 @@ import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import TextField from '@mui/material/TextField';
 
-import api from '_@/api/tasks/ApiClient';
-import useDialog from '_@/services/hooks/useDialog';
+import api from '@/api/tasks/ApiClient';
+import useDialog from '@/services/hooks/useDialog';
 
 const top100Films = [
     { label: 'The Shawshank Redemption', year: 1994 },

@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import { styled } from '@mui/system';
 import { useTheme } from '@mui/styles';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -8,8 +7,8 @@ import { useMediaQuery, Divider, Drawer, Toolbar } from '@mui/material';
 
 import MenuList from './menuList/MenuList';
 
-import logo from '_@/assets/img/tienda.png';
-import { drawerWidth } from '_@/services/constant';
+import logo from '@/assets/img/tienda.png';
+import { drawerWidth } from '@/services/constant';
 
 const NavResponsive = styled('nav')(({ theme }) => ({
     [theme.breakpoints.up('md')]: {
@@ -22,9 +21,9 @@ const ToolContainer = styled(Toolbar)(({ theme }) => ({
     lineHeight: 0,
     background: theme.palette.primary.main,
     boxShadow: '0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)',
-    justifyContent: "center",
-    alignItems: "center",
-    gap: ".5rem",
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '.5rem',
 }));
 
 const ScrollHeight = styled(PerfectScrollbar)({
@@ -39,11 +38,9 @@ const MainLayout = (props) => {
 
     const drawer = (
         <React.Fragment>
-            <ToolContainer
-                sx={{ display: { xs: 'flex', md: 'none' } }}
-            >
+            <ToolContainer sx={{ display: { xs: 'flex', md: 'none' } }}>
                 <img src={logo} alt="Logo" height="35" />
-                <span style={{ fontWeight: "700", color: '#fff' }}>Abarroteria San Jose</span>
+                <span style={{ fontWeight: '700', color: '#fff' }}>Abarroteria San Jose</span>
             </ToolContainer>
             <Divider />
             <ScrollHeight>

@@ -2,8 +2,8 @@ import React from 'react';
 
 //control
 import { toast } from 'react-toastify';
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
@@ -19,14 +19,11 @@ import Typography from '@mui/material/Typography';
 
 //Icons
 import LoginIcon from '@mui/icons-material/Login';
-import PersonIcon from '@mui/icons-material/Person';
-import LockIcon from '@mui/icons-material/Lock';
 
 //owned
 import useLogin from './useLogin';
-import apiAuth from '_@/api/tasks/ApiIdentity';
-import Input from '_@/common/control/Input';
-import { CheckBox } from '_@/common/global/control/index';
+import apiAuth from '@/api/tasks/ApiIdentity';
+import { Input, Password } from '@/common/control';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -43,12 +40,7 @@ const validationSchema = Yup.object().shape({
 
 const Login = ({ isExpired = false }) => {
     //control form
-    const {
-        handleSubmit,
-        formState: { errors },
-        register,
-        control,
-    } = useForm({
+    const methods = useForm({
         resolver: yupResolver(validationSchema),
     });
 
@@ -86,34 +78,36 @@ const Login = ({ isExpired = false }) => {
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.
                     </p>
                 )}
+                <FormProvider {...methods}>
+                    <form className="mt-3" onSubmit={methods.handleSubmit(enviarForm)}>
+                        <Stack direction="column" spacing={1} pt={2}>
+                            <Input required label="Correo electrónico" name="email" type="text" />
 
-                <form className="mt-3" onSubmit={handleSubmit(enviarForm)}>
-                    <Stack direction="column" spacing={1} pt={2}>
-                        <Input required label="Correo electrónico" name="email" type="text" register={register} error={errors} />
+                            <Password required type="password" label="Contraseña" name="password" />
 
-                        <Input required type="password" label="Contraseña" name="password" register={register} error={errors} />
+                            {/*
+                            <CheckBox
+                                name="remember"
+                                label="Recordar contraseña"
+                                helperText={errors.remember?.message}
+                                error={errors.remember ? true : false}
+                            />
+                            */}
 
-                        <CheckBox
-                            name="remember"
-                            label="Recordar contraseña"
-                            control={control}
-                            helperText={errors.remember?.message}
-                            error={errors.remember ? true : false}
-                        />
-
-                        <LoadingButton
-                            type="submit"
-                            size="large"
-                            loading={isLoading}
-                            loadingPosition="start"
-                            startIcon={<LoginIcon />}
-                            variant="contained"
-                            fullWidth
-                        >
-                            Ingresar
-                        </LoadingButton>
-                    </Stack>
-                </form>
+                            <LoadingButton
+                                type="submit"
+                                size="large"
+                                loading={isLoading}
+                                loadingPosition="start"
+                                startIcon={<LoginIcon />}
+                                variant="contained"
+                                fullWidth
+                            >
+                                Ingresar
+                            </LoadingButton>
+                        </Stack>
+                    </form>
+                </FormProvider>
             </CardContent>
             <Divider />
             <CardContent>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
 
 import clsx from 'clsx';
 
@@ -10,11 +10,11 @@ import { useMediaQuery, Box, Toolbar } from '@mui/material';
 
 import Header from './header/Header';
 import Sidebar from './sidebar/Sidebar';
-import { drawerWidth } from '_@/services/constant';
+import { drawerWidth } from '@/services/constant';
 
 const Main = styled('div')(({ theme }) => ({
     padding: theme.spacing(2.5),
-    height: "calc(100% - 20px)",
+    height: 'calc(100% - 20px)',
     [theme.breakpoints.down('sm')]: {
         padding: theme.spacing(2),
     },

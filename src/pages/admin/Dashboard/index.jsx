@@ -20,7 +20,7 @@ import RevenuChartCardData from './chart/revenu-chart';
 import ReportCard from './ReportCard';
 import LatestorderCard from './LatestorderCard';
 
-import { gridSpacing } from '_@/services/constant';
+import { gridSpacing } from '@/services/constant';
 
 const FlatCardBody = styled(CardContent)({
     padding: '0px !important',

@@ -1,81 +1,78 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 
 //controls
 import { Button } from '@mui/material';
-import { show } from '@ebay/nice-modal-react';
-import { Chip } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
 
-//icons
+//Icons
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AccountCircleIcon from '@mui/icons-material/AccountCircleTwoTone';
+import UserIcon from '@mui/icons-material/Person';
 
-//controls
-import PageCard from '_@/common/PageCard';
-import Toolbar from '_@/components/Toolbar';
-import Form from '_@/components/forms/FormCliente';
-import api from '_@/api/tasks/ApiCliente';
+//Owned
+import PageCard from '@/common/PageCard';
+import Form from '@/components/forms/FormUser/FormUser';
+import api from '@/api/tasks/ApiUser';
+import usePagination from '@/services/hooks/usePagination';
+import useCrud from '@/services/hooks/useCrud';
+import Toolbar from '@/components/Toolbar';
 
-//own
-import ClientTemplate from './ClientTemplate';
+const columns = [
+    { field: 'id', headerName: 'Codigo', width: 280 },
+    { field: 'firstName', headerName: 'Nombres', width: 150 },
+    { field: 'lastName', headerName: 'Apellidos', width: 150 },
+    { field: 'userName', headerName: 'Usuario', width: 100 },
+    { field: 'phoneNumber', headerName: 'Telefono', width: 100 },
+    { field: 'email', headerName: 'Correo', width: 200 },
+    { field: 'password', headerName: 'Contraseña', width: 100 },
+];
 
-const statusTemplate = ({ estado }) => {
-    return <Chip label={estado ? 'Activo' : 'Inactivo'} color={estado ? 'primary' : 'secondary'} size="small" />;
-};
+const User = () => {
+    const { control, selected, isLoading, isError } = usePagination(api, columns);
+    const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected);
 
-const Cliente = () => {
-    const grid = useRef(null);
-    const [selected, setSelected] = useState({});
-    const { data, isLoading, isError } = api.obtener();
-
-    const onClickAdd = () => show(Form, { title: 'Agregar Cliente', method: 'post', data: selected, queryKey: 'Cliente' });
-    const onClickEdit = () => show(Form, { title: 'Editar Cliente', method: 'put', data: selected, queryKey: 'Cliente' });
-    const onClickDelete = () => show(Form, { title: 'Eliminar Cliente', method: 'delete', data: selected, queryKey: 'Cliente' });
-
-    const handleSelected = (e) => {
-        if (e.data != null) {
-            setSelected(e.data);
-        }
-    };
-
-    const handleChooser = () => {
-        grid.current.columnChooserModule.openColumnChooser();
-    };
+    const handleChooser = () => {};
 
     return (
         <PageCard
             headerProps={{
-                title: 'Gestión de clientes',
-                subheader: 'Listado de clientes',
-                avatar: <AccountCircleIcon />,
+                title: 'Gestión de Clientes',
+                subheader: 'Listado de Clientes',
+                avatar: <UserIcon />,
             }}
             isLoading={isLoading}
             isError={isError}
         >
             <Toolbar onClickChooser={handleChooser}>
-                <Button variant="outlined" size="small" onClick={onClickAdd} startIcon={<AddIcon />}>
+                <Button size="small" variant="outlined" onClick={handleAdd} startIcon={<AddIcon />}>
                     Agregar
                 </Button>
 
-                <Button variant="outlined" size="small" onClick={onClickEdit} startIcon={<EditIcon />}>
+                <Button
+                    size="small"
+                    variant="outlined"
+                    onClick={handleEdit}
+                    startIcon={<EditIcon />}
+                    disabled={Object.entries(selected)?.length < 1}
+                >
                     Editar
                 </Button>
-                <Button variant="outlined" size="small" onClick={onClickDelete} startIcon={<DeleteIcon />}>
+
+                <Button
+                    size="small"
+                    variant="outlined"
+                    onClick={handleDelete}
+                    startIcon={<DeleteIcon />}
+                    disabled={Object.entries(selected)?.length < 1}
+                >
                     Eliminar
                 </Button>
             </Toolbar>
-            {/*
 
-<ColumnsDirective>
-                    <ColumnDirective field='clienteId' headerText="Codigo" visible={false} width='100' />
-                    <ColumnDirective field='imagen' headerText="Informacion" width='350' template={ClientTemplate} />
-                    <ColumnDirective field='estado' headerText="Estado" width='100' template={statusTemplate} />
-                    <ColumnDirective field='facturas' headerText="facturas" width='100' />
-                </ColumnsDirective>
-*/}
+            <DataGrid {...control} />
         </PageCard>
     );
 };
 
-export default Cliente;
+export default User;

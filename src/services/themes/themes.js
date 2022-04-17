@@ -1,10 +1,10 @@
-import value from '_@/assets/scss/themes-vars';
+import value from '@/assets/scss/themes-vars';
 
 import { createTheme } from '@mui/material/styles';
 
 import grey from '@mui/material/colors/grey';
 
-export function theme(customization) {
+const theme = (customization) => {
     let textPrimary;
     let textSecondary;
     let textDark;
@@ -14,26 +14,22 @@ export function theme(customization) {
     let menuCaption;
     let textInversePrimary;
 
-    switch (customization.navType) {
-        case 'dark':
-            textPrimary = menuCaption = textInversePrimary = value.textDarkPrimary;
-            textSecondary = value.textDarkSecondary;
-            textDark = value.textDarkDark;
-            textHint = value.textHintDark;
+    if (customization.darkMode) {
+        textPrimary = menuCaption = textInversePrimary = value.textDarkPrimary;
+        textSecondary = value.textDarkSecondary;
+        textDark = value.textDarkDark;
+        textHint = value.textHintDark;
 
-            background = value.backgoundDark;
-            paper = value.paperDark;
-            break;
-        case 'light':
-        default:
-            textPrimary = textInversePrimary = menuCaption = value.textPrimary;
-            textSecondary = value.textSecondary;
-            textDark = value.textDark;
-            textHint = value.textHint;
+        background = value.backgoundDark;
+        paper = value.paperDark;
+    } else {
+        textPrimary = textInversePrimary = menuCaption = value.textPrimary;
+        textSecondary = value.textSecondary;
+        textDark = value.textDark;
+        textHint = value.textHint;
 
-            background = value.backgound;
-            paper = value.paper;
-            break;
+        background = value.backgound;
+        paper = value.paper;
     }
 
     return createTheme({
@@ -184,8 +180,8 @@ export function theme(customization) {
                 styleOverrides: {
                     root: {
                         '@media (min-width: 600px)': {
-                            minHeight: "58px"
-                        }
+                            minHeight: '58px',
+                        },
                     },
                 },
             },
@@ -220,9 +216,8 @@ export function theme(customization) {
             },
             MuiCard: {
                 styleOverrides: {
-                    root: {
-                    }
-                }
+                    root: {},
+                },
             },
             MuiCardHeader: {
                 styleOverrides: {
@@ -233,8 +228,8 @@ export function theme(customization) {
                             fontSize: '1rem',
                         },
                         '.MuiCardHeader-subheader': {
-                            fontSize: "0.8rem",
-                        }
+                            fontSize: '0.8rem',
+                        },
                     },
                 },
             },
@@ -251,8 +246,8 @@ export function theme(customization) {
                     height: '.5px',
                     margin: 0,
                     flexShrink: 0,
-                    backgroundColor: 'rgba(0, 0, 0, 0.12)'
-                }
+                    backgroundColor: 'rgba(0, 0, 0, 0.12)',
+                },
             },
             MuiSvgIcon: {
                 styleOverrides: {
@@ -264,7 +259,7 @@ export function theme(customization) {
             MuiDataGrid: {
                 styleOverrides: {
                     root: {
-                        fontSize: "0.75rem",
+                        fontSize: '0.75rem',
                     },
                 },
             },
@@ -421,7 +416,7 @@ export function theme(customization) {
                         },
                     },
                     {
-                        props: { variant: 'light', size: "large" },
+                        props: { variant: 'light', size: 'large' },
                         style: {
                             padding: '8px',
                             backgroundColor: '#fff',
@@ -431,12 +426,12 @@ export function theme(customization) {
                 ],
                 styleOverrides: {
                     root: {
-                        fontSize: "0.79rem",
+                        fontSize: '0.79rem',
                     },
                 },
-            }
-        }
+            },
+        },
     });
-}
+};
 
 export default theme;

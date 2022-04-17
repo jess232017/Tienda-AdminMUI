@@ -23,9 +23,9 @@ import CommentIcon from '@mui/icons-material/Comment';
 import TabPanel from './TabPanel';
 import PanelCash from './PanelCash';
 import PanelCredit from './PanelCredit';
-import FormDialog from '_@/common/FormDialog';
-import api from '_@/api/tasks/ApiOrder';
-import useCarrito from '_@/services/context/carrito';
+import FormDialog from '@/common/FormDialog';
+import api from '@/api/tasks/ApiOrder';
+import useCarrito from '@/services/context/carrito';
 import { Tabs, Tab } from './Tab';
 
 const FormPayment = NiceModal.create(({ data }) => {
@@ -54,10 +54,12 @@ const FormPayment = NiceModal.create(({ data }) => {
                 },
             },
             error: {
-                render({ data }) {
-                    console.log(JSON.stringify(data.response));
+                render(info) {
+                    console.log('data', JSON.stringify(info), info);
+                    const data = info.data;
                     const error = data?.response?.data?.error;
-                    return error?.message || data?.message;
+                    const errors = JSON.stringify(data?.response?.data?.errors);
+                    return error?.message || errors;
                 },
             },
         });

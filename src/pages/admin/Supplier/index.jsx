@@ -11,12 +11,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import TransportationIcon from '@mui/icons-material/EmojiTransportationTwoTone';
 
 //Owned
-import PageCard from '_@/common/PageCard';
-import api from '_@/api/tasks/ApiSupplier';
-import Form from '_@/components/forms/FormProveedor';
-import usePagination from '_@/services/hooks/usePagination';
-import useCrud from '_@/services/hooks/useCrud';
-import Toolbar from '_@/components/Toolbar';
+import PageCard from '@/common/PageCard';
+import api from '@/api/tasks/ApiSupplier';
+import Form from '@/components/forms/FormSupplier/FormSupplier';
+import usePagination from '@/services/hooks/usePagination';
+import useCrud from '@/services/hooks/useCrud';
+import Toolbar from '@/components/Toolbar';
 
 const columns = [
     { field: 'id', headerName: 'Codigo', width: 100 },

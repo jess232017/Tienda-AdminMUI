@@ -10,36 +10,32 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 
-import useDialog from '_@/services/hooks/useDialog';
+import useDialog from '@/services/hooks/useDialog';
 
 const NewNote = ({ value, set }) => {
     const { handleOpen, handleClose, isOpen } = useDialog();
 
     const handleChange = (e) => {
-        set({ note: e.target.value })
-    }
+        set({ note: e.target.value });
+    };
 
     return (
         <>
-            <Button
-                fullWidth
-                size="small"
-                variant="outlined"
-                onClick={handleOpen}
-                endIcon={<  CommentOutlinedIcon />}
-            >
+            <Button fullWidth size="small" variant="outlined" onClick={handleOpen} endIcon={<CommentOutlinedIcon />}>
                 Comentario
             </Button>
             <Dialog disableEscapeKeyDown open={isOpen} onClose={handleClose}>
                 <DialogTitle>Agregar comentario</DialogTitle>
                 <DialogContent>
-                    <TextareaAutosize
-                        value={value.note}
-                        onChange={handleChange}
-                        aria-label="empty textarea"
-                        placeholder="Escriba su comentario aqui"
-                        style={{ width: 300, height: 100 }}
-                    />
+                    <div className="input-style">
+                        <TextareaAutosize
+                            value={value.note}
+                            onChange={handleChange}
+                            aria-label="note textarea"
+                            placeholder="Escriba su comentario aqui"
+                            style={{ width: 300, height: 100 }}
+                        />
+                    </div>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
@@ -48,6 +44,6 @@ const NewNote = ({ value, set }) => {
             </Dialog>
         </>
     );
-}
+};
 
 export default NewNote;

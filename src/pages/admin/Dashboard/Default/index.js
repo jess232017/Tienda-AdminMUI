@@ -1,5 +1,5 @@
 import React from 'react';
-import {  Grid, Card, CardHeader, CardContent, Hidden, Typography, Divider, LinearProgress } from '@mui/material';
+import { Grid, Card, CardHeader, CardContent, Hidden, Typography, Divider, LinearProgress } from '@mui/material';
 
 import { makeStyles, useTheme } from '@mui/styles';
 
@@ -19,7 +19,7 @@ import RevenuChartCardData from './chart/revenu-chart';
 import ReportCard from './ReportCard';
 import LatestorderCard from './LatestorderCard';
 
-import { gridSpacing } from '_@/services/constant';
+import { gridSpacing } from '@/services/constant';
 
 const useStyles = makeStyles((theme) => ({
     arrowicon: {

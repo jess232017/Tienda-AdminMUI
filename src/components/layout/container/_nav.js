@@ -68,7 +68,7 @@ const nav = {
                             title: 'Marcas',
                             type: 'item',
                             url: '/admin/marca',
-                        }
+                        },
                     ],
                 },
                 {
@@ -79,24 +79,11 @@ const nav = {
                     url: '/admin/inventario',
                 },
                 {
-                    id: 'bitacora',
-                    title: 'Bitacoras',
+                    id: 'session',
+                    title: 'Sesiones',
                     type: 'item',
                     icon: ClassOutlinedIcon,
-                    url: '/admin/bitacoras'
-                },
-                {
-                    id: 'caja',
-                    title: 'Cajas',
-                    type: 'item',
-                    icon: SettingsRemoteIcon,
-                    url: '/admin/caja',
-                    chip: {
-                        size: "small",
-                        label: 'Obsoleto',
-                        error: true,
-                        size: 'small',
-                    },
+                    url: '/admin/sesion',
                 },
             ],
         },
@@ -158,8 +145,8 @@ const nav = {
                     icon: AccessibilityOutlinedIcon,
                     url: '/admin/proveedor',
                 },
-            ]
-        }
+            ],
+        },
     ],
 };
 

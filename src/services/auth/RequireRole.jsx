@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react';
 
-import useHeaderJwt from '_@/services/hooks/useHeaderJwt';
+import useHeaderJwt from '@/services/hooks/useHeaderJwt';
 import Forbidden from '../../pages/error/Forbidden';
-import Loader from '_@/components/LoaderPage';
+import Loader from '@/components/LoaderPage';
 
 const RequireRole = ({ children, roles }) => {
     const { jwtHeader } = useHeaderJwt();

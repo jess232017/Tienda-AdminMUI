@@ -12,13 +12,13 @@ import AnalyticsIcon from '@mui/icons-material/Analytics';
 import InventoryIcon from '@mui/icons-material/InventoryTwoTone';
 
 //owned
-import PageCard from '_@/common/PageCard';
-import Toolbar from '_@/components/Toolbar';
-import Form from '_@/components/forms/FormInventario';
-import api from '_@/api/tasks/ApiInventory';
-import usePagination from '_@/services/hooks/usePagination';
-import DropButton, { MenuItem } from '_@/components/DropButton';
-import useCrud from '_@/services/hooks/useCrud';
+import PageCard from '@/common/PageCard';
+import Toolbar from '@/components/Toolbar';
+import Form from '@/components/forms/FormInventory/FormInventory';
+import api from '@/api/tasks/ApiInventory';
+import usePagination from '@/services/hooks/usePagination';
+import DropButton, { MenuItem } from '@/components/DropButton';
+import useCrud from '@/services/hooks/useCrud';
 
 const URL = import.meta.env.VITE_API_URL;
 

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-import NoData from '_@/pages/error/NoData';
+import NoData from '@/pages/error/NoData';
 
 const optionSize = [10, 20, 30];
 
@@ -9,13 +9,14 @@ const usePagination = (api, columns) => {
     const [rows, setRows] = useState([]);
     const [size, setSize] = useState(10);
     const [total, setTotal] = useState(0);
-    const [selected, setSelected] = useState([0]);
+    const [selected, setSelected] = useState({});
+    const [selectionModel, setSelectionModel] = useState([]);
 
     const { data, isLoading: loading, isError } = api.get(page, size);
 
     useEffect(() => {
         if (data != null) {
-            const { data: { totalPages, data: rows } } = data;
+            const { totalPages, data: rows } = data;
             setTotal(totalPages);
             setRows(rows || []);
         }
@@ -23,22 +24,25 @@ const usePagination = (api, columns) => {
 
     const onPageChange = useCallback((page) => {
         if (page !== 0) {
-            console.log("hereee1 ", page)
-            setPage(page)
+            console.log('onPageChange ', page);
+            setPage(page);
         }
     }, []);
 
     const onPageSizeChange = useCallback((newPage) => {
-        console.log("hereee2 ", newPage)
-        setSize(newPage)
+        console.log('onPageSizeChange ', newPage);
+        setSize(newPage);
     }, []);
 
-    const onSelectionModelChange = useCallback((data) => {
-        if (data.length !== 0) {
-            console.log("hereee3 ", data)
-            setSelected(data)
-        }
-    }, []);
+    const onSelectionModelChange = useCallback(
+        (selection) => {
+            const last = selection.slice(-1);
+            setSelectionModel(last);
+            const data = last.length >= 1 ? rows.find((value) => value.id === last[0]) : {};
+            setSelected(data);
+        },
+        [rows]
+    );
 
     //props for DataGrid
     const control = {
@@ -46,22 +50,24 @@ const usePagination = (api, columns) => {
         page,
         columns,
         rowCount: total,
+        checkboxSelection: true,
         pagination: true,
         pageSize: size,
-        paginationMode: "server",
+        paginationMode: 'server',
         rowsPerPageOptions: optionSize,
-        density: "compact",
+        density: 'compact',
         loading,
         components: {
             NoRowsOverlay: NoData,
         },
-        selectionModel: selected,
+        disableMultipleSelection: true,
+        selectionModel: selectionModel,
         onSelectionModelChange,
         onPageSizeChange,
         onPageChange,
-    }
+    };
 
-    return { control, data, selected, isLoading: loading, isError }
-}
+    return { control, data, selected, isLoading: loading, isError };
+};
 
 export default usePagination;

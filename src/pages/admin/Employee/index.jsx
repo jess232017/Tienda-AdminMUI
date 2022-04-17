@@ -11,18 +11,19 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import UserIcon from '@mui/icons-material/Person';
 
 //Owned
-import PageCard from '_@/common/PageCard';
-import Form from '_@/components/forms/FormCategory';
-import api from '_@/api/tasks/ApiUser';
-import usePagination from '_@/services/hooks/usePagination';
-import useCrud from '_@/services/hooks/useCrud';
-import Toolbar from '_@/components/Toolbar';
+import PageCard from '@/common/PageCard';
+import Form from '@/components/forms/FormUser/FormUser';
+import api from '@/api/tasks/ApiUser';
+import usePagination from '@/services/hooks/usePagination';
+import useCrud from '@/services/hooks/useCrud';
+import Toolbar from '@/components/Toolbar';
 
 const columns = [
     { field: 'id', headerName: 'Codigo', width: 280 },
     { field: 'firstName', headerName: 'Nombres', width: 150 },
     { field: 'lastName', headerName: 'Apellidos', width: 150 },
     { field: 'userName', headerName: 'Usuario', width: 100 },
+    { field: 'phoneNumber', headerName: 'Telefono', width: 100 },
     { field: 'email', headerName: 'Correo', width: 200 },
     { field: 'password', headerName: 'Contraseña', width: 100 },
 ];
@@ -44,17 +45,20 @@ const User = () => {
             isError={isError}
         >
             <Toolbar onClickChooser={handleChooser}>
-                <Button size="small" variant="outlined" onClick={handleAdd} startIcon={<AddIcon />}>
-                    Agregar
-                </Button>
-
-                <Button size="small" variant="outlined" onClick={handleEdit} startIcon={<EditIcon />}>
-                    Editar
-                </Button>
-
-                <Button size="small" variant="outlined" onClick={handleDelete} startIcon={<DeleteIcon />}>
-                    Eliminar
-                </Button>
+                {Object.entries(selected)?.length > 1 ? (
+                    <>
+                        <Button variant="outlined" size="small" onClick={handleEdit} startIcon={<EditIcon />}>
+                            Editar
+                        </Button>
+                        <Button variant="outlined" size="small" onClick={handleDelete} startIcon={<DeleteIcon />}>
+                            Eliminar
+                        </Button>
+                    </>
+                ) : (
+                    <Button size="small" variant="outlined" onClick={handleAdd} startIcon={<AddIcon />}>
+                        Agregar
+                    </Button>
+                )}
             </Toolbar>
 
             <DataGrid {...control} />

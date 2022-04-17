@@ -3,10 +3,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 //mui
-import Box from '@mui/material/Box'
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
-import DownImage from '_@/pages/error/images/server_down.svg';
+import DownImage from '@/pages/error/images/server_down.svg';
 
 const ServerDown = () => {
     return (
@@ -21,6 +21,6 @@ const ServerDown = () => {
             </Box>
         </Box>
     );
-}
+};
 
 export default ServerDown;

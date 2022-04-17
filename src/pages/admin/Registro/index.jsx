@@ -11,10 +11,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import BookIcon from '@mui/icons-material/BookTwoTone';
 
 //owned
-import PageCard from '_@/common/PageCard';
-import Form from '_@/components/forms/FormCaja';
-import api from '_@/api/tasks/ApiCaja';
-import Toolbar from '_@/components/Toolbar';
+import PageCard from '@/common/PageCard';
+import Form from '@/components/forms/FormCaja';
+import api from '@/api/tasks/ApiCaja';
+import Toolbar from '@/components/Toolbar';
 
 const Registro = () => {
     const grid = useRef(null);

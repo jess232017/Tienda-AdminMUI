@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 //Control
+import { FormProvider } from 'react-hook-form';
 import { muiDialog, useModal } from '@ebay/nice-modal-react';
 
-import Stack from '@mui/material/Stack'
+import Stack from '@mui/material/Stack';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
@@ -25,34 +26,34 @@ import CloseIcon from '@mui/icons-material/Close';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 
-const FormDialog = ({ title, callback, children, footerControl = true, processing = false }) => {
+const FormDialog = ({ title, callback, methods, children, footerControl = true, processing = false }) => {
     const theme = useTheme();
     const modal = useModal();
     const phoneScreen = useMediaQuery(theme.breakpoints.down('md'));
-    const [fullScreen, setFullScreen] = useState(phoneScreen)
+    const [fullScreen, setFullScreen] = useState(phoneScreen);
+    useEffect(() => setFullScreen(phoneScreen), [phoneScreen]);
 
-    useEffect(() => setFullScreen(phoneScreen), [phoneScreen])
+    const handleClose = (event, reason) => {
+        if (reason && reason == 'backdropClick') return;
+    };
 
     return (
-        <>
+        <FormProvider {...methods}>
             <form onSubmit={callback}>
                 <Dialog
+                    disable
                     maxWidth="md"
                     fullWidth={true}
                     fullScreen={fullScreen}
                     {...muiDialog(modal)}
+                    onClose={handleClose}
                     sx={{ ' .MuiPaper-root': { borderRadius: { xs: 0, md: 3 } } }}
                 >
                     <DialogTitle sx={{ p: 0 }}>
-                        {phoneScreen ?
-                            <AppBar sx={{ position: 'relative', display: { md: "none", xs: "block" } }}>
+                        {phoneScreen ? (
+                            <AppBar sx={{ position: 'relative', display: { md: 'none', xs: 'block' } }}>
                                 <Toolbar>
-                                    <IconButton
-                                        edge="start"
-                                        color="inherit"
-                                        onClick={modal.hide}
-                                        aria-label="close"
-                                    >
+                                    <IconButton edge="start" color="inherit" onClick={modal.hide} aria-label="close">
                                         <CloseIcon />
                                     </IconButton>
                                     <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
@@ -63,8 +64,9 @@ const FormDialog = ({ title, callback, children, footerControl = true, processin
                                     </Button>
                                 </Toolbar>
                             </AppBar>
-                            :
-                            <CardHeader sx={{ display: { md: "flex", xs: "none" } }}
+                        ) : (
+                            <CardHeader
+                                sx={{ display: { md: 'flex', xs: 'none' } }}
                                 title={title}
                                 action={
                                     <Stack direction="row" spacing={1}>
@@ -76,29 +78,24 @@ const FormDialog = ({ title, callback, children, footerControl = true, processin
                                         >
                                             {fullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
                                         </IconButton>
-                                        <IconButton
-                                            edge="start"
-                                            color="inherit"
-                                            onClick={modal.hide}
-                                            aria-label="close"
-                                        >
+                                        <IconButton edge="start" color="inherit" onClick={modal.hide} aria-label="close">
                                             <CloseIcon />
                                         </IconButton>
                                     </Stack>
                                 }
                             />
-                        }
+                        )}
                     </DialogTitle>
 
                     <DialogContent dividers={true} sx={{ pt: 5, pb: 5 }}>
                         {children}
                     </DialogContent>
 
-                    {footerControl &&
+                    {footerControl && (
                         <DialogActions sx={{ padding: '1rem' }}>
                             <LoadingButton
                                 variant="contained"
-                                sx={{ boxShadow: "none", }}
+                                sx={{ boxShadow: 'none' }}
                                 startIcon={<SaveIcon />}
                                 type="submit"
                                 onClick={callback}
@@ -106,20 +103,15 @@ const FormDialog = ({ title, callback, children, footerControl = true, processin
                             >
                                 Guardar
                             </LoadingButton>
-                            <Button
-                                color="secondary"
-                                variant="outlined"
-                                onClick={modal.hide}
-                                startIcon={<CloseIcon />}
-                            >
+                            <Button color="secondary" variant="outlined" onClick={modal.hide} startIcon={<CloseIcon />}>
                                 Cancelar
                             </Button>
                         </DialogActions>
-                    }
+                    )}
                 </Dialog>
             </form>
-        </>
+        </FormProvider>
     );
-}
+};
 
 export default FormDialog;

@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 
 import { styled } from '@mui/system';
 import { useTheme } from '@mui/styles';
-import { useMediaQuery, Box,  Tooltip, TextField, MenuItem, InputAdornment, Hidden, Button } from '@mui/material';
+import { useMediaQuery, Box, Tooltip, TextField, MenuItem, InputAdornment, Hidden, Button } from '@mui/material';
 
 import TranslateIcon from '@mui/icons-material/Translate';
 import BrightnessIcon from '@mui/icons-material/Brightness6Outlined';
 
-import useStore from '_@/services/context/sidebar';
+import useStore from '@/services/context/sidebar';
 
 const currencies = [
     {
@@ -21,7 +21,7 @@ const currencies = [
     {
         value: 'fr',
         label: 'français',
-    }
+    },
 ];
 
 const MenuIcon = styled(BrightnessIcon)({
@@ -36,7 +36,7 @@ const SelectIcon = styled(InputAdornment)({
 
 const Customization = () => {
     const theme = useTheme();
-    const {show, setLocale, setDarkMode} = useStore();
+    const { show, setLocale, setDarkMode } = useStore();
     const matchDownSm = useMediaQuery(theme.breakpoints.down('xs'));
 
     const [currency, setCurrency] = React.useState(show.locale);
@@ -72,7 +72,7 @@ const Customization = () => {
                                     </SelectIcon>
                                 </Hidden>
                             ),
-                            disableUnderline: true
+                            disableUnderline: true,
                         }}
                         SelectProps={{
                             classes: {
@@ -89,12 +89,9 @@ const Customization = () => {
                     </TextField>
                 </Box>
             </Tooltip>
-            <Tooltip title='Modo Obscuro'>
-                <Button color="inherit"
-                    onClick={setDarkMode}
-                    sx={{minWidth: { xs: '35px', sm: '50px', md: '65px'}}}
-                >
-                    <MenuIcon/>
+            <Tooltip title="Modo Obscuro">
+                <Button color="inherit" onClick={setDarkMode} sx={{ minWidth: { xs: '35px', sm: '50px', md: '65px' } }}>
+                    <MenuIcon />
                 </Button>
             </Tooltip>
         </React.Fragment>

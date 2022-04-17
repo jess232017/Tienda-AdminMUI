@@ -6,7 +6,7 @@ import styled from '@mui/system/styled';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography'
+import Typography from '@mui/material/Typography';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -17,17 +17,17 @@ import DeleteIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 //owned
-import UriName from '_@/common/global/UriName';
-import Item from '../../services/context/class/Item'
+import UriName from '@/common/global/UriName';
+import Item from '../../services/context/class/Item';
 
 const IconButton = styled(Button)({
     minWidth: 0,
     maxHeight: 34.11,
     padding: '0.5rem 10px',
     ' svg': {
-        fontSize: '1.28rem'
+        fontSize: '1.28rem',
     },
-})
+});
 
 const GridItem = ({ data, store, width }) => {
     const { id, name, image, price } = data;
@@ -35,9 +35,9 @@ const GridItem = ({ data, store, width }) => {
 
     const agregarItem = () => {
         addItem(new Item(id, name, price, 1, 5, image));
-    }
+    };
 
-    const exist = carrito.find(value => value.key === id);
+    const exist = carrito.find((value) => value.key === id);
 
     return (
         <Grid item flexGrow={1}>
@@ -46,19 +46,17 @@ const GridItem = ({ data, store, width }) => {
                     variant="rounded"
                     alt={name}
                     src={`data:image/jpeg;charset=utf-8;base64,${image}`}
-                    sx={{ width: "70px", height: "70px" }}
+                    sx={{ width: '70px', height: '70px' }}
                 />
                 <Box ml={1} width="100%">
                     <Box display="flex" flexDirection="column">
-                        <UriName uri={`/producto?id=${id}`}>
-                            {name}
-                        </UriName>
-                        <Typography variant="caption" mb={1} >
+                        <UriName uri={`/producto?id=${id}`}>{name}</UriName>
+                        <Typography variant="caption" mb={1}>
                             C$ {price}
                         </Typography>
                     </Box>
 
-                    {(exist != null) ?
+                    {exist != null ? (
                         <Stack direction="row" spacing={2}>
                             <TextField
                                 id="outlined-number"
@@ -78,38 +76,25 @@ const GridItem = ({ data, store, width }) => {
                                 }}
                             />
 
-                            <IconButton
-                                onClick={() => removeItem(exist.key)}
-                                variant="outlined"
-                                color="error"
-                            >
+                            <IconButton onClick={() => removeItem(exist.key)} variant="outlined" color="error">
                                 <DeleteIcon />
                             </IconButton>
                         </Stack>
-                        :
+                    ) : (
                         <Stack direction="row" spacing={2} alignItems="center" justifyContent="flex-end">
-                            <Button
-                                size="small"
-                                variant="outlined"
-                                fullWidth={true}
-                                onClick={() => agregarItem()}>
+                            <Button size="small" variant="outlined" fullWidth={true} onClick={() => agregarItem()}>
                                 Comprar
                             </Button>
 
-                            <IconButton
-                                size="small"
-                                color="secondary"
-                                variant="outlined"
-                                disabled={true}
-                            >
+                            <IconButton size="small" color="secondary" variant="outlined" disabled={true}>
                                 <FavoriteBorderIcon />
                             </IconButton>
                         </Stack>
-                    }
+                    )}
                 </Box>
             </Box>
         </Grid>
     );
-}
+};
 
 export default GridItem;

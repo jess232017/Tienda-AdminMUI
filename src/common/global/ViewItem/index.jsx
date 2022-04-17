@@ -14,8 +14,8 @@ import GridViewIcon from '@mui/icons-material/GridView';
 
 // own
 import Viewer from './Viewer';
-import apiProduct from '_@/api/tasks/ApiProduct';
-import apiCategory from '_@/api/tasks/ApiCategory';
+import apiProduct from '@/api/tasks/ApiProduct';
+import apiCategory from '@/api/tasks/ApiCategory';
 
 const Toggle = styled('div')({
     display: 'flex',
@@ -49,9 +49,7 @@ const ViewItem = () => {
 
     useEffect(() => {
         if (categories != null) {
-            const {
-                data: { data },
-            } = categories;
+            const { data } = categories;
             setSelected(data[0]?.id);
         }
     }, [categories]);

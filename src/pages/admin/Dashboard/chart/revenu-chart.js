@@ -1,4 +1,4 @@
-import value from '_@/assets/scss/themes-vars';
+import value from '@/assets/scss/themes-vars';
 
 const revenueChart = {
     height: 228,

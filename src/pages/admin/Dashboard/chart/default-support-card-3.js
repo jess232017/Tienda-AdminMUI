@@ -1,6 +1,6 @@
-import value from '_@/assets/scss/themes-vars';
+import value from '@/assets/scss/themes-vars';
 
-const support =  {
+const support = {
     type: 'area',
     height: 125,
     options: {

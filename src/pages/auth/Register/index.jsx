@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 
 //control
 import { toast } from 'react-toastify';
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -18,9 +18,9 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Typography from '@mui/material/Typography';
 
 //Owned
-import apiAuth from '_@/api/tasks/ApiIdentity';
-import Input from '_@/common/control/Input';
-import { CheckBox } from '_@/common/global/control/index';
+import apiAuth from '@/api/tasks/ApiIdentity';
+import { Input, Password } from '@/common/control';
+//import { CheckBox } from '@/common/global/control/index';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -37,13 +37,7 @@ const validationSchema = Yup.object().shape({
 const Register = () => {
     const { isLoading, mutateAsync } = apiAuth.Register();
     //control form
-    const {
-        handleSubmit,
-        formState: { errors },
-        register,
-        control,
-        reset,
-    } = useForm({
+    const methods = useForm({
         resolver: yupResolver(validationSchema),
     });
 
@@ -52,7 +46,7 @@ const Register = () => {
             pending: 'Verificando, por favor espere...',
             success: {
                 render() {
-                    reset();
+                    methods.reset();
                     return 'Usuario registrado correctamente';
                 },
             },
@@ -78,34 +72,36 @@ const Register = () => {
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.
                     </p>
 
-                    <Box component="form" id="registerForm" mt={2} onSubmit={handleSubmit(enviarForm)}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} md={6}>
-                                <Input name="firstName" label="Nombres" register={register} error={errors} />
+                    <FormProvider {...methods}>
+                        <Box component="form" id="registerForm" mt={2} onSubmit={methods.handleSubmit(enviarForm)}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} md={6}>
+                                    <Input name="firstName" label="Nombres" />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <Input name="lastName" label="Apellidos" />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <Input name="email" label="Correo" />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <Input name="phoneNumber" type="number" label="Numero telefonico" />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <Input name="userName" label="Usuario" />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <Password name="password" type="password" label="Contraseña" />
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12} md={6}>
-                                <Input name="lastName" label="Apellidos" register={register} error={errors} />
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <Input name="email" label="Correo" register={register} error={errors} />
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <Input name="phoneNumber" type="number" label="Numero telefonico" register={register} error={errors} />
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <Input name="userName" label="Usuario" register={register} error={errors} />
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <Input name="password" type="password" label="Contraseña" register={register} error={errors} />
-                            </Grid>
-                        </Grid>
 
-                        <Stack direction="column" spacing={2} pt={2}>
-                            <LoadingButton type="submit" loading={isLoading} loadingPosition="start" variant="contained" fullWidth>
-                                Registrarse
-                            </LoadingButton>
-                        </Stack>
-                    </Box>
+                            <Stack direction="column" spacing={2} pt={2}>
+                                <LoadingButton type="submit" loading={isLoading} loadingPosition="start" variant="contained" fullWidth>
+                                    Registrarse
+                                </LoadingButton>
+                            </Stack>
+                        </Box>
+                    </FormProvider>
                 </CardContent>
                 <Divider />
                 <CardContent>

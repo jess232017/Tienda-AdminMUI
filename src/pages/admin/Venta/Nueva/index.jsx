@@ -10,19 +10,18 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 //own
 import CartShop from './CartShop';
-import ViewItem from '_@/common/global/ViewItem';
+import ViewItem from '@/common/global/ViewItem';
 
 const cancelData = {
-    title: "Acción permanente ⚠️",
+    title: 'Acción permanente ⚠️',
     description: '¿Seguro que quiere eliminar los productos agregados al carrito?',
     cancellationText: 'No, Cancelar',
     confirmationText: 'Eliminar Todo',
     confirmationButtonProps: {
         color: 'error',
-        startIcon: <HighlightOffIcon />
+        startIcon: <HighlightOffIcon />,
     },
-}
-
+};
 
 const TomarVenta = () => {
     //Get vendor id
@@ -31,26 +30,19 @@ const TomarVenta = () => {
 
     if (matches) {
         return (
-            <Splitter
-                minWidths={[330, 330]}
-                initialSizes={[66, 34]}
-            >
+            <Splitter minWidths={[330, 330]} initialSizes={[66, 34]}>
                 <ViewItem />
-                <CartShop
-                    vendorId={vendorId}
-                />
-            </Splitter >
-        )
+                <CartShop vendorId={vendorId} />
+            </Splitter>
+        );
     }
 
     return (
         <Card>
             <ViewItem />
-            <CartShop
-                vendorId={vendorId}
-            />
+            <CartShop vendorId={vendorId} />
         </Card>
-    )
-}
+    );
+};
 
 export default TomarVenta;

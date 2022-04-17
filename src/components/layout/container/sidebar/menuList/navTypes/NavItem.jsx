@@ -5,9 +5,9 @@ import { styled } from '@mui/system';
 import { Avatar, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import Chip from '_@/components/Chip';
+import Chip from '@/components/Chip';
 
-import useStore from '_@/services/context/sidebar';
+import useStore from '@/services/context/sidebar';
 
 const SubMenuCaption = styled(Typography)(({ theme }) => ({
     ...theme.typography.subMenuCaption,
@@ -32,21 +32,16 @@ const styles = {
         backgroundColor: '#ffcdd2',
         marginRight: '20px',
     },
-}
-
+};
 
 const NavItem = (props) => {
-    const {show, setOpen} = useStore();
+    const { show, setOpen } = useStore();
     const { item, level } = props;
 
     const Icon = item.icon;
     const fontSize = level > 0 ? 'inherit' : 'default';
 
-    const itemIcon = item.icon ? (
-        <Icon color="inherit" />
-    ) : (
-        <ArrowForwardIcon color="inherit" sx={{fontSize}}/>
-    );
+    const itemIcon = item.icon ? <Icon color="inherit" /> : <ArrowForwardIcon color="inherit" sx={{ fontSize }} />;
 
     let itemIconClass = !item.icon ? styles.listIcon : styles.menuIcon;
 
@@ -76,10 +71,7 @@ const NavItem = (props) => {
             <ListItemIcon sx={itemIconClass}>{itemIcon}</ListItemIcon>
             <ListItemText
                 primary={
-                    <Typography
-                        variant={show.isOpen === item.id ? 'subtitle1' : 'body1'}
-                        color="inherit"
-                    >
+                    <Typography variant={show.isOpen === item.id ? 'subtitle1' : 'body1'} color="inherit">
                         {item.title}
                     </Typography>
                 }

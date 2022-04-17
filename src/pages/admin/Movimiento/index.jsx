@@ -11,10 +11,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SupervisedUserIcon from '@mui/icons-material/SupervisedUserCircleTwoTone';
 
 //owned
-import PageCard from '_@/common/PageCard';
-import Form from '_@/components/forms/FormMovimiento';
-import api from '_@/api/tasks/ApiMovimiento';
-import Toolbar from '_@/components/Toolbar';
+import PageCard from '@/common/PageCard';
+import Form from '@/components/forms/FormMovimiento';
+import api from '@/api/tasks/ApiMovimiento';
+import Toolbar from '@/components/Toolbar';
 
 const Movimiento = () => {
     const grid = useRef(null);

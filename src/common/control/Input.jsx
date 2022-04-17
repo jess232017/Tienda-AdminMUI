@@ -1,16 +1,24 @@
 import React from 'react';
-import Typography from '@mui/material/Typography'
+import { useFormContext } from 'react-hook-form';
 
-const Input = ({ label, register, required = false, error, ...rest }) => {
-    const { name } = rest;
+import Typography from '@mui/material/Typography';
+
+const Input = ({ label, ...rest }) => {
+    const {
+        register,
+        formState: { errors },
+    } = useFormContext();
+    const { name, required } = rest;
 
     return (
-        <div className='input-style'>
+        <div className="input-style">
             <label htmlFor={name}>{label}</label>
-            <input  {...rest} id={name} {...register(name, { required })} />
-            <Typography variant="subtitle2" color="red" component="span">{error[name]?.message}</Typography>
+            <input {...rest} id={name} {...register(name, { required })} aria-invalid={errors[name] ? 'true' : 'false'} />
+            <Typography variant="subtitle2" color="red" component="span" role="alert">
+                {errors[name]?.message}
+            </Typography>
         </div>
     );
-}
+};
 
 export default Input;

@@ -12,10 +12,10 @@ import ReceiptIcon from '@mui/icons-material/Receipt';
 import LocalMallIcon from '@mui/icons-material/LocalMallTwoTone';
 import ShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
-import PageCard from '_@/common/PageCard';
-import Toolbar from '_@/components/Toolbar';
-import api from '_@/api/tasks/ApiOrder';
-import usePagination from '_@/services/hooks/usePagination';
+import PageCard from '@/common/PageCard';
+import Toolbar from '@/components/Toolbar';
+import api from '@/api/tasks/ApiOrder';
+import usePagination from '@/services/hooks/usePagination';
 
 const columns = [
     { field: 'id', headerName: 'Codigo', width: 100 },

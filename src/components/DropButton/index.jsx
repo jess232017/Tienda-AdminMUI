@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-import MenuItem from '_@/components/DropButton/MenuItem';
+import MenuItem from '@/components/DropButton/MenuItem';
 
 const DropButton = ({ id, startIcon, endIcon, title, children }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -23,7 +23,8 @@ const DropButton = ({ id, startIcon, endIcon, title, children }) => {
 
     return (
         <>
-            <Button size="small"
+            <Button
+                size="small"
                 endIcon={Icon}
                 variant="outlined"
                 onClick={handleClick}
@@ -50,7 +51,7 @@ const DropButton = ({ id, startIcon, endIcon, title, children }) => {
             </Menu>
         </>
     );
-}
+};
 
 export { MenuItem };
 export default DropButton;

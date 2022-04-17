@@ -1,20 +1,40 @@
 import React from 'react';
-import Typography from '@mui/material/Typography'
+import { Controller, useFormContext } from 'react-hook-form';
 
-const Select = ({ label, register, required = false, error, options = [], ...rest }) => {
+import ReactSelect from 'react-select';
+import Typography from '@mui/material/Typography';
+
+const Select = ({ label, ...rest }) => {
+    const {
+        control,
+        formState: { errors },
+    } = useFormContext();
     const { name } = rest;
 
     return (
-        <div className='input-style'>
+        <div className="input-style">
             <label htmlFor={name}>{label}</label>
-            <select {...rest} id={name} {...register(name, { required })} autoComplete="on" >
-                {options?.map(({ name, value }) => (
-                    <option value={value} key={value}>{name}</option>
-                ))}
-            </select>
-            <Typography variant="subtitle2" color="red" component="span">{error[name]?.message}</Typography>
+            <Controller
+                name={name}
+                control={control}
+                render={({ field }) => (
+                    <ReactSelect
+                        {...rest}
+                        {...field}
+                        name={name}
+                        menuPortalTarget={document.body}
+                        menuShouldScrollIntoView={false}
+                        placeholder="Seleccione..."
+                        aria-invalid={errors[name] ? 'true' : 'false'}
+                        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                    />
+                )}
+            />
+            <Typography variant="subtitle2" color="red" component="span" role="alert">
+                {errors[name]?.message || errors[name]?.value?.message || errors[name]?.label?.message}
+            </Typography>
         </div>
     );
-}
+};
 
 export default Select;

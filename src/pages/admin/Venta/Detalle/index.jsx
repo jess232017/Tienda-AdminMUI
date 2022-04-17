@@ -19,9 +19,9 @@ import AccountWalletIcon from '@mui/icons-material/AccountBalanceWalletOutlined'
 
 //own
 import Article from './Article';
-import PageCard from '_@/common/PageCard';
-import NoData from '_@/pages/error/NoData';
-import api from '_@/api/tasks/ApiOrder';
+import PageCard from '@/common/PageCard';
+import NoData from '@/pages/error/NoData';
+import api from '@/api/tasks/ApiOrder';
 
 const calculateTotal = ({ row }) => {
     const { price, quantity, discount } = row || 0;
@@ -117,17 +117,19 @@ const Detalle = () => {
                             <label>
                                 <Typography variant="subtitle1">Notas</Typography>
                             </label>
-                            <TextareaAutosize
-                                name="notas"
-                                id="notas"
-                                value={note}
-                                onChange={(event) => {
-                                    setNote(event.target.value);
-                                }}
-                                aria-label="empty textarea"
-                                placeholder="Escribe alguna nota"
-                                style={{ width: 300, height: 100 }}
-                            />
+                            <div className="input-style">
+                                <TextareaAutosize
+                                    name="notas"
+                                    id="notas"
+                                    value={note}
+                                    onChange={(event) => {
+                                        setNote(event.target.value);
+                                    }}
+                                    aria-label="empty textarea"
+                                    placeholder="Escribe alguna nota"
+                                    style={{ width: 300, height: 100 }}
+                                />
+                            </div>
                         </Box>
                         <Button variant="contained" size="small" onClick={handleNote}>
                             Guardar Nota

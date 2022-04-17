@@ -3,10 +3,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 //mui
-import Box from '@mui/material/Box'
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
-import NotFoundImage from '_@/pages/error/images/not_found.svg';
+import NotFoundImage from '@/pages/error/images/not_found.svg';
 
 const NoFound = () => {
     return (
@@ -21,6 +21,6 @@ const NoFound = () => {
             </Box>
         </Box>
     );
-}
+};
 
 export default NoFound;
