@@ -40,12 +40,12 @@
         "react-select": "^5.2.2",
         "react-toastify": "^9.0.0-POC",
         "yup": "^0.32.11",
-        "zustand": "^3.7.1"
+        "zustand": "^3.7.1",
+        "use-resize-observer": "^8.0.0"
     },
     "devDependencies": {
         "@vitejs/plugin-react": "^1.2.0",
         "sass": "^1.49.9",
-        "use-resize-observer": "^8.0.0",
         "vite": "^2.8.6"
     }
 }
