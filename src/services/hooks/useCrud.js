@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 
-import { toast } from 'react-toastify';
 import { show } from '@ebay/nice-modal-react';
 import { useConfirm } from 'material-ui-confirm';
 
@@ -15,7 +14,6 @@ const deleteData = {
 };
 
 const useCrud = (api, form, selected) => {
-    console.log('form', form);
     const confirm = useConfirm();
     const { mutate } = api.delete(`/${selected?.id}`);
     const requestEdit = api.edit(`/${selected?.id}`);
