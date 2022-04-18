@@ -1,7 +1,6 @@
 import React from 'react';
 
 //control
-import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -44,22 +43,14 @@ const Login = ({ isExpired = false }) => {
         resolver: yupResolver(validationSchema),
     });
 
-    const { isLoading, mutateAsync } = apiAuth.Authenticate();
+    const { isLoading, mutate } = apiAuth.Authenticate();
     const { handleLogin } = useLogin();
 
     const enviarForm = (data) => {
-        toast.promise(mutateAsync(data), {
-            pending: 'Verificando, por favor espere...',
-            success: {
-                render(data) {
-                    return handleLogin(data);
-                },
-            },
-            error: {
-                render({ data }) {
-                    const error = data?.response?.data?.error;
-                    return error?.message || data?.message;
-                },
+        mutate(data, {
+            onSuccess: ({ data }) => {
+                console.log('data', data);
+                handleLogin(data);
             },
         });
     };

@@ -24,7 +24,7 @@ const validationSchema = Yup.object().shape({
     name: Yup.string()
         .required('El nombre es requerido')
         .min(3, 'El nombre debe tener al menos 3 caracteres')
-        .max(20, 'El nombre no debe exceder los 20 caracteres'),
+        .max(40, 'El nombre no debe exceder los 40 caracteres'),
     description: Yup.string()
         .required('La descripcion es requerida')
         .min(3, 'La descripcion debe tener al menos 3 caracteres')
@@ -39,7 +39,7 @@ const validationSchema = Yup.object().shape({
         .typeError('El precio deber ser de tipo numero')
         .required('El precio de venta es requerido')
         .positive('El precio debe ser positivo'),
-    stock: Yup.number().typeError('El stock deber ser de tipo numero').positive('La cantidad debe ser positivo'),
+    //stock: Yup.number().nullable().default(0).typeError('El stock deber ser de tipo numero').positive('La cantidad debe ser positivo'),
     safetyStock: Yup.number()
         .typeError('El precio deber ser de tipo numero')
         .required('El stock minimo es requerido')
@@ -53,7 +53,7 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
     });
 
     //Apis
-    const { isLoading, mutateAsync } = request;
+    const { mutate } = request;
 
     //get available categories
     const { data: dataBrand } = apiBrand.get(1, 10);
@@ -72,18 +72,10 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
             categoryId: { value: categoryId },
         } = data;
 
-        toast.promise(mutateAsync({ ...data, image, brandId, categoryId }), {
-            pending: 'Guardando los cambios...',
-            success: {
-                render() {
-                    return 'Guardado correctamente';
-                },
-            },
-            error: {
-                render({ data }) {
-                    const error = data?.response?.data?.error;
-                    return error?.message || data?.message;
-                },
+        const final = { ...data, brandId, categoryId, image };
+        mutate(final, {
+            onSuccess: () => {
+                methods.reset({});
             },
         });
     };
@@ -114,7 +106,7 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
             brandId: data?.brandId || '',
             price: data?.price || '',
             slug: data?.slug || '',
-            stock: data?.stock || '',
+            stock: data?.stock,
             safetyStock: data?.safetyStock || '',
             id: data?.id || '',
         };
@@ -122,7 +114,7 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
     }, [data]);
 
     return (
-        <FormDialog title={`${title} producto`} processing={isLoading} methods={methods} callback={methods.handleSubmit(onSubmit)}>
+        <FormDialog title={`${title} producto`} methods={methods} callback={methods.handleSubmit(onSubmit)}>
             <Grid container spacing={{ xs: 1, md: 2 }}>
                 <Grid item xs={12} sm={12} md={8}>
                     <Grid container spacing={{ xs: 1, md: 2 }}>

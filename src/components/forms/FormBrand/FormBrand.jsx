@@ -34,28 +34,18 @@ const FormBrand = NiceModal.create(({ data, request, title }) => {
     });
 
     //Apis
-    const { isLoading, mutateAsync } = request;
+    const { mutate } = request;
 
     const onSubmit = (data) => {
-        toast.promise(mutateAsync(data), {
-            pending: 'Guardando los cambios...',
-            success: {
-                render() {
-                    return 'Guardado correctamente';
-                },
-            },
-            render(info) {
-                console.log('data', JSON.stringify(info), info);
-                const data = info.data;
-                const error = data?.response?.data?.error;
-                const errors = JSON.stringify(data?.response?.data?.errors);
-                return error?.message || errors;
+        mutate(data, {
+            onSuccess: () => {
+                methods.reset({});
             },
         });
     };
 
     return (
-        <FormDialog title={`${title} marca`} processing={isLoading} methods={methods} callback={methods.handleSubmit(onSubmit)}>
+        <FormDialog title={`${title} marca`} methods={methods} callback={methods.handleSubmit(onSubmit)}>
             <Grid container spacing={{ xs: 1, md: 2 }}>
                 <Grid item xs={12} sm={6} md={8}>
                     <Input required label="Nombre" name="name" type="text" />

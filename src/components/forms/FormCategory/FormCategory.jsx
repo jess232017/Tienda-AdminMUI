@@ -33,30 +33,18 @@ const FormCategory = NiceModal.create(({ data, request, title }) => {
     });
 
     //Apis
-    const { isLoading, mutateAsync } = request;
+    const { mutate } = request;
 
     const onSubmit = (data) => {
-        toast.promise(mutateAsync(data), {
-            pending: 'Guardando los cambios...',
-            success: {
-                render() {
-                    return 'Guardado correctamente';
-                },
-            },
-            error: {
-                render(info) {
-                    console.log('data', JSON.stringify(info), info);
-                    const data = info.data;
-                    const error = data?.response?.data?.error;
-                    const errors = JSON.stringify(data?.response?.data?.errors);
-                    return error?.message || errors;
-                },
+        mutate(data, {
+            onSuccess: () => {
+                methods.reset({});
             },
         });
     };
 
     return (
-        <FormDialog title={`${title} categoria`} processing={isLoading} methods={methods} callback={methods.handleSubmit(onSubmit)}>
+        <FormDialog title={`${title} categoria`} methods={methods} callback={methods.handleSubmit(onSubmit)}>
             <Grid container spacing={{ xs: 1, md: 2 }} columns={{ xs: 2, sm: 4, md: 6 }}>
                 <Grid item xs={2} sm={4} md={4}>
                     <Input required label="Nombre" name="name" type="text" />

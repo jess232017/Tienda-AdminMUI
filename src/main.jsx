@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
-import { ToastContainer } from 'react-toastify';
 import { AuthProvider } from 'react-auth-kit';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -24,7 +23,6 @@ ReactDOM.render(
         >
             <QueryClientProvider client={queryClient}>
                 <App />
-                <ToastContainer />
                 <ReactQueryDevtools />
             </QueryClientProvider>
         </AuthProvider>

@@ -16,7 +16,7 @@ const deleteData = {
 
 const useCrud = (api, form, selected) => {
     const confirm = useConfirm();
-    const { mutateAsync } = api.delete(`/${selected?.id}`);
+    const { mutate } = api.delete(`/${selected?.id}`);
     const requestEdit = api.edit(`/${selected?.id}`);
     const requestAdd = api.new();
 
@@ -31,21 +31,7 @@ const useCrud = (api, form, selected) => {
     const handleDelete = useCallback(() => {
         if (selected != null) {
             confirm(deleteData).then(() => {
-                toast.promise(mutateAsync({ id: selected?.id }), {
-                    pending: 'Eliminando...',
-                    success: 'Se ha eliminado con exito. 👌',
-                    error: {
-                        render({
-                            data: {
-                                response: {
-                                    data: { error },
-                                },
-                            },
-                        }) {
-                            return error.message;
-                        },
-                    },
-                });
+                mutate({ id: selected?.id });
             });
         }
     }, [selected]);

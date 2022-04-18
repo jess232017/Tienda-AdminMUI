@@ -54,36 +54,23 @@ const FormUser = NiceModal.create(({ data, request, title }) => {
     });
 
     const [options, setOptions] = useState([]);
-    const { isLoading, mutateAsync } = request;
+    const { mutate } = request;
     const { isLoading: gettingRole, data: dataRole } = getRole(1, 100);
 
     const onSubmit = async (data) => {
         const image = data.image ? await uploadImage(data.image) : null;
-
-        toast.promise(mutateAsync({ ...data, image }), {
-            pending: 'Guardando los cambios...',
-            success: {
-                render() {
-                    methods.reset({
-                        firstName: '',
-                        lastName: '',
-                        userName: '',
-                        phoneNumber: '',
-                        email: '',
-                        password: '',
-                        roles: [],
-                    });
-                    return 'Guardado correctamente';
-                },
-            },
-            error: {
-                render(info) {
-                    console.log('data', JSON.stringify(info), info);
-                    const data = info.data;
-                    const error = data?.response?.data?.error;
-                    const errors = JSON.stringify(data?.response?.data?.errors);
-                    return error?.message || errors;
-                },
+        const final = { ...data, image };
+        mutate(final, {
+            onSuccess: () => {
+                methods.reset({
+                    firstName: '',
+                    lastName: '',
+                    userName: '',
+                    phoneNumber: '',
+                    email: '',
+                    password: '',
+                    roles: [],
+                });
             },
         });
     };
@@ -114,7 +101,7 @@ const FormUser = NiceModal.create(({ data, request, title }) => {
     }, [data]);
 
     return (
-        <FormDialog title={`${title} usuario`} processing={isLoading} methods={methods} callback={methods.handleSubmit(onSubmit)}>
+        <FormDialog title={`${title} usuario`} methods={methods} callback={methods.handleSubmit(onSubmit)}>
             <Grid container spacing={{ xs: 1, md: 2 }}>
                 <Grid item xs={12} sm={12} md={8}>
                     <Grid container spacing={{ xs: 1, md: 2 }}>

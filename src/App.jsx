@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { IntlProvider } from 'react-intl';
+import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from '@mui/material/styles';
 import { ConfirmProvider } from 'material-ui-confirm';
 
@@ -33,6 +34,7 @@ const App = () => {
                             <Routes />
                         </ConfirmProvider>
                     </ThemeProvider>
+                    <ToastContainer theme={show.darkMode ? 'dark' : 'light'} />
                 </IntlProvider>
             )}
         </>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 //Control
+import { useIsMutating } from 'react-query';
 import { FormProvider } from 'react-hook-form';
 import { muiDialog, useModal } from '@ebay/nice-modal-react';
 
@@ -26,7 +27,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 
-const FormDialog = ({ title, callback, methods, children, footerControl = true, processing = false }) => {
+const FormDialog = ({ title, callback, methods, children, footerControl = true }) => {
+    const isMutating = useIsMutating();
+
     const theme = useTheme();
     const modal = useModal();
     const phoneScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -94,16 +97,23 @@ const FormDialog = ({ title, callback, methods, children, footerControl = true, 
                     {footerControl && (
                         <DialogActions sx={{ padding: '1rem' }}>
                             <LoadingButton
-                                variant="contained"
-                                sx={{ boxShadow: 'none' }}
-                                startIcon={<SaveIcon />}
                                 type="submit"
+                                variant="contained"
+                                loadingPosition="start"
+                                startIcon={<SaveIcon />}
+                                loading={isMutating === 1}
                                 onClick={callback}
-                                loading={processing}
+                                sx={{ boxShadow: 'none' }}
                             >
                                 Guardar
                             </LoadingButton>
-                            <Button color="secondary" variant="outlined" onClick={modal.hide} startIcon={<CloseIcon />}>
+                            <Button
+                                color="secondary"
+                                variant="outlined"
+                                onClick={modal.hide}
+                                startIcon={<CloseIcon />}
+                                disabled={isMutating === 1}
+                            >
                                 Cancelar
                             </Button>
                         </DialogActions>

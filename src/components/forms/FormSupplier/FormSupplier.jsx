@@ -49,43 +49,34 @@ const FormSupplier = NiceModal.create(({ data, request, title }) => {
     });
 
     //Apis
-    const { isLoading, mutateAsync } = request;
+    const { mutate } = request;
 
     const onSubmit = (data) => {
-        toast.promise(mutateAsync(data), {
-            pending: 'Guardando los cambios...',
-            success: {
-                render() {
-                    return 'Guardado correctamente';
-                },
-            },
-            error: {
-                render({ data }) {
-                    const error = data?.response?.data?.error;
-                    return error?.message || data?.message;
-                },
+        mutate(data, {
+            onSuccess: () => {
+                methods.reset({});
             },
         });
     };
 
     return (
-        <FormDialog title={`${title} proveedor`} processing={isLoading} methods={methods} callback={methods.handleSubmit(onSubmit)}>
+        <FormDialog title={`${title} proveedor`} methods={methods} callback={methods.handleSubmit(onSubmit)}>
             <Grid container spacing={{ xs: 1, md: 2 }}>
                 <Grid item xs={12} sm={12} md={8}>
                     <Grid container spacing={{ xs: 1, md: 2 }}>
-                        <Grid item xs={12} sm={6} md={6}>
+                        <Grid item xs={12} sm={6} md={4}>
                             <Input name="firstName" label="Nombre" />
                         </Grid>
-                        <Grid item xs={12} sm={6} md={6}>
+                        <Grid item xs={12} sm={6} md={4}>
                             <Input name="lastName" label="Apellido" />
                         </Grid>
-                        <Grid item xs={12} sm={6} md={6}>
+                        <Grid item xs={12} sm={6} md={4}>
                             <Input name="phoneNumber" label="Telefono" />
                         </Grid>
                     </Grid>
 
                     <Grid item xs={12} sm={12} md={12}>
-                        <Card variant="outlined" sx={{ mt: 2 }}>
+                        <Card variant="outlined" sx={{ mt: { xs: 1, md: 2 } }}>
                             <CardHeader title="Empresa" sx={{ p: 2 }} />
                             <CardContent sx={{ p: 2, pt: 0 }}>
                                 <Grid container spacing={{ xs: 1, md: 2 }}>
