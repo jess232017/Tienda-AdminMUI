@@ -47,7 +47,7 @@ const FormDialog = ({ title, callback, methods, children, footerControl = true }
                     //sx={{ ' .MuiPaper-root': { borderRadius: { xs: 0, md: 3 } } }}
                 >
                     <DialogTitle sx={{ p: 0 }}>
-                        {phoneScreen ? (
+                        {fullScreen ? (
                             <AppBar sx={{ position: 'relative', display: { md: 'none', xs: 'block' } }}>
                                 <Toolbar>
                                     <IconButton edge="start" color="inherit" onClick={modal.hide} aria-label="close">
