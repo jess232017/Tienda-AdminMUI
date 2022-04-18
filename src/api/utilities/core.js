@@ -5,7 +5,7 @@ import { useAuthHeader } from 'react-auth-kit';
 import { useQuery } from 'react-query';
 import { useQueryClient, useMutation } from 'react-query';
 
-import Loading from './Loading';
+//import Loading from './Loading';
 
 import withAxios from '../utilities/provider';
 
@@ -34,7 +34,6 @@ const axiosMutator =
                 type: toast.TYPE.INFO,
                 pauseOnHover: false,
                 autoClose: false,
-                icon: Loading,
             }));
 
         return useMutation(axios, {

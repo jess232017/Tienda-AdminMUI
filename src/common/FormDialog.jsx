@@ -9,11 +9,11 @@ import Stack from '@mui/material/Stack';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
-import { useTheme } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import useTheme from '@mui/material/styles/useTheme';
 
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -44,7 +44,6 @@ const FormDialog = ({ title, callback, methods, children, footerControl = true }
         <FormProvider {...methods}>
             <form onSubmit={callback}>
                 <Dialog
-                    disable
                     maxWidth="md"
                     fullWidth={true}
                     fullScreen={fullScreen}

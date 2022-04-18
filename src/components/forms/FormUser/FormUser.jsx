@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 //control
-import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 
 import NiceModal from '@ebay/nice-modal-react';

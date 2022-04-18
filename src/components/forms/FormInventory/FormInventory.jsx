@@ -24,8 +24,6 @@ const FormInventario = NiceModal.create(({ method, data, title }) => {
         resolver: yupResolver({}),
     });
 
-    const isNew = data == null;
-
     const onSubmit = (data) => console.log(data);
 
     return (

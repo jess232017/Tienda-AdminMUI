@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 //control
-import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import NiceModal from '@ebay/nice-modal-react';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,7 +8,6 @@ import * as Yup from 'yup';
 
 //Mui
 import Grid from '@mui/material/Grid';
-import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';

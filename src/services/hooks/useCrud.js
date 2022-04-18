@@ -15,6 +15,7 @@ const deleteData = {
 };
 
 const useCrud = (api, form, selected) => {
+    console.log('form', form);
     const confirm = useConfirm();
     const { mutate } = api.delete(`/${selected?.id}`);
     const requestEdit = api.edit(`/${selected?.id}`);
