@@ -63,7 +63,6 @@ const FormDialog = ({ title, callback, methods, children, footerControl = true }
                             </AppBar>
                         ) : (
                             <CardHeader
-                                sx={{ display: { md: 'flex', xs: 'none' } }}
                                 title={title}
                                 action={
                                     <Stack direction="row" spacing={1}>
