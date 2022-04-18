@@ -27,9 +27,9 @@ const FormDialog = ({ title, callback, methods, children, footerControl = true }
 
     const theme = useTheme();
     const modal = useModal();
-    const phoneScreen = useMediaQuery(theme.breakpoints.down('md'));
-    const [fullScreen, setFullScreen] = useState(phoneScreen);
-    useEffect(() => setFullScreen(phoneScreen), [phoneScreen]);
+    //const phoneScreen = useMediaQuery(theme.breakpoints.down('md'));
+    const [fullScreen, setFullScreen] = useState(false);
+    //useEffect(() => setFullScreen(phoneScreen), [phoneScreen]);
 
     const handleClose = (event, reason) => {
         if (reason && reason == 'backdropClick') return;
@@ -43,8 +43,8 @@ const FormDialog = ({ title, callback, methods, children, footerControl = true }
                     fullWidth={true}
                     fullScreen={fullScreen}
                     {...muiDialog(modal)}
-                    onClose={handleClose}
-                    sx={{ ' .MuiPaper-root': { borderRadius: { xs: 0, md: 3 } } }}
+                    //onClose={handleClose}
+                    //sx={{ ' .MuiPaper-root': { borderRadius: { xs: 0, md: 3 } } }}
                 >
                     <DialogTitle sx={{ p: 0 }}>
                         {phoneScreen ? (
@@ -95,7 +95,7 @@ const FormDialog = ({ title, callback, methods, children, footerControl = true }
                                 variant="contained"
                                 loadingPosition="start"
                                 startIcon={<SaveIcon />}
-                                loading={isMutating === 1}
+                                //loading={isMutating === 1}
                                 onClick={callback}
                                 sx={{ boxShadow: 'none' }}
                             >
@@ -106,7 +106,7 @@ const FormDialog = ({ title, callback, methods, children, footerControl = true }
                                 variant="outlined"
                                 onClick={modal.hide}
                                 startIcon={<CloseIcon />}
-                                disabled={isMutating === 1}
+                                //disabled={isMutating === 1}
                             >
                                 Cancelar
                             </Button>
