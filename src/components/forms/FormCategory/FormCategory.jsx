@@ -42,7 +42,27 @@ const FormCategory = NiceModal.create(({ data, request, title }) => {
         });
     };
 
-    return <p>prueba</p>;
+    return (
+        <FormDialog title={`${title} categoria`} methods={methods} callback={methods.handleSubmit(onSubmit)}>
+            <Grid container spacing={{ xs: 1, md: 2 }} columns={{ xs: 2, sm: 4, md: 6 }}>
+                <Grid item xs={2} sm={2} md={4}>
+                    <Input required label="Nombre" name="name" type="text" />
+                </Grid>
+                <Grid item xs={1} sm={2} md={2}>
+                    <Input required label="Icono" name="icon" type="text" />
+                </Grid>
+                <Grid item xs={2} sm={2} md={4}>
+                    <Input required label="Descripcion" name="description" type="text" />
+                </Grid>
+                <Grid item xs={1} sm={2} md={2}>
+                    <Input label="Codigo" name="id" type="text" disabled />
+                </Grid>
+                <Grid item xs={1} sm={2} md={2}>
+                    <Input required label="Por Defecto" name="byDefault" type="checkbox" />
+                </Grid>
+            </Grid>
+        </FormDialog>
+    );
 });
 
 export default FormCategory;
