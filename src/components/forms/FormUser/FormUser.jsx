@@ -58,10 +58,11 @@ const FormUser = NiceModal.create(({ data, request, title }) => {
     const { isLoading: gettingRole, data: dataRole } = getRole(1, 100);
 
     const onSubmit = async (data) => {
-        const image = data.image ? await uploadImage(data.image) : null;
+        /* const image = data.image ? await uploadImage(data.image) : null;
         const final = { ...data, image };
-        console.log('final', final);
-        mutate(final, {
+        console.log('final', final);*/
+
+        mutate(data, {
             onSuccess: () => {
                 methods.reset({
                     firstName: '',

@@ -30,6 +30,7 @@
         "react-dom": "^17.0.2",
         "react-filepond": "^7.1.1",
         "react-hook-form": "^7.28.1",
+        "react-images-viewer": "^1.7.1",
         "react-intl": "^5.24.8",
         "react-perfect-scrollbar": "^1.5.8",
         "react-priority-navigation": "^1.0.5",
@@ -39,9 +40,9 @@
         "react-scripts": "5.0.0",
         "react-select": "^5.2.2",
         "react-toastify": "^9.0.0-POC",
+        "use-resize-observer": "^8.0.0",
         "yup": "^0.32.11",
-        "zustand": "^3.7.1",
-        "use-resize-observer": "^8.0.0"
+        "zustand": "^3.7.1"
     },
     "devDependencies": {
         "@vitejs/plugin-react": "^1.2.0",

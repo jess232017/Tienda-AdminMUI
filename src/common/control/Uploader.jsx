@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import fslightboxReact from 'fslightbox-react';
+//import fslightboxReact from 'fslightbox-react';
 //import FsLightbox from 'fslightbox-react';
+import ImgsViewer from 'react-images-viewer';
 
 import Image from 'mui-image';
 import Typography from '@mui/material/Typography';
@@ -18,20 +19,21 @@ const Uploader = ({ label, currentSrc = '', ...rest }) => {
     } = useFormContext();
     const { name } = rest;
 
-    const [toggler, setToggler] = useState(false);
+    const [viewer, setViewer] = useState(false);
     const [image, setImage] = useState(currentSrc);
 
-    const handleChange = ({ target: { files } }, onChange) => {
+    const handleChange = async ({ target: { files } }, onChange) => {
         const [file] = files;
         if (file) {
             const src = URL.createObjectURL(file);
             setImage(src);
-            onChange(file);
+            const response = await uploadImage(file);
+            onChange(response);
         }
     };
 
     const handleToggle = () => {
-        if (image !== '') setToggler(!toggler);
+        if (image !== '') setViewer(true);
     };
 
     return (
@@ -67,7 +69,7 @@ const Uploader = ({ label, currentSrc = '', ...rest }) => {
                     {errors[name]?.message}
                 </Typography>
             </div>
-            <fslightboxReact toggler={toggler} sources={[image]} />
+            <ImgsViewer imgs={[{ src: image }]} isOpen={viewer} onClose={() => setViewer(false)} />
         </>
     );
 };
