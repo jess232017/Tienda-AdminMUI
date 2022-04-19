@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
-//import fslightboxReact from 'fslightbox-react';
+import fslightboxReact from 'fslightbox-react';
 //import FsLightbox from 'fslightbox-react';
 
 import Image from 'mui-image';
@@ -67,7 +67,7 @@ const Uploader = ({ label, defaultSrc = '', ...rest }) => {
                     {errors[name]?.message}
                 </Typography>
             </div>
-            {/**<fslightboxReact toggler={toggler} sources={[image]} /> */}
+            <fslightboxReact toggler={toggler} sources={[image]} />
         </>
     );
 };
