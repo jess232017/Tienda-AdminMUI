@@ -53,12 +53,14 @@ const FormUser = NiceModal.create(({ data, request, title }) => {
     });
 
     const [options, setOptions] = useState([]);
+    const [currentSrc, setCurrentSrc] = useState('');
     const { mutate } = request;
     const { isLoading: gettingRole, data: dataRole } = getRole(1, 100);
 
     const onSubmit = async (data) => {
         const image = data.image ? await uploadImage(data.image) : null;
         const final = { ...data, image };
+        console.log('final', final);
         mutate(final, {
             onSuccess: () => {
                 methods.reset({
@@ -96,6 +98,7 @@ const FormUser = NiceModal.create(({ data, request, title }) => {
             password: data?.password || '',
             roles: data?.roles || [],
         };
+        setCurrentSrc(data?.image || '');
         methods.reset(defaultValues);
     }, [data]);
 
@@ -129,7 +132,7 @@ const FormUser = NiceModal.create(({ data, request, title }) => {
                 </Grid>
 
                 <Grid item xs={12} sm={12} md={4}>
-                    <Uploader name="image" />
+                    <Uploader name="image" currentSrc={currentSrc} />
                     <Input required label="Codigo" name="id" disabled />
                 </Grid>
             </Grid>

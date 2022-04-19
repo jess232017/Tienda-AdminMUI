@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { styled } from '@mui/system';
-import { makeStyles } from '@mui/styles';
+import Avatar from '@mui/material/Avatar';
 import { Fade, Button, ClickAwayListener, Paper, Popper, List, ListItem, ListItemText, ListItemIcon } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useSignOut } from 'react-auth-kit'
+import { useSignOut, useAuthUser } from 'react-auth-kit';
 
 import PersonTwoToneIcon from '@mui/icons-material/PersonTwoTone';
 import DraftsTwoToneIcon from '@mui/icons-material/DraftsTwoTone';
@@ -24,6 +24,7 @@ const ListRoot = styled(List)(({ theme }) => ({
 
 const ProfileSection = () => {
     const signOut = useSignOut();
+    const auth = useAuthUser()();
 
     const [selectedIndex, setSelectedIndex] = React.useState(1);
     const [open, setOpen] = React.useState(false);
@@ -68,7 +69,11 @@ const ProfileSection = () => {
                 onClick={handleToggle}
                 color="inherit"
             >
-                <AccountCircleTwoToneIcon sx={{ fontSize: '1.5rem' }} />
+                {auth?.image ? (
+                    <Avatar alt={auth?.firstName} src={auth?.image} sx={{ width: 35, height: 35 }} />
+                ) : (
+                    <AccountCircleTwoToneIcon sx={{ fontSize: '1.5rem' }} />
+                )}
             </Button>
             <Popper
                 placement="bottom-end"
@@ -78,25 +83,27 @@ const ProfileSection = () => {
                 role={undefined}
                 transition
                 popperOptions={{
-                    modifiers: [{
-                        name: "Pefil",
-                        enabled: true,
-                        phase: 'main',
-                        options: {
-                            offset: {
-                                enable: true,
-                                offset: '0px, 10px',
+                    modifiers: [
+                        {
+                            name: 'Pefil',
+                            enabled: true,
+                            phase: 'main',
+                            options: {
+                                offset: {
+                                    enable: true,
+                                    offset: '0px, 10px',
+                                },
+                                preventOverflow: {
+                                    padding: 0,
+                                },
                             },
-                            preventOverflow: {
-                                padding: 0,
+                            fn({ state }) {
+                                if (state.placement === 'top') {
+                                    console.log('Popper is on the top');
+                                }
                             },
                         },
-                        fn({ state }) {
-                            if (state.placement === 'top') {
-                                console.log('Popper is on the top');
-                            }
-                        },
-                    }]
+                    ],
                 }}
             >
                 {({ TransitionProps, placement }) => (
@@ -140,11 +147,7 @@ const ProfileSection = () => {
                                         </ListItemIcon>
                                         <ListItemText primary="Bloquear Pantalla" />
                                     </ListItem>
-                                    <ListItem
-                                        button
-                                        selected={selectedIndex === 4}
-                                        onClick={(event) => handleListItemClick(event, 4)}
-                                    >
+                                    <ListItem button selected={selectedIndex === 4} onClick={(event) => handleListItemClick(event, 4)}>
                                         <ListItemIcon>
                                             <MeetingRoomTwoToneIcon />
                                         </ListItemIcon>

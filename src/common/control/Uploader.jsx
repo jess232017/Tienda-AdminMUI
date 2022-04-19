@@ -11,7 +11,7 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 import { uploadImage } from '@/api';
 
-const Uploader = ({ label, defaultSrc = '', ...rest }) => {
+const Uploader = ({ label, currentSrc = '', ...rest }) => {
     const {
         control,
         formState: { errors },
@@ -19,7 +19,7 @@ const Uploader = ({ label, defaultSrc = '', ...rest }) => {
     const { name } = rest;
 
     const [toggler, setToggler] = useState(false);
-    const [image, setImage] = useState(defaultSrc);
+    const [image, setImage] = useState(currentSrc);
 
     const handleChange = ({ target: { files } }, onChange) => {
         const [file] = files;
