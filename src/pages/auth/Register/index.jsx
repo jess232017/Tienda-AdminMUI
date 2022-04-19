@@ -35,29 +35,16 @@ const validationSchema = Yup.object().shape({
 });
 
 const Register = () => {
-    const { isLoading, mutateAsync } = apiAuth.Register();
+    const { isLoading, mutate } = apiAuth.Register();
     //control form
     const methods = useForm({
         resolver: yupResolver(validationSchema),
     });
 
     const enviarForm = (data) => {
-        toast.promise(mutateAsync(data), {
-            pending: 'Verificando, por favor espere...',
-            success: {
-                render() {
-                    methods.reset();
-                    return 'Usuario registrado correctamente';
-                },
-            },
-            error: {
-                render(info) {
-                    console.log('data', JSON.stringify(info), info);
-                    const data = info.data;
-                    const error = data?.response?.data?.error;
-                    const errors = JSON.stringify(data?.response?.data?.errors);
-                    return error?.message || errors;
-                },
+        mutate(data, {
+            onSuccess: ({ data }) => {
+                methods.reset();
             },
         });
     };
