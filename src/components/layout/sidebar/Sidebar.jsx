@@ -31,23 +31,23 @@ const ScrollHeight = styled(PerfectScrollbar)({
     padding: '10px',
 });
 
+const drawer = (
+    <React.Fragment>
+        <ToolContainer sx={{ display: { xs: 'flex', md: 'none' } }}>
+            <img src={logo} alt="Logo" height="35" />
+            <span style={{ fontWeight: '700', color: '#fff' }}>Abarroteria San Jose</span>
+        </ToolContainer>
+        <Divider />
+        <ScrollHeight>
+            <MenuList />
+        </ScrollHeight>
+    </React.Fragment>
+);
+
 const MainLayout = (props) => {
     const { drawerOpen, drawerToggle, window } = props;
     const theme = useTheme();
     const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
-
-    const drawer = (
-        <React.Fragment>
-            <ToolContainer sx={{ display: { xs: 'flex', md: 'none' } }}>
-                <img src={logo} alt="Logo" height="35" />
-                <span style={{ fontWeight: '700', color: '#fff' }}>Abarroteria San Jose</span>
-            </ToolContainer>
-            <Divider />
-            <ScrollHeight>
-                <MenuList />
-            </ScrollHeight>
-        </React.Fragment>
-    );
 
     const container = window !== undefined ? () => window().document.body : undefined;
 

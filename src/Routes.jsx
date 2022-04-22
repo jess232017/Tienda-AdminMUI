@@ -10,7 +10,7 @@ import RequireRole from '@/services/auth/RequireRole';
 import { ROLES } from '@/services/auth/permission-maps';
 
 //Pages
-const Layout = React.lazy(() => import('@/components/layout/container/Layout'));
+const Layout = React.lazy(() => import('@/components/layout/Layout'));
 const Auth = React.lazy(() => import('@/pages/auth/Auth'));
 const Login = React.lazy(() => import('@/pages/auth/Login'));
 const Register = React.lazy(() => import('@/pages/auth/Register'));
@@ -45,70 +45,7 @@ const index = () => {
                         <Route path="*" element={<NoFound />} />
                     </Route>
 
-                    <Route path="admin" element={<RequireAuth redirect="/" children={<Layout />} />}>
-                        <Route index element={<RequireRole roles={[ROLES.administrador]} children={<Dashboard />} />} />
-
-                        <Route path="venta" element={<RequireRole roles={[ROLES.administrador, ROLES.vendedor]} children={<Ventas />} />} />
-
-                        <Route
-                            path="venta/:invoiceId"
-                            element={<RequireRole roles={[ROLES.administrador, ROLES.vendedor]} children={<DetalleVenta />} />}
-                        />
-
-                        <Route
-                            path="venta/nueva"
-                            element={<RequireRole roles={[ROLES.administrador, ROLES.vendedor]} children={<VentaNueva />} />}
-                        />
-
-                        <Route
-                            path="categoria"
-                            element={<RequireRole roles={[ROLES.administrador, ROLES.vendedor]} children={<Category />} />}
-                        />
-
-                        <Route path="marca" element={<RequireRole roles={[ROLES.administrador, ROLES.vendedor]} children={<Brand />} />} />
-
-                        <Route
-                            path="Inventario"
-                            element={<RequireRole roles={[ROLES.administrador, ROLES.bodeguero]} children={<Inventory />} />}
-                        />
-
-                        <Route
-                            path="producto"
-                            element={<RequireRole roles={[ROLES.administrador, ROLES.bodeguero]} children={<Product />} />}
-                        />
-
-                        <Route
-                            path="cliente"
-                            element={<RequireRole roles={[ROLES.administrador, ROLES.cajero, ROLES.vendedor]} children={<Client />} />}
-                        />
-
-                        <Route
-                            path="proveedor"
-                            element={<RequireRole roles={[ROLES.administrador, ROLES.cajero, ROLES.vendedor]} children={<Supplier />} />}
-                        />
-
-                        <Route path="empleado" element={<RequireRole roles={[ROLES.administrador]} children={<Employee />} />} />
-
-                        <Route path="reporte" element={<RequireRole roles={[ROLES.administrador]} children={<Reporte />} />} />
-
-                        <Route path="reporte/ver" element={<RequireRole roles={[ROLES.administrador]} children={<ReportViewer />} />} />
-
-                        <Route
-                            path="setting"
-                            element={
-                                <RequireRole
-                                    roles={[ROLES.administrador]}
-                                    children={
-                                        <React.Suspense fallback={<Loader />}>
-                                            <Setting />
-                                        </React.Suspense>
-                                    }
-                                />
-                            }
-                        />
-
-                        <Route path="*" element={<NoFound />} />
-                    </Route>
+                    <Route path="admin/*" element={<RequireAuth redirect="/" children={<Layout />} />} />
                     <Route path="*" element={<NoFound />} />
                 </Routes>
             </React.Suspense>
