@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom';
 
-import Lottie from "lottie-react";
+import Lottie from 'lottie-react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -13,10 +13,10 @@ import animationData from './shopping.json';
 
 const Auth = () => {
     return (
-        <div className="auth-bg">
+        <Box className="auth-bg" sx={{ backgroundColor: 'background.default' }}>
             <Container fixed>
                 <Grid container spacing={{ xs: 3, md: 8 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                    <Grid item xs={4} sm={8} md={6} >
+                    <Grid item xs={4} sm={8} md={6}>
                         <Outlet />
                     </Grid>
                     <Grid item xs={4} sm={8} md={6}>
@@ -29,16 +29,12 @@ const Auth = () => {
                             justifyContent="center"
                             padding={5}
                         >
-                            <Lottie animationData={animationData} loop={true} autoPlay={true}
-                                height={300}
-                                width={300} />
+                            <Lottie animationData={animationData} loop={true} autoPlay={true} height={300} width={300} />
 
                             <Typography variant="h1" color="primary">
                                 Distribuidora San José
                             </Typography>
-                            <Typography variant="subtitle2">
-                                Donde encuentras lo que buscas.
-                            </Typography>
+                            <Typography variant="subtitle2">Donde encuentras lo que buscas.</Typography>
                             <Typography variant="subtitle1">
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.
                             </Typography>
@@ -46,8 +42,8 @@ const Auth = () => {
                     </Grid>
                 </Grid>
             </Container>
-        </div>
-    )
-}
+        </Box>
+    );
+};
 
 export default Auth;

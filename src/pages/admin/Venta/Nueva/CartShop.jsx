@@ -132,7 +132,7 @@ const Selecionado = ({ vendorId }) => {
             />
             <Divider />
 
-            <div style={{ display: 'flex', height: '50%', padding: '7px' }}>
+            <div style={{ display: 'flex', height: '310px', padding: '7px' }}>
                 <div style={{ flexGrow: 1 }}>
                     <DataGrid
                         onCellEditCommit={handleEdit}

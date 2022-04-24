@@ -12,17 +12,9 @@ import NotificationSection from './section/NotificationSection';
 import logo from '@/assets/img/tienda.png';
 import { drawerWidth } from '@/services/constant';
 
-const Grow = styled('div')({
-    flexGrow: 1,
-});
-
-const MenuButton = styled(IconButton)(({ theme }) => ({
-    marginRight: theme.spacing(1.25),
-}));
-
 const Header = ({ drawerToggle }) => {
     return (
-        <AppBar position="fixed" sx={{ zIndex: { xs: 1000, md: 1201 } }}>
+        <AppBar position="fixed" sx={{ zIndex: { xs: 1000, md: 1201 }, backgroundColor: 'primary.header' }}>
             <Toolbar>
                 <Box width={drawerWidth}>
                     <Grid container justifyContent="space-between" alignItems="center">
@@ -35,9 +27,9 @@ const Header = ({ drawerToggle }) => {
                             </Box>
                         </Grid>
                         <Grid item>
-                            <MenuButton edge="start" color="inherit" aria-label="open drawer" onClick={drawerToggle}>
+                            <IconButton sx={{ mr: 1.25 }} edge="start" color="inherit" aria-label="open drawer" onClick={drawerToggle}>
                                 <MenuTwoToneIcon sx={{ fontSize: '1.5rem' }} />
-                            </MenuButton>
+                            </IconButton>
                         </Grid>
                     </Grid>
                 </Box>

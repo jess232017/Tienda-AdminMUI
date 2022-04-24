@@ -56,7 +56,7 @@ const FormDialog = ({ title, callback, methods, children, footerControl = true }
                                     <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                                         {title}
                                     </Typography>
-                                    <Button autoFocus color="inherit" onClick={modal.hide} type="submit">
+                                    <Button autoFocus color="inherit" onClick={callback} type="submit">
                                         Guardar
                                     </Button>
                                 </Toolbar>

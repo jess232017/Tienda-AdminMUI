@@ -20,16 +20,16 @@ import useCrud from '@/services/hooks/useCrud';
 import Toolbar from '@/components/Toolbar';
 
 const columns = [
-    { field: 'id', headerName: 'Codigo', width: 100 },
-    { field: 'slug', headerName: 'Slug', width: 100 },
-    { field: 'name', headerName: 'Nombre', width: 120 },
-    { field: 'description', headerName: 'Descripcion', width: 200 },
+    //{ field: 'id', headerName: 'Codigo', width: 100 },
+    { field: 'name', headerName: 'Nombre', width: 300, renderCell: ProductTemplate },
+    //{ field: 'slug', headerName: 'Slug', width: 100 },
+    //{ field: 'description', headerName: 'Descripcion', width: 200 },
     { field: 'category', headerName: 'Categoria', width: 100 },
     { field: 'brand', headerName: 'Marca', width: 100 },
-    { field: 'price', headerName: 'Precio', width: 100 },
-    { field: 'stock', headerName: 'Stock', width: 100 },
-    { field: 'isInventoriable', headerName: 'Inventariable', width: 100 },
-    { field: 'safetyStock', headerName: 'Stock minimo', width: 100 },
+    { field: 'price', headerName: 'Precio', width: 100, type: 'number' },
+    { field: 'stock', headerName: 'Stock', width: 100, type: 'number' },
+    { field: 'isInventoriable', headerName: 'Inventariable', width: 100, type: 'boolean' },
+    { field: 'safetyStock', headerName: 'Stock minimo', width: 100, type: 'number' },
 ];
 
 const Product = () => {
@@ -65,7 +65,7 @@ const Product = () => {
                 )}
             </Toolbar>
 
-            <DataGrid {...control} />
+            <DataGrid {...control} rowHeight={70} />
         </PageCard>
     );
 };

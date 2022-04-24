@@ -19,10 +19,6 @@ import Header from './header/Header';
 import Sidebar from './sidebar/Sidebar';
 import { drawerWidth } from '@/services/constant';
 
-const Layout = React.lazy(() => import('@/components/layout/Layout'));
-const Auth = React.lazy(() => import('@/pages/auth/Auth'));
-const Login = React.lazy(() => import('@/pages/auth/Login'));
-const Register = React.lazy(() => import('@/pages/auth/Register'));
 const Ventas = React.lazy(() => import('@/pages/admin/Venta'));
 const DetalleVenta = React.lazy(() => import('@/pages/admin/Venta/Detalle'));
 const VentaNueva = React.lazy(() => import('@/pages/admin/Venta/Nueva'));
@@ -51,7 +47,6 @@ const Div = styled('div')(({ theme }) => ({
     width: '100%',
     minHeight: '100vh',
     flexGrow: 1,
-    /*padding: theme.spacing(3),*/
     transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -87,7 +82,7 @@ const MainLayout = () => {
     }, [matchUpMd]);
 
     return (
-        <Box display="flex">
+        <Box display="flex" sx={{ backgroundColor: 'background.default' }}>
             <Sidebar drawerOpen={drawerOpen} drawerToggle={handleDrawerToggle} />
             <Div className={clsx({ [classes.contentShift]: drawerOpen })}>
                 <Toolbar>
@@ -168,7 +163,6 @@ const MainLayout = () => {
                             <Route path="*" element={<NoFound />} />
                         </Routes>
                     </React.Suspense>
-                    <Outlet />
                 </Main>
             </Div>
         </Box>

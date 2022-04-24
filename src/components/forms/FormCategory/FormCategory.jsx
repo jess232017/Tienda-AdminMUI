@@ -16,11 +16,11 @@ const validationSchema = Yup.object().shape({
     name: Yup.string()
         .required('El nombre es requerido')
         .min(3, 'El nombre debe tener al menos 3 caracteres')
-        .max(20, 'El nombre no debe exceder los 20 caracteres'),
+        .max(50, 'El nombre no debe exceder los 50 caracteres'),
     description: Yup.string()
         .required('La descripcion es requerido')
         .min(3, 'La descripcion debe tener al menos 3 caracteres')
-        .max(50, 'La descripcion no debe exceder los 20 caracteres'),
+        .max(200, 'La descripcion no debe exceder los 200 caracteres'),
     id: Yup.number('Id debe ser de tipo entero').notRequired(),
 });
 

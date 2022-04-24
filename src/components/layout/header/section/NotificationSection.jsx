@@ -105,8 +105,6 @@ const NotificationSection = () => {
                     <NotificationsIcon sx={{ fontSize: '1.5rem' }} />
                 </Badge>
             </Button>
-
-            <button onClick={addNotification}>Add notification</button>
             <Popper
                 open={open}
                 disablePortal={true}

@@ -1,4 +1,4 @@
-const uploadImage = async (file, cloud_name = 'js-media', upload_preset = 'user_jgiwq6e') => {
+const uploadImage = async (file, upload_preset = 'user_jgiwq6e', cloud_name = 'js-media') => {
     const data = new FormData();
     data.append('file', file);
     data.append('cloud_name', cloud_name);

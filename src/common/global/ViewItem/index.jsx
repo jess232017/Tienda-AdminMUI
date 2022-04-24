@@ -81,7 +81,7 @@ const ViewItem = () => {
                         <label htmlFor="category">Categoria</label>
                         <Box ml={1} className="input-style">
                             <select name="category" id="category" value={selected} onChange={handleCategory}>
-                                {categories?.data?.data?.map(({ id, name }) => (
+                                {categories?.data?.map(({ id, name }) => (
                                     <option value={id} key={id}>
                                         {name}
                                     </option>

@@ -12,7 +12,7 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 import { uploadImage } from '@/api';
 
-const Uploader = ({ label, currentSrc = '', ...rest }) => {
+const Uploader = ({ label, currentSrc = '', upload_preset, ...rest }) => {
     const {
         control,
         formState: { errors },
@@ -25,9 +25,9 @@ const Uploader = ({ label, currentSrc = '', ...rest }) => {
     const handleChange = async ({ target: { files } }, onChange) => {
         const [file] = files;
         if (file) {
-            const src = URL.createObjectURL(file);
-            setImage(src);
-            const response = await uploadImage(file);
+            //const src = URL.createObjectURL(file);
+            const response = await uploadImage(file, upload_preset);
+            setImage(response.url);
             onChange(response);
         }
     };

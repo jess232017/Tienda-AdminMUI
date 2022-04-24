@@ -17,15 +17,21 @@ import api from '@/api/tasks/ApiUser';
 import usePagination from '@/services/hooks/usePagination';
 import useCrud from '@/services/hooks/useCrud';
 import Toolbar from '@/components/Toolbar';
+import ClientTemplate from './ClientTemplate';
 
 const columns = [
-    { field: 'id', headerName: 'Codigo', width: 280 },
-    { field: 'firstName', headerName: 'Nombres', width: 150 },
-    { field: 'lastName', headerName: 'Apellidos', width: 150 },
-    { field: 'userName', headerName: 'Usuario', width: 100 },
+    {
+        field: 'firstName',
+        headerName: 'Usuario',
+        width: 325,
+        renderCell: ClientTemplate,
+    },
+    //{ field: 'lastName', headerName: 'Apellidos', width: 150 },
+    //{ field: 'userName', headerName: 'Usuario', width: 100 },
     { field: 'phoneNumber', headerName: 'Telefono', width: 100 },
-    { field: 'email', headerName: 'Correo', width: 200 },
-    { field: 'password', headerName: 'Contraseña', width: 100 },
+    //{ field: 'email', headerName: 'Correo', width: 200 },
+    { field: 'password', headerName: 'Contraseña', width: 120 },
+    { field: 'id', headerName: 'Codigo', width: 280 },
 ];
 
 const User = () => {
@@ -70,7 +76,7 @@ const User = () => {
                 </Button>
             </Toolbar>
 
-            <DataGrid {...control} />
+            <DataGrid {...control} rowHeight={80} />
         </PageCard>
     );
 };

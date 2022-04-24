@@ -27,7 +27,7 @@ const validationSchema = Yup.object().shape({
     description: Yup.string()
         .required('La descripcion es requerida')
         .min(3, 'La descripcion debe tener al menos 3 caracteres')
-        .max(20, 'La descripcion no debe exceder los 20 caracteres'),
+        .max(120, 'La descripcion no debe exceder los 120 caracteres'),
     categoryId: Yup.object({
         value: Yup.string().required('El id de la categoria es requerido'),
     }).required('La categoria es requeridas'),
@@ -58,6 +58,7 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
     const { data: dataBrand } = apiBrand.get(1, 10);
     const { data: dataCatg } = apiCategoria.get(1, 10);
     const [categories, setCategories] = useState([]);
+    const [sourceImg, setSourceImg] = useState('');
     const [brands, setBrands] = useState([]);
 
     const mapOption = (data) => {
@@ -65,13 +66,15 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
     };
 
     const onSubmit = async (data) => {
-        const image = data.image ? await uploadImage(data.image) : null;
+        // const image = data.image ? await uploadImage(data.image) : null;
         const {
             brandId: { value: brandId },
             categoryId: { value: categoryId },
         } = data;
 
-        const final = { ...data, brandId, categoryId, image };
+        const final = { ...data, brandId, categoryId };
+        console.log('final', final);
+
         mutate(final, {
             onSuccess: () => {
                 methods.reset({});
@@ -109,6 +112,7 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
             safetyStock: data?.safetyStock || '',
             id: data?.id || '',
         };
+        setSourceImg(data?.image || '');
         methods.reset(defaultValues);
     }, [data]);
 
@@ -151,7 +155,7 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
                 </Grid>
 
                 <Grid item xs={12} sm={12} md={4}>
-                    <Uploader name="image" />
+                    <Uploader name="image" currentSrc={sourceImg} upload_preset="product_pib39m8" />
                     <Input required label="Codigo" name="id" disabled />
                 </Grid>
             </Grid>

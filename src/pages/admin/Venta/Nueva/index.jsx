@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Splitter from '@devbookhq/splitter';
 import { useAuthUser } from 'react-auth-kit';
@@ -30,10 +31,12 @@ const TomarVenta = () => {
 
     if (matches) {
         return (
-            <Splitter minWidths={[330, 330]} initialSizes={[66, 34]}>
-                <ViewItem />
-                <CartShop vendorId={vendorId} />
-            </Splitter>
+            <Box sx={{ backgroundColor: 'background.paper' }}>
+                <Splitter minWidths={[330, 330]} initialSizes={[66, 34]}>
+                    <ViewItem />
+                    <CartShop vendorId={vendorId} />
+                </Splitter>
+            </Box>
         );
     }
 

@@ -13,6 +13,7 @@ const theme = (customization) => {
     let paper;
     let menuCaption;
     let textInversePrimary;
+    let header;
 
     if (customization.darkMode) {
         textPrimary = menuCaption = textInversePrimary = value.textDarkPrimary;
@@ -22,6 +23,7 @@ const theme = (customization) => {
 
         background = value.backgoundDark;
         paper = value.paperDark;
+        header = value.paperDark;
     } else {
         textPrimary = textInversePrimary = menuCaption = value.textPrimary;
         textSecondary = value.textSecondary;
@@ -30,6 +32,7 @@ const theme = (customization) => {
 
         background = value.backgound;
         paper = value.paper;
+        header = value.primary;
     }
 
     return createTheme({
@@ -40,6 +43,7 @@ const theme = (customization) => {
                 black: value.paperDark,
             },
             primary: {
+                header: header,
                 light: value.primaryLight,
                 main: value.primary,
                 dark: value.primaryDark,
@@ -294,25 +298,25 @@ const theme = (customization) => {
                         paddingTop: '12px',
                         paddingBottom: '12px',
                         '&.Mui-selected': {
-                            color: customization.navType === 'dark' ? value.menuHover : value.primary,
-                            backgroundColor: customization.navType !== 'dark' ? value.menuHover : value.primary,
+                            color: customization.navType === 'dark' ? value.menuHoverDark : value.primary,
+                            backgroundColor: customization.navType !== 'dark' ? value.menuHoverDark : value.primary,
                             '&:hover': {
-                                backgroundColor: customization.navType !== 'dark' ? value.menuHover : value.primary,
+                                backgroundColor: customization.navType !== 'dark' ? value.menuHoverDark : value.primary,
                             },
                             '& .MuiListItemIcon-root': {
-                                color: customization.navType === 'dark' ? value.menuHover : value.primary,
+                                color: customization.navType === 'dark' ? value.menuHoverDark : value.primary,
                             },
                         },
                         '&:hover': {
-                            color: customization.navType === 'dark' ? value.menuHover : value.primary,
+                            color: customization.navType === 'dark' ? value.menuHoverDark : value.primary,
                             '& .MuiListItemIcon-root': {
-                                color: customization.navType === 'dark' ? value.menuHover : value.primary,
+                                color: customization.navType === 'dark' ? value.menuHoverDark : value.primary,
                             },
                         },
                     },
                     button: {
                         '&:hover': {
-                            backgroundColor: customization.navType !== 'dark' ? value.menuHover : value.primary,
+                            backgroundColor: customization.navType !== 'dark' ? value.menuHoverDark : value.primary,
                         },
                     },
                 },

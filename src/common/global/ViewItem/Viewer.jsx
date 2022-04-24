@@ -22,13 +22,13 @@ const Viewer = ({ view, data, page, total, handleChange }) => {
                 </p>
                 {view === 'grid' ? (
                     <Grid container spacing={3} columns={width < 480 ? 1 : width < 960 ? 3 : 4}>
-                        {data?.data?.data?.map((data) => (
+                        {data?.data?.map((data) => (
                             <GridItem data={data} store={store} width={width} key={data.id} />
                         ))}
                     </Grid>
                 ) : (
                     <>
-                        {data?.data?.data?.map((data) => (
+                        {data?.data?.map((data) => (
                             <ListItem data={data} store={store} width={width} key={data.id} />
                         ))}
                     </>
