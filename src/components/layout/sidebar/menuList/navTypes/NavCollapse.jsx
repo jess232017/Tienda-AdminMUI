@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { styled } from '@mui/system';
-import {  Typography, ListItem, ListItemIcon, ListItemText, Collapse, List, Chip, Avatar } from '@mui/material';
+import { Typography, ListItem, ListItemIcon, ListItemText, Collapse, List, Chip, Avatar } from '@mui/material';
 
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
@@ -13,7 +13,7 @@ const SubMenuCaption = styled(Typography)(({ theme }) => ({
 }));
 
 const styles = {
-    listItemNoBack : {
+    listItemNoBack: {
         backgroundColor: 'transparent !important',
         paddingTop: '8px',
         paddingBottom: '8px',
@@ -26,15 +26,14 @@ const styles = {
     listIcon: {
         minWidth: '25px',
     },
-    errorChip:{
+    errorChip: {
         color: 'error.main',
         backgroundColor: '#ffcdd2',
         marginRight: '5px',
-    }
-}
+    },
+};
 
 const NavCollapse = (props) => {
-
     const { menu, level } = props;
     const [open, setOpen] = React.useState(false);
     const [selected, setSelected] = React.useState(null);
@@ -60,7 +59,7 @@ const NavCollapse = (props) => {
     });
 
     const Icon = menu.icon;
-    const menuIcon = menu.icon ? <Icon  /> : <ArrowForwardIcon fontSize={level > 0 ? 'inherit' : 'default'} />
+    const menuIcon = menu.icon ? <Icon /> : <ArrowForwardIcon fontSize={level > 0 ? 'inherit' : 'default'} />;
 
     let menuIconSx = !menu.icon ? styles.listIcon : styles.menuIcon;
 
@@ -76,10 +75,7 @@ const NavCollapse = (props) => {
                 <ListItemIcon sx={menuIconSx}>{menuIcon}</ListItemIcon>
                 <ListItemText
                     primary={
-                        <Typography
-                            variant={selected === menu.id ? 'subtitle1' : 'body1'}
-                            color="inherit"
-                        >
+                        <Typography variant={selected === menu.id ? 'subtitle1' : 'body1'} color="inherit">
                             {menu.title}
                         </Typography>
                     }
@@ -101,7 +97,7 @@ const NavCollapse = (props) => {
                         avatar={menu.chip.avatar && <Avatar>{menu.chip.avatar}</Avatar>}
                     />
                 )}
-                {open ? <ExpandLess sx={{fontSize: "1rem"}}/> : <ExpandMore sx={{fontSize: "1rem"}}/>}
+                {open ? <ExpandLess sx={{ fontSize: '1rem' }} /> : <ExpandMore sx={{ fontSize: '1rem' }} />}
             </ListItem>
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>

@@ -18,6 +18,15 @@ const App = () => {
         location[show.locale].then((d) => setMessages(d.default));
     }, [show]);
 
+    useEffect(() => {
+        console.log(show);
+        if (show.darkMode) {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+    }, [show?.darkMode]);
+
     return (
         <>
             {messages && (

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { styled } from '@mui/system';
-import {  List, Typography } from '@mui/material';
+import { List, Typography } from '@mui/material';
 
 import NavItem from './NavItem';
 import NavCollapse from './NavCollapse';

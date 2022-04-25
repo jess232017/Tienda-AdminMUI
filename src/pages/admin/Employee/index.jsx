@@ -26,12 +26,26 @@ const columns = [
         width: 325,
         renderCell: ClientTemplate,
     },
+    { field: 'userName', headerName: 'Usuario', width: 150 },
+    { field: 'password', headerName: 'Contraseña', width: 150, renderCell: () => <p>**********</p> },
     //{ field: 'lastName', headerName: 'Apellidos', width: 150 },
     //{ field: 'userName', headerName: 'Usuario', width: 100 },
+    {
+        field: 'roles',
+        headerName: 'Roles',
+        width: 150,
+        renderCell: ({ row }) => {
+            const { roles } = row || {};
+            let stringRoles = '';
+            roles.forEach(({ label }) => {
+                stringRoles += label;
+            });
+
+            return <p>{stringRoles}</p>;
+        },
+    },
     { field: 'phoneNumber', headerName: 'Telefono', width: 100 },
     //{ field: 'email', headerName: 'Correo', width: 200 },
-    { field: 'password', headerName: 'Contraseña', width: 100 },
-    { field: 'id', headerName: 'Codigo', width: 280 },
 ];
 
 const User = () => {

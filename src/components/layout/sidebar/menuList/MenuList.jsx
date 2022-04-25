@@ -1,11 +1,18 @@
 import React from 'react';
+
 import { Typography } from '@mui/material';
 
+import useHeaderJwt from '@/services/hooks/useHeaderJwt';
 import NavGroup from './navTypes/NavGroup';
 import menuItem from '@/components/layout/_nav';
+import navRoles from '../navRoles/index';
 
 const MenuList = () => {
-    const navItems = menuItem.items.map((item) => {
+    const { jwtHeader } = useHeaderJwt();
+    console.log('navRoles', navRoles, jwtHeader);
+
+    //const navItems = menuItem.items.map((item) => {
+    const navItems = navRoles[jwtHeader?.role].items.map((item) => {
         switch (item.type) {
             case 'group':
                 return <NavGroup key={item.id} item={item} />;

@@ -1,3 +1,17 @@
+body {
+    --background: rgb(249 250 251/1);
+    --text-primary: rgb(17 24 39/1);
+    --text-secondary: royalblue;
+    --accent: purple;
+
+    &.dark {
+        --background: rgba(34, 33, 33, 0.918);
+        --text-primary: white;
+        --text-secondary: grey;
+        --accent: darkred;
+    }
+}
+
 @import 'custom';
 @import 'variables';
 @import 'input';

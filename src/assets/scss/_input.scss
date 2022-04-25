@@ -2,11 +2,11 @@
     input,
     select,
     textarea {
-        color: rgb(17 24 39/1);
+        color: var(--text-primary);
         font-size: 0.775rem;
         line-height: 1.25rem;
         padding: 0.5rem;
-        background-color: rgb(249 250 251/1);
+        background-color: var(--background);
         border-radius: 0.3rem;
         display: block;
         width: 100%;
@@ -66,7 +66,8 @@
 }
 
 .css-1s2u09g-control {
-    background-color: rgb(249 250 251/1) !important;
+    color: var(--text-primary);
+    background-color: var(--background) !important;
 }
 
 .css-ujecln-Input2,
@@ -78,6 +79,7 @@
             box-shadow: none;
             outline: none;
             outline-offset: none;
+            background-color: var(--background) !important;
         }
     }
 }

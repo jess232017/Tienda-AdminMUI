@@ -1,9 +1,7 @@
 import React from 'react';
 
-import { Outlet } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
 
-import RequireAuth from '@/services/auth/RequireAuth';
 import RequireRole from '@/services/auth/RequireRole';
 import { ROLES } from '@/services/auth/permission-maps';
 import Loader from '@/components/LoaderPage';
@@ -95,12 +93,17 @@ const MainLayout = () => {
 
                             <Route
                                 path="venta"
-                                element={<RequireRole roles={[ROLES.administrador, ROLES.vendedor]} children={<Ventas />} />}
+                                element={<RequireRole roles={[ROLES.administrador, ROLES.vendedor, ROLES.cajero]} children={<Ventas />} />}
                             />
 
                             <Route
                                 path="venta/:invoiceId"
-                                element={<RequireRole roles={[ROLES.administrador, ROLES.vendedor]} children={<DetalleVenta />} />}
+                                element={
+                                    <RequireRole
+                                        roles={[ROLES.administrador, ROLES.vendedor, , ROLES.cajero]}
+                                        children={<DetalleVenta />}
+                                    />
+                                }
                             />
 
                             <Route
@@ -110,22 +113,26 @@ const MainLayout = () => {
 
                             <Route
                                 path="categoria"
-                                element={<RequireRole roles={[ROLES.administrador, ROLES.vendedor]} children={<Category />} />}
+                                element={<RequireRole roles={[ROLES.administrador, ROLES.bodeguero]} children={<Category />} />}
                             />
 
                             <Route
                                 path="marca"
-                                element={<RequireRole roles={[ROLES.administrador, ROLES.vendedor]} children={<Brand />} />}
+                                element={<RequireRole roles={[ROLES.administrador, ROLES.bodeguero]} children={<Brand />} />}
                             />
 
                             <Route
                                 path="Inventario"
-                                element={<RequireRole roles={[ROLES.administrador, ROLES.bodeguero]} children={<Inventory />} />}
+                                element={
+                                    <RequireRole roles={[ROLES.administrador, ROLES.bodeguero, , ROLES.cajero]} children={<Inventory />} />
+                                }
                             />
 
                             <Route
                                 path="producto"
-                                element={<RequireRole roles={[ROLES.administrador, ROLES.bodeguero]} children={<Product />} />}
+                                element={
+                                    <RequireRole roles={[ROLES.administrador, ROLES.vendedor, ROLES.bodeguero]} children={<Product />} />
+                                }
                             />
 
                             <Route
@@ -133,32 +140,20 @@ const MainLayout = () => {
                                 element={<RequireRole roles={[ROLES.administrador, ROLES.cajero, ROLES.vendedor]} children={<Client />} />}
                             />
 
+                            <Route path="empleado" element={<RequireRole roles={[ROLES.administrador]} children={<Employee />} />} />
+
                             <Route
                                 path="proveedor"
                                 element={
-                                    <RequireRole roles={[ROLES.administrador, ROLES.cajero, ROLES.vendedor]} children={<Supplier />} />
+                                    <RequireRole roles={[ROLES.administrador, ROLES.bodeguero, ROLES.cajero]} children={<Supplier />} />
                                 }
                             />
-
-                            <Route path="empleado" element={<RequireRole roles={[ROLES.administrador]} children={<Employee />} />} />
 
                             <Route path="reporte" element={<RequireRole roles={[ROLES.administrador]} children={<Reporte />} />} />
 
                             <Route path="reporte/ver" element={<RequireRole roles={[ROLES.administrador]} children={<ReportViewer />} />} />
 
-                            <Route
-                                path="setting"
-                                element={
-                                    <RequireRole
-                                        roles={[ROLES.administrador]}
-                                        children={
-                                            <React.Suspense fallback={<Loader />}>
-                                                <Setting />
-                                            </React.Suspense>
-                                        }
-                                    />
-                                }
-                            />
+                            <Route path="setting" element={<Setting />} />
 
                             <Route path="*" element={<NoFound />} />
                         </Routes>

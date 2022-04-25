@@ -26,10 +26,10 @@ const columns = [
     //{ field: 'description', headerName: 'Descripcion', width: 200 },
     { field: 'category', headerName: 'Categoria', width: 100 },
     { field: 'brand', headerName: 'Marca', width: 100 },
-    { field: 'price', headerName: 'Precio', width: 100, type: 'number' },
-    { field: 'stock', headerName: 'Stock', width: 100, type: 'number' },
     { field: 'isInventoriable', headerName: 'Inventariable', width: 100, type: 'boolean' },
+    { field: 'stock', headerName: 'Stock', width: 100, type: 'number' },
     { field: 'safetyStock', headerName: 'Stock minimo', width: 100, type: 'number' },
+    { field: 'price', headerName: 'Precio', width: 100, type: 'number' },
 ];
 
 const Product = () => {

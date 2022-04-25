@@ -40,6 +40,7 @@
         "react-scripts": "5.0.0",
         "react-select": "^5.2.2",
         "react-toastify": "^9.0.0-POC",
+        "use-local-storage": "^2.3.6",
         "use-resize-observer": "^8.0.0",
         "yup": "^0.32.11",
         "zustand": "^3.7.1"
