@@ -1,5 +1,6 @@
 import { useCallback, useRef } from 'react';
 
+import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import { useAuthHeader } from 'react-auth-kit';
 import { useQuery } from 'react-query';
@@ -45,11 +46,24 @@ const axiosMutator =
                 const render = bodyError?.message || bodyErrors || 'La petición no pudo ser procesada';
                 console.log('render', render);
                 toast.update(toastId.current, { render, type: toast.TYPE.ERROR, autoClose: 4000 });
+
+                Swal.fire({
+                    title: 'Error!',
+                    text: render,
+                    icon: 'error',
+                    confirmButtonText: 'De acuerdo',
+                });
             },
             onSuccess: ({ data }) => {
                 queryClient.invalidateQueries(queryKey);
                 const render = data?.message || 'Petición procesada con exito';
                 toast.update(toastId.current, { render, type: toast.TYPE.SUCCESS, autoClose: 4000 });
+                Swal.fire({
+                    title: 'Todo correcto!',
+                    text: render,
+                    icon: 'success',
+                    confirmButtonText: 'Perfecto',
+                });
             },
             onSettled: (data, error, variables, context) => {},
         });
