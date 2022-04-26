@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { useAuthHeader } from 'react-auth-kit';
 import { useQuery } from 'react-query';
 import { useQueryClient, useMutation } from 'react-query';
+import withReactContent from 'sweetalert2-react-content';
 
 //import Loading from './Loading';
 
@@ -28,6 +29,7 @@ const axiosMutator =
         const toastId = useRef(null);
         const queryClient = useQueryClient();
         const authHeader = useAuthHeader()();
+        const MySwal = withReactContent(Swal);
 
         const axios = withAxios(method, url + urlParams, authHeader);
         const notify = () =>
@@ -47,7 +49,7 @@ const axiosMutator =
                 console.log('render', render);
                 toast.update(toastId.current, { render, type: toast.TYPE.ERROR, autoClose: 4000 });
 
-                Swal.fire({
+                MySwal.fire({
                     title: 'Error!',
                     text: render,
                     icon: 'error',
@@ -58,7 +60,7 @@ const axiosMutator =
                 queryClient.invalidateQueries(queryKey);
                 const render = data?.message || 'Petición procesada con exito';
                 toast.update(toastId.current, { render, type: toast.TYPE.SUCCESS, autoClose: 4000 });
-                Swal.fire({
+                MySwal.fire({
                     title: 'Todo correcto!',
                     text: render,
                     icon: 'success',
