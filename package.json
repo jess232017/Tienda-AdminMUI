@@ -2,7 +2,7 @@
     "name": "store-admin",
     "version": "2.0.0",
     "scripts": {
-        "dev": "vite",
+        "dev": "vite --host",
         "build": "vite build",
         "preview": "vite preview"
     },
@@ -42,6 +42,7 @@
         "react-toastify": "^9.0.0-POC",
         "sweetalert2": "^11.4.9",
         "sweetalert2-react-content": "^5.0.0",
+        "@sweetalert2/theme-material-ui": "^5.0.10",
         "use-local-storage": "^2.3.6",
         "use-resize-observer": "^8.0.0",
         "yup": "^0.32.11",

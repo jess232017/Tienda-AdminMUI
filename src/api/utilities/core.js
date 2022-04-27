@@ -1,13 +1,10 @@
 import { useCallback, useRef } from 'react';
 
-import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import { useAuthHeader } from 'react-auth-kit';
 import { useQuery } from 'react-query';
 import { useQueryClient, useMutation } from 'react-query';
-import withReactContent from 'sweetalert2-react-content';
-
-//import Loading from './Loading';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import withAxios from '../utilities/provider';
 
@@ -29,7 +26,7 @@ const axiosMutator =
         const toastId = useRef(null);
         const queryClient = useQueryClient();
         const authHeader = useAuthHeader()();
-        const MySwal = withReactContent(Swal);
+        //const MySwal = withReactContent(Swal);
 
         const axios = withAxios(method, url + urlParams, authHeader);
         const notify = () =>
@@ -46,10 +43,9 @@ const axiosMutator =
                 const bodyError = error?.response?.data?.error;
                 const bodyErrors = JSON.stringify(error?.response?.data?.errors);
                 const render = bodyError?.message || bodyErrors || 'La petición no pudo ser procesada';
-                console.log('render', render);
                 toast.update(toastId.current, { render, type: toast.TYPE.ERROR, autoClose: 4000 });
 
-                MySwal.fire({
+                Swal.fire({
                     title: 'Error!',
                     text: render,
                     icon: 'error',
@@ -60,7 +56,7 @@ const axiosMutator =
                 queryClient.invalidateQueries(queryKey);
                 const render = data?.message || 'Petición procesada con exito';
                 toast.update(toastId.current, { render, type: toast.TYPE.SUCCESS, autoClose: 4000 });
-                MySwal.fire({
+                Swal.fire({
                     title: 'Todo correcto!',
                     text: render,
                     icon: 'success',
