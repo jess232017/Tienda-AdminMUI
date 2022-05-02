@@ -20,6 +20,9 @@ import RevenuChartCardData from './chart/revenu-chart';
 import ReportCard from './ReportCard';
 import LatestorderCard from './LatestorderCard';
 
+import NewUsers from './NewUsers/NewUsers';
+import NewTransactions from './NewTransactions/NewTransactions';
+
 import { gridSpacing } from '@/services/constant';
 
 const FlatCardBody = styled(CardContent)({
@@ -92,6 +95,64 @@ const Default = () => {
                 </Grid>
             </Grid>
             <Grid item xs={12}>
+                <Grid container spacing={gridSpacing}>
+                    <Grid item lg={4} xs={12}>
+                        <Card>
+                            <CardHeader
+                                title={
+                                    <Typography variant="h5" gutterBottom component="div">
+                                        Nuevos miembros
+                                    </Typography>
+                                }
+                            />
+                            <CardContent sx={{ pt: 0 }}>
+                                <NewUsers />
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <Grid item lg={8} xs={12}>
+                        <Card>
+                            <CardHeader
+                                title={
+                                    <Typography variant="h5" gutterBottom component="div">
+                                        Últimas transacciones
+                                    </Typography>
+                                }
+                            />
+                            <CardContent sx={{ pt: 0 }}>
+                                <NewTransactions />
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid item xs={12}>
+                <Grid container spacing={gridSpacing}>
+                    <Grid item xs={12} sm={6} lg={8}>
+                        <SalesLineCard
+                            chartData={SalesLineCardData}
+                            title="Ventas en el dia"
+                            percentage="3%"
+                            icon={<TrendingDownIcon />}
+                            footerData={[
+                                {
+                                    value: '$4230',
+                                    label: 'Total Vendido',
+                                },
+                                {
+                                    value: '321',
+                                    label: 'Cantidad Vendida',
+                                },
+                            ]}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6} lg={4}>
+                        <RevenuChartCard chartData={RevenuChartCardData} />
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <Grid item xs={12} display="none">
                 <Grid container spacing={gridSpacing}>
                     <Grid item lg={8} xs={12}>
                         <Grid container spacing={gridSpacing}>
@@ -253,7 +314,7 @@ const Default = () => {
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} display="none">
                 <LatestorderCard title="Ultimos pedidos" />
             </Grid>
         </Grid>

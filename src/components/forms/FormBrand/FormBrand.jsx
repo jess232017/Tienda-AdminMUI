@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 //Owned
 import FormDialog from '@/common/FormDialog';
 import api from '@/api/tasks/ApiBrand';
-import Input from '@/common/control/Input';
+import { Input, CheckBox } from '@/common/control';
 
 //nombre imagen icono descripcion porDefecto
 const validationSchema = Yup.object().shape({
@@ -57,7 +57,7 @@ const FormBrand = NiceModal.create(({ data, request, title }) => {
                 </Grid>
                 <Grid item xs={1} sm={2} md={4} />
                 <Grid item xs={12} sm={6} md={2}>
-                    <Input required label="Por Defecto" name="byDefault" type="checkbox" />
+                    <CheckBox required label="Por Defecto" name="byDefault" />
                 </Grid>
             </Grid>
         </FormDialog>

@@ -3,40 +3,40 @@
 @import 'sweetalert2/src/variables';
 
 // Theme variables
-$material-ui-blue: #2196f3;
+$material-ui-blue: #3366ff;
 $material-ui-disabled: #808080;
 $material-ui-white: #fff;
 $material-ui-slider-track-height: 2px;
 $material-ui-slider-thumb-size: 16px;
 // Variables to be added to Sweetalert2
-$swal2-button-focus-background: rgba($material-ui-blue, 0.3);
+$swal2-button-focus-background: rgba($material-ui-blue, 0.9);
 $swal2-close-button-font-family: arial;
 
 // override SASS variables here
 // CONFIRM BUTTON
 $swal2-confirm-button-border: 0;
-$swal2-confirm-button-border-radius: 0;
-$swal2-confirm-button-background-color: rgba(43, 21, 21, 0);
-$swal2-confirm-button-color: $material-ui-blue;
+$swal2-confirm-button-border-radius: 0.15rem;
+$swal2-confirm-button-background-color: rgba($material-ui-blue, 1);
+$swal2-confirm-button-color: $material-ui-white;
 $swal2-confirm-button-focus-box-shadow: none;
 
 // DENY BUTTON
 $swal2-deny-button-border: 0;
-$swal2-deny-button-border-radius: 0;
+$swal2-confirm-button-border-radius: 0.15rem;
 $swal2-deny-button-background-color: rgba(43, 21, 21, 0);
-$swal2-deny-button-color: $material-ui-blue;
+$swal2-deny-button-color: $material-ui-white;
 $swal2-deny-button-focus-box-shadow: none;
 
 // CANCEL BUTTON
 $swal2-cancel-button-border: 0;
-$swal2-cancel-button-border-radius: 0;
-$swal2-cancel-button-background-color: rgba(255, 255, 255, 0);
-$swal2-cancel-button-color: $material-ui-blue;
+$swal2-confirm-button-border-radius: 0.15rem;
+$swal2-cancel-button-background-color: #d33;
+$swal2-cancel-button-color: $material-ui-white;
 $swal2-cancel-button-focus-box-shadow: none;
 
 // BUTTONS
-$swal2-button-darken-hover: rgba($material-ui-blue, 0.1);
-$swal2-button-darken-active: rgba($material-ui-blue, 0.3);
+$swal2-button-darken-hover: rgba($material-ui-blue, 1);
+$swal2-button-darken-active: rgba($material-ui-blue, 0.8);
 $swal2-button-focus-box-shadow: none;
 
 // ACTIONS
@@ -74,6 +74,11 @@ $checkbox-left-px: -2;
 
     &:focus {
         background-color: $swal2-button-focus-background;
+    }
+
+    &:hover {
+        background-image: none !important;
+        opacity: 1.2;
     }
 }
 

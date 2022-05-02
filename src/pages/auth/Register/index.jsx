@@ -1,9 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 
 //control
-import { toast } from 'react-toastify';
 import { useForm, FormProvider } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
@@ -16,11 +15,22 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
+
+const CustomizedCardHeader = styled(CardHeader)`
+    flex-direction: row-reverse;
+    .MuiCardHeader-avatar {
+        margin-right: 0;
+    }
+    .MuiCardHeader-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+`;
 
 //Owned
 import apiAuth from '@/api/tasks/ApiIdentity';
-import { Input, Password } from '@/common/control';
-//import { CheckBox } from '@/common/global/control/index';
+import { Input, Password, CheckBox } from '@/common/control';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -50,17 +60,21 @@ const Register = () => {
     };
 
     return (
-        <>
+        <Box width={600}>
             <Card>
-                <CardHeader title="Registro" subheader="Crear tu cuenta ahora" />
-                <Divider />
-                <CardContent>
-                    <p className="text-muted text-sm mb-5">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.
-                    </p>
-
+                <CustomizedCardHeader
+                    title="Registrate"
+                    titleTypographyProps={{
+                        variant: 'h1',
+                        fontSize: '2rem',
+                    }}
+                    sx={{ pb: 0 }}
+                    subheader="Para mantenernos en contacto."
+                    avatar={<img src="/img/tienda.png" width={35} />}
+                />
+                <CardContent sx={{ pt: 2 }}>
                     <FormProvider {...methods}>
-                        <Box component="form" id="registerForm" mt={2} onSubmit={methods.handleSubmit(enviarForm)}>
+                        <Box component="form" id="registerForm" onSubmit={methods.handleSubmit(enviarForm)}>
                             <Grid container spacing={2}>
                                 <Grid item xs={12} md={6}>
                                     <Input name="firstName" label="Nombres" />
@@ -72,15 +86,17 @@ const Register = () => {
                                     <Input name="email" label="Correo" />
                                 </Grid>
                                 <Grid item xs={12} md={6}>
-                                    <Input name="phoneNumber" type="number" label="Numero telefonico" />
+                                    <Input name="phoneNumber" type="number" label="Telefono" />
                                 </Grid>
                                 <Grid item xs={12} md={6}>
-                                    <Input name="userName" label="Usuario" />
+                                    <Input name="userName" autoComplete="new-password" label="Usuario" />
                                 </Grid>
                                 <Grid item xs={12} md={6}>
-                                    <Password name="password" type="password" label="Contraseña" />
+                                    <Password name="password" type="password" autoComplete="new-password" label="Contraseña" />
                                 </Grid>
                             </Grid>
+
+                            <CheckBox name="remember" label="Estoy de acuerdo con los términos y condiciones" />
 
                             <Stack direction="column" spacing={2} pt={2}>
                                 <LoadingButton type="submit" loading={isLoading} loadingPosition="start" variant="contained" fullWidth>
@@ -89,15 +105,13 @@ const Register = () => {
                             </Stack>
                         </Box>
                     </FormProvider>
-                </CardContent>
-                <Divider />
-                <CardContent>
-                    <Typography variant="subtitle2" component="span" color="initial">
-                        ¿Ya tienes una cuenta? <Link to="/auth">Ingresa</Link>.
+                    <Divider sx={{ my: 2 }} />{' '}
+                    <Typography variant="subtitle2" component={Link} to="/auth" color="initial">
+                        Ya tengo una cuenta
                     </Typography>
                 </CardContent>
             </Card>
-        </>
+        </Box>
     );
 };
 

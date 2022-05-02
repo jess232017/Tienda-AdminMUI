@@ -1,19 +1,30 @@
 //#region authentication
 
 .auth-bg {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 2rem;
+    //background-image: url(https://res.cloudinary.com/js-media/image/upload/v1651376971/Store-JS/background_vmydhe.jpg);
+    background-image: url(https://res.cloudinary.com/js-media/image/upload/v1651381064/Store-JS/background_g1gqk5.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     &.expire {
         background-color: #1764e7 !important;
+    }
+
+    div.bk-transaparent {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #3366ff6b;
     }
 }
 
 @media (min-width: 900px) {
     .auth-bg {
         height: 100vh;
-        margin-bottom: -25px;
+        div.bk-transaparent {
+            height: 100vh;
+            margin-bottom: -25px;
+        }
     }
 }
 
@@ -44,4 +55,8 @@ hr {
     .__dbk__dragger.Horizontal.Dark {
         background-color: #dee2e6;
     }
+}
+
+.swal2-container {
+    z-index: 1301 !important;
 }

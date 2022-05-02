@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 
 import { AuthProvider } from 'react-auth-kit';
@@ -12,8 +12,10 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import '@/assets/scss/style.scss';
 
 const queryClient = new QueryClient();
+const container = document.getElementById('root');
+const root = createRoot(container);
 
-ReactDOM.render(
+root.render(
     <React.StrictMode>
         <AuthProvider
             authType={'cookie'}
@@ -26,6 +28,5 @@ ReactDOM.render(
                 <ReactQueryDevtools />
             </QueryClientProvider>
         </AuthProvider>
-    </React.StrictMode>,
-    document.getElementById('root')
+    </React.StrictMode>
 );

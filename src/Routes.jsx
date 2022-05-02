@@ -6,28 +6,10 @@ import Loader from '@/components/Loader';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import RequireAuth from '@/services/auth/RequireAuth';
-import RequireRole from '@/services/auth/RequireRole';
-import { ROLES } from '@/services/auth/permission-maps';
 
 //Pages
 const Layout = React.lazy(() => import('@/components/layout/Layout'));
 const Auth = React.lazy(() => import('@/pages/auth/Auth'));
-const Login = React.lazy(() => import('@/pages/auth/Login'));
-const Register = React.lazy(() => import('@/pages/auth/Register'));
-const Ventas = React.lazy(() => import('@/pages/admin/Venta'));
-const DetalleVenta = React.lazy(() => import('@/pages/admin/Venta/Detalle'));
-const VentaNueva = React.lazy(() => import('@/pages/admin/Venta/Nueva'));
-const Inventory = React.lazy(() => import('@/pages/admin/Inventory'));
-const Supplier = React.lazy(() => import('@/pages/admin/Supplier'));
-const Dashboard = React.lazy(() => import('@/pages/admin/Dashboard'));
-const Employee = React.lazy(() => import('@/pages/admin/Employee'));
-const Product = React.lazy(() => import('@/pages/admin/Product'));
-const Category = React.lazy(() => import('@/pages/admin/Category'));
-const Brand = React.lazy(() => import('@/pages/admin/Brand'));
-const Client = React.lazy(() => import('@/pages/admin/Client'));
-const Reporte = React.lazy(() => import('@/pages/admin/Report'));
-const ReportViewer = React.lazy(() => import('@/pages/admin/Report/ReportViewer'));
-const Setting = React.lazy(() => import('@/pages/admin/Setting'));
 const NoFound = React.lazy(() => import('@/pages/error/NoFound'));
 
 const index = () => {
@@ -39,11 +21,7 @@ const index = () => {
                 <Routes>
                     <Route index element={<RequireAuth redirect="auth" children={<Navigate to="admin" />} />} />
 
-                    <Route path="auth" element={<RequireAuth redirect="/" require={false} children={<Auth />} />}>
-                        <Route index element={<Login />} />
-                        <Route path="sign-up" element={<Register />} />
-                        <Route path="*" element={<NoFound />} />
-                    </Route>
+                    <Route path="auth/*" element={<RequireAuth redirect="/" require={false} children={<Auth />} />} />
 
                     <Route path="admin/*" element={<RequireAuth redirect="/" children={<Layout />} />} />
                     <Route path="*" element={<NoFound />} />

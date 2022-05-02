@@ -1,21 +1,13 @@
 import React from 'react';
 
-import LinearProgress from '@mui/material/LinearProgress';
-import { styled } from '@mui/system';
-
-const DivLoader = styled('div')(({ theme }) => ({
-    width: '100%',
-    '& > * + *': {
-        marginTop: theme.spacing(2),
-    },
-}));
-
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Loader = () => {
     return (
-        <DivLoader>
-            <LinearProgress color="secondary" />
-        </DivLoader>
+        <Box display="flex" width="100%" height="100%" justifyContent="center" alignItems="center">
+            <CircularProgress />
+        </Box>
     );
 };
 

@@ -16,7 +16,7 @@ import FormDialog from '@/common/FormDialog';
 import apiProduct from '@/api/tasks/ApiProduct';
 import apiCategoria from '@/api/tasks/ApiCategory';
 import apiBrand from '@/api/tasks/ApiBrand';
-import { Select, Input, Uploader } from '@/common/control';
+import { Input, Select, Uploader, CheckBox } from '@/common/control';
 
 //descripcion categoriaId precioventa cantidad marca stockMinimo codigoqr
 const validationSchema = Yup.object().shape({
@@ -145,11 +145,11 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
                         <Grid item xs={12} sm={6} md={4}>
                             <Input required label="Cantidad minima" name="safetyStock" type="number" />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Input required label="Inventariable" name="isInventoriable" type="checkbox" />
+                        <Grid item xs={12} sm={6} md={4}>
+                            <CheckBox required label="Inventariable" name="isInventoriable" />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Input required label="Granel" name="isGranel" type="checkbox" />
+                        <Grid item xs={12} sm={6} md={4}>
+                            <CheckBox required label="Granel" name="isGranel" />
                         </Grid>
                     </Grid>
                 </Grid>

@@ -43,7 +43,8 @@ const axiosMutator =
                 const bodyError = error?.response?.data?.error;
                 const bodyErrors = JSON.stringify(error?.response?.data?.errors);
                 const render = bodyError?.message || bodyErrors || 'La petición no pudo ser procesada';
-                toast.update(toastId.current, { render, type: toast.TYPE.ERROR, autoClose: 4000 });
+                toast.dismiss(toastId.current);
+                //toast.update(toastId.current, { render, type: toast.TYPE.ERROR, autoClose: 4000 });
 
                 Swal.fire({
                     title: 'Error!',
@@ -55,7 +56,8 @@ const axiosMutator =
             onSuccess: ({ data }) => {
                 queryClient.invalidateQueries(queryKey);
                 const render = data?.message || 'Petición procesada con exito';
-                toast.update(toastId.current, { render, type: toast.TYPE.SUCCESS, autoClose: 4000 });
+                toast.dismiss(toastId.current);
+                //toast.update(toastId.current, { render, type: toast.TYPE.SUCCESS, autoClose: 4000 });
                 Swal.fire({
                     title: 'Todo correcto!',
                     text: render,

@@ -7,7 +7,7 @@ const revenueChart = {
         dataLabels: {
             enabled: false,
         },
-        labels: ['Youtube', 'Facebook', 'Twittr'],
+        labels: ['Producto', 'Producto', 'Producto'],
         legend: {
             show: true,
             position: 'bottom',

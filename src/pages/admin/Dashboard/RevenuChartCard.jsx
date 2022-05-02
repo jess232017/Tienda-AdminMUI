@@ -42,7 +42,7 @@ const RevenuChartCard = (props) => {
                     >
                         <Grid item>
                             <Grid container direction="column">
-                                <Typography variant="h6">Youtube</Typography>
+                                <Typography variant="h6">Producto 1</Typography>
                                 <Typography variant="subtitle1" style={{ color: theme.palette.primary.main }}>
                                     + 16.85%
                                 </Typography>
@@ -50,7 +50,7 @@ const RevenuChartCard = (props) => {
                         </Grid>
                         <Grid item>
                             <Grid container direction="column">
-                                <Typography variant="h6">Facebook</Typography>
+                                <Typography variant="h6">Producto 2</Typography>
                                 <Box color={theme.palette.success.main}>
                                     <Typography variant="subtitle1" color="inherit">
                                         +45.36%
@@ -60,7 +60,7 @@ const RevenuChartCard = (props) => {
                         </Grid>
                         <Grid item>
                             <Grid container direction="column">
-                                <Typography variant="h6">Twitter</Typography>
+                                <Typography variant="h6">Producto 3</Typography>
                                 <Typography variant="subtitle1" style={{ color: theme.palette.warning.main }}>
                                     - 50.69%
                                 </Typography>

@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid';
 
 //Owned
 import FormDialog from '@/common/FormDialog';
-import { Input } from '@/common/control';
+import { Input, CheckBox } from '@/common/control';
 
 //nombre imagen icono descripcion porDefecto
 const validationSchema = Yup.object().shape({
@@ -43,22 +43,22 @@ const FormCategory = NiceModal.create(({ data, request, title }) => {
     };
 
     return (
-        <FormDialog title={`${title} categoria`} methods={methods} callback={methods.handleSubmit(onSubmit)}>
+        <FormDialog title={`${title} categoria`} maxWidth="sm" methods={methods} callback={methods.handleSubmit(onSubmit)}>
             <Grid container spacing={{ xs: 1, md: 2 }} columns={{ xs: 2, sm: 4, md: 6 }}>
-                <Grid item xs={2} sm={2} md={4}>
+                <Grid item xs={2} sm={2} md={2}>
                     <Input required label="Nombre" name="name" type="text" />
-                </Grid>
-                <Grid item xs={1} sm={2} md={2}>
-                    <Input required label="Icono" name="icon" type="text" />
                 </Grid>
                 <Grid item xs={2} sm={2} md={4}>
                     <Input required label="Descripcion" name="description" type="text" />
+                </Grid>
+                <Grid item xs={1} sm={2} md={3}>
+                    <Input required label="Icono" name="icon" type="text" />
                 </Grid>
                 <Grid item xs={1} sm={2} md={2}>
                     <Input label="Codigo" name="id" type="text" disabled />
                 </Grid>
                 <Grid item xs={1} sm={2} md={2}>
-                    <Input required label="Por Defecto" name="byDefault" type="checkbox" />
+                    <CheckBox required label="Por Defecto" name="byDefault" />
                 </Grid>
             </Grid>
         </FormDialog>

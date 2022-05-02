@@ -22,7 +22,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 
-const FormDialog = ({ title, callback, methods, children, footerControl = true }) => {
+const FormDialog = ({ title, callback, methods, children, footerControl = true, maxWidth = 'md' }) => {
     const isMutating = useIsMutating();
 
     const theme = useTheme();
@@ -39,8 +39,8 @@ const FormDialog = ({ title, callback, methods, children, footerControl = true }
         <FormProvider {...methods}>
             <form onSubmit={callback}>
                 <Dialog
-                    maxWidth="md"
                     fullWidth={true}
+                    maxWidth={maxWidth}
                     fullScreen={fullScreen}
                     {...muiDialog(modal)}
                     onClose={handleClose}
@@ -97,7 +97,7 @@ const FormDialog = ({ title, callback, methods, children, footerControl = true }
                                 startIcon={<SaveIcon />}
                                 loading={isMutating === 1}
                                 onClick={callback}
-                                sx={{ boxShadow: 'none' }}
+                                disableElevation
                             >
                                 Guardar
                             </LoadingButton>

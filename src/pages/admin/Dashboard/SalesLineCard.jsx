@@ -3,8 +3,7 @@ import React from 'react';
 import { useTheme } from '@mui/styles';
 import Chart from 'react-apexcharts';
 
-import { Box, Card, CardContent, Grid,  Typography } from '@mui/material';
-
+import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 
 const SalesLineCard = (props) => {
     const theme = useTheme();
@@ -17,12 +16,7 @@ const SalesLineCard = (props) => {
             return (
                 <Grid item key={index}>
                     <Box mt={3} mb={3} p={1}>
-                        <Grid
-                            container
-                            spacing={1}
-                            direction="column"
-                            alignItems="center"
-                        >
+                        <Grid container spacing={1} direction="column" alignItems="center">
                             <Typography variant="h4">{item.value}</Typography>
                             <Typography variant="subtitle2" color="secondary">
                                 {item.label}
@@ -36,12 +30,10 @@ const SalesLineCard = (props) => {
 
     return (
         <Card>
-            <CardContent 
-                sx={{padding: 0, paddingBottom: "0px!important"}}
-            >
+            <CardContent sx={{ padding: 0, paddingBottom: '0px!important' }}>
                 <Box color="#fff" bgcolor={bgColor ? bgColor : theme.palette.primary.main} p={3}>
                     <Grid container direction="column" spacing={1}>
-                        <Grid item container sx={{justifyContent: "space-between", alignItems: "center"}}>
+                        <Grid item container sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                             {title && (
                                 <Grid item>
                                     <Typography variant="subtitle1" color="inherit">
@@ -50,7 +42,7 @@ const SalesLineCard = (props) => {
                                 </Grid>
                             )}
                             <Grid item>
-                                <Grid container sx={{alignItems: "center"}}>
+                                <Grid container sx={{ alignItems: 'center' }}>
                                     {icon && (
                                         <Box component="span" mr={2}>
                                             {icon}
