@@ -36,9 +36,6 @@ import MarkChatReadIcon from '@mui/icons-material/MarkChatRead';
 import QueryBuilderTwoToneIcon from '@mui/icons-material/QueryBuilderTwoTone';
 import NotificationsIcon from '@mui/icons-material/NotificationsNoneTwoTone';
 
-import User1 from '@/assets/images/users/avatar-1.jpg';
-import User2 from '@/assets/images/users/avatar-2.jpg';
-
 const ListAction = styled(ListItemSecondaryAction)({
     top: '22px',
 });
@@ -206,7 +203,7 @@ const NotificationSection = () => {
                                             </ListSubheader>
                                             <ListItem button alignItems="flex-start" sx={{ paddingTop: 0 }}>
                                                 <ListItemAvatar>
-                                                    <Avatar alt="John Doe" src={User1} />
+                                                    <Avatar alt="John Doe" />
                                                 </ListItemAvatar>
                                                 <ListItemText
                                                     primary={<Typography variant="subtitle1">John Doe</Typography>}
@@ -230,7 +227,7 @@ const NotificationSection = () => {
                                             </ListSubheader>
                                             <ListItem button alignItems="flex-start" sx={{ paddingTop: 0 }}>
                                                 <ListItemAvatar>
-                                                    <Avatar alt="Joseph William" src={User2} />
+                                                    <Avatar alt="Joseph William" />
                                                 </ListItemAvatar>
                                                 <ListItemText
                                                     primary={<Typography variant="subtitle1">Joseph William</Typography>}
