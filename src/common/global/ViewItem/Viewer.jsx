@@ -16,10 +16,6 @@ const Viewer = ({ view, data, page, total, handleChange }) => {
     return (
         <Box display="flex" flexDirection="column">
             <Box sx={{ flexGrow: 1 }} ref={ref}>
-                <p>
-                    {' '}
-                    Size: {width}x{height}
-                </p>
                 {view === 'grid' ? (
                     <Grid container spacing={3} columns={width < 480 ? 1 : width < 960 ? 3 : 4}>
                         {data?.data?.map((data) => (

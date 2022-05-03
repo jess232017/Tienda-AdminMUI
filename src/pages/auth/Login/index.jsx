@@ -83,7 +83,7 @@ const Login = ({ isExpired = false }) => {
                 <CardContent sx={{ pt: 1 }}>
                     <FormProvider {...methods}>
                         <form onSubmit={methods.handleSubmit(enviarForm)}>
-                            <Stack direction="column" spacing={1} pt={2}>
+                            <Stack direction="column" spacing={3} pt={2}>
                                 <Input required label="Correo electrónico" name="email" type="text" />
 
                                 <Password required type="password" label="Contraseña" name="password" />

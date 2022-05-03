@@ -77,7 +77,7 @@ const Default = () => {
                             primary="290+"
                             secondary="Clientes nuevos"
                             color={theme.palette.success.main}
-                            footerData="1k de visitas"
+                            footerData="1k de clientes"
                             iconPrimary={DescriptionTwoTone}
                             iconFooter={TrendingUpIcon}
                         />
@@ -85,9 +85,9 @@ const Default = () => {
                     <Grid item lg={3} sm={6} xs={12}>
                         <ReportCard
                             primary={500}
-                            secondary="Descargas"
+                            secondary="Interacciones"
                             color={theme.palette.primary.main}
-                            footerData="1k de descargas"
+                            footerData="1k de interacciones"
                             iconPrimary={ThumbUpAltTwoTone}
                             iconFooter={TrendingUpIcon}
                         />
