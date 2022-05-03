@@ -2,7 +2,7 @@ import React from 'react';
 
 //control
 import { useForm } from 'react-hook-form';
-import NiceModal from '@ebay/nice-modal-react';
+import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Grid from '@mui/material/Grid';
@@ -26,6 +26,9 @@ const validationSchema = Yup.object().shape({
 });
 
 const FormBrand = NiceModal.create(({ data, request, title }) => {
+    //modal handle
+    const modal = useModal();
+
     //validator
     const methods = useForm({
         shouldUnregister: true,
@@ -39,12 +42,13 @@ const FormBrand = NiceModal.create(({ data, request, title }) => {
         mutate(data, {
             onSuccess: () => {
                 methods.reset({});
+                modal.hide();
             },
         });
     };
 
     return (
-        <FormDialog title={`${title} marca`} methods={methods} callback={methods.handleSubmit(onSubmit)}>
+        <FormDialog title={`${title} marca`} methods={methods} callback={methods.handleSubmit(onSubmit)} modal={modal}>
             <Grid container spacing={{ xs: 1, md: 2 }}>
                 <Grid item xs={12} sm={6} md={8}>
                     <Input required label="Nombre" name="name" type="text" />

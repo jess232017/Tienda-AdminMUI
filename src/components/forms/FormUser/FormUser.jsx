@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 //control
 import { useForm } from 'react-hook-form';
 
-import NiceModal from '@ebay/nice-modal-react';
+import NiceModal, { useModal } from '@ebay/nice-modal-react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -46,6 +46,9 @@ const userSchema = Yup.object().shape({
 });
 
 const FormUser = NiceModal.create(({ data, request, title }) => {
+    //modal handle
+    const modal = useModal();
+
     //validator
     const methods = useForm({
         shouldUnregister: true,
@@ -73,6 +76,7 @@ const FormUser = NiceModal.create(({ data, request, title }) => {
                     password: '',
                     roles: [],
                 });
+                modal.hide();
             },
         });
     };
@@ -104,7 +108,7 @@ const FormUser = NiceModal.create(({ data, request, title }) => {
     }, [data]);
 
     return (
-        <FormDialog title={`${title} usuario`} methods={methods} callback={methods.handleSubmit(onSubmit)}>
+        <FormDialog title={`${title} usuario`} methods={methods} callback={methods.handleSubmit(onSubmit)} modal={modal}>
             <Grid container spacing={{ xs: 1, md: 2 }}>
                 <Grid item xs={12} sm={12} md={8}>
                     <Grid container spacing={{ xs: 1, md: 2 }}>

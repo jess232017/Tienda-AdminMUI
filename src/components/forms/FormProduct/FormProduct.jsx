@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 //control
 import { useForm } from 'react-hook-form';
-import NiceModal from '@ebay/nice-modal-react';
+import NiceModal, { useModal } from '@ebay/nice-modal-react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -46,6 +46,9 @@ const validationSchema = Yup.object().shape({
 });
 
 const FormProducto = NiceModal.create(({ data, request, title }) => {
+    //modal handle
+    const modal = useModal();
+
     //validator
     const methods = useForm({
         resolver: yupResolver(validationSchema),
@@ -78,6 +81,7 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
         mutate(final, {
             onSuccess: () => {
                 methods.reset({});
+                modal.hide();
             },
         });
     };
@@ -117,7 +121,7 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
     }, [data]);
 
     return (
-        <FormDialog title={`${title} producto`} methods={methods} callback={methods.handleSubmit(onSubmit)}>
+        <FormDialog title={`${title} producto`} methods={methods} callback={methods.handleSubmit(onSubmit)} modal={modal}>
             <Grid container spacing={{ xs: 1, md: 2 }}>
                 <Grid item xs={12} sm={12} md={8}>
                     <Grid container spacing={{ xs: 1, md: 2 }}>

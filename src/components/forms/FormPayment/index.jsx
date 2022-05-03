@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { toast } from 'react-toastify';
-import NiceModal from '@ebay/nice-modal-react';
+import NiceModal, { useModal } from '@ebay/nice-modal-react';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -29,6 +29,9 @@ import useCarrito from '@/services/context/carrito';
 import { Tabs, Tab } from './Tab';
 
 const FormPayment = NiceModal.create(({ data }) => {
+    //modal handle
+    const modal = useModal();
+
     const [paid, setPaid] = useState(0);
     const [index, setIndex] = useState(0);
     const { nukeItems } = useCarrito();
@@ -70,7 +73,7 @@ const FormPayment = NiceModal.create(({ data }) => {
     };
 
     return (
-        <FormDialog title="Realizar pago" callback={onSubmit} footerControl={false} processing={isLoading}>
+        <FormDialog title="Realizar pago" callback={onSubmit} footerControl={false} processing={isLoading} modal={modal}>
             <Grid container spacing={{ xs: 1, md: 2 }} columns={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={1} sm={1} md={2}>
                     <Typography variant="h2" align="center">

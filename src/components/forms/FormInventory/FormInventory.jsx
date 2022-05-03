@@ -3,7 +3,7 @@ import React from 'react';
 //control
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
-import NiceModal from '@ebay/nice-modal-react';
+import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
@@ -17,17 +17,30 @@ import CardContent from '@mui/material/CardContent';
 import FormDialog from '@/common/FormDialog';
 import { Input, Select } from '@/common/control';
 
-const FormInventario = NiceModal.create(({ method, data, title }) => {
+const FormInventario = NiceModal.create(({ method, request, title }) => {
+    //modal handle
+    const modal = useModal();
+
     //validator
     const methods = useForm({
         shouldUnregister: true,
         resolver: yupResolver({}),
     });
 
-    const onSubmit = (data) => console.log(data);
+    //Apis
+    const { mutate } = request;
+
+    const onSubmit = (data) => {
+        mutate(data, {
+            onSuccess: () => {
+                methods.reset({});
+                modal.hide();
+            },
+        });
+    };
 
     return (
-        <FormDialog title={`${title} inventario`} methods={methods} callback={methods.handleSubmit(onSubmit)}>
+        <FormDialog title={`${title} inventario`} methods={methods} callback={methods.handleSubmit(onSubmit)} modal={modal}>
             <Grid container spacing={{ xs: 1, md: 2 }}>
                 <Grid item xs={12} sm={6} md={8}>
                     <Select name="producto" label="Producto" />

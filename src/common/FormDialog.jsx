@@ -22,11 +22,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 
-const FormDialog = ({ title, callback, methods, children, footerControl = true, maxWidth = 'md' }) => {
+const FormDialog = ({ title, callback, methods, children, footerControl = true, maxWidth = 'md', modal }) => {
     const isMutating = useIsMutating();
 
     const theme = useTheme();
-    const modal = useModal();
+    //const modal = useModal();
     const phoneScreen = useMediaQuery(theme.breakpoints.down('md'));
     const [fullScreen, setFullScreen] = useState(phoneScreen);
     useEffect(() => setFullScreen(phoneScreen), [phoneScreen]);
