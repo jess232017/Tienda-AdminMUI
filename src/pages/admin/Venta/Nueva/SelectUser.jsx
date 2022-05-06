@@ -189,7 +189,7 @@ const DialogSelect = ({ value, set }) => {
                 onClick={handleOpen}
                 endIcon={value?.label != null ? <AssignmentIndIcon /> : <PersonAddAltIcon />}
             >
-                {value?.label != null ? <CustonSpan>{value.label}</CustonSpan> : 'Cliente'}
+                {value?.label != null ? <CustonSpan>{value.label}</CustonSpan> : 'Cliente'} (F8)
             </Button>
             <Dialog disableEscapeKeyDown open={isOpen} onClose={handleClose}>
                 <DialogTitle>Seleccionar usuario</DialogTitle>

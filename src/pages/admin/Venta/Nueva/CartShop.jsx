@@ -188,12 +188,12 @@ const Selecionado = ({ vendorId }) => {
                     <Grid container spacing={1} columns={{ xs: 4, sm: 8, md: 12 }}>
                         <Grid item xs={2} sm={4} md={4}>
                             <Button size="small" fullWidth variant="outlined" endIcon={<HighlightOffIcon />} onClick={handleCancel}>
-                                Cancelar
+                                Cancelar (F5)
                             </Button>
                         </Grid>
                         <Grid item xs={2} sm={4} md={4}>
                             <Button fullWidth size="small" variant="outlined" onClick={handleWait} endIcon={<HourglassTopIcon />}>
-                                Esperar
+                                Esperar (F6)
                             </Button>
                         </Grid>
                         <Grid item xs={2} sm={4} md={4}>
@@ -204,7 +204,7 @@ const Selecionado = ({ vendorId }) => {
                                 onClick={handlePayment}
                                 endIcon={<AccountBalanceWalletIcon />}
                             >
-                                Cobrar
+                                Cobrar (F7)
                             </Button>
                         </Grid>
                         <Grid item xs={2} sm={4} md={4}>

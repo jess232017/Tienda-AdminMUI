@@ -22,7 +22,7 @@ const NewNote = ({ value, set }) => {
     return (
         <>
             <Button fullWidth size="small" variant="outlined" onClick={handleOpen} endIcon={<CommentOutlinedIcon />}>
-                Comentario
+                Comentario (F9)
             </Button>
             <Dialog disableEscapeKeyDown open={isOpen} onClose={handleClose}>
                 <DialogTitle>Agregar comentario</DialogTitle>

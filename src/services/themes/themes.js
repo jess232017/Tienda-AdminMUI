@@ -34,6 +34,9 @@ const theme = (customization) => {
         paper = value.paper;
         header = value.primary;
     }
+    let fontFamily = customization.dyslexic ? ['opendyslexic', 'sans-serif'].join(',') : ['Poppins', 'sans-serif'].join(',');
+
+    console.log('customization', customization);
 
     return createTheme({
         direction: customization.rtlLayout ? 'rtl' : 'ltr',
@@ -96,7 +99,7 @@ const theme = (customization) => {
             },
         },
         typography: {
-            fontFamily: ['Poppins', 'sans-serif'].join(','),
+            fontFamily: fontFamily,
             h6: {
                 fontWeight: 600,
                 color: textSecondary,

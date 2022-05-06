@@ -1,3 +1,44 @@
+@font-face {
+    font-family: 'opendyslexic';
+    // src: url('http://dyslexicfonts.com/fonts/OpenDyslexic-Regular.otf');
+    src: url('../../fonts/dyslexic/OpenDyslexic-Bold.otf');
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'opendyslexic';
+    src: url('../../fonts/dyslexic/OpenDyslexic-Italic.ttf');
+    font-style: italic;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'opendyslexic';
+    src: url('../../fonts/dyslexic/OpenDyslexic-Bold.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'opendyslexic';
+    src: url('../../fonts/dyslexic/OpenDyslexic-BoldItalic.ttf');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: eulexia;
+    src: url('../../fonts/dyslexic/eulexia.ttf');
+}
+
+/** {
+    font-size: 20px;
+    line-height: 200%;
+    color: #191a42;
+    font-family: opendyslexic !important;
+}*/
+
 body {
     --background: rgb(249 250 251/1);
     --text-primary: rgb(17 24 39/1);
@@ -9,6 +50,12 @@ body {
         --text-primary: white;
         --text-secondary: grey;
         --accent: darkred;
+    }
+    &.dyslexic {
+        font-size: 20px;
+        line-height: 200%;
+        color: #191a42;
+        font-family: opendyslexic !important;
     }
 }
 

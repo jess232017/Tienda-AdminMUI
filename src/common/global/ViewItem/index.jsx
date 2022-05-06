@@ -41,7 +41,7 @@ const Toggle = styled('div')({
 const ViewItem = () => {
     const [page, setPage] = useState(1);
     const [total, setTotal] = useState(0);
-    const [view, setView] = useState('list');
+    const [view, setView] = useState('grid');
     const [selected, setSelected] = useState(1);
 
     const { data: categories } = apiCategory.get(1, 10);
