@@ -65,20 +65,27 @@ const User = () => {
             isError={isError}
         >
             <Toolbar onClickChooser={handleChooser}>
-                {Object.entries(selected)?.length > 1 ? (
-                    <>
-                        <Button variant="outlined" size="small" onClick={handleEdit} startIcon={<EditIcon />}>
-                            Editar
-                        </Button>
-                        <Button variant="outlined" size="small" onClick={handleDelete} startIcon={<DeleteIcon />}>
-                            Eliminar
-                        </Button>
-                    </>
-                ) : (
-                    <Button size="small" variant="outlined" onClick={handleAdd} startIcon={<AddIcon />}>
-                        Agregar
-                    </Button>
-                )}
+                <Button size="small" variant="outlined" onClick={handleAdd} startIcon={<AddIcon />}>
+                    Agregar
+                </Button>
+                <Button
+                    variant="outlined"
+                    disabled={Object.entries(selected).length < 1}
+                    size="small"
+                    onClick={handleEdit}
+                    startIcon={<EditIcon />}
+                >
+                    Editar
+                </Button>
+                <Button
+                    variant="outlined"
+                    disabled={Object.entries(selected).length < 1}
+                    size="small"
+                    onClick={handleDelete}
+                    startIcon={<DeleteIcon />}
+                >
+                    Eliminar
+                </Button>
             </Toolbar>
 
             <DataGrid {...control} rowHeight={80} />

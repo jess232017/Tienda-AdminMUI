@@ -64,10 +64,22 @@ const Inventario = () => {
                     Agregar
                 </Button>
 
-                <Button variant="outlined" size="small" onClick={handleEdit} startIcon={<EditIcon />}>
+                <Button
+                    variant="outlined"
+                    disabled={Object.entries(selected).length < 1}
+                    size="small"
+                    onClick={handleEdit}
+                    startIcon={<EditIcon />}
+                >
                     Editar
                 </Button>
-                <Button variant="outlined" size="small" onClick={handleDelete} startIcon={<DeleteIcon />}>
+                <Button
+                    variant="outlined"
+                    disabled={Object.entries(selected).length < 1}
+                    size="small"
+                    onClick={handleDelete}
+                    startIcon={<DeleteIcon />}
+                >
                     Eliminar
                 </Button>
 

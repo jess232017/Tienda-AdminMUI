@@ -57,7 +57,13 @@ const Ventas = () => {
                     Tomar Venta
                 </Button>
 
-                <Button variant="outlined" size="small" onClick={onClickDetail} startIcon={<ReceiptIcon />}>
+                <Button
+                    variant="outlined"
+                    disabled={Object.entries(selected).length < 1}
+                    size="small"
+                    onClick={onClickDetail}
+                    startIcon={<ReceiptIcon />}
+                >
                     Ver Venta
                 </Button>
 

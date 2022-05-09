@@ -11,6 +11,7 @@ import Container from '@mui/material/Container';
 import Loader from '@/components/Loader';
 
 const Login = React.lazy(() => import('@/pages/auth/Login'));
+const Reset = React.lazy(() => import('@/pages/auth/Reset'));
 const Register = React.lazy(() => import('@/pages/auth/Register'));
 const NoFound = React.lazy(() => import('@/pages/error/NoFound'));
 
@@ -24,6 +25,7 @@ const Auth = () => {
                             <Routes>
                                 <Route index element={<Login />} />
                                 <Route path="sign-up" element={<Register />} />
+                                <Route path="reset-password" element={<Reset />} />
                                 <Route path="*" element={<NoFound />} />
                             </Routes>
                         </React.Suspense>

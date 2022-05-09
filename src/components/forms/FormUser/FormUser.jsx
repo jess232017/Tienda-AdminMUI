@@ -11,7 +11,6 @@ import Grid from '@mui/material/Grid';
 
 //Owned
 import FormDialog from '@/common/FormDialog';
-import { uploadImage } from '@/api';
 import apiUser, { getRole } from '@/api/tasks/ApiUser';
 import { Input, Select, Uploader, Password } from '@/common/control';
 
@@ -113,7 +112,7 @@ const FormUser = NiceModal.create(({ data, request, title }) => {
                 <Grid item xs={12} sm={12} md={8}>
                     <Grid container spacing={{ xs: 1, md: 2 }}>
                         <Grid item xs={12} sm={6} md={4}>
-                            <Input name="firstName" label="Nombres" />
+                            <Input name="firstName" label="Nombres" placeHolder="Juan Carlos" />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
                             <Input name="lastName" label="Apellidos" />

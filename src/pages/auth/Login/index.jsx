@@ -90,7 +90,13 @@ const Login = ({ isExpired = false }) => {
 
                                 <Box display="flex" alignItems="center" justifyContent="space-between">
                                     <CheckBox name="remember" label="Recordarme" />
-                                    <Typography component={Link} to="/auth/sign-up" variant="subtitle3" color="initial" textAlign="end">
+                                    <Typography
+                                        component={Link}
+                                        to="/auth/reset-password"
+                                        variant="subtitle3"
+                                        color="initial"
+                                        textAlign="end"
+                                    >
                                         ¿Olvido su contraseña?
                                     </Typography>
                                 </Box>

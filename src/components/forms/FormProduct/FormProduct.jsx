@@ -24,16 +24,24 @@ const validationSchema = Yup.object().shape({
         .required('El nombre es requerido')
         .min(3, 'El nombre debe tener al menos 3 caracteres')
         .max(40, 'El nombre no debe exceder los 40 caracteres'),
+    slug: Yup.string()
+        .required('El slug es requerido')
+        .min(3, 'El slug debe tener al menos 3 caracteres')
+        .max(10, 'El slug no debe exceder los 10 caracteres'),
     description: Yup.string()
         .required('La descripcion es requerida')
         .min(3, 'La descripcion debe tener al menos 3 caracteres')
         .max(120, 'La descripcion no debe exceder los 120 caracteres'),
     categoryId: Yup.object({
         value: Yup.string().required('El id de la categoria es requerido'),
-    }).required('La categoria es requeridas'),
+    })
+        .typeError('Debe seleccionar una categoria')
+        .required('La categoria es requerida'),
     brandId: Yup.object({
         value: Yup.string().required('El id de la marca es requerido'),
-    }).required('La marca es requerida'),
+    })
+        .typeError('Debe seleccionar una marca')
+        .required('La marca es requerida'),
     price: Yup.number()
         .typeError('El precio deber ser de tipo numero')
         .required('El precio de venta es requerido')
@@ -126,28 +134,28 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
                 <Grid item xs={12} sm={12} md={8}>
                     <Grid container spacing={{ xs: 1, md: 2 }}>
                         <Grid item xs={12} sm={6}>
-                            <Input required label="Nombre" name="name" type="text" />
+                            <Input required label="Nombre*" name="name" type="text" />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <Input required label="Descripcion" name="description" type="text" />
+                            <Input required label="Descripcion*" name="description" type="text" />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
-                            <Select required label="Marca" name="brandId" options={brands} />
+                            <Select required label="Marca*" name="brandId" options={brands} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
-                            <Select required label="Categoria" name="categoryId" options={categories} />
+                            <Select required label="Categoria*" name="categoryId" options={categories} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
-                            <Input required label="Slug" name="slug" type="text" />
+                            <Input required label="Slug*" name="slug" type="text" />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
-                            <Input required label="Precio" name="price" type="number" />
+                            <Input required label="Precio*" name="price" type="number" />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
                             <Input required label="Cantidad actual" name="stock" type="number" disabled />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
-                            <Input required label="Cantidad minima" name="safetyStock" type="number" />
+                            <Input required label="Cantidad minima*" name="safetyStock" type="number" />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
                             <CheckBox required label="Inventariable" name="isInventoriable" />

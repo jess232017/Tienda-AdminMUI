@@ -57,21 +57,20 @@ const User = () => {
                 </Button>
 
                 <Button
-                    size="small"
                     variant="outlined"
+                    disabled={Object.entries(selected).length < 1}
+                    size="small"
                     onClick={handleEdit}
                     startIcon={<EditIcon />}
-                    disabled={Object.entries(selected)?.length < 1}
                 >
                     Editar
                 </Button>
-
                 <Button
-                    size="small"
                     variant="outlined"
+                    disabled={Object.entries(selected).length < 1}
+                    size="small"
                     onClick={handleDelete}
                     startIcon={<DeleteIcon />}
-                    disabled={Object.entries(selected)?.length < 1}
                 >
                     Eliminar
                 </Button>
