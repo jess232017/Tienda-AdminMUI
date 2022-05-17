@@ -88,7 +88,7 @@ const User = () => {
                 </Button>
             </Toolbar>
 
-            <DataGrid {...control} rowHeight={80} />
+            <DataGrid {...control} rowHeight={70} />
         </PageCard>
     );
 };

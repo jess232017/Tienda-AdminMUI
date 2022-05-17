@@ -22,6 +22,7 @@ import Item from '../../services/context/class/Item';
 
 const IconButton = styled(Button)({
     minWidth: 0,
+    maxWidth: 35,
     maxHeight: 34.11,
     padding: '0.5rem 10px',
     ' svg': {
@@ -29,7 +30,7 @@ const IconButton = styled(Button)({
     },
 });
 
-const GridItem = ({ data, store, width }) => {
+const GridItem = ({ data, store }) => {
     const { id, name, image, price } = data;
     const { carrito, addItem, removeItem, editItem } = store;
 
@@ -40,21 +41,33 @@ const GridItem = ({ data, store, width }) => {
     const exist = carrito.find((value) => value.key === id);
 
     return (
-        <Grid item flexGrow={1}>
-            <Box component="article" display="flex">
+        <Box
+            component="article"
+            display="flex"
+            sx={{
+                padding: '.8rem',
+                borderRadius: '.35rem',
+                border: '1px solid #dee2e6',
+            }}
+        >
+            <Box
+                sx={{
+                    position: 'relative',
+                    display: 'flex',
+                    width: '100%',
+                }}
+            >
                 <Avatar
                     variant="rounded"
                     alt={name}
                     src={`data:image/jpeg;charset=utf-8;base64,${image}`}
                     sx={{ width: '70px', height: '70px' }}
                 />
-                <Box ml={1} width="100%">
-                    <Box display="flex" flexDirection="column">
-                        <UriName uri={`/producto?id=${id}`}>{name}</UriName>
-                        <Typography variant="caption" mb={1}>
-                            C$ {price}
-                        </Typography>
-                    </Box>
+                <Box ml={1} width="100%" display="flex" flexDirection="column">
+                    <UriName uri={`/producto?id=${id}`}>{name}</UriName>
+                    <Typography variant="subtitle" mb={1}>
+                        C$ {price}
+                    </Typography>
 
                     {exist != null ? (
                         <Stack direction="row" spacing={2}>
@@ -64,11 +77,11 @@ const GridItem = ({ data, store, width }) => {
                                 label="Cantidad"
                                 type="number"
                                 pattern="[0-9]*"
+                                fullWidth
                                 size="small"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
-                                fullWidth={true}
                                 InputProps={{ inputProps: { min: 0, max: 10 } }}
                                 onChange={(e) => {
                                     var value = parseInt(e.target.value, 10);
@@ -81,8 +94,8 @@ const GridItem = ({ data, store, width }) => {
                             </IconButton>
                         </Stack>
                     ) : (
-                        <Stack direction="row" spacing={2} alignItems="center" justifyContent="flex-end">
-                            <Button size="small" variant="outlined" fullWidth={true} onClick={() => agregarItem()}>
+                        <Stack direction="row" spacing={2}>
+                            <Button size="small" fullWidth variant="outlined" onClick={() => agregarItem()}>
                                 Comprar
                             </Button>
 
@@ -93,7 +106,7 @@ const GridItem = ({ data, store, width }) => {
                     )}
                 </Box>
             </Box>
-        </Grid>
+        </Box>
     );
 };
 

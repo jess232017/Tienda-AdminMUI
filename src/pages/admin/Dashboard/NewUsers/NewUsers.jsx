@@ -16,8 +16,8 @@ const NewUsers = () => {
                 <Loader />
             ) : (
                 <>
-                    {data?.data.map(({ image, firstName, lastName, email }) => (
-                        <Box width="100%" display="flex" justifyContent="space-between" alignItems="center" mb={1}>
+                    {data?.data.map(({ image, firstName, lastName, email, id }) => (
+                        <Box key={id} width="100%" display="flex" justifyContent="space-between" alignItems="center" mb={1}>
                             <Box display="flex">
                                 <Avatar alt={firstName} src={image} variant="circular" onClick={() => setViewer(true)} />
                                 <Stack ml={2}>

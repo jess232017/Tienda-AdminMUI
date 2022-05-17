@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 //control
 import { useForm } from 'react-hook-form';
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 
 //Owned
 import FormDialog from '@/common/FormDialog';
@@ -22,7 +22,7 @@ const validationSchema = Yup.object().shape({
         .required('La descripcion es requerido')
         .min(3, 'La descripcion debe tener al menos 3 caracteres')
         .max(50, 'La descripcion no debe exceder los 20 caracteres'),
-    id: Yup.number('Id debe ser de tipo entero').notRequired(),
+    //id: Yup.number('Id debe ser de tipo entero').notRequired(),
 });
 
 const FormBrand = NiceModal.create(({ data, request, title }) => {
@@ -47,23 +47,24 @@ const FormBrand = NiceModal.create(({ data, request, title }) => {
         });
     };
 
+    useEffect(() => {
+        const defaultValues = {
+            id: data?.id || '',
+            name: data?.name || '',
+            description: data?.description || '',
+            byDefault: data?.byDefault || false,
+        };
+        methods.reset(defaultValues);
+    }, [data]);
+
     return (
-        <FormDialog title={`${title} marca`} methods={methods} callback={methods.handleSubmit(onSubmit)} modal={modal}>
-            <Grid container spacing={{ xs: 1, md: 2 }}>
-                <Grid item xs={12} sm={6} md={8}>
-                    <Input required label="Nombre" name="name" type="text" />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                    <Input label="Codigo" name="id" type="text" disabled />
-                </Grid>
-                <Grid item xs={12} sm={6} md={8}>
-                    <Input required label="Descripcion" name="description" type="text" />
-                </Grid>
-                <Grid item xs={1} sm={2} md={4} />
-                <Grid item xs={12} sm={6} md={2}>
-                    <CheckBox required label="Por Defecto" name="byDefault" />
-                </Grid>
-            </Grid>
+        <FormDialog title={`${title} marca`} maxWidth="xs" methods={methods} callback={methods.handleSubmit(onSubmit)} modal={modal}>
+            <Stack spacing={2}>
+                <Input required label="Nombre" name="name" type="text" />
+                <Input required label="Descripcion" name="description" type="text" />
+                <Input label="Codigo" name="id" type="hidden" disabled />
+                <CheckBox required label="Por Defecto" name="byDefault" />
+            </Stack>
         </FormDialog>
     );
 });

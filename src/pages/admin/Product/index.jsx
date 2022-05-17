@@ -73,7 +73,7 @@ const Product = () => {
                 </Button>
             </Toolbar>
 
-            <DataGrid {...control} rowHeight={70} />
+            <DataGrid {...control} rowHeight={60} />
         </PageCard>
     );
 };

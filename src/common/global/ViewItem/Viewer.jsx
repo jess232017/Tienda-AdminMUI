@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
+
+import { useElementSize } from 'usehooks-ts';
+
 import useResizeObserver from 'use-resize-observer';
 
 import GridItem from '@/common/global/GridItem';
@@ -11,17 +14,19 @@ import useCarrito from '@/services/context/carrito';
 
 const Viewer = ({ view, data, page, total, handleChange }) => {
     const store = useCarrito();
-    const { ref, width = 1, height = 1 } = useResizeObserver();
+    const [squareRef, { width }] = useElementSize();
+
+    //const { ref, width = 1, height = 1 } = useResizeObserver();
 
     return (
         <Box display="flex" flexDirection="column">
-            <Box sx={{ flexGrow: 1 }} ref={ref}>
+            <Box sx={{ flexGrow: 1 }} ref={squareRef}>
                 {view === 'grid' ? (
-                    <Grid container spacing={3} columns={width < 480 ? 1 : width < 960 ? 3 : 4}>
+                    <div className="shopping-list">
                         {data?.data?.map((data) => (
                             <GridItem data={data} store={store} width={width} key={data.id} />
                         ))}
-                    </Grid>
+                    </div>
                 ) : (
                     <>
                         {data?.data?.map((data) => (

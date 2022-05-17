@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Slider from '@mui/material/Slider';
 
 //Icon
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -32,7 +33,7 @@ const ReportBox = styled(Stack)({
 });
 
 const Accessibility = () => {
-    const { show, setLocale, setDarkMode, setDyslexic } = useStore();
+    const { show, setLocale, setFont, setDarkMode, setDyslexic } = useStore();
 
     return (
         <PageCard
@@ -75,9 +76,33 @@ const Accessibility = () => {
                             Idioma
                         </Typography>
                         <Typography component="span" variant="subtitle2">
-                            Reduce la fatiga visual ocasionada por observar por mucho tiempo la pantalla.
+                            Seleccione el idioma de su preferencia.
                         </Typography>
                         <Select placeholder="Seleccionar" />
+                    </ReportBox>
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} p={2}>
+                    <ReportBox component="article" spacing={2} justifyContent="space-between">
+                        <Typography component="span" variant="h5">
+                            Escalar fuente
+                        </Typography>
+                        <Typography component="span" variant="subtitle2">
+                            Aumenta o reduce el tamaño de los textos mostrados en pantalla
+                        </Typography>
+                        <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                            <Slider
+                                aria-label="font-size"
+                                value={show.fontSize}
+                                onChange={(event) => {
+                                    setFont(event.target.value);
+                                }}
+                                valueLabelDisplay="auto"
+                                step={1}
+                                marks
+                                max={10}
+                                min={-10}
+                            />
+                        </Stack>
                     </ReportBox>
                 </Grid>
             </Grid>

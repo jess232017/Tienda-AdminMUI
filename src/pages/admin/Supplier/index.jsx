@@ -17,12 +17,23 @@ import Form from '@/components/forms/FormSupplier/FormSupplier';
 import usePagination from '@/services/hooks/usePagination';
 import useCrud from '@/services/hooks/useCrud';
 import Toolbar from '@/components/Toolbar';
-
+/*
+"Id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "Business": "string",
+      "FirstName": "string",
+      "LastName": "string",
+      "Address": "string",
+      "Status": true,
+      "PhoneNumber": "string"
+*/
 const columns = [
     { field: 'id', headerName: 'Codigo', width: 100 },
-    { field: 'name', headerName: 'Nombre', width: 150 },
-    { field: 'description', headerName: 'Descripcion', width: 350 },
-    { field: 'byDefault', headerName: 'Defecto', width: 100 },
+    { field: 'firstName', headerName: 'Nombre', width: 150 },
+    { field: 'lastName', headerName: 'Apellido', width: 150 },
+    { field: 'address', headerName: 'Direccion', width: 250 },
+    { field: 'status', headerName: 'Estado', width: 100 },
+    { field: 'phoneNumber', headerName: 'Telefono', width: 100 },
+    { field: 'business', headerName: 'Negocio', width: 100 },
 ];
 
 const index = () => {

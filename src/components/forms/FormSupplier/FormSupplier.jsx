@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 //control
 import { useForm } from 'react-hook-form';
@@ -14,7 +14,7 @@ import CardContent from '@mui/material/CardContent';
 
 //Owned
 import FormDialog from '@/common/FormDialog';
-import { Input, Select, Uploader } from '@/common/control';
+import { Input, Select, CheckBox, Uploader } from '@/common/control';
 
 const userSchema = Yup.object().shape({
     business: Yup.string()
@@ -25,15 +25,15 @@ const userSchema = Yup.object().shape({
         .required('El nombre es requerido')
         .min(3, 'El nombre debe tener al menos 3 caracteres')
         .max(30, 'El nombre no debe exceder los 30 caracteres'),
-    LastName: Yup.string()
+    lastName: Yup.string()
         .required('El apellido es requerido')
         .min(3, 'El apellido debe tener al menos 3 caracteres')
         .max(30, 'El apellido no debe exceder los 30 caracteres'),
-    Address: Yup.string()
+    address: Yup.string()
         .required('La direccion es requerido')
         .min(3, 'La direccion debe tener al menos 3 caracteres')
         .max(30, 'La direccion no debe exceder los 30 caracteres'),
-    Status: Yup.string().required('El estado es requerido'),
+    status: Yup.bool().required('El estado es requerido'),
     phoneNumber: Yup.number('El telefono deber ser de tipo numero')
         .required('El telefono es requerido')
         .test('len', 'El telefono debe tener exactamente 8 caracteres', (val) => val.toString().length === 8),
@@ -83,13 +83,16 @@ const FormSupplier = NiceModal.create(({ data, request, title }) => {
                             <CardContent sx={{ p: 2, pt: 0 }}>
                                 <Grid container spacing={{ xs: 1, md: 2 }}>
                                     <Grid item xs={12} sm={12} md={6}>
-                                        <Input name="nombre" label="Nombre de la Empresa" />
+                                        <Input name="business" label="Nombre de la Empresa" />
                                     </Grid>
                                     <Grid item xs={12} sm={12} md={6}>
-                                        <Input name="direccion" label="Direccion" />
+                                        <Input name="address" label="Direccion" />
                                     </Grid>
                                     <Grid item xs={12} sm={12} md={6}>
-                                        <Input name="numero" label="Telefono" />
+                                        <Input name="phoneNumber" label="Telefono" />
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6}>
+                                        <CheckBox name="status" label="Estado" />
                                     </Grid>
                                 </Grid>
                             </CardContent>

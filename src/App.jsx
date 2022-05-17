@@ -10,16 +10,6 @@ import theme from '@/services/themes/themes';
 import useStore from '@/services/context/sidebar';
 import location from '@/services/locales/locales-map';
 
-const dyxStyle = (document.createElement('style').innerHTML = `
-* {
-    font-size: 20px;
-    line-height: 200%;
-    color: #191a42;
-    font-family: opendyslexic !important;
-}`);
-
-const addCSS = (css) => (document.head.appendChild(document.createElement('style')).innerHTML = css);
-
 const App = () => {
     const { show } = useStore();
     const [messages, setMessages] = useState();
@@ -36,24 +26,6 @@ const App = () => {
             document.body.classList.remove('dark');
         }
     }, [show?.darkMode]);
-
-    useEffect(() => {
-        if (show.dyslexic) {
-            addCSS(`
-            * {
-                font-size: 20px;
-                line-height: 200%;
-                color: #191a42;
-            }`);
-        } else {
-            addCSS(`
-            * {
-                font-size: inherit;
-                line-height: inherit;
-                color: inherit;
-            }`);
-        }
-    }, [show?.dyslexic]);
 
     return (
         <>

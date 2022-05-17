@@ -7,6 +7,7 @@ const useStore = create((set) => ({
         rtlLayout: false,
         darkMode: false,
         dyslexic: false,
+        fontSize: 0,
     },
     setOpen: (value) =>
         set((state) => {
@@ -18,9 +19,10 @@ const useStore = create((set) => ({
     setLocale: (value) =>
         set((state) => {
             localStorage.setItem('locale', value);
-            const show = state?.show;
-            show.locale = value;
-            return show;
+            return {
+                locale: value,
+                ...state,
+            };
         }),
     setDarkMode: () =>
         set((state) => {
@@ -36,6 +38,12 @@ const useStore = create((set) => ({
             show.dyslexic = !show.dyslexic;
             localStorage.setItem('dyslexic', show.dyslexic);
             console.log(show);
+            return show;
+        }),
+    setFont: (value) =>
+        set((state) => {
+            const show = state?.show;
+            show.fontSize = value;
             return show;
         }),
 }));

@@ -8,11 +8,11 @@ const Input = ({ label, ...rest }) => {
         register,
         formState: { errors },
     } = useFormContext();
-    const { name, required } = rest;
+    const { name, required, type } = rest;
 
     return (
         <div className="input-style">
-            <label htmlFor={name}>{label}</label>
+            {type !== 'hidden' && <label htmlFor={name}>{label}</label>}
             <input {...rest} id={name} {...register(name, { required })} aria-invalid={errors[name] ? 'true' : 'false'} />
             <Typography variant="subtitle2" color="red" component="span" role="alert">
                 {errors[name]?.message}

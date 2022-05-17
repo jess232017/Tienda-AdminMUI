@@ -14,6 +14,7 @@ const theme = (customization) => {
     let menuCaption;
     let textInversePrimary;
     let header;
+    let fontIncremet = customization.fontSize;
 
     if (customization.darkMode) {
         textPrimary = menuCaption = textInversePrimary = value.textDarkPrimary;
@@ -103,50 +104,50 @@ const theme = (customization) => {
             h6: {
                 fontWeight: 600,
                 color: textSecondary,
-                fontSize: '0.8rem',
+                fontSize: `calc(0.8rem + ${fontIncremet}px)`,
             },
             h5: {
-                fontSize: '1.1rem',
+                fontSize: `calc(1.1rem + ${fontIncremet}px)`,
                 color: textSecondary,
                 fontWeight: 600,
             },
             h4: {
-                fontSize: '1.2rem',
+                fontSize: `calc(1.2rem + ${fontIncremet}px)`,
                 color: textSecondary,
                 fontWeight: 500,
             },
             h3: {
-                fontSize: '1.5rem',
+                fontSize: `calc(1.5rem + ${fontIncremet}px)`,
                 color: textDark,
                 fontWeight: 600,
             },
             h2: {
-                fontSize: '2rem',
+                fontSize: `calc(2rem + ${fontIncremet}px)`,
                 color: textDark,
                 fontWeight: 600,
             },
             h1: {
-                fontSize: '2rem',
+                fontSize: `calc(2rem + ${fontIncremet}px)`,
                 color: textDark,
                 fontWeight: 600,
             },
             subtitle1: {
-                fontSize: '0.8rem',
+                fontSize: `calc(0.8rem + ${fontIncremet}px)`,
                 fontWeight: 500,
                 color: textSecondary,
                 lineHeight: '1.6em',
             },
             subtitle2: {
-                fontSize: '0.8rem',
+                fontSize: `calc(0.82rem + ${fontIncremet}px)`,
                 fontWeight: 400,
             },
             caption: {
-                fontSize: '0.68rem',
+                fontSize: `calc(0.68rem + ${fontIncremet}px)`,
                 color: textHint,
                 fontWeight: 500,
             },
             body1: {
-                fontSize: '0.8rem',
+                fontSize: `calc(0.8rem + ${fontIncremet}px)`,
                 fontWeight: 400,
                 lineHeight: '1.643em',
             },
@@ -156,7 +157,7 @@ const theme = (customization) => {
                 lineHeight: '1.6em',
             },
             menuCaption: {
-                fontSize: '0.68rem',
+                fontSize: `calc(0.68rem + ${fontIncremet}px)`,
                 fontWeight: 600,
                 color: value.primary,
                 padding: '5px 15px 5px',
@@ -164,7 +165,7 @@ const theme = (customization) => {
                 marginTop: '10px',
             },
             subMenuCaption: {
-                fontSize: '0.68rem',
+                fontSize: `calc(0.68rem + ${fontIncremet}px)`,
                 fontWeight: 400,
                 color: menuCaption,
                 textTransform: 'capitalize',
@@ -203,7 +204,7 @@ const theme = (customization) => {
                 styleOverrides: {
                     root: {
                         fontWeight: 600,
-                        fontSize: '0.875rem',
+                        fontSize: `calc(0.875rem + ${fontIncremet}px)`,
                     },
                     content: {
                         color: textSecondary,
@@ -232,10 +233,10 @@ const theme = (customization) => {
                         color: textDark,
                         padding: '21px',
                         '.MuiCardHeader-title': {
-                            fontSize: '1rem',
+                            fontSize: `calc(1rem + ${fontIncremet}px)`,
                         },
                         '.MuiCardHeader-subheader': {
-                            fontSize: '0.8rem',
+                            fontSize: `calc(0.8rem + ${fontIncremet}px)`,
                         },
                     },
                 },
@@ -259,14 +260,14 @@ const theme = (customization) => {
             MuiSvgIcon: {
                 styleOverrides: {
                     root: {
-                        fontSize: '1.3rem',
+                        fontSize: `calc(1.3rem + ${fontIncremet}px)`,
                     },
                 },
             },
             MuiDataGrid: {
                 styleOverrides: {
                     root: {
-                        fontSize: '0.75rem',
+                        fontSize: `calc(0.75rem + ${fontIncremet}px)`,
                     },
                 },
             },
@@ -343,7 +344,6 @@ const theme = (customization) => {
                 styleOverrides: {
                     root: {
                         background: background,
-                        //background: '#fbfdfe'
                     },
                 },
             },

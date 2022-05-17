@@ -21,8 +21,8 @@ import Toolbar from '@/components/Toolbar';
 const columns = [
     { field: 'id', headerName: 'Codigo', width: 100 },
     { field: 'name', headerName: 'Nombre', width: 150 },
-    { field: 'description', headerName: 'Descripcion', width: 350 },
-    { field: 'byDefault', headerName: 'Defecto', width: 100 },
+    { field: 'description', headerName: 'Descripcion', flex: 1 },
+    { field: 'byDefault', headerName: 'Defecto', width: 100, type: 'boolean' },
 ];
 
 const Brand = () => {

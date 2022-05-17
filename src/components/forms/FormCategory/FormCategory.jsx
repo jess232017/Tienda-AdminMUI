@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 //control
 import { useForm } from 'react-hook-form';
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 
 //Owned
 import FormDialog from '@/common/FormDialog';
-import { Input, CheckBox } from '@/common/control';
+import { Input, CheckBox, TextArea, Select } from '@/common/control';
 
 //nombre imagen icono descripcion porDefecto
 const validationSchema = Yup.object().shape({
@@ -21,7 +21,7 @@ const validationSchema = Yup.object().shape({
         .required('La descripcion es requerido')
         .min(3, 'La descripcion debe tener al menos 3 caracteres')
         .max(200, 'La descripcion no debe exceder los 200 caracteres'),
-    id: Yup.number('Id debe ser de tipo entero').notRequired(),
+    // id: Yup.number('Id debe ser de tipo entero').notRequired(),
 });
 
 const FormCategory = NiceModal.create(({ data, request, title }) => {
@@ -46,25 +46,25 @@ const FormCategory = NiceModal.create(({ data, request, title }) => {
         });
     };
 
+    useEffect(() => {
+        const defaultValues = {
+            id: data?.id || '',
+            name: data?.name || '',
+            description: data?.description || '',
+        };
+        methods.reset(defaultValues);
+    }, [data]);
+
     return (
-        <FormDialog title={`${title} categoria`} maxWidth="sm" methods={methods} callback={methods.handleSubmit(onSubmit)} modal={modal}>
-            <Grid container spacing={{ xs: 1, md: 2 }} columns={{ xs: 2, sm: 4, md: 6 }}>
-                <Grid item xs={2} sm={2} md={2}>
-                    <Input required label="Nombre" name="name" type="text" />
-                </Grid>
-                <Grid item xs={2} sm={2} md={4}>
-                    <Input required label="Descripcion" name="description" type="text" />
-                </Grid>
-                <Grid item xs={1} sm={2} md={3}>
-                    <Input required label="Icono" name="icon" type="text" />
-                </Grid>
-                <Grid item xs={1} sm={2} md={2}>
-                    <Input label="Codigo" name="id" type="text" disabled />
-                </Grid>
-                <Grid item xs={1} sm={2} md={2}>
-                    <CheckBox required label="Por Defecto" name="byDefault" />
-                </Grid>
-            </Grid>
+        <FormDialog title={`${title} categoria`} maxWidth="xs" methods={methods} callback={methods.handleSubmit(onSubmit)} modal={modal}>
+            <Stack spacing={2}>
+                <Input required label="Nombre*" name="name" type="text" />
+                <Select label="Padre" name="parentId" options={[]} />
+                <TextArea required label="Descripción*" name="description" minRows={4} />
+                {/*<Input required label="Icono" name="icon" type="text" />*/}
+                <Input label="Codigo" name="id" type="hidden" disabled />
+                <CheckBox label="Seleccionar por defecto" name="byDefault" />
+            </Stack>
         </FormDialog>
     );
 });
