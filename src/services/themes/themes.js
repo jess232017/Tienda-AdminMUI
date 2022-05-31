@@ -37,8 +37,6 @@ const theme = (customization) => {
     }
     let fontFamily = customization.dyslexic ? ['opendyslexic', 'sans-serif'].join(',') : ['Poppins', 'sans-serif'].join(',');
 
-    console.log('customization', customization);
-
     return createTheme({
         direction: customization.rtlLayout ? 'rtl' : 'ltr',
         palette: {
@@ -218,7 +216,8 @@ const theme = (customization) => {
                         boxShadow: '0 4px 6px -2px rgb(0 0 0 / 12%), 0 2px 2px -1px rgb(0 0 0 / 5%)',
                     },
                     rounded: {
-                        borderRadius: '10px',
+                        //borderRadius: '10px',
+                        borderRadius: '0px',
                     },
                 },
             },
@@ -268,6 +267,7 @@ const theme = (customization) => {
                 styleOverrides: {
                     root: {
                         fontSize: `calc(0.75rem + ${fontIncremet}px)`,
+                        borderRadius: 0,
                     },
                 },
             },
@@ -409,30 +409,10 @@ const theme = (customization) => {
                             },
                         },
                     },
-                    {
-                        props: { variant: 'contained', shadow: false },
-                        style: {
-                            boxShadow: 'none',
-                        },
-                    },
-                    {
-                        props: { variant: 'light' },
-                        style: {
-                            backgroundColor: '#fff',
-                            border: '1px solid #e4e4e4',
-                        },
-                    },
-                    {
-                        props: { variant: 'light', size: 'large' },
-                        style: {
-                            padding: '8px',
-                            backgroundColor: '#fff',
-                            border: '1px solid #e4e4e4',
-                        },
-                    },
                 ],
                 styleOverrides: {
                     root: {
+                        borderRadius: '0.30rem',
                         fontSize: '0.79rem',
                     },
                 },

@@ -19,7 +19,6 @@ const App = () => {
     }, [show]);
 
     useEffect(() => {
-        console.log(show);
         if (show.darkMode) {
             document.body.classList.add('dark');
         } else {

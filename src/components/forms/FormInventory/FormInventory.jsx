@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 //control
-import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,17 +8,46 @@ import * as Yup from 'yup';
 
 //Mui
 import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
 
 //Owned
 import FormDialog from '@/common/FormDialog';
-import { Input, Select } from '@/common/control';
+import { Input, Select, TextArea } from '@/common/control';
+import { apiProduct, apiLote } from '../../../api/tasks';
 
-const FormInventario = NiceModal.create(({ method, request, title }) => {
+const optionReason = [
+    {
+        label: 'Baja',
+        value: 0,
+    },
+    {
+        label: 'Vendido',
+        value: 1,
+    },
+    {
+        label: 'Estraviado',
+        value: 2,
+    },
+    {
+        label: 'Agregado',
+        value: 3,
+    },
+    {
+        label: 'Devuelto',
+        value: 4,
+    },
+];
+
+const mapOption = (data) => {
+    return data?.map(({ id, name }) => ({ label: name, value: id }));
+};
+
+const FormInventario = NiceModal.create(({ data, request, title }) => {
     //modal handle
     const modal = useModal();
+    const [options, setOptions] = useState([]);
+    const [optLotes, setOptLotes] = useState([]);
+    const { data: products } = apiProduct.get(1, 100);
+    const { data: lotes } = apiLote.get(1, 100);
 
     //validator
     const methods = useForm({
@@ -29,6 +57,20 @@ const FormInventario = NiceModal.create(({ method, request, title }) => {
 
     //Apis
     const { mutate } = request;
+
+    useEffect(() => {
+        if (products?.data) {
+            const { data } = products;
+            setOptions(mapOption(data));
+        }
+    }, [products]);
+
+    useEffect(() => {
+        if (lotes?.data) {
+            const { data } = lotes;
+            setOptLotes(mapOption(data));
+        }
+    }, [lotes]);
 
     const onSubmit = (data) => {
         mutate(data, {
@@ -40,46 +82,34 @@ const FormInventario = NiceModal.create(({ method, request, title }) => {
     };
 
     return (
-        <FormDialog title={`${title} inventario`} methods={methods} callback={methods.handleSubmit(onSubmit)} modal={modal}>
+        <FormDialog title={`${title} inventario`} maxWidth="sm" methods={methods} callback={methods.handleSubmit(onSubmit)} modal={modal}>
             <Grid container spacing={{ xs: 1, md: 2 }}>
+                <Grid item xs={12} sm={6} md={6}>
+                    <Select name="producto" label="Producto" options={options} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={6}>
+                    <Select name="loteId" label="Lote*" options={optLotes} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                    <Select name="reason" label="Motivo*" required options={optionReason} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                    <Input name="status" label="Estado" />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                    <Input name="UnitPrice" label="Costo Unitario" />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                    <Input name="quantity" label="Cantidad" />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                    <Input name="subTotal" label="SubTotal" />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                    <Input name="total" label="Total" />
+                </Grid>
                 <Grid item xs={12} sm={6} md={8}>
-                    <Select name="producto" label="Producto" />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                    <Select name="motivo" label="Motivo" />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                    <Input name="costoUnit" label="Costo Unitario" />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                    <Input name="cantidad" label="Cantidad" />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                    <Select name="estado" label="Estado" />
-                </Grid>
-                <Grid item xs={12} sm={6} md={8}>
-                    <Input name="nota" label="Nota" />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                    <Input name="fecha" label="Fecha" type="date" />
-                </Grid>
-                <Grid item xs={12}>
-                    <Card variant="outlined">
-                        <CardHeader title="Sistema" sx={{ p: 2 }} />
-                        <CardContent sx={{ p: 2, pt: 0 }}>
-                            <Grid container spacing={{ xs: 1, md: 2 }}>
-                                <Grid item xs={12} sm={6} md={4}>
-                                    <Input name="inventarioId" label="Inventario Id" />
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={4}>
-                                    <Input name="subTotal" label="SubTotal" />
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={4}>
-                                    <Input name="total" label="Total" />
-                                </Grid>
-                            </Grid>
-                        </CardContent>
-                    </Card>
+                    <TextArea name="nota" label="Nota" />
                 </Grid>
             </Grid>
         </FormDialog>

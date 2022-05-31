@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 //Theme
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import 'vanilla-icon-picker/dist/themes/default.min.css'; // 'default' theme
 import '@/assets/scss/style.scss';
 
 const queryClient = new QueryClient();

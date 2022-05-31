@@ -15,39 +15,41 @@ const NewTransactions = () => {
                 <Loader />
             ) : (
                 <Box component="table" sx={{ width: '100%' }}>
-                    <tr>
-                        <Box component="th" sx={{ textAlign: 'left' }}>
-                            Cliente
-                        </Box>
-                        <Box component="th" sx={{ textAlign: 'left' }}>
-                            Fecha
-                        </Box>
-                        <Box component="th" sx={{ textAlign: 'left' }}>
-                            Cantidad
-                        </Box>
-                        <Box component="th" sx={{ textAlign: 'left' }}>
-                            Estado
-                        </Box>
-                    </tr>
-                    {Array.from(Array(3)).map((_, index) => (
-                        <tr key={index}>
-                            <Box component="td" sx={{ display: 'flex', alignItems: 'center', fontWeight: 600 }}>
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src="https://images.pexels.com/photos/4172933/pexels-photo-4172933.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940"
-                                    sx={{ marginRight: 2 }}
-                                />
-                                <Typography component="span" variant="h6">
-                                    Susan Carol
-                                </Typography>
+                    <tbody>
+                        <tr>
+                            <Box component="th" sx={{ textAlign: 'left' }}>
+                                Cliente
                             </Box>
-                            <td>2 Jun 2021</td>
-                            <td>$122.00</td>
-                            <td>
-                                <button class="widgetLgButton Approved">Approved</button>
-                            </td>
+                            <Box component="th" sx={{ textAlign: 'left' }}>
+                                Fecha
+                            </Box>
+                            <Box component="th" sx={{ textAlign: 'left' }}>
+                                Cantidad
+                            </Box>
+                            <Box component="th" sx={{ textAlign: 'left' }}>
+                                Estado
+                            </Box>
                         </tr>
-                    ))}
+                        {Array.from(Array(3)).map((_, index) => (
+                            <tr key={index}>
+                                <Box component="td" sx={{ display: 'flex', alignItems: 'center', fontWeight: 600 }}>
+                                    <Avatar
+                                        alt="Remy Sharp"
+                                        src="https://images.pexels.com/photos/4172933/pexels-photo-4172933.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940"
+                                        sx={{ marginRight: 2 }}
+                                    />
+                                    <Typography component="span" variant="h6">
+                                        Susan Carol
+                                    </Typography>
+                                </Box>
+                                <td>2 Jun 2021</td>
+                                <td>$122.00</td>
+                                <td>
+                                    <button className="widgetLgButton Approved">Approved</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
                 </Box>
             )}
         </div>

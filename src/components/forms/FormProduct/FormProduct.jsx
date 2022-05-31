@@ -16,7 +16,7 @@ import FormDialog from '@/common/FormDialog';
 import apiProduct from '@/api/tasks/ApiProduct';
 import apiCategoria from '@/api/tasks/ApiCategory';
 import apiBrand from '@/api/tasks/ApiBrand';
-import { Input, Select, Uploader, CheckBox } from '@/common/control';
+import { Input, Select, Uploader, TextArea, CheckBox } from '@/common/control';
 
 //descripcion categoriaId precioventa cantidad marca stockMinimo codigoqr
 const validationSchema = Yup.object().shape({
@@ -51,7 +51,12 @@ const validationSchema = Yup.object().shape({
         .typeError('El precio deber ser de tipo numero')
         .required('El stock minimo es requerido')
         .positive('El stock minimo debe ser positivo'),
+    isInventoriable: Yup.bool(),
 });
+
+const mapOption = (data) => {
+    return data?.map(({ id, name }) => ({ label: name, value: id }));
+};
 
 const FormProducto = NiceModal.create(({ data, request, title }) => {
     //modal handle
@@ -71,10 +76,6 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
     const [categories, setCategories] = useState([]);
     const [sourceImg, setSourceImg] = useState('');
     const [brands, setBrands] = useState([]);
-
-    const mapOption = (data) => {
-        return data?.map(({ id, name }) => ({ label: name, value: id }));
-    };
 
     const onSubmit = async (data) => {
         // const image = data.image ? await uploadImage(data.image) : null;
@@ -116,8 +117,8 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
             isGranel: data?.isGranel || false,
             isInventoriable: data?.isInventoriable || false,
             description: data?.description || '',
-            categoryId: data?.categoryId || '',
-            brandId: data?.brandId || '',
+            categoryId: data?.categoryId || [],
+            brandId: data?.brandId || [],
             price: data?.price || '',
             slug: data?.slug || '',
             stock: data?.stock,
@@ -131,13 +132,19 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
     return (
         <FormDialog title={`${title} producto`} methods={methods} callback={methods.handleSubmit(onSubmit)} modal={modal}>
             <Grid container spacing={{ xs: 1, md: 2 }}>
-                <Grid item xs={12} sm={12} md={8}>
+                <Grid item xs={12} sm={12} md={9}>
                     <Grid container spacing={{ xs: 1, md: 2 }}>
                         <Grid item xs={12} sm={6}>
-                            <Input required label="Nombre*" name="name" type="text" />
+                            <Input required label="Nombre*" name="name" type="text" placeholder="Escribe el nombre del producto" />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <Input required label="Descripcion*" name="description" type="text" />
+                            <TextArea
+                                required
+                                label="Descripcion*"
+                                name="description"
+                                type="text"
+                                placeholder="Escribe una breve descripcion del producto"
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
                             <Select required label="Marca*" name="brandId" options={brands} />
@@ -146,7 +153,7 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
                             <Select required label="Categoria*" name="categoryId" options={categories} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
-                            <Input required label="Slug*" name="slug" type="text" />
+                            <Input required label="Slug*" name="slug" type="text" placeholder="Escribe una frase clave de busqueda" />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
                             <Input required label="Precio*" name="price" type="number" />
@@ -166,7 +173,7 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
                     </Grid>
                 </Grid>
 
-                <Grid item xs={12} sm={12} md={4}>
+                <Grid item xs={12} sm={12} md={3}>
                     <Uploader name="image" currentSrc={sourceImg} upload_preset="product_pib39m8" />
                     <Input required label="Codigo" name="id" disabled />
                 </Grid>

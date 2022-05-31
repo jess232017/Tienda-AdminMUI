@@ -6,8 +6,6 @@ import Pagination from '@mui/material/Pagination';
 
 import { useElementSize } from 'usehooks-ts';
 
-import useResizeObserver from 'use-resize-observer';
-
 import GridItem from '@/common/global/GridItem';
 import ListItem from '@/common/global/ListItem';
 import useCarrito from '@/services/context/carrito';
@@ -15,8 +13,6 @@ import useCarrito from '@/services/context/carrito';
 const Viewer = ({ view, data, page, total, handleChange }) => {
     const store = useCarrito();
     const [squareRef, { width }] = useElementSize();
-
-    //const { ref, width = 1, height = 1 } = useResizeObserver();
 
     return (
         <Box display="flex" flexDirection="column">

@@ -43,8 +43,8 @@ const value = {
     textHint: '#00000061',
 
     // Text Dark Color
-    textDarkPrimary: '#bbc0c7',
-    textDarkSecondary: '#babfc9',
+    textDarkPrimary: '#bbc0c7',//#3D96FF
+    textDarkSecondary: '#babfc9',//#4D4E4E
     textDarkDark: '#fff',
     texDarkHint: '#94919161',
 
@@ -54,7 +54,7 @@ const value = {
 
     // Paper Color
     paper: '#ffffff',
-    paperDark: '#1E1E1E',
+    paperDark: '#1E1E1E',//171819
 
     menuHover: '#e3f2fd',
     menuHoverDark: '#3366ff14',

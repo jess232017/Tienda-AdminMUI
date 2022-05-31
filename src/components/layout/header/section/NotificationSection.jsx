@@ -60,8 +60,6 @@ const NotificationSection = () => {
         setOpen((prevOpen) => !prevOpen);
     };
 
-    console.log('notifications', notifications, 'unreadCount', unreadCount);
-
     const handleClose = (event) => {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
             return;

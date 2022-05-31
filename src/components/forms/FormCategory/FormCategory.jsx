@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 //control
 import { useForm } from 'react-hook-form';
@@ -10,6 +10,7 @@ import Stack from '@mui/material/Stack';
 //Owned
 import FormDialog from '@/common/FormDialog';
 import { Input, CheckBox, TextArea, Select } from '@/common/control';
+import { apiCategory } from '../../../api/tasks';
 
 //nombre imagen icono descripcion porDefecto
 const validationSchema = Yup.object().shape({
@@ -21,21 +22,26 @@ const validationSchema = Yup.object().shape({
         .required('La descripcion es requerido')
         .min(3, 'La descripcion debe tener al menos 3 caracteres')
         .max(200, 'La descripcion no debe exceder los 200 caracteres'),
+    slug: Yup.string()
+        .required('El slug es requerido')
+        .min(3, 'El slug debe tener al menos 3 caracteres')
+        .max(20, 'El slug no debe exceder los 10 caracteres'),
     // id: Yup.number('Id debe ser de tipo entero').notRequired(),
 });
 
-const FormCategory = NiceModal.create(({ data, request, title }) => {
+const FormCategory = NiceModal.create(({ data, request: { mutate }, title }) => {
     //modal handle
     const modal = useModal();
+    const [options, setOptions] = useState([]);
+    const { data: categories, loading } = apiCategory.get(1, 100);
+
+    console.log('categories', categories);
 
     //validator
     const methods = useForm({
         shouldUnregister: true,
         resolver: yupResolver(validationSchema),
     });
-
-    //Apis
-    const { mutate } = request;
 
     const onSubmit = (data) => {
         mutate(data, {
@@ -47,9 +53,20 @@ const FormCategory = NiceModal.create(({ data, request, title }) => {
     };
 
     useEffect(() => {
+        if (categories?.data) {
+            const options = categories?.data.map(({ id, name }) => ({
+                value: id,
+                label: name,
+            }));
+            setOptions(options);
+        }
+    }, [categories]);
+
+    useEffect(() => {
         const defaultValues = {
             id: data?.id || '',
             name: data?.name || '',
+            slug: data?.slug || '',
             description: data?.description || '',
         };
         methods.reset(defaultValues);
@@ -58,13 +75,20 @@ const FormCategory = NiceModal.create(({ data, request, title }) => {
     return (
         <FormDialog title={`${title} categoria`} maxWidth="xs" methods={methods} callback={methods.handleSubmit(onSubmit)} modal={modal}>
             <Stack spacing={2}>
-                <Input required label="Nombre*" name="name" type="text" />
-                <Select label="Padre" name="parentId" options={[]} />
-                <TextArea required label="Descripción*" name="description" minRows={4} />
+                <Input required label="Nombre*" name="name" type="text" placeholder="Escribe el nombre de la categoria" />
+                <Select label="Padre" name="parentId" loading={loading} options={options} />
+                <Input required label="Slug*" name="slug" type="text" placeholder="Escribe una frase clave de busqueda" />
+                <TextArea
+                    required
+                    label="Descripción*"
+                    name="description"
+                    minRows={4}
+                    placeholder="Escribe una breve descripcion de la categoria"
+                />
                 {/*<Input required label="Icono" name="icon" type="text" />*/}
-                <Input label="Codigo" name="id" type="hidden" disabled />
-                <CheckBox label="Seleccionar por defecto" name="byDefault" />
             </Stack>
+            <CheckBox label="Seleccionar por defecto" name="byDefault" />
+            <Input label="Codigo" name="id" type="hidden" disabled />
         </FormDialog>
     );
 });

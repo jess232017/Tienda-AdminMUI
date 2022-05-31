@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { styled } from '@mui/system';
 
 import Box from '@mui/material/Box';
+import Select from 'react-select';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import Divider from '@mui/material/Divider';
@@ -44,13 +45,13 @@ const ViewItem = () => {
     const [view, setView] = useState('grid');
     const [selected, setSelected] = useState(1);
 
-    const { data: categories } = apiCategory.get(1, 10);
-    const { data: dataItem } = apiProduct.getByCategory(selected, page);
+    const { data: categories, loading: fetching } = apiCategory.get(1, 10);
+    const { data: dataItem } = apiProduct.getByCategory(selected?.value, page);
 
     useEffect(() => {
         if (categories != null) {
             const { data } = categories;
-            setSelected(data[0]?.id);
+            setSelected({ value: data[0]?.id, label: data[0]?.name });
         }
     }, [categories]);
 
@@ -67,9 +68,10 @@ const ViewItem = () => {
         setPage(value);
     };
 
-    const handleCategory = ({ target: { value } }) => {
+    const handleCategory = (value) => {
         if (value != null) {
             setSelected(value);
+            console.log(value);
         }
     };
 
@@ -80,13 +82,20 @@ const ViewItem = () => {
                     <Box display="flex" alignItems="center">
                         <label htmlFor="category">Categoria</label>
                         <Box ml={1} className="input-style">
-                            <select name="category" id="category" value={selected} onChange={handleCategory}>
-                                {categories?.data?.map(({ id, name }) => (
-                                    <option value={id} key={id}>
-                                        {name}
-                                    </option>
-                                ))}
-                            </select>
+                            <Select
+                                options={categories?.data?.map(({ id, name }) => ({
+                                    label: name,
+                                    value: id,
+                                }))}
+                                value={selected}
+                                isLoading={fetching}
+                                onChange={handleCategory}
+                                name="select-category"
+                                menuPortalTarget={document.body}
+                                menuShouldScrollIntoView={false}
+                                placeholder="Seleccione..."
+                                styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                            />
                         </Box>
                     </Box>
 

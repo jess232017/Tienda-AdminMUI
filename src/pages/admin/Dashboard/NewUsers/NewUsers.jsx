@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { VisibilityOutlined } from '@mui/icons-material';
 import { Avatar, Box, Stack, Typography, Button } from '@mui/material';
@@ -15,9 +17,9 @@ const NewUsers = () => {
             {loading ? (
                 <Loader />
             ) : (
-                <>
+                <Box display="flex" flexDirection="column" width="100%">
                     {data?.data.map(({ image, firstName, lastName, email, id }) => (
-                        <Box key={id} width="100%" display="flex" justifyContent="space-between" alignItems="center" mb={1}>
+                        <Box key={id} width="100%" display="flex" justifyContent="space-between" alignItems="center" mb={2}>
                             <Box display="flex">
                                 <Avatar alt={firstName} src={image} variant="circular" onClick={() => setViewer(true)} />
                                 <Stack ml={2}>
@@ -25,12 +27,18 @@ const NewUsers = () => {
                                     <Typography variant="caption">{email}</Typography>
                                 </Stack>
                             </Box>
-                            <Button variant="contained" startIcon={<VisibilityOutlined />} disableElevation>
+                            <Button
+                                variant="contained"
+                                LinkComponent={Link}
+                                to="cliente"
+                                startIcon={<VisibilityOutlined />}
+                                disableElevation
+                            >
                                 Ver
                             </Button>
                         </Box>
                     ))}
-                </>
+                </Box>
             )}
         </PerfectScrollbar>
     );

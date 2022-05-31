@@ -10,7 +10,7 @@ import Stack from '@mui/material/Stack';
 //Owned
 import FormDialog from '@/common/FormDialog';
 import api from '@/api/tasks/ApiBrand';
-import { Input, CheckBox } from '@/common/control';
+import { Input, CheckBox, TextArea } from '@/common/control';
 
 //nombre imagen icono descripcion porDefecto
 const validationSchema = Yup.object().shape({
@@ -60,11 +60,17 @@ const FormBrand = NiceModal.create(({ data, request, title }) => {
     return (
         <FormDialog title={`${title} marca`} maxWidth="xs" methods={methods} callback={methods.handleSubmit(onSubmit)} modal={modal}>
             <Stack spacing={2}>
-                <Input required label="Nombre" name="name" type="text" />
-                <Input required label="Descripcion" name="description" type="text" />
-                <Input label="Codigo" name="id" type="hidden" disabled />
+                <Input required label="Nombre" name="name" type="text" placeholder="Escribe el nombre de la marca" />
+                <TextArea
+                    required
+                    label="Descripcion"
+                    name="description"
+                    type="text"
+                    placeholder="Escribe una breve descripcion de la marca"
+                />
                 <CheckBox required label="Por Defecto" name="byDefault" />
             </Stack>
+            <Input label="Codigo" name="id" type="hidden" disabled />
         </FormDialog>
     );
 });

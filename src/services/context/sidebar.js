@@ -29,7 +29,6 @@ const useStore = create((set) => ({
             const show = state?.show;
             show.darkMode = !show.darkMode;
             localStorage.setItem('darkMode', show.darkMode);
-            console.log(show);
             return show;
         }),
     setDyslexic: () =>
@@ -37,7 +36,6 @@ const useStore = create((set) => ({
             const show = state?.show;
             show.dyslexic = !show.dyslexic;
             localStorage.setItem('dyslexic', show.dyslexic);
-            console.log(show);
             return show;
         }),
     setFont: (value) =>

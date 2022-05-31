@@ -84,7 +84,7 @@ const FormDialog = ({ title, callback, methods, children, footerControl = true, 
                         )}
                     </DialogTitle>
 
-                    <DialogContent dividers={true} sx={{ pt: 5, pb: 5 }}>
+                    <DialogContent dividers sx={{ pt: 5, pb: 5 }}>
                         {children}
                     </DialogContent>
 

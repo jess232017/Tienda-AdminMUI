@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
-//import fslightboxReact from 'fslightbox-react';
-//import FsLightbox from 'fslightbox-react';
-import ImgsViewer from 'react-images-viewer';
+import Viewer from 'react-viewer';
 
 import Image from 'mui-image';
 import Typography from '@mui/material/Typography';
@@ -11,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 import { uploadImage } from '@/api';
+const NoImage = 'https://res.cloudinary.com/js-media/image/upload/v1653839560/Store-JS/noimage_zpbrke.png';
 
 const Uploader = ({ label, currentSrc = '', upload_preset, ...rest }) => {
     const {
@@ -69,7 +68,17 @@ const Uploader = ({ label, currentSrc = '', upload_preset, ...rest }) => {
                     {errors[name]?.message}
                 </Typography>
             </div>
-            <ImgsViewer imgs={[{ src: image }]} isOpen={viewer} onClose={() => setViewer(false)} />
+            <Viewer
+                visible={viewer}
+                onMaskClick={() => {
+                    setViewer(false);
+                }}
+                onClose={() => {
+                    setViewer(false);
+                }}
+                zIndex="1300"
+                images={[{ src: image || NoImage, alt: name }]}
+            />
         </>
     );
 };

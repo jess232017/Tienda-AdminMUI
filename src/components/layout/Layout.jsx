@@ -18,10 +18,12 @@ import Sidebar from './sidebar/Sidebar';
 import { drawerWidth } from '@/services/constant';
 
 const Ventas = React.lazy(() => import('@/pages/admin/Venta'));
+const Session = React.lazy(() => import('@/pages/admin/Session'));
 const Accessibility = React.lazy(() => import('@/pages/admin/Accessibility'));
 const DetalleVenta = React.lazy(() => import('@/pages/admin/Venta/Detalle'));
 const VentaNueva = React.lazy(() => import('@/pages/admin/Venta/Nueva'));
 const Inventory = React.lazy(() => import('@/pages/admin/Inventory'));
+const Lote = React.lazy(() => import('@/pages/admin/Lote'));
 const Supplier = React.lazy(() => import('@/pages/admin/Supplier'));
 const Dashboard = React.lazy(() => import('@/pages/admin/Dashboard'));
 const Employee = React.lazy(() => import('@/pages/admin/Employee'));
@@ -130,6 +132,11 @@ const MainLayout = () => {
                             />
 
                             <Route
+                                path="Lote"
+                                element={<RequireRole roles={[ROLES.administrador, ROLES.bodeguero]} children={<Lote />} />}
+                            />
+
+                            <Route
                                 path="producto"
                                 element={
                                     <RequireRole roles={[ROLES.administrador, ROLES.vendedor, ROLES.bodeguero]} children={<Product />} />
@@ -149,6 +156,8 @@ const MainLayout = () => {
                                     <RequireRole roles={[ROLES.administrador, ROLES.bodeguero, ROLES.cajero]} children={<Supplier />} />
                                 }
                             />
+
+                            <Route path="sesion" element={<Session />} />
 
                             <Route path="reporte" element={<RequireRole roles={[ROLES.administrador]} children={<Reporte />} />} />
 

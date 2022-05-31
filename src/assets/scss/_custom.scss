@@ -14,8 +14,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        //background-color: #3366ff6b;
-        background-color: #3366ff;
+        background-color: #3366ff6b;
+        //background-color: #3366ff;
     }
 }
 
@@ -60,4 +60,13 @@ hr {
 
 .swal2-container {
     z-index: 1301 !important;
+}
+
+.react-viewer-mask {
+    z-index: 1300 !important;
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.react-viewer-icon {
+    font-size: 11px !important;
 }

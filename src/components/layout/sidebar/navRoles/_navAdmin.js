@@ -64,7 +64,7 @@ const nav = {
                             requireRoles: [ROLES.administrador, ROLES.bodeguero],
                         },
                         {
-                            id: 'categorias',
+                            id: 'categories',
                             title: 'Categorias',
                             type: 'item',
                             url: '/admin/categoria',
@@ -82,10 +82,22 @@ const nav = {
                 {
                     id: 'inventario',
                     title: 'Inventarios',
-                    type: 'item',
+                    type: 'collapse',
                     icon: AssessmentOutlinedIcon,
-                    url: '/admin/inventario',
-                    requireRoles: [ROLES.administrador, ROLES.bodeguero],
+                    children: [
+                        {
+                            id: 'kardex',
+                            title: 'Kardex',
+                            type: 'item',
+                            url: '/admin/inventario',
+                        },
+                        {
+                            id: 'lote',
+                            title: 'Lotes',
+                            type: 'item',
+                            url: '/admin/lote',
+                        },
+                    ],
                 },
                 {
                     id: 'session',

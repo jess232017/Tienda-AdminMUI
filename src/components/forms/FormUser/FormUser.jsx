@@ -130,7 +130,7 @@ const FormUser = NiceModal.create(({ data, request, title }) => {
                             <Password name="password" autoComplete="new-password" label="Contraseña" />
                         </Grid>
                         <Grid item xs={12} sm={6} md={8}>
-                            <Select name="roles" label="Roles" isMulti options={options} isLoading={gettingRole} />
+                            <Select name="roles" label="Roles" options={options} isLoading={gettingRole} />
                         </Grid>
                     </Grid>
                 </Grid>

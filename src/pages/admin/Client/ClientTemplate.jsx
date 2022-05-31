@@ -1,6 +1,8 @@
 import React from 'react';
-import ImgsViewer from 'react-images-viewer';
+
+import Viewer from 'react-viewer';
 import { Avatar, Box, Stack, Typography } from '@mui/material';
+const NoImage = 'https://res.cloudinary.com/js-media/image/upload/v1653839560/Store-JS/noimage_zpbrke.png';
 
 const ClientTemplate = ({ row }) => {
     const [viewer, setViewer] = React.useState(false);
@@ -13,7 +15,14 @@ const ClientTemplate = ({ row }) => {
                 <Typography variant="caption">{email}</Typography>
             </Stack>
 
-            <ImgsViewer imgs={[{ src: image }]} isOpen={viewer} onClose={() => setViewer(false)} />
+            <Viewer
+                visible={viewer}
+                onClose={() => {
+                    setViewer(false);
+                }}
+                zIndex="1300"
+                images={[{ src: image || NoImage, alt: name }]}
+            />
         </Box>
     );
 };

@@ -14,9 +14,11 @@ const Input = ({ label, ...rest }) => {
         <div className="input-style">
             {type !== 'hidden' && <label htmlFor={name}>{label}</label>}
             <input {...rest} id={name} {...register(name, { required })} aria-invalid={errors[name] ? 'true' : 'false'} />
-            <Typography variant="subtitle2" color="red" component="span" role="alert">
-                {errors[name]?.message}
-            </Typography>
+            {type !== 'hidden' && (
+                <Typography variant="subtitle2" color="red" component="span" role="alert">
+                    {errors[name]?.message}
+                </Typography>
+            )}
         </div>
     );
 };
