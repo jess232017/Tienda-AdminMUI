@@ -15,10 +15,10 @@ import InventoryIcon from '@mui/icons-material/GifBoxTwoTone';
 import PageCard from '@/common/PageCard';
 import Toolbar from '@/components/Toolbar';
 import Form from '@/components/forms/FormLote/FormLote';
-import api from '@/api/tasks/ApiInventory';
 import usePagination from '@/services/hooks/usePagination';
 import DropButton, { MenuItem } from '@/components/DropButton';
 import useCrud from '@/services/hooks/useCrud';
+import {apiLote as api} from '../../../api/tasks/index'
 
 const URL = import.meta.env.VITE_API_URL;
 

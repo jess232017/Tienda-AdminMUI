@@ -30,10 +30,10 @@ const validationSchema = Yup.object().shape({
         .typeError('El precio deber ser de tipo numero')
         .required('El precio de venta es requerido')
         .positive('El precio debe ser positivo'),
-    totalPrice: Yup.number()
+    /*totalPrice: Yup.number()
         .typeError('El precio deber ser de tipo numero')
         .required('El precio de venta es requerido')
-        .positive('El precio debe ser positivo'),
+        .positive('El precio debe ser positivo'),*/
     code: Yup.string()
         .required('El codigo de lote es requerido')
         .min(3, 'El codigo de lote debe tener al menos 3 caracteres')
@@ -69,11 +69,11 @@ const FormLote = NiceModal.create(({ data, request, title }) => {
     const onSubmit = async (data) => {
         // const image = data.image ? await uploadImage(data.image) : null;
         const {
-            brandId: { value: brandId },
-            categoryId: { value: categoryId },
+            supplierId: { value: supplierId },
+            productId: { value: productId },
         } = data;
 
-        const final = { ...data, brandId, categoryId };
+        const final = { ...data, productId, supplierId };
         console.log('final', final);
 
         mutate(final, {
