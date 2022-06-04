@@ -51,7 +51,8 @@ const ViewItem = () => {
     useEffect(() => {
         if (categories != null) {
             const { data } = categories;
-            setSelected({ value: data[0]?.id, label: data[0]?.name });
+            const defaultSelected = data.find((a) => a.name === 'General');
+            setSelected({ value: defaultSelected?.id, label: defaultSelected?.name });
         }
     }, [categories]);
 
