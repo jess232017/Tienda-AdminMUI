@@ -15,7 +15,7 @@ const useCarrito = create((set, get) => ({
                 carrito,
             };
         }),
-    editItem: (key, value) =>
+    editItem: (id, value) =>
         set((state) => {
             if (value < 1) {
                 alert('el producto no puede tener un valor menor a 1');
@@ -23,8 +23,8 @@ const useCarrito = create((set, get) => ({
             }
 
             const carrito = state.carrito.map((item) => {
-                if (item.key === key) {
-                    item.cantidad = value;
+                if (item.id === id) {
+                    item.quantity = value;
                 }
                 return item;
             });
@@ -33,11 +33,11 @@ const useCarrito = create((set, get) => ({
                 carrito,
             };
         }),
-    removeItem: (key) =>
+    removeItem: (id) =>
         set((state) => {
             const carrito = state.carrito.filter((item) => {
-                console.log(key, item.key, item.key !== key);
-                return item.key !== key;
+                console.log(id, item.id, item.id !== id);
+                return item.id !== id;
             });
             localStorage.setItem('carrito', JSON.stringify(carrito));
             return {
@@ -53,7 +53,7 @@ const useCarrito = create((set, get) => ({
         }),
     existItem: (productoId) =>
         set(() => {
-            return get().carrito.find((value) => value.key === productoId);
+            return get().carrito.find((value) => value.id === productoId);
         }),
 }));
 

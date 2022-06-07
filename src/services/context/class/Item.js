@@ -1,11 +1,11 @@
 class Item {
-    constructor(key, nombre, precio, cantidad, maximo, imagen){
-        this.key = key;
-        this.nombre = nombre;
-        this.precio = precio;
-        this.imagen = imagen;
-        this.maximo = maximo;
-        this.cantidad = cantidad;
+    constructor(id, name, price, quantity, maximum, image) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.image = image;
+        this.maximum = maximum;
+        this.quantity = quantity;
     }
 }
 

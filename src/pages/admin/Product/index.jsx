@@ -33,11 +33,12 @@ const columns = [
 ];
 
 const Product = () => {
-    const { control, selected, isLoading, isError } = usePagination(api, columns);
+    const { control, selected, isLoading, isError, rowCount } = usePagination(api, columns);
     const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected);
 
     const handlePrint = () => {};
     const handleChooser = () => {};
+    //console.log('rowCount', rowCount);
 
     return (
         <PageCard

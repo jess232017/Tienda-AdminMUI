@@ -76,26 +76,25 @@ export const apiMovimiento = {
 };
 
 export const apiOrder = {
-    new: axiosMutator('post', '/Order', 'order'),
-    addAll: axiosMutator('post', '/Order/new', 'order'),
-    edit: axiosMutator('put', '/Order', 'order'),
-    editNote: (orderId) => {
-        const fnMutator = axiosMutator('put', '/Order', 'order-only');
-        return fnMutator(`/${orderId}/note`);
-    },
-    delete: axiosMutator('delete', '/Order', 'order'),
     get: (page, size) => {
-        const fnQuery = axiosQuery('get', '/Order', 'order');
+        const fnQuery = axiosQuery('get', '/order', 'order');
         return fnQuery(`?PageNumber=${page}&PageSize=${size}`);
     },
     getById: (orderId) => {
-        const fnQuery = axiosQuery('get', '/Order', 'order-only');
+        const fnQuery = axiosQuery('get', '/order', 'order-only');
         return fnQuery(`/${orderId}`);
     },
     getDetails: (orderId) => {
-        const fnQuery = axiosQuery('get', '/OrderItem/order', 'order-items');
+        const fnQuery = axiosQuery('get', `/order/${orderId}/details`, 'order-items');
         return fnQuery(`/${orderId}`);
     },
+    new: axiosMutator('post', '/order', 'order'),
+    edit: axiosMutator('put', '/order', 'order'),
+    editNote: (orderId) => {
+        const fnMutator = axiosMutator('put', '/order', 'order-only');
+        return fnMutator(`/${orderId}/note`);
+    },
+    delete: axiosMutator('delete', '/order', 'order'),
 };
 
 export const apiProduct = {
@@ -138,4 +137,14 @@ export const apiUser = {
     },
     getById: axiosQuery('get', '/User', 'User-only'),
     getItemsByUser: axiosQuery('get', '/Product/User', 'UserItems'),
+};
+
+export const apiPaymentMethod = {
+    get: (page, size) => {
+        const fnQuery = axiosQuery('get', '/paymentMethod', 'paymentMethod');
+        return fnQuery(`?PageNumber=${page}&PageSize=${size}`);
+    },
+    new: axiosMutator('post', '/paymentMethod', 'paymentMethod'),
+    edit: axiosMutator('put', '/paymentMethod', 'paymentMethod'),
+    delete: axiosMutator('delete', '/paymentMethod', 'paymentMethod'),
 };

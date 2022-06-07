@@ -8,7 +8,7 @@ const usePagination = (api, columns) => {
     const [page, setPage] = useState(1);
     const [rows, setRows] = useState([]);
     const [size, setSize] = useState(10);
-    const [total, setTotal] = useState(0);
+    const [rowCount, setRowCount] = useState(0);
     const [selected, setSelected] = useState({});
     const [selectionModel, setSelectionModel] = useState([]);
 
@@ -16,21 +16,17 @@ const usePagination = (api, columns) => {
 
     useEffect(() => {
         if (data != null) {
-            const { totalPages, data: rows } = data;
-            setTotal(totalPages);
-            setRows(rows || []);
+            const { totalRecords, data: records } = data;
+            setRows(records);
+            setRowCount(totalRecords);
         }
     }, [data]);
 
     const onPageChange = useCallback((page) => {
-        if (page !== 0) {
-            console.log('onPageChange ', page);
-            setPage(page);
-        }
+        setPage(page);
     }, []);
 
     const onPageSizeChange = useCallback((newPage) => {
-        console.log('onPageSizeChange ', newPage);
         setSize(newPage);
     }, []);
 
@@ -47,27 +43,28 @@ const usePagination = (api, columns) => {
     //props for DataGrid
     const control = {
         rows,
-        page,
-        columns,
-        rowCount: total,
-        // checkboxSelection: true,
+        rowCount,
+        loading,
+        labelRowsPerPage: 'mpp',
+        rowsPerPageOptions: optionSize,
         pagination: true,
+        page,
         pageSize: size,
         paginationMode: 'server',
-        rowsPerPageOptions: optionSize,
+        onPageChange,
+        onPageSizeChange,
+        columns,
         density: 'standard',
-        loading,
         components: {
             NoRowsOverlay: NoData,
         },
-        disableMultipleSelection: true,
         selectionModel: selectionModel,
         onSelectionModelChange,
-        onPageSizeChange,
-        onPageChange,
+        // checkboxSelection: true,
+        //disableMultipleSelection: true,
     };
 
-    return { control, data, selected, isLoading: loading, isError };
+    return { control, data, selected, isLoading: loading, isError, rowCount };
 };
 
 export default usePagination;

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-import { toast } from 'react-toastify';
+import * as Yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
 
 import Box from '@mui/material/Box';
@@ -20,52 +22,25 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import CommentIcon from '@mui/icons-material/Comment';
 
 //Owned
+import { Tabs, Tab } from './Tab';
 import TabPanel from './TabPanel';
 import PanelCash from './PanelCash';
 import PanelCredit from './PanelCredit';
-import FormDialog from '@/common/FormDialog';
-import api from '@/api/tasks/ApiOrder';
-import useCarrito from '@/services/context/carrito';
-import { Tabs, Tab } from './Tab';
+import Dialog from '@/common/Dialog';
+import usePaymethod from '@/services/hooks/usePaymethod';
 
-const FormPayment = NiceModal.create(({ data }) => {
+const FormPayment = NiceModal.create(({ clientId, vendorId, note, total, totalItems }) => {
     //modal handle
     const modal = useModal();
-
-    const [paid, setPaid] = useState(0);
     const [index, setIndex] = useState(0);
-    const { nukeItems } = useCarrito();
+    const { createInvoice } = usePaymethod();
+    const [paidWith, setPaidWith] = useState(0);
 
-    const total = data.total || 0;
-    const qty = data.details.length || 0;
-    const title = 'C$' + total + ' = $' + (total / 35).toFixed(2);
+    const title = `C$ ${total} = ${(total / 35).toFixed(2)}`;
 
-    const { isLoading, mutateAsync } = api.addAll();
-
-    const onSubmit = () => {
-        //data.status = "Pagado";
-        data.status = 1;
-        data.paidWith = paid;
-        console.log(data);
-
-        toast.promise(mutateAsync(data), {
-            pending: 'Guardando los cambios...',
-            success: {
-                render() {
-                    nukeItems();
-                    return 'Guardado correctamente';
-                },
-            },
-            error: {
-                render(info) {
-                    console.log('data', JSON.stringify(info), info);
-                    const data = info.data;
-                    const error = data?.response?.data?.error;
-                    const errors = JSON.stringify(data?.response?.data?.errors);
-                    return error?.message || errors;
-                },
-            },
-        });
+    const onSubmit = async () => {
+        await createInvoice('contado', paidWith, clientId, vendorId, null);
+        modal.hide();
     };
 
     const handleChange = (_, newValue) => {
@@ -73,7 +48,7 @@ const FormPayment = NiceModal.create(({ data }) => {
     };
 
     return (
-        <FormDialog title="Realizar pago" callback={onSubmit} footerControl={false} processing={isLoading} modal={modal}>
+        <Dialog title="Realizar pago" maxWidth="lg" modal={modal}>
             <Grid container spacing={{ xs: 1, md: 2 }} columns={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={1} sm={1} md={2}>
                     <Typography variant="h2" align="center">
@@ -88,27 +63,10 @@ const FormPayment = NiceModal.create(({ data }) => {
                         </Tabs>
                         <Divider />
                         <TabPanel value={index} index={0}>
-                            <PanelCash total={total} set={setPaid} />
+                            <PanelCash total={total} set={setPaidWith} />
                         </TabPanel>
                         <TabPanel value={index} index={1}>
                             <PanelCredit total={total} />
-                        </TabPanel>
-                        <TabPanel value={index} index={2}>
-                            <Stack spacing={2} p={4} sx={{ margin: '0 auto', maxWidth: '320px' }}>
-                                <div className="input-style">
-                                    <label htmlFor="paid-width">Efectivo</label>
-                                    <input type="number" placeholder="Efectivo" />
-                                </div>
-                                <div className="input-style">
-                                    <label htmlFor="paid-width">Dolares</label>
-                                    <input type="number" placeholder="Dolares" />
-                                </div>
-                                <Divider />
-                                <div className="input-style">
-                                    <label htmlFor="paid-width">Restante</label>
-                                    <input type="number" placeholder="Restante" />
-                                </div>
-                            </Stack>
                         </TabPanel>
                     </Box>
                 </Grid>
@@ -128,12 +86,12 @@ const FormPayment = NiceModal.create(({ data }) => {
                         </Button>
                         <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
                             <Typography variant="h5">Total de Articulos</Typography>
-                            <Typography variant="h6">{qty}</Typography>
+                            <Typography variant="h6">{totalItems}</Typography>
                         </Box>
                     </Stack>
                 </Grid>
             </Grid>
-        </FormDialog>
+        </Dialog>
     );
 });
 

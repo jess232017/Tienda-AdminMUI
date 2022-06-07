@@ -38,7 +38,7 @@ const GridItem = ({ data, store }) => {
         addItem(new Item(id, name, price, 1, 5, image));
     };
 
-    const exist = carrito.find((value) => value.key === id);
+    const exist = carrito.find((value) => value.id === id);
 
     return (
         <Box
@@ -73,7 +73,7 @@ const GridItem = ({ data, store }) => {
                         <Stack direction="row" spacing={2}>
                             <TextField
                                 id="outlined-number"
-                                value={exist.cantidad}
+                                value={exist.quantity}
                                 label="Cantidad"
                                 type="number"
                                 pattern="[0-9]*"
@@ -85,11 +85,11 @@ const GridItem = ({ data, store }) => {
                                 InputProps={{ inputProps: { min: 0, max: 10 } }}
                                 onChange={(e) => {
                                     var value = parseInt(e.target.value, 10);
-                                    editItem(exist.key, value);
+                                    editItem(exist.id, value);
                                 }}
                             />
 
-                            <IconButton onClick={() => removeItem(exist.key)} variant="outlined" color="error">
+                            <IconButton onClick={() => removeItem(exist.id)} variant="outlined" color="error">
                                 <DeleteIcon />
                             </IconButton>
                         </Stack>

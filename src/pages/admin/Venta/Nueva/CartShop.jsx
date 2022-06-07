@@ -19,10 +19,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import HourglassTopIcon from '@mui/icons-material/HourglassTop';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import CancelIcon from '@mui/icons-material/Close';
 
 //own
 import NewNote from './NewNote';
@@ -47,9 +44,9 @@ const fnActions = ({ id }) => {
 };
 
 const columns = [
-    { field: 'nombre', headerName: 'Producto', flex: 1, renderCell: SelectedItem },
+    { field: 'name', headerName: 'Producto', flex: 1, renderCell: SelectedItem },
     {
-        field: 'cantidad',
+        field: 'quantity',
         headerName: 'Cantidad',
         width: 100,
         editable: true,
@@ -65,36 +62,22 @@ const Selecionado = ({ vendorId }) => {
     const [note, setNote] = useState({ note: '' });
     const { carrito, editItem, nukeItems } = useCarrito();
 
-    let total = 0;
-    Object.values(carrito).forEach((value) => (total += value.precio * value.cantidad));
-
-    //restructure data in order to make a request
-    const structData = () => {
-        return {
-            id: new Date().getTime(),
-            clientId: client.value,
-            vendorId,
-            addressId: 1,
-            paymentMethodId: 2,
-            total,
-            paidWith: 0,
-            ...note,
-            status: 'En espera',
-            details: carrito.map(({ key, cantidad }) => {
-                return { productId: key, quantity: cantidad, discount: 0 };
-            }),
-        };
-    };
+    const total = carrito.reduce((prev, current) => prev + current.price * current.quantity, 0);
 
     //show Payment Dialog
-    const handlePayment = () => {
+    const handlePayment = async () => {
         if (Object.values(carrito).length < 1) {
             alert('Debe haber al menos un producto');
             return;
         }
 
-        const data = structData();
-        show(FormPayment, { data });
+        show(FormPayment, {
+            clientId: client.value,
+            vendorId,
+            ...note,
+            total,
+            totalItems: carrito?.length || 0,
+        });
     };
 
     //handle with edit quantity of item
@@ -111,7 +94,7 @@ const Selecionado = ({ vendorId }) => {
 
     //add order in waiting list
     const handleWait = () => {
-        alert(JSON.stringify(structData()));
+        //alert(JSON.stringify(structData()));
     };
 
     return (
@@ -136,7 +119,7 @@ const Selecionado = ({ vendorId }) => {
                 <div style={{ flexGrow: 1 }}>
                     <DataGrid
                         onCellEditCommit={handleEdit}
-                        getRowId={(row) => row.key}
+                        getRowId={(row) => row.id}
                         columns={columns}
                         rows={carrito}
                         hideFooter
