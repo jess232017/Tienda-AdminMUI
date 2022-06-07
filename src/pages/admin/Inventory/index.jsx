@@ -24,18 +24,18 @@ const URL = import.meta.env.VITE_API_URL;
 
 const columns = [
     { field: 'id', headerName: 'Codigo', width: 100 },
-    { field: 'movimientoId', headerName: 'Nombre', width: 300 },
-    { field: 'loteId', headerName: 'Descripcion', width: 100 },
-    { field: 'motivo', headerName: 'Defecto', width: 100 },
-    { field: 'fecha', headerName: 'Defecto', width: 100 },
-    { field: 'estado', headerName: 'Defecto', width: 100 },
-    { field: 'cantidad', headerName: 'Defecto', width: 100 },
-    { field: 'costoUnit', headerName: 'Defecto', width: 100 },
-    { field: 'subTotal', headerName: 'Defecto', width: 100 },
-    { field: 'total', headerName: 'Defecto', width: 100 },
-    { field: 'nota', headerName: 'Defecto', width: 100 },
-    { field: 'movimiento', headerName: 'Defecto', width: 100 },
-    { field: 'lote', headerName: 'Defecto', width: 100 },
+    { field: 'movimientoId', headerName: 'Id Movimiento', width: 300 },
+    { field: 'loteId', headerName: 'Id Lote', width: 100 },
+    { field: 'motivo', headerName: 'Motivo', width: 100 },
+    { field: 'fecha', headerName: 'Fecha', width: 100 },
+    { field: 'estado', headerName: 'Estado', width: 100 },
+    { field: 'cantidad', headerName: 'Cantidad', width: 100 },
+    { field: 'costoUnit', headerName: 'Costo Unitario', width: 100 },
+    { field: 'subTotal', headerName: 'Sub Total', width: 100 },
+    { field: 'total', headerName: 'Total', width: 100 },
+    { field: 'nota', headerName: 'Nota', width: 100 },
+    { field: 'movimiento', headerName: 'Movimineto', width: 100 },
+    { field: 'lote', headerName: 'Lote', width: 100 },
 ];
 
 const Inventario = () => {

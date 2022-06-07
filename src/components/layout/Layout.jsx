@@ -18,6 +18,7 @@ import Sidebar from './sidebar/Sidebar';
 import { drawerWidth } from '@/services/constant';
 
 const Ventas = React.lazy(() => import('@/pages/admin/Venta'));
+const Accountant = React.lazy(() => import('@/pages/admin/Accountant'));
 const Session = React.lazy(() => import('@/pages/admin/Session'));
 const Accessibility = React.lazy(() => import('@/pages/admin/Accessibility'));
 const DetalleVenta = React.lazy(() => import('@/pages/admin/Venta/Detalle'));
@@ -113,6 +114,13 @@ const MainLayout = () => {
                                 path="venta/nueva"
                                 element={<RequireRole roles={[ROLES.administrador, ROLES.vendedor]} children={<VentaNueva />} />}
                             />
+
+                            <Route
+                                path="Accountant"
+                                element={
+                                    <RequireRole roles={[ROLES.administrador, ROLES.vendedor, ROLES.bodeguero]} children={<Accountant />} />
+                                }
+                            />      
 
                             <Route
                                 path="categoria"

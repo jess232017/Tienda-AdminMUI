@@ -15,8 +15,12 @@ const axiosQuery =
         const axios = withAxios(method, url + urlParams, authHeader);
 
         return useQuery([queryKey, urlParams], axios, {
+            retry: false,
             keepPreviousData: true,
             select: useCallback((data) => data.data, []),
+            onError: (error) =>{
+                console.log('error', JSON.stringify(error))
+            } 
         });
     };
 
@@ -37,9 +41,10 @@ const axiosMutator =
             }));
 
         return useMutation(axios, {
-            retry: 2,
+            retry: false,
             onMutate: () => notify(),
             onError: (error) => {
+                console.log('error', JSON.stringify(error))
                 const bodyError = error?.response?.data?.error;
                 const bodyErrors = JSON.stringify(error?.response?.data?.errors);
                 const render = bodyError?.message || bodyErrors || 'La petición no pudo ser procesada';

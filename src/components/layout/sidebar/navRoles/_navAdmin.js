@@ -51,6 +51,14 @@ const nav = {
                     requireRoles: [ROLES.administrador, ROLES.vendedor],
                 },
                 {
+                    id: 'contador',
+                    title: 'Contable',
+                    type: 'item',
+                    icon: LocalGroceryStoreOutlinedIcon,
+                    url: '/admin/accountant',
+                    requireRoles: [ROLES.administrador, ROLES.vendedor, ROLES.accountat],
+                },
+                {
                     id: 'productos',
                     title: 'Productos',
                     type: 'collapse',

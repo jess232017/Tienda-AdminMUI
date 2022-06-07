@@ -21,7 +21,7 @@ const validationSchema = Yup.object().shape({
     description: Yup.string()
         .required('La descripcion es requerido')
         .min(3, 'La descripcion debe tener al menos 3 caracteres')
-        .max(50, 'La descripcion no debe exceder los 20 caracteres'),
+        .max(90, 'La descripcion no debe exceder los 90 caracteres'),
     //id: Yup.number('Id debe ser de tipo entero').notRequired(),
 });
 

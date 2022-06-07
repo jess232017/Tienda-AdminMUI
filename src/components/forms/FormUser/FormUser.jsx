@@ -41,7 +41,7 @@ const userSchema = Yup.object().shape({
             /^.*(?=.{8,16})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
             'La contraseña debe tener al menos 8 y maximo 16 caracteres, al menos una mayuscula, al menos un numero y al menos un caracter especial (!?$*.).'
         ),
-    roles: Yup.array().test('len', 'Debe asignarle al menos un rol al usuario', (val) => val?.length >= 1),
+   // roles: Yup.array().test('len', 'Debe asignarle al menos un rol al usuario', (val) => val?.length >= 1),
 });
 
 const FormUser = NiceModal.create(({ data, request, title }) => {
@@ -130,7 +130,7 @@ const FormUser = NiceModal.create(({ data, request, title }) => {
                             <Password name="password" autoComplete="new-password" label="Contraseña" />
                         </Grid>
                         <Grid item xs={12} sm={6} md={8}>
-                            <Select name="roles" label="Roles" options={options} isLoading={gettingRole} />
+                            <Select name="roles" label="Roles" multi options={options} isLoading={gettingRole} />
                         </Grid>
                     </Grid>
                 </Grid>
