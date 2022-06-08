@@ -57,7 +57,7 @@ const ListItem = ({ data, store, width }) => {
             }}
         >
             <Grid container spacing={1}>
-                <Grid item xs={mobile ? 12 : 8}>
+                <Grid item xs={12} sm={8}>
                     <Box display="flex" flexDirection={`${mobile ? 'column' : 'row'}`}>
                         <Image
                             style={{}}
@@ -78,7 +78,7 @@ const ListItem = ({ data, store, width }) => {
                     </Box>
                 </Grid>
 
-                <Grid item xs={mobile ? 12 : 4}>
+                <Grid item xs={12} sm={4}>
                     <Grid
                         component="aside"
                         sx={{

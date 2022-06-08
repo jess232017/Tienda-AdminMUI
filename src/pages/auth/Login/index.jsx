@@ -78,7 +78,14 @@ const Login = ({ isExpired = false }) => {
                     }}
                     sx={{ pb: 0 }}
                     subheader="Para mantenernos en contacto."
-                    avatar={<img src="/img/tienda.png" width={35} />}
+                    avatar={
+                        <Box display="flex" flexDirection="column" alignItems="center">
+                            <img src="/img/tienda.png" width={35} />
+                            <Typography variant="caption" color="GrayText">
+                                Tienda San Jose
+                            </Typography>
+                        </Box>
+                    }
                 />
                 <CardContent sx={{ pt: 1 }}>
                     <FormProvider {...methods}>

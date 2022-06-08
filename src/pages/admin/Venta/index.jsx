@@ -32,11 +32,13 @@ const columns = [
 
 const Ventas = () => {
     const navigate = useNavigate();
-    const { control, data, selected, isLoading, isError } = usePagination(api, columns);
+    const { control, selected, isLoading, isError } = usePagination(api, columns);
 
     const onClickTomar = () => navigate('/admin/venta/nueva');
-    const onClickDetail = () => navigate('/admin/venta/' + selected[0]);
-    const onClickDetail2 = () => console.log(selected[0]);
+
+    console.log('selected', selected);
+    const onClickDetail = () => navigate('/admin/venta/' + selected.id);
+    const onClickDetail2 = () => console.log(selected);
 
     const handleChooser = () => {
         //grid.current.columnChooserModule.openColumnChooser();

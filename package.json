@@ -29,6 +29,7 @@
         "react-dom": "^18.1.0",
         "react-hook-form": "^7.31.3",
         "react-intl": "^6.0.3",
+        "react-otp-input": "^2.4.0",
         "react-perfect-scrollbar": "^1.5.8",
         "react-query": "^3.39.0",
         "react-router": "^6.3.0",

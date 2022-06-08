@@ -41,7 +41,7 @@
 
 body {
     --background: rgb(249 250 251/1);
-    --text-primary: rgb(17 24 39/1);
+    --text-primary: rgb(18, 28, 45);
     --text-secondary: royalblue;
     --accent: purple;
 
@@ -90,4 +90,11 @@ p {
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+#order-button.grid{
+    width: 100%;
+    display: grid;
+    gap: 0.3rem;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
 }

@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 
 //controls
 import { show } from '@ebay/nice-modal-react';
+import { styled } from '@mui/system';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -17,7 +18,10 @@ import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 //icons
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import HourglassTopIcon from '@mui/icons-material/HourglassTop';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 
@@ -28,7 +32,29 @@ import SelectedItem from './SelectedItem';
 import NoData from '@/pages/error/NoData';
 import useCarrito from '@/services/context/carrito';
 import FormPayment from '@/components/forms/FormPayment';
-import { cancelData } from './data';
+
+const cancelData = {
+    title: 'Acción permanente ⚠️',
+    description: '¿Seguro que quiere eliminar los productos agregados al carrito?',
+    cancellationText: 'No, Cancelar',
+    confirmationText: 'Eliminar Todo',
+    confirmationButtonProps: {
+        color: 'error',
+        startIcon: <HighlightOffIcon />,
+    },
+};
+
+const CustonSpan = styled('span')({
+    padding: 0,
+    overflow: 'hidden',
+    position: 'relative',
+    display: 'inline-block',
+    margin: '0 5px 0 5',
+    textAlign: 'center',
+    textDecoration: 'none',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+});
 
 const fnActions = ({ id }) => {
     const { removeItem } = useCarrito();
@@ -59,7 +85,7 @@ const columns = [
 const Selecionado = ({ vendorId }) => {
     const confirm = useConfirm();
     const [client, setClient] = useState({});
-    const [note, setNote] = useState({ note: '' });
+    const [note, setNote] = useState('');
     const { carrito, editItem, nukeItems } = useCarrito();
 
     const total = carrito.reduce((prev, current) => prev + current.price * current.quantity, 0);
@@ -74,7 +100,7 @@ const Selecionado = ({ vendorId }) => {
         show(FormPayment, {
             clientId: client.value,
             vendorId,
-            ...note,
+            note,
             total,
             totalItems: carrito?.length || 0,
         });
@@ -88,7 +114,9 @@ const Selecionado = ({ vendorId }) => {
     //delete all selected item
     const handleCancel = () => {
         confirm(cancelData).then(() => {
+            setNote('');
             nukeItems();
+            setClient({});
         });
     };
 
@@ -133,71 +161,67 @@ const Selecionado = ({ vendorId }) => {
             <Divider />
             <CardContent sx={{ padding: '12px' }}>
                 <Box component="dl" sx={{ margin: 0, display: 'flex', justifyContent: 'space-between' }}>
-                    <dt>
-                        <Typography variant="subtitle1">Impuesto:</Typography>
-                    </dt>
-                    <dd className="">
-                        <Typography variant="subtitle2">5%</Typography>
-                    </dd>
+                    <Typography component="dt" variant="subtitle1">
+                        Impuesto:
+                    </Typography>
+                    <Typography component="dd" variant="subtitle2">
+                        5%
+                    </Typography>
                 </Box>
                 <Box component="dl" sx={{ margin: 0, display: 'flex', justifyContent: 'space-between' }}>
-                    <dt>
-                        <Typography variant="subtitle1">Descuento:</Typography>
-                    </dt>
-                    <dd className="">
-                        <Typography variant="subtitle2">0%</Typography>
-                    </dd>
+                    <Typography component="dt" variant="subtitle1">
+                        Descuento:
+                    </Typography>
+                    <Typography component="dd" variant="subtitle2">
+                        0%
+                    </Typography>
                 </Box>
                 <Box component="dl" sx={{ margin: 0, display: 'flex', justifyContent: 'space-between' }}>
-                    <dt>
-                        <Typography variant="subtitle1">Subtotal:</Typography>
-                    </dt>
-                    <dd className="">
-                        <Typography variant="subtitle2">C$ {total.toFixed(2)}</Typography>
-                    </dd>
+                    <Typography component="dt" variant="subtitle1">
+                        Subtotal:
+                    </Typography>
+                    <Typography component="dd" variant="subtitle2">
+                        C$ {total.toFixed(2)}
+                    </Typography>
                 </Box>
                 <Box component="dl" sx={{ margin: 0, display: 'flex', justifyContent: 'space-between' }}>
-                    <dt>
-                        <Typography variant="subtitle1">Total:</Typography>
-                    </dt>
-                    <dd className="">
-                        <Typography variant="subtitle2">C$ {(total + total * 0.5).toFixed(2)}</Typography>
-                    </dd>
+                    <Typography component="dt" variant="subtitle1">
+                        Total:
+                    </Typography>
+                    <Typography component="dd" variant="subtitle2">
+                        C$ {(total + total * 0.5).toFixed(2)}
+                    </Typography>
                 </Box>
             </CardContent>
 
             <CardActions>
-                <Box sx={{ flexGrow: 1 }}>
-                    <Grid container spacing={1} columns={{ xs: 4, sm: 8, md: 12 }}>
-                        <Grid item xs={2} sm={4} md={4}>
-                            <Button size="small" fullWidth variant="outlined" endIcon={<HighlightOffIcon />} onClick={handleCancel}>
-                                Cancelar
-                            </Button>
-                        </Grid>
-                        <Grid item xs={2} sm={4} md={4}>
-                            <Button fullWidth size="small" variant="outlined" onClick={handleWait} endIcon={<HourglassTopIcon />}>
-                                Esperar
-                            </Button>
-                        </Grid>
-                        <Grid item xs={2} sm={4} md={4}>
-                            <Button
-                                fullWidth
-                                size="small"
-                                variant="outlined"
-                                onClick={handlePayment}
-                                endIcon={<AccountBalanceWalletIcon />}
-                            >
-                                Cobrar
-                            </Button>
-                        </Grid>
-                        <Grid item xs={2} sm={4} md={4}>
-                            <SelectUser value={client} set={setClient} />
-                        </Grid>
-                        <Grid item xs={2} sm={4} md={4}>
-                            <NewNote value={note} set={setNote} />
-                        </Grid>
-                    </Grid>
-                </Box>
+                <div id="order-button" className="grid">
+                    <Button size="small" variant="outlined" endIcon={<HighlightOffIcon />} onClick={handleCancel}>
+                        Cancelar
+                    </Button>
+                    <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={() => show(SelectUser, { client, setClient })}
+                        endIcon={client?.label != null ? <AssignmentIndIcon /> : <PersonAddAltIcon />}
+                    >
+                        <CustonSpan>{client?.label || 'Cliente'}</CustonSpan>
+                    </Button>
+                    <Button size="small" variant="outlined" onClick={handlePayment} endIcon={<AccountBalanceWalletIcon />}>
+                        Cobrar
+                    </Button>
+                    <Button size="small" variant="outlined" onClick={handleWait} endIcon={<HourglassTopIcon />}>
+                        Esperar
+                    </Button>
+                    <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={() => show(NewNote, { note, setNote })}
+                        endIcon={<CommentOutlinedIcon />}
+                    >
+                        Comentario
+                    </Button>
+                </div>
             </CardActions>
         </Box>
     );

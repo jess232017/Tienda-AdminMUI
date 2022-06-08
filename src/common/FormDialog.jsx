@@ -44,7 +44,7 @@ const FormDialog = ({ title, callback, methods, children, footerControl = true, 
                     fullScreen={fullScreen}
                     {...muiDialog(modal)}
                     onClose={handleClose}
-                    sx={{ ' .MuiPaper-root': { borderRadius: { xs: 0, md: 3 } } }}
+                    sx={{ ' .MuiPaper-root': { borderRadius: { xs: 0, md: 0 } } }}
                 >
                     <DialogTitle sx={{ p: 0 }}>
                         {phoneScreen ? (

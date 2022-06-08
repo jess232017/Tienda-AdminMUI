@@ -1,49 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import Box from '@mui/material/Box';
+import NiceModal, { useModal } from '@ebay/nice-modal-react';
+
 import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 
-import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
+import Dialog from '@/common/Dialog';
 
-import useDialog from '@/services/hooks/useDialog';
-
-const NewNote = ({ value, set }) => {
-    const { handleOpen, handleClose, isOpen } = useDialog();
+const NewNote = NiceModal.create(({ note, setNote }) => {
+    //modal handle
+    const modal = useModal();
+    const [auxNote, setAuxNote] = useState('');
 
     const handleChange = (e) => {
-        set({ note: e.target.value });
+        setAuxNote(e.target.value);
     };
 
+    const handleOk = () => {
+        setNote(auxNote);
+        modal.hide();
+    };
+
+    const handleCancel = () => {
+        setAuxNote('');
+        modal.hide();
+    };
+
+    useEffect(() => {
+        if (auxNote === note) {
+            setAuxNote(note);
+        }
+    }, [note]);
+
     return (
-        <>
-            <Button fullWidth size="small" variant="outlined" onClick={handleOpen} endIcon={<CommentOutlinedIcon />}>
-                Comentario
-            </Button>
-            <Dialog disableEscapeKeyDown open={isOpen} onClose={handleClose}>
-                <DialogTitle>Agregar comentario</DialogTitle>
-                <DialogContent>
-                    <div className="input-style">
-                        <TextareaAutosize
-                            value={value.note}
-                            onChange={handleChange}
-                            aria-label="note textarea"
-                            placeholder="Escriba su comentario aqui"
-                            style={{ width: 300, height: 100 }}
-                        />
-                    </div>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Ok</Button>
-                </DialogActions>
-            </Dialog>
-        </>
+        <Dialog
+            title="Agregar comentario"
+            maxWidth="lg"
+            modal={modal}
+            actions={
+                <>
+                    <Button onClick={handleCancel} color="error">
+                        Cancelar
+                    </Button>
+                    <Button onClick={handleOk}>Ok</Button>
+                </>
+            }
+        >
+            <div className="input-style">
+                <TextareaAutosize
+                    value={auxNote}
+                    onChange={handleChange}
+                    aria-label="note textarea"
+                    placeholder="Escriba su comentario aqui"
+                    style={{ width: 300, height: 100 }}
+                />
+            </div>
+        </Dialog>
     );
-};
+});
 
 export default NewNote;

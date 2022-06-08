@@ -60,8 +60,8 @@ const GridItem = ({ data, store }) => {
                 <Avatar
                     variant="rounded"
                     alt={name}
-                    src={`data:image/jpeg;charset=utf-8;base64,${image}`}
-                    sx={{ width: '70px', height: '70px' }}
+                    src={image}
+                    sx={{ width: '70px', height: '70px', border: '1px solid #dee2e6' }}
                 />
                 <Box ml={1} width="100%" display="flex" flexDirection="column">
                     <UriName uri={`/producto?id=${id}`}>{name}</UriName>

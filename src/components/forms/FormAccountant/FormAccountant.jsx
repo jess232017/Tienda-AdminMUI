@@ -87,39 +87,34 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
     
 
         return (
-            <FormDialog title={`${title} Contable`} methods={methods} callback={methods.handleSubmit(onSubmit)} modal={modal}>
+            <FormDialog title={`${title} Contable`} methods={methods} maxWidth='sm' callback={methods.handleSubmit(onSubmit)} modal={modal}>
                 <Grid container spacing={{ xs: 1, md: 2 }}>
-                    <Grid item xs={12} sm={12} md={9}>
-                        <Grid container spacing={{ xs: 1, md: 2 }}>
-                            <Grid item xs={12} sm={6}>
-                                <Input required label="Importe*" name="amount" type="text" placeholder="Importe" />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextArea
-                                    required
-                                    label="Motivo*"
-                                    name="reason"
-                                    type="text"
-                                    placeholder="Escribe un breve motivo"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6} md={4}>
-                                <Select name="type" label="Tipo*" required options={optionType} />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextArea
-                                    required
-                                    label="Nota*"
-                                    name="note"
-                                    type="text"
-                                    placeholder="Escribe una nota breve"
-                                />
-                            </Grid>
-                        </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <Input required label="Importe*" name="amount" type="text" placeholder="Importe" />
                     </Grid>
-    
-                    <Grid item xs={12} sm={12} md={3}>
+                     <Grid item xs={12} sm={4}>
                         <Input required label="Codigo" name="id" disabled />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <Select name="type" label="Tipo*" required options={optionType} />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextArea
+                            required
+                            label="Motivo*"
+                            name="reason"
+                            type="text"
+                            placeholder="Escribe un breve motivo"
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextArea
+                            required
+                            label="Nota*"
+                            name="note"
+                            type="text"
+                            placeholder="Escribe una nota breve"
+                        />
                     </Grid>
                 </Grid>
             </FormDialog>

@@ -1,5 +1,5 @@
 const config = {
-    basename: '/admin', // only at build time to set, like ///able-pro/react/default
+    basename: '/admin', 
     rtlLayout: false,
     i18n: 'es',
     jwt: {
