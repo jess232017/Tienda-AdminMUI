@@ -1,33 +1,33 @@
-import { axiosQuery, axiosMutator } from '../utilities/core';
+import { useAxiosQuery, useAxiosMutator } from '../utilities/core';
 
 const getUser = (page, size) => {
-    const fnQuery = axiosQuery('get', '/User', 'User');
+    const fnQuery = useAxiosQuery('get', '/User', 'User');
     return fnQuery(`?PageNumber=${page}&PageSize=${size}`);
 };
-const getUserById = axiosQuery('get', '/User', 'User-only');
-const newUser = axiosMutator('post', '/User', 'User');
-const editUser = axiosMutator('put', '/User', 'User');
-const deleteUser = axiosMutator('delete', '/User', 'User');
+const getUserById = useAxiosQuery('get', '/User', 'User-only');
+const newUser = useAxiosMutator('post', '/User', 'User');
+const editUser = useAxiosMutator('put', '/User', 'User');
+const deleteUser = useAxiosMutator('delete', '/User', 'User');
 
 const getRole = (page, size) => {
-    const fnQuery = axiosQuery('get', '/Role', 'Role');
+    const fnQuery = useAxiosQuery('get', '/Role', 'Role');
     return fnQuery(`?PageNumber=${page}&PageSize=${size}`);
 };
 
 const apiUser = {
-    new: axiosMutator('post', '/User', 'User'),
-    edit: axiosMutator('put', '/User', 'User'),
-    delete: axiosMutator('delete', '/User', 'User'),
+    new: useAxiosMutator('post', '/User', 'User'),
+    edit: useAxiosMutator('put', '/User', 'User'),
+    delete: useAxiosMutator('delete', '/User', 'User'),
     get: (page, size) => {
-        const fnQuery = axiosQuery('get', '/User', 'User');
+        const fnQuery = useAxiosQuery('get', '/User', 'User');
         return fnQuery(`?PageNumber=${page}&PageSize=${size}`);
     },
     getRole: (page, size) => {
-        const fnQuery = axiosQuery('get', '/Role', 'Role');
+        const fnQuery = useAxiosQuery('get', '/Role', 'Role');
         return fnQuery(`?PageNumber=${page}&PageSize=${size}`);
     },
-    getById: axiosQuery('get', '/User', 'User-only'),
-    getItemsByUser: axiosQuery('get', '/Product/User', 'UserItems'),
+    getById: useAxiosQuery('get', '/User', 'User-only'),
+    getItemsByUser: useAxiosQuery('get', '/Product/User', 'UserItems'),
 };
 
 export { newUser, editUser, deleteUser, getUser, getUserById, getRole };

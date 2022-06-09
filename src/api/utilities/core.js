@@ -1,14 +1,11 @@
-import { useCallback, useRef } from 'react';
+import { useCallback } from 'react';
 
-import { toast } from 'react-toastify';
 import { useAuthHeader } from 'react-auth-kit';
-import { useQuery } from 'react-query';
-import { useQueryClient, useMutation } from 'react-query';
+import { useQuery, useQueryClient, useMutation } from 'react-query';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import withAxios from './provider';
 
-import withAxios from '../utilities/provider';
-
-const axiosQuery =
+const useAxiosQuery =
     (method, url, queryKey) =>
     (urlParams = '') => {
         const authHeader = useAuthHeader()();
@@ -18,38 +15,51 @@ const axiosQuery =
             retry: false,
             keepPreviousData: true,
             select: useCallback((data) => data.data, []),
-            onError: (error) =>{
-                console.log('error', JSON.stringify(error))
-            } 
+            onError: (error) => {
+                console.log('error', JSON.stringify(error));
+                const bodyError = error?.response?.data?.error;
+
+                Swal.fire({
+                    title: 'Error!',
+                    text: bodyError?.message2,
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    toast: true,
+                    timer: 4000,
+                    timerProgressBar: true,
+                });
+                console.log('backend-error', bodyError?.message2);
+            },
         });
     };
 
-const axiosMutator =
+const useAxiosMutator =
     (method, url, queryKey) =>
     (urlParams = '') => {
-        const toastId = useRef(null);
         const queryClient = useQueryClient();
         const authHeader = useAuthHeader()();
-        //const MySwal = withReactContent(Swal);
-
         const axios = withAxios(method, url + urlParams, authHeader);
-        const notify = () =>
-            (toastId.current = toast('Procesando, por favor espere...', {
-                type: toast.TYPE.INFO,
-                pauseOnHover: false,
-                autoClose: false,
-            }));
+
+        const notify = () => {
+            Swal.fire({
+                title: 'Procesando su solicitud',
+                html: 'Espere por favor...',
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                },
+            });
+        };
 
         return useMutation(axios, {
             retry: false,
             onMutate: () => notify(),
             onError: (error) => {
-                console.log('error', JSON.stringify(error))
+                console.log('error', JSON.stringify(error));
                 const bodyError = error?.response?.data?.error;
                 const bodyErrors = JSON.stringify(error?.response?.data?.errors);
                 const render = bodyError?.message || bodyErrors || 'La petición no pudo ser procesada';
-                toast.dismiss(toastId.current);
-                //toast.update(toastId.current, { render, type: toast.TYPE.ERROR, autoClose: 4000 });
 
                 Swal.fire({
                     title: 'Error!',
@@ -61,8 +71,7 @@ const axiosMutator =
             onSuccess: ({ data }) => {
                 queryClient.invalidateQueries(queryKey);
                 const render = data?.message || 'Petición procesada con exito';
-                toast.dismiss(toastId.current);
-                //toast.update(toastId.current, { render, type: toast.TYPE.SUCCESS, autoClose: 4000 });
+
                 Swal.fire({
                     title: 'Todo correcto!',
                     text: render,
@@ -74,14 +83,4 @@ const axiosMutator =
         });
     };
 
-const axiosPaginator = (method, url, queryKey) => (page) => {
-    const authHeader = useAuthHeader()();
-    const axios = withAxios(method, url, authHeader);
-
-    return useQuery([queryKey, page], axios, {
-        keepPreviousData: true,
-        staleTime: 5000,
-    });
-};
-
-export { axiosMutator, axiosQuery, axiosPaginator };
+export { useAxiosMutator, useAxiosQuery };

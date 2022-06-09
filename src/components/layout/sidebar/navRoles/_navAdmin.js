@@ -9,6 +9,7 @@ import SupervisedUserCircleOutlinedIcon from '@mui/icons-material/SupervisedUser
 import SupervisorAccountOutlinedIcon from '@mui/icons-material/SupervisorAccountOutlined';
 import RecentActorsOutlinedIcon from '@mui/icons-material/RecentActorsOutlined';
 import AccessibilityOutlinedIcon from '@mui/icons-material/AccessibilityOutlined';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceOutlined';
 import EmojiSymbolsOutlinedIcon from '@mui/icons-material/EmojiSymbolsOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
@@ -50,14 +51,7 @@ const nav = {
                     url: '/admin/venta',
                     requireRoles: [ROLES.administrador, ROLES.vendedor],
                 },
-                {
-                    id: 'contador',
-                    title: 'Contable',
-                    type: 'item',
-                    icon: LocalGroceryStoreOutlinedIcon,
-                    url: '/admin/accountant',
-                    requireRoles: [ROLES.administrador, ROLES.vendedor, ROLES.accountat],
-                },
+
                 {
                     id: 'productos',
                     title: 'Productos',
@@ -113,6 +107,14 @@ const nav = {
                     type: 'item',
                     icon: ClassOutlinedIcon,
                     url: '/admin/sesion',
+                },
+                {
+                    id: 'contador',
+                    title: 'Contable',
+                    type: 'item',
+                    icon: AccountBalanceWalletIcon,
+                    url: '/admin/accountant',
+                    requireRoles: [ROLES.administrador, ROLES.vendedor, ROLES.accountat],
                 },
             ],
         },

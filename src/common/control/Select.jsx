@@ -19,7 +19,6 @@ const Select = ({ label, ...rest }) => {
                 control={control}
                 render={({ field }) => (
                     <ReactSelect
-                    isMulti
                         {...rest}
                         {...field}
                         name={name}

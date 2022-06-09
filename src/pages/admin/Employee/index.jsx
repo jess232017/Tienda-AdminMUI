@@ -12,8 +12,8 @@ import UserIcon from '@mui/icons-material/Person';
 
 //Owned
 import PageCard from '@/common/PageCard';
-import Form from '@/components/forms/FormUser/FormUser';
-import api from '@/api/tasks/ApiUser';
+import { apiEmployee } from '../../../api/tasks/index';
+import Form from '@/components/forms/FormEmployee/FormEmployee';
 import usePagination from '@/services/hooks/usePagination';
 import useCrud from '@/services/hooks/useCrud';
 import Toolbar from '@/components/Toolbar';
@@ -48,17 +48,17 @@ const columns = [
     //{ field: 'email', headerName: 'Correo', width: 200 },
 ];
 
-const User = () => {
-    const { control, selected, isLoading, isError } = usePagination(api, columns);
-    const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected);
+const Employee = () => {
+    const { control, selected, isLoading, isError } = usePagination(apiEmployee, columns);
+    const { handleAdd, handleEdit, handleDelete } = useCrud(apiEmployee, Form, selected);
 
     const handleChooser = () => {};
 
     return (
         <PageCard
             headerProps={{
-                title: 'Gestión de Usuarios',
-                subheader: 'Listado de Usuarios',
+                title: 'Gestión de Empleados',
+                subheader: 'Listado de Empleados',
                 avatar: <UserIcon />,
             }}
             isLoading={isLoading}
@@ -93,4 +93,4 @@ const User = () => {
     );
 };
 
-export default User;
+export default Employee;

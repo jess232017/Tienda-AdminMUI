@@ -1,11 +1,11 @@
-import { axiosQuery, axiosMutator } from '../utilities/core';
+import { useAxiosQuery, useAxiosMutator } from '../utilities/core';
 
 const apiClient = {
-    new: axiosMutator("post", "/client", "client"),
-    edit: axiosMutator("put", "/users", "client"),
-    delete: axiosMutator("delete", "/client", "client"),
-    get: axiosQuery("get", "/users", "cliente"),
-    getById: axiosQuery("get", "/client", "client-only"),
-}
+    new: useAxiosMutator('post', '/client', 'client'),
+    edit: useAxiosMutator('put', '/users', 'client'),
+    delete: useAxiosMutator('delete', '/client', 'client'),
+    get: useAxiosQuery('get', '/users', 'cliente'),
+    getById: useAxiosQuery('get', '/client', 'client-only'),
+};
 
 export default apiClient;

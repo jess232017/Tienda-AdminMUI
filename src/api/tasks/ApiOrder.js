@@ -1,26 +1,26 @@
-import { axiosQuery, axiosMutator } from '../utilities/core';
+import { useAxiosQuery, useAxiosMutator } from '../utilities/core';
 
 const apiOrder = {
-    new: axiosMutator("post", "/Order", "order"),
-    addAll: axiosMutator("post", "/Order/new", "order"),
-    edit: axiosMutator("put", "/Order", "order"),
+    new: useAxiosMutator('post', '/Order', 'order'),
+    addAll: useAxiosMutator('post', '/Order/new', 'order'),
+    edit: useAxiosMutator('put', '/Order', 'order'),
     editNote: (orderId) => {
-        const fnMutator = axiosMutator("put", "/Order", "order-only");
+        const fnMutator = useAxiosMutator('put', '/Order', 'order-only');
         return fnMutator(`/${orderId}/note`);
     },
-    delete: axiosMutator("delete", "/Order", "order"),
+    delete: useAxiosMutator('delete', '/Order', 'order'),
     get: (page, size) => {
-        const fnQuery = axiosQuery("get", "/Order", "order");
+        const fnQuery = useAxiosQuery('get', '/Order', 'order');
         return fnQuery(`?PageNumber=${page}&PageSize=${size}`);
     },
     getById: (orderId) => {
-        const fnQuery = axiosQuery("get", "/Order", "order-only");
+        const fnQuery = useAxiosQuery('get', '/Order', 'order-only');
         return fnQuery(`/${orderId}`);
     },
     getDetails: (orderId) => {
-        const fnQuery = axiosQuery("get", "/OrderItem/order", "order-items");
+        const fnQuery = useAxiosQuery('get', '/OrderItem/order', 'order-items');
         return fnQuery(`/${orderId}`);
     },
-}
+};
 
 export default apiOrder;

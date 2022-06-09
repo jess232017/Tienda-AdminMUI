@@ -22,20 +22,30 @@ import useCrud from '@/services/hooks/useCrud';
 
 const URL = import.meta.env.VITE_API_URL;
 
+/*
+id: "66a35b22-5fea-4e6c-24d7-08da4a522d9f"
+loteId: "e91a05c3-94b4-4b2b-e708-08da4a522d94"
+reason: "Agregado"
+status: "Activo"
+quantity: 12
+unitPrice: 12
+subTotal: 0
+total: 144
+note: "Agregado nuevo lote"
+createdAt: "2022-06-09T19:56:43.8523358"
+updatedAt: "2022-06-09T19:56:43.852434"
+*/
 const columns = [
     { field: 'id', headerName: 'Codigo', width: 100 },
-    { field: 'movimientoId', headerName: 'Id Movimiento', width: 300 },
     { field: 'loteId', headerName: 'Id Lote', width: 100 },
-    { field: 'motivo', headerName: 'Motivo', width: 100 },
-    { field: 'fecha', headerName: 'Fecha', width: 100 },
-    { field: 'estado', headerName: 'Estado', width: 100 },
-    { field: 'cantidad', headerName: 'Cantidad', width: 100 },
-    { field: 'costoUnit', headerName: 'Costo Unitario', width: 100 },
+    { field: 'reason', headerName: 'Motivo', width: 100 },
+    { field: 'createdAt', headerName: 'Fecha', width: 100 },
+    { field: 'status', headerName: 'Estado', width: 100 },
+    { field: 'quantity', headerName: 'Cantidad', width: 100 },
+    { field: 'unitPrice', headerName: 'Costo Unitario', width: 100 },
     { field: 'subTotal', headerName: 'Sub Total', width: 100 },
     { field: 'total', headerName: 'Total', width: 100 },
-    { field: 'nota', headerName: 'Nota', width: 100 },
-    { field: 'movimiento', headerName: 'Movimineto', width: 100 },
-    { field: 'lote', headerName: 'Lote', width: 100 },
+    { field: 'note', headerName: 'Nota', width: 100 },
 ];
 
 const Inventario = () => {

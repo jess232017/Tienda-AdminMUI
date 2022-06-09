@@ -1,15 +1,15 @@
-import { axiosQuery, axiosMutator } from '../utilities/core';
+import { useAxiosQuery, useAxiosMutator } from '../utilities/core';
 
 const apiCategory = {
-    new: axiosMutator("post", "/Category", "category"),
-    edit: axiosMutator("put", "/Category", "category"),
-    delete: axiosMutator("delete", "/Category", "category"),
+    new: useAxiosMutator('post', '/Category', 'category'),
+    edit: useAxiosMutator('put', '/Category', 'category'),
+    delete: useAxiosMutator('delete', '/Category', 'category'),
     get: (page, size) => {
-        const fnQuery = axiosQuery("get", "/category", "category");
+        const fnQuery = useAxiosQuery('get', '/category', 'category');
         return fnQuery(`?PageNumber=${page}&PageSize=${size}`);
     },
-    getById: axiosQuery("get", "/Category", "category-only"),
-    getItemsByCategory: axiosQuery("get", "/Product/Category", "categoryItems"),
-}
+    getById: useAxiosQuery('get', '/Category', 'category-only'),
+    getItemsByCategory: useAxiosQuery('get', '/Product/Category', 'categoryItems'),
+};
 
 export default apiCategory;

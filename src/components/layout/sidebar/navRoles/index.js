@@ -8,6 +8,7 @@ import { ROLES } from '@/services/auth/permission-maps';
 
 const navRoles = {};
 
+navRoles[''] = { items: [] };
 navRoles[ROLES.administrador] = _navAdmin;
 navRoles[ROLES.bodeguero] = _navGrocer;
 navRoles[ROLES.vendedor] = _navSeller;

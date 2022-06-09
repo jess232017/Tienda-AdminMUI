@@ -4,7 +4,6 @@ import { Typography } from '@mui/material';
 
 import useHeaderJwt from '@/services/hooks/useHeaderJwt';
 import NavGroup from './navTypes/NavGroup';
-import menuItem from '@/components/layout/_nav';
 import navRoles from '../navRoles/index';
 
 const MenuList = () => {

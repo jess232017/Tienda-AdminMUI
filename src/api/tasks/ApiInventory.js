@@ -1,14 +1,14 @@
-import { axiosQuery, axiosMutator } from '../utilities/core';
+import { useAxiosQuery, useAxiosMutator } from '../utilities/core';
 
 const apiInventory = {
-    new: axiosMutator("post", "/inventory", "inventory"),
-    edit: axiosMutator("put", "/inventory", "inventory"),
-    delete: axiosMutator("delete", "/inventory", "inventory"),
+    new: useAxiosMutator('post', '/inventory', 'inventory'),
+    edit: useAxiosMutator('put', '/inventory', 'inventory'),
+    delete: useAxiosMutator('delete', '/inventory', 'inventory'),
     get: (page, size) => {
-        const fnQuery = axiosQuery("get", "/inventory", "inventory");
+        const fnQuery = useAxiosQuery('get', '/inventory', 'inventory');
         return fnQuery(`?PageNumber=${page}&PageSize=${size}`);
     },
-    getById: axiosQuery("get", "/inventory", "inventory-only"),
-}
+    getById: useAxiosQuery('get', '/inventory', 'inventory-only'),
+};
 
 export default apiInventory;

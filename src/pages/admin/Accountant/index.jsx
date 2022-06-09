@@ -8,7 +8,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import TransportationIcon from '@mui/icons-material/EmojiTransportationTwoTone';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceOutlined';
 
 //Owned
 import PageCard from '@/common/PageCard';
@@ -49,7 +49,7 @@ const index = () => {
             headerProps={{
                 title: 'Gestión  Contable',
                 subheader: 'Detalle de ingresos y egresos',
-                avatar: <TransportationIcon />,
+                avatar: <AccountBalanceWalletIcon />,
             }}
             isLoading={isLoading}
             isError={isError}

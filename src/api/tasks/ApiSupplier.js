@@ -1,14 +1,14 @@
-import { axiosQuery, axiosMutator } from '../utilities/core';
+import { useAxiosQuery, useAxiosMutator } from '../utilities/core';
 
 const apiSupplier = {
-    new: axiosMutator('post', '/supplier', 'supplier'),
-    edit: axiosMutator('put', '/supplier', 'supplier'),
-    delete: axiosMutator('delete', '/supplier', 'supplier'),
+    new: useAxiosMutator('post', '/supplier', 'supplier'),
+    edit: useAxiosMutator('put', '/supplier', 'supplier'),
+    delete: useAxiosMutator('delete', '/supplier', 'supplier'),
     get: (page, size) => {
-        const fnQuery = axiosQuery('get', '/supplier', 'supplier');
+        const fnQuery = useAxiosQuery('get', '/supplier', 'supplier');
         return fnQuery(`?PageNumber=${page}&PageSize=${size}`);
     },
-    getById: axiosQuery('get', '/supplier', 'supplier-only'),
+    getById: useAxiosQuery('get', '/supplier', 'supplier-only'),
 };
 
 export default apiSupplier;

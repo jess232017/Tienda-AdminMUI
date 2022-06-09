@@ -51,6 +51,9 @@ const FormLote = NiceModal.create(({ data, request, title }) => {
     const methods = useForm({
         resolver: yupResolver(validationSchema),
     });
+    const watchQuantity = methods.watch('quantity', '');
+    const watchUnitPrice = methods.watch('unitPrice', '');
+    methods.setValue('totalPrice', watchUnitPrice * watchQuantity);
 
     //Apis
     const { mutate } = request;
