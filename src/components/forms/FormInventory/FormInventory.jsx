@@ -14,6 +14,36 @@ import FormDialog from '@/common/FormDialog';
 import { Input, Select, TextArea } from '@/common/control';
 import { apiProduct, apiLote } from '../../../api/tasks';
 
+
+
+// supplierId quantity  unitPrice  totalPrice  code  expireAt  note soldOut
+const validationSchema = Yup.object().shape({
+    reason: Yup.object({
+        value: Yup.string().required('El id del proveedor es requerido'),
+    })
+        .typeError('Debe definir el inventario')
+        .required('El inventario es requerido'),
+    quantity: Yup.number()
+        .typeError('El precio deber ser de tipo numero')
+        .required('El precio de venta es requerido')
+        .positive('El precio debe ser positivo'),
+    unitPrice: Yup.number()
+        .typeError('El precio deber ser de tipo numero')
+        .required('El precio de venta es requerido')
+        .positive('El precio debe ser positivo'),
+    /*totalPrice: Yup.number()
+        .typeError('El precio deber ser de tipo numero')
+        .required('El precio de venta es requerido')
+        .positive('El precio debe ser positivo'),*/
+    /*subTotal: Yup.string()
+        .required('El codigo de lote es requerido')
+        .min(3, 'El codigo de lote debe tener al menos 3 caracteres')
+        .max(10, 'El codigo de lote no debe exceder los 10 caracteres'),*/
+    expireAt: Yup.date().notRequired(),
+    note: Yup.string().notRequired(),
+    soldOut: Yup.bool().notRequired(),
+});
+
 const optionReason = [
     {
         label: 'Baja',
@@ -52,8 +82,12 @@ const FormInventario = NiceModal.create(({ data, request, title }) => {
     //validator
     const methods = useForm({
         shouldUnregister: true,
-        resolver: yupResolver({}),
+        resolver: yupResolver(validationSchema),
     });
+    const watchQuantity = methods.watch('quantity', '');
+    const watchUnitPrice = methods.watch('unitPrice', '');
+    methods.setValue('total', watchUnitPrice * watchQuantity);
+    methods.setValue('subTotal', watchUnitPrice * watchQuantity);
 
     //Apis
     const { mutate } = request;
@@ -68,12 +102,26 @@ const FormInventario = NiceModal.create(({ data, request, title }) => {
     useEffect(() => {
         if (lotes?.data) {
             const { data } = lotes;
-            setOptLotes(mapOption(data));
+            const aux = data?.map(({ id, product, code }) => ({ label: `${product} - ${code}`, value: id }))
+            setOptLotes(aux);
         }
     }, [lotes]);
 
+    useEffect(() => {
+        const defaultValues = {
+            reason: data?.reason || [],
+            quantity: data?.quantity || '',
+            unitPrice: data?.unitPrice || '',
+            subTotal: data?.subTotal || '',
+            total: data?.total || '',
+            note: data?.note || '',
+        }
+        methods.reset(defaultValues);
+    }, [data]);
+
     const onSubmit = (data) => {
-        mutate(data, {
+        const reason = data.reason.value;
+        mutate({...data, reason}, {
             onSuccess: () => {
                 methods.reset({});
                 modal.hide();
@@ -93,20 +141,20 @@ const FormInventario = NiceModal.create(({ data, request, title }) => {
                 <Grid item xs={12} sm={6} md={4}>
                     <Select name="reason" label="Motivo*" required options={optionReason} />
                 </Grid>
-                <Grid item xs={12} sm={6} md={4}>
+                {/* <Grid item xs={12} sm={6} md={4}>
                     <Input name="status" label="Estado" />
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12} sm={6} md={4}>
-                    <Input name="UnitPrice" label="Costo Unitario" />
+                    <Input name="unitPrice" label="Costo Unitario" />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
                     <Input name="quantity" label="Cantidad" />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
-                    <Input name="subTotal" label="SubTotal" />
+                    <Input name="subTotal" label="SubTotal" disabled />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
-                    <Input name="total" label="Total" />
+                    <Input name="total" label="Total" disabled />
                 </Grid>
                 <Grid item xs={12} sm={6} md={8}>
                     <TextArea name="nota" label="Nota" />
