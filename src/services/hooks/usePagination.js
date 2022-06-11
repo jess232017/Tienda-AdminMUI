@@ -5,14 +5,14 @@ import NoData from '@/pages/error/NoData';
 const optionSize = [10, 20, 30];
 
 const usePagination = (api, columns) => {
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [rows, setRows] = useState([]);
     const [size, setSize] = useState(10);
     const [rowCount, setRowCount] = useState(0);
     const [selected, setSelected] = useState({});
     const [selectionModel, setSelectionModel] = useState([]);
 
-    const { data, isLoading: loading, isError } = api.get(page, size);
+    const { data, isLoading: loading, isError } = api.get(page +1, size);
 
     useEffect(() => {
         if (data != null) {
@@ -23,6 +23,7 @@ const usePagination = (api, columns) => {
     }, [data]);
 
     const onPageChange = useCallback((page) => {
+        console.log('pagepagepagepage',page)
         setPage(page);
     }, []);
 

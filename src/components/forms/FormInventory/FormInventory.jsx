@@ -11,7 +11,7 @@ import Grid from '@mui/material/Grid';
 
 //Owned
 import FormDialog from '@/common/FormDialog';
-import { Input, Select, TextArea } from '@/common/control';
+import { Input, Select, TextArea, CheckBox } from '@/common/control';
 import { apiProduct, apiLote } from '../../../api/tasks';
 
 
@@ -120,8 +120,10 @@ const FormInventario = NiceModal.create(({ data, request, title }) => {
     }, [data]);
 
     const onSubmit = (data) => {
-        const reason = data.reason.value;
-        mutate({...data, reason}, {
+        const loteId = data.loteId.value;
+        const reason = parseInt(data.reason.value);
+        console.log({...data,reason , loteId})
+        mutate({...data, reason, loteId}, {
             onSuccess: () => {
                 methods.reset({});
                 modal.hide();
@@ -145,19 +147,22 @@ const FormInventario = NiceModal.create(({ data, request, title }) => {
                     <Input name="status" label="Estado" />
                 </Grid> */}
                 <Grid item xs={12} sm={6} md={4}>
-                    <Input name="unitPrice" label="Costo Unitario" />
+                    <Input name="unitPrice" type="number" label="Costo Unitario" />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
-                    <Input name="quantity" label="Cantidad" />
+                    <Input name="quantity" type="number"  label="Cantidad" />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
-                    <Input name="subTotal" label="SubTotal" disabled />
+                    <Input name="subTotal" type="number"  label="SubTotal" disabled />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
-                    <Input name="total" label="Total" disabled />
+                    <Input name="total" type="number"  label="Total" disabled />
                 </Grid>
                 <Grid item xs={12} sm={6} md={8}>
                     <TextArea name="nota" label="Nota" />
+                </Grid>
+                <Grid item xs={12} sm={12} md={6}>
+                    <CheckBox name="status" label="Estado" />
                 </Grid>
             </Grid>
         </FormDialog>

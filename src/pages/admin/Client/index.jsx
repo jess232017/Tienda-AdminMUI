@@ -13,7 +13,7 @@ import UserIcon from '@mui/icons-material/Person';
 //Owned
 import PageCard from '@/common/PageCard';
 import Form from '@/components/forms/FormUser/FormUser';
-import api from '@/api/tasks/ApiUser';
+import {apiUser} from '../../../api/tasks/index'
 import usePagination from '@/services/hooks/usePagination';
 import useCrud from '@/services/hooks/useCrud';
 import Toolbar from '@/components/Toolbar';
@@ -36,8 +36,8 @@ const columns = [
 ];
 
 const User = () => {
-    const { control, selected, isLoading, isError } = usePagination(api, columns);
-    const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected);
+    const { control, selected, isLoading, isError } = usePagination(apiUser, columns);
+    const { handleAdd, handleEdit, handleDelete } = useCrud(apiUser, Form, selected);
 
     const handleChooser = () => {};
 
