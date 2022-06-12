@@ -37,7 +37,7 @@ const CustomizedCardHeader = styled(CardHeader)`
 
 //Owned
 import apiAuth from '@/api/tasks/ApiIdentity';
-import { Input, Password, CheckBox } from '@/common/control';
+import { Input, Password, CheckBox, Phone } from '@/common/control';
 
 const validationSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -52,10 +52,9 @@ const validationSchema = Yup.object().shape({
         .required('El usuario es requerido')
         .min(4, 'El usuario debe tener al menos 4 caracteres')
         .max(30, 'El usuario no debe exceder los 20 caracteres'),
-    phoneNumber: Yup.number()
-        .typeError('El telefono deber ser de tipo numero')
+    phoneNumber: Yup.string()
         .required('El telefono es requerido')
-        .test('len', 'El telefono debe tener exactamente 8 caracteres', (val) => val.toString().length === 8),
+        .test('len', 'El telefono debe tener al menos 8 caracteres', (val) => val.length >= 8),
     email: Yup.string().required('El correo es requerido').email('Debe ser un correo valido'),
     password: Yup.string()
         .required('La contraseña es requeridad')
@@ -76,6 +75,7 @@ const Register = () => {
     });
 
     const enviarForm = (data) => {
+        console.log(data);
         mutate(data, {
             onSuccess: ({ data }) => {
                 methods.reset();
@@ -125,7 +125,7 @@ const Register = () => {
                                 <Step>
                                     <StepLabel>Datos Personales</StepLabel>
                                     <StepContent>
-                                        <Stack mt={2}>
+                                        <Stack mt={2} spacing={2}>
                                             <Input name="firstName" label="Nombres*" />
                                             <Input name="lastName" label="Apellidos*" />
                                         </Stack>
@@ -149,7 +149,7 @@ const Register = () => {
                                                 <Input name="email" label="Correo" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <Input name="phoneNumber" type="number" label="Telefono" />
+                                                <Phone name="phoneNumber" label="Telefono" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 <Input name="userName" autoComplete="new-password" label="Usuario" />

@@ -11,10 +11,11 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
+import BusinessIcon from '@mui/icons-material/Business';
 
 //Owned
 import FormDialog from '@/common/FormDialog';
-import { Input, Select, CheckBox, Uploader } from '@/common/control';
+import { Input, Phone, CheckBox, Uploader } from '@/common/control';
 
 const userSchema = Yup.object().shape({
     business: Yup.string()
@@ -34,9 +35,9 @@ const userSchema = Yup.object().shape({
         .min(3, 'La direccion debe tener al menos 3 caracteres')
         .max(30, 'La direccion no debe exceder los 30 caracteres'),
     status: Yup.bool().required('El estado es requerido'),
-    phoneNumber: Yup.number('El telefono deber ser de tipo numero')
+    phoneNumber: Yup.string()
         .required('El telefono es requerido')
-        .test('len', 'El telefono debe tener exactamente 8 caracteres', (val) => val.toString().length === 8),
+        .test('len', 'El telefono debe tener al menos 8 caracteres', (val) => val.length >= 8),
 });
 
 const FormSupplier = NiceModal.create(({ data, request, title }) => {
@@ -73,7 +74,7 @@ const FormSupplier = NiceModal.create(({ data, request, title }) => {
                             <Input name="lastName" label="Apellido" />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
-                            <Input name="phoneNumber" label="Telefono" />
+                            <Phone name="businessPhone" label="Telefono" />
                         </Grid>
                     </Grid>
 
@@ -83,13 +84,13 @@ const FormSupplier = NiceModal.create(({ data, request, title }) => {
                             <CardContent sx={{ p: 2, pt: 0 }}>
                                 <Grid container spacing={{ xs: 1, md: 2 }}>
                                     <Grid item xs={12} sm={12} md={6}>
-                                        <Input name="business" label="Nombre de la Empresa" />
+                                        <Input name="business" label="Nombre de la Empresa" startAdornment={<BusinessIcon />} />
                                     </Grid>
                                     <Grid item xs={12} sm={12} md={6}>
                                         <Input name="address" label="Direccion" />
                                     </Grid>
                                     <Grid item xs={12} sm={12} md={6}>
-                                        <Input name="phoneNumber" label="Telefono" />
+                                        <Phone name="businessPhone" label="Telefono de la empresa" />
                                     </Grid>
                                     <Grid item xs={12} sm={12} md={6}>
                                         <CheckBox name="status" label="Estado" />
@@ -102,7 +103,7 @@ const FormSupplier = NiceModal.create(({ data, request, title }) => {
 
                 <Grid item xs={12} sm={12} md={4}>
                     <Uploader name="image" />
-                    <Input name="Id" label="Codigo" />
+                    <Input name="Id" label="Codigo" disabled />
                 </Grid>
             </Grid>
         </FormDialog>

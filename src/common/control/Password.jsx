@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-const Password = ({ label, ...rest }) => {
+const Password = ({ startAdornment, label, ...rest }) => {
     const [visible, setVisible] = useState(false);
 
     const {
@@ -18,7 +18,8 @@ const Password = ({ label, ...rest }) => {
     return (
         <div className="input-style">
             <label htmlFor={name}>{label}</label>
-            <div className="password">
+            <div className="relative">
+                <div className="left-icon">{startAdornment}</div>
                 <input
                     {...rest}
                     id={name}

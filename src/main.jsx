@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 //Theme
+import 'react-phone-input-2/lib/high-res.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import 'vanilla-icon-picker/dist/themes/default.min.css'; // 'default' theme

@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form';
 
 import Typography from '@mui/material/Typography';
 
-const Input = ({ label, ...rest }) => {
+const Input = ({ startAdornment, label, ...rest }) => {
     const {
         register,
         formState: { errors },
@@ -13,7 +13,18 @@ const Input = ({ label, ...rest }) => {
     return (
         <div className="input-style">
             {type !== 'hidden' && <label htmlFor={name}>{label}</label>}
-            <input {...rest} id={name} {...register(name, { required })} aria-invalid={errors[name] ? 'true' : 'false'} />
+
+            <div className="relative">
+                <div className="left-icon">{startAdornment}</div>
+                <input
+                    className={`${startAdornment && 'left-space'}`}
+                    {...rest}
+                    id={name}
+                    {...register(name, { required })}
+                    aria-invalid={errors[name] ? 'true' : 'false'}
+                />
+            </div>
+
             {type !== 'hidden' && (
                 <Typography variant="subtitle2" color="red" component="span" role="alert">
                     {errors[name]?.message}

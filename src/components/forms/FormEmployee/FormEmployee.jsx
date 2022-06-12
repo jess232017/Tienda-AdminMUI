@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid';
 //Owned
 import FormDialog from '@/common/FormDialog';
 import apiUser, { getRole } from '@/api/tasks/ApiUser';
-import { Input, Select, Uploader, Password } from '@/common/control';
+import { Input, Select, Uploader, Password, Phone } from '@/common/control';
 
 //nombre imagen icono descripcion porDefecto
 const userSchema = Yup.object().shape({
@@ -28,10 +28,9 @@ const userSchema = Yup.object().shape({
         .required('El usuario es requerido')
         .min(4, 'El usuario debe tener al menos 4 caracteres')
         .max(30, 'El usuario no debe exceder los 20 caracteres'),
-    phoneNumber: Yup.number()
-        .typeError('El telefono deber ser de tipo numero')
+    phoneNumber: Yup.string()
         .required('El telefono es requerido')
-        .test('len', 'El telefono debe tener exactamente 8 caracteres', (val) => val.toString().length === 8),
+        .test('len', 'El telefono debe tener al menos 8 caracteres', (val) => val.length >= 8),
     email: Yup.string().required('El correo es requerido').email('Debe ser un correo valido'),
     password: Yup.string()
         .required('La contraseña es requeridad')
@@ -60,10 +59,6 @@ const FormEmployee = NiceModal.create(({ data, request, title }) => {
     const { isLoading: gettingRole, data: dataRole } = getRole(1, 100);
 
     const onSubmit = async (data) => {
-        /* const image = data.image ? await uploadImage(data.image) : null;
-        const final = { ...data, image };
-        console.log('final', final);*/
-
         mutate(data, {
             onSuccess: () => {
                 methods.reset({
@@ -118,7 +113,7 @@ const FormEmployee = NiceModal.create(({ data, request, title }) => {
                             <Input name="lastName" label="Apellidos" />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
-                            <Input name="phoneNumber" type="number" label="Telefono" />
+                            <Phone name="phoneNumber" label="Telefono" />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
                             <Input name="email" type="email" label="Correo" />

@@ -6,6 +6,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100vh;
     &.expire {
         background-color: #1764e7 !important;
     }
@@ -15,7 +16,7 @@
         justify-content: center;
         align-items: center;
         background-color: #3366ff6b;
-        //background-color: #3366ff;
+        height: 100vh;
     }
 }
 

@@ -19,6 +19,8 @@ import { styled } from '@mui/material/styles';
 
 //Icons
 import LoginIcon from '@mui/icons-material/Login';
+import EmailIcon from '@mui/icons-material/EmailOutlined';
+import LockIcon from '@mui/icons-material/LockOutlined';
 
 //owned
 import useLogin from './useLogin';
@@ -91,9 +93,9 @@ const Login = ({ isExpired = false }) => {
                     <FormProvider {...methods}>
                         <form onSubmit={methods.handleSubmit(enviarForm)}>
                             <Stack direction="column" spacing={3} pt={2}>
-                                <Input required label="Correo electrónico" name="email" type="text" />
+                                <Input startAdornment={<EmailIcon />} required label="Correo electrónico" name="email" type="text" />
 
-                                <Password required type="password" label="Contraseña" name="password" />
+                                <Password startAdornment={<LockIcon />} required type="password" label="Contraseña" name="password" />
 
                                 <Box display="flex" alignItems="center" justifyContent="space-between">
                                     <CheckBox name="remember" label="Recordarme" />
