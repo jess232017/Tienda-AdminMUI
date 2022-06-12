@@ -17,11 +17,11 @@ const Input = ({ startAdornment, label, ...rest }) => {
             <div className="relative">
                 <div className="left-icon">{startAdornment}</div>
                 <input
-                    className={`${startAdornment && 'left-space'}`}
                     {...rest}
                     id={name}
                     {...register(name, { required })}
                     aria-invalid={errors[name] ? 'true' : 'false'}
+                    className={`${startAdornment && 'left-space'}`}
                 />
             </div>
 

@@ -26,6 +26,7 @@ const Password = ({ startAdornment, label, ...rest }) => {
                     type={visible ? 'text' : 'password'}
                     {...register(name, { required })}
                     aria-invalid={errors[name] ? 'true' : 'false'}
+                    className={`${startAdornment && 'left-space'}`}
                 />
                 <IconButton onClick={() => setVisible(!visible)}>{visible ? <VisibilityOffIcon /> : <VisibilityIcon />}</IconButton>
             </div>
