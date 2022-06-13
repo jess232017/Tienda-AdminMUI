@@ -25,7 +25,7 @@ const columns = [
     { field: 'subTotal', headerName: 'SubTotal', width: 100 },
     { field: 'total', headerName: 'Total', width: 100 },
     { field: 'paidWith', headerName: 'Pago con', width: 100 },
-    { field: 'paymentMethod', headerName: 'Metodo Pago', width: 100 },
+    { field: 'paymentName', headerName: 'Metodo Pago', width: 100 },
     { field: 'status', headerName: 'Estado', width: 100 },
     { field: 'note', headerName: 'Comentario', width: 100 },
 ];

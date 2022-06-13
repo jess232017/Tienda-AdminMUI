@@ -19,8 +19,8 @@ const SelectUser = NiceModal.create(({ client, setClient }) => {
 
     useEffect(() => {
         setOptions(
-            data?.data?.map(({ id, firstName, lastName }) => {
-                return { value: id, label: `${firstName} ${lastName}`, image: 'none' };
+            data?.data?.map(({ id, firstName, lastName, image }) => {
+                return { value: id, label: `${firstName} ${lastName}`, image };
             })
         );
     }, [data]);
@@ -41,10 +41,11 @@ const SelectUser = NiceModal.create(({ client, setClient }) => {
         }
     }, [client]);
 
+    console.log(auxClient);
     return (
         <Dialog
             title="Seleccionar usuario"
-            maxWidth="lg"
+            maxWidth="xs"
             modal={modal}
             actions={
                 <>
@@ -55,8 +56,8 @@ const SelectUser = NiceModal.create(({ client, setClient }) => {
                 </>
             }
         >
-            <Box width={250} display="flex" flexDirection="column" alignItems='center'>
-                <Avatar sx={{ width: 80, height: 80, mb: 2 }} variant="rounded" />
+            <Box width={250} display="flex" flexDirection="column" alignItems="center">
+                <Avatar sx={{ width: 80, height: 80, mb: 2 }} src={auxClient?.image} alt={auxClient?.firstName} variant="rounded" />
                 <Box width={250}>
                     <Select
                         isClearable

@@ -8,7 +8,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceOutlined';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWalletTwoTone';
 
 //Owned
 import PageCard from '@/common/PageCard';
@@ -17,16 +17,7 @@ import Form from '@/components/forms/FormAccountant/FormAccountant';
 import usePagination from '@/services/hooks/usePagination';
 import useCrud from '@/services/hooks/useCrud';
 import Toolbar from '@/components/Toolbar';
-/*
-"Id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      "UserId": 0,
-      "Amount": 0,
-      "Reason": "string",
-      "Type": 0,
-      "Note": "string",
-      "CreatedAt": "2022-06-03T02:20:07.082Z",
-      "UpdatedAt": "2022-06-03T02:20:07.082Z"
-*/
+
 const columns = [
     { field: 'id', headerName: 'Codigo', width: 100 },
     { field: 'userId', headerName: 'ID Usuario', width: 100 },
@@ -47,7 +38,7 @@ const index = () => {
     return (
         <PageCard
             headerProps={{
-                title: 'Gestión  Contable',
+                title: 'Gestión Contable',
                 subheader: 'Detalle de ingresos y egresos',
                 avatar: <AccountBalanceWalletIcon />,
             }}
