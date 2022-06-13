@@ -1,17 +1,17 @@
 .input-style {
     input,
     select,
-    textarea .react-tel-input .form-control {
-        height: 38px !important;
-        font-family: Poppins, sans-serif !important;
+    textarea,
+    .react-tel-input .form-control {
+        font-family: Poppins, sans-serif;
         color: var(--text-primary);
-        font-size: 0.775rem !important;
+        font-size: 0.775rem;
         line-height: 1.25rem;
         padding: 0.5rem;
         background-color: var(--background);
         border-radius: 0.3rem;
         display: block;
-        width: 100% !important;
+        width: 100%;
         border: 1px solid rgb(209 213 219/ 1);
         &:active,
         &:focus {
@@ -20,18 +20,11 @@
             outline: 2px solid transparent;
             outline-offset: 2px;
         }
-
-        &[type='checkbox'] {
-            display: inline-block;
-            margin-right: 0.5rem;
-            width: 15px;
-        }
     }
 
     label {
         line-height: 1.4375em;
         font-family: Poppins, sans-serif;
-        padding: 0;
         font-weight: 600;
         font-size: 0.8rem;
         &:active,
@@ -101,7 +94,11 @@
     }
 }
 
-.react-tel-input {
+.input-style .react-tel-input {
+    .form-control {
+        height: 38px !important;
+        padding-left: 3.5rem;
+    }
     .flag-dropdown {
         top: 1px;
         bottom: 1px;

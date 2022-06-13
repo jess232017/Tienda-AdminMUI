@@ -9,7 +9,7 @@ import SupervisedUserCircleOutlinedIcon from '@mui/icons-material/SupervisedUser
 import SupervisorAccountOutlinedIcon from '@mui/icons-material/SupervisorAccountOutlined';
 import RecentActorsOutlinedIcon from '@mui/icons-material/RecentActorsOutlined';
 import AccessibilityOutlinedIcon from '@mui/icons-material/AccessibilityOutlined';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceOutlined';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import EmojiSymbolsOutlinedIcon from '@mui/icons-material/EmojiSymbolsOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';

@@ -33,7 +33,7 @@ const FormPayment = NiceModal.create(({ clientId, vendorId, note, total, totalIt
     const { createInvoice } = usePaymethod();
     const [paidWith, setPaidWith] = useState(0);
 
-    const title = `C$ ${total} = ${(total / 35).toFixed(2)}`;
+    const title = `C$ ${total} = $ ${(total / 35).toFixed(2)}`;
 
     const onSubmit = async () => {
         await createInvoice('contado', paidWith, clientId, vendorId, null);
@@ -45,7 +45,7 @@ const FormPayment = NiceModal.create(({ clientId, vendorId, note, total, totalIt
     };
 
     return (
-        <Dialog title="Realizar pago" maxWidth="lg" modal={modal}>
+        <Dialog title="Realizar pago" maxWidth="md" modal={modal} fullWidth>
             <Grid container spacing={{ xs: 1, md: 2 }} columns={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={1} sm={1} md={2}>
                     <Typography variant="h2" align="center">

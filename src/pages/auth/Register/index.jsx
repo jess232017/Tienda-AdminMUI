@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
+//mui
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -17,12 +18,22 @@ import CardContent from '@mui/material/CardContent';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import StepContent from '@mui/material/StepContent';
 import Button from '@mui/material/Button';
+
+//icon
+import MailIcon from '@mui/icons-material/MailTwoTone';
+import LockIcon from '@mui/icons-material/LockTwoTone';
+import BadgeIcon from '@mui/icons-material/BadgeTwoTone';
+import ContactsIcon from '@mui/icons-material/ContactPageTwoTone';
+import AccountIcon from '@mui/icons-material/AccountCircleTwoTone';
+
+//Owned
+import apiAuth from '@/api/tasks/ApiIdentity';
+import { Input, Password, CheckBox, Phone } from '@/common/control';
 
 const CustomizedCardHeader = styled(CardHeader)`
     flex-direction: row-reverse;
@@ -34,10 +45,6 @@ const CustomizedCardHeader = styled(CardHeader)`
         margin-bottom: 0.5rem;
     }
 `;
-
-//Owned
-import apiAuth from '@/api/tasks/ApiIdentity';
-import { Input, Password, CheckBox, Phone } from '@/common/control';
 
 const validationSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -125,9 +132,19 @@ const Register = () => {
                                 <Step>
                                     <StepLabel>Datos Personales</StepLabel>
                                     <StepContent>
-                                        <Stack mt={2} spacing={2}>
-                                            <Input name="firstName" label="Nombres*" />
-                                            <Input name="lastName" label="Apellidos*" />
+                                        <Stack mt={2} spacing={2} width="93%">
+                                            <Input
+                                                name="firstName"
+                                                label="Nombres*"
+                                                autoComplete="new-password"
+                                                startAdornment={<AccountIcon fontSize="small" color="secondary" />}
+                                            />
+                                            <Input
+                                                name="lastName"
+                                                label="Apellidos*"
+                                                autoComplete="new-password"
+                                                startAdornment={<ContactsIcon fontSize="small" color="secondary" />}
+                                            />
                                         </Stack>
                                         <Box sx={{ mb: 2 }}>
                                             <div>
@@ -146,16 +163,32 @@ const Register = () => {
                                     <StepContent>
                                         <Grid container spacing={2}>
                                             <Grid item xs={12} md={6}>
-                                                <Input name="email" label="Correo" />
+                                                <Input
+                                                    name="email"
+                                                    label="Correo"
+                                                    autoComplete="new-password"
+                                                    startAdornment={<MailIcon fontSize="small" color="secondary" />}
+                                                />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <Phone name="phoneNumber" label="Telefono" />
+                                                <Phone name="phoneNumber" autoComplete="new-password" label="Telefono" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <Input name="userName" autoComplete="new-password" label="Usuario" />
+                                                <Input
+                                                    name="userName"
+                                                    label="Usuario"
+                                                    autoComplete="new-password"
+                                                    startAdornment={<BadgeIcon fontSize="small" color="secondary" />}
+                                                />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <Password name="password" type="password" autoComplete="new-password" label="Contraseña" />
+                                                <Password
+                                                    name="password"
+                                                    type="password"
+                                                    label="Contraseña"
+                                                    autoComplete="new-password"
+                                                    startAdornment={<LockIcon fontSize="small" color="secondary" />}
+                                                />
                                             </Grid>
                                         </Grid>
                                         <CheckBox name="remember" label="Estoy de acuerdo con los términos y condiciones" />

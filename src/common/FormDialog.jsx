@@ -39,7 +39,7 @@ const FormDialog = ({ title, callback, methods, children, footerControl = true, 
         <FormProvider {...methods}>
             <form onSubmit={callback}>
                 <Dialog
-                    fullWidth={true}
+                    fullWidth
                     maxWidth={maxWidth}
                     fullScreen={fullScreen}
                     {...muiDialog(modal)}

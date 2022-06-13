@@ -45,8 +45,19 @@ const ViewItem = () => {
     const [view, setView] = useState('grid');
     const [selected, setSelected] = useState(1);
 
-    const { data: categories, loading: fetching } = apiCategory.get(1, 10);
+    const { data: categories, loading: fetching } = apiCategory.get(1, 30);
     const { data: dataItem } = apiProduct.getByCategory(selected?.value, page);
+
+    const handleChange = (_, value) => {
+        setPage(value);
+    };
+
+    const handleCategory = (value) => {
+        if (value != null) {
+            setSelected(value);
+            console.log(value);
+        }
+    };
 
     useEffect(() => {
         if (categories != null) {
@@ -64,17 +75,6 @@ const ViewItem = () => {
             setTotal(totalPages);
         }
     }, [dataItem]);
-
-    const handleChange = (_, value) => {
-        setPage(value);
-    };
-
-    const handleCategory = (value) => {
-        if (value != null) {
-            setSelected(value);
-            console.log(value);
-        }
-    };
 
     return (
         <>
