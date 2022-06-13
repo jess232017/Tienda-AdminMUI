@@ -9,6 +9,10 @@ const apiInventory = {
         return fnQuery(`?PageNumber=${page}&PageSize=${size}`);
     },
     getById: useAxiosQuery('get', '/inventory', 'inventory-only'),
+    getByCategory: (selected, page) => {
+        const fnQuery = useAxiosQuery('get', '/inventory', 'category-items');
+        return fnQuery(`/${selected}/category?PageNumber=${page}&PageSize=10`);
+    },
 };
 
 export default apiInventory;

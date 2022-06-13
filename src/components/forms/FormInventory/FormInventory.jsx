@@ -57,13 +57,10 @@ const optionReason = [
         label: 'Estraviado',
         value: 2,
     },
-    {
-        label: 'Agregado',
-        value: 3,
-    },
+  
     {
         label: 'Devuelto',
-        value: 4,
+        value: 3,
     },
 ];
 
@@ -159,7 +156,7 @@ const FormInventario = NiceModal.create(({ data, request, title }) => {
                     <Input name="total" type="number"  label="Total" disabled />
                 </Grid>
                 <Grid item xs={12} sm={6} md={8}>
-                    <TextArea name="nota" label="Nota" />
+                    <TextArea name="note" label="Nota" />
                 </Grid>
                 <Grid item xs={12} sm={12} md={6}>
                     <CheckBox name="status" label="Estado" />

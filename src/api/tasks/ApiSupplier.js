@@ -9,6 +9,10 @@ const apiSupplier = {
         return fnQuery(`?PageNumber=${page}&PageSize=${size}`);
     },
     getById: useAxiosQuery('get', '/supplier', 'supplier-only'),
+    getByCategory: (selected, page) => {
+        const fnQuery = useAxiosQuery('get', '/supplier', 'category-items');
+        return fnQuery(`/${selected}/category?PageNumber=${page}&PageSize=10`);
+    },
 };
 
 export default apiSupplier;

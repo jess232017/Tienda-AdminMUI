@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid';
 
 //Owned
 import FormDialog from '@/common/FormDialog';
-import { apiSupplier, apiProduct } from '../../../api/tasks';
+import { apiLote, apiSupplier, apiProduct } from '../../../api/tasks';
 import { Input, Select, TextArea, CheckBox } from '@/common/control';
 
 // supplierId quantity  unitPrice  totalPrice  code  expireAt  note soldOut
