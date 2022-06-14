@@ -23,7 +23,14 @@ const columns = [
     { field: 'userId', headerName: 'ID Usuario', width: 100 },
     { field: 'amount', headerName: 'Cantidad', width: 100 },
     { field: 'reason', headerName: 'Motivo', width: 150 },
-    { field: 'type', headerName: 'Ingreso(0) / Egreso(1)', width: 170 },
+    {
+        field: 'type',
+        headerName: 'Tipo',
+        width: 170,
+        valueFormatter: (value) => {
+            return value === '0' ? 'Ingreso' : 'Egreso';
+        },
+    },
     { field: 'note', headerName: 'Observacion', width: 100 },
     { field: 'CreatedAt', headerName: 'Fecha de creacion', width: 140 },
     { field: 'UpdatedAt', headerName: 'Fecha de actualizacion', width: 140 },

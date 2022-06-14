@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 //control
 import { useForm } from 'react-hook-form';
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
-import { useAuthUser } from 'react-auth-kit';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -12,7 +11,6 @@ import * as Yup from 'yup';
 import Grid from '@mui/material/Grid';
 
 //Owned
-import { uploadImage } from '@/api';
 import FormDialog from '@/common/FormDialog';
 import { Input, Select, Uploader, TextArea, CheckBox } from '@/common/control';
 
@@ -44,9 +42,6 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
     //modal handle
     const modal = useModal();
 
-    const auth = useAuthUser()();
-    console.log(auth);
-
     //validator
     const methods = useForm({
         resolver: yupResolver(validationSchema),
@@ -57,7 +52,7 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
 
     const onSubmit = async (data) => {
         const { value } = data?.type;
-        const final = { ...data, UserId: auth.userCode, type: value };
+        const final = { ...data, type: value };
         console.log('final', final);
 
         mutate(final, {
