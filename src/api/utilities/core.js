@@ -19,15 +19,17 @@ const useAxiosQuery =
                 console.log('error', JSON.stringify(error));
                 const bodyError = error?.response?.data?.error;
 
-                Swal.fire({
-                    title: 'Error!',
-                    text: bodyError?.message2,
-                    icon: 'error',
-                    confirmButtonText: 'OK',
-                    toast: true,
-                    timer: 4000,
-                    timerProgressBar: true,
-                });
+                if (import.meta.env.VITE_API_URL === 'true') {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: bodyError?.message2,
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                        toast: true,
+                        timer: 4000,
+                        timerProgressBar: true,
+                    });
+                }
                 console.log('backend-error', bodyError?.message2);
             },
         });

@@ -35,8 +35,6 @@ const FormCategory = NiceModal.create(({ data, request: { mutate }, title }) => 
     const [options, setOptions] = useState([]);
     const { data: categories, loading } = apiCategory.get(1, 100);
 
-    console.log('categories', categories);
-
     //validator
     const methods = useForm({
         shouldUnregister: true,

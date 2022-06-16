@@ -84,10 +84,10 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
                     <Select name="type" label="Tipo*" required options={optionType} />
                 </Grid>
                 <Grid item xs={12} sm={12}>
-                    <TextArea required label="Nota*" name="note" type="text" placeholder="Escribe una nota breve" />
+                    <TextArea required label="Motivo*" name="reason" type="text" placeholder="Escribe un breve motivo" />
                 </Grid>
                 <Grid item xs={12} sm={12}>
-                    <TextArea required label="Motivo*" name="reason" type="text" placeholder="Escribe un breve motivo" />
+                    <TextArea required label="Nota*" name="note" type="text" placeholder="Escribe una nota breve" />
                 </Grid>
                 <Grid item xs={12} sm={4}>
                     <Input required label="Codigo" name="id" disabled type="hidden" />

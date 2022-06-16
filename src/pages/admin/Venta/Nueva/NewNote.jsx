@@ -34,7 +34,7 @@ const NewNote = NiceModal.create(({ note, setNote }) => {
 
     return (
         <Dialog
-            title="Agregar comentario"
+            title="Ingresar datos"
             maxWidth="lg"
             modal={modal}
             actions={

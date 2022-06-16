@@ -15,6 +15,7 @@ import TextField from '@mui/material/TextField';
 //icon
 import DeleteIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import ImageTwoToneIcon from '@mui/icons-material/ImageTwoTone';
 
 //owned
 import UriName from '@/common/global/UriName';
@@ -57,12 +58,9 @@ const GridItem = ({ data, store }) => {
                     width: '100%',
                 }}
             >
-                <Avatar
-                    variant="rounded"
-                    alt={name}
-                    src={image}
-                    sx={{ width: '70px', height: '70px', border: '1px solid #dee2e6' }}
-                />
+                <Avatar variant="rounded" alt={name} src={image} sx={{ width: '70px', height: '70px', border: '1px solid #dee2e6' }}>
+                    <ImageTwoToneIcon />
+                </Avatar>
                 <Box ml={1} width="100%" display="flex" flexDirection="column">
                     <UriName uri={`/producto?id=${id}`}>{name}</UriName>
                     <Typography variant="subtitle" mb={1}>
