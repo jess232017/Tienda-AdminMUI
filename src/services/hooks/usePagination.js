@@ -12,7 +12,7 @@ const usePagination = (api, columns) => {
     const [selected, setSelected] = useState({});
     const [selectionModel, setSelectionModel] = useState([]);
 
-    const { data, isLoading: loading, isError } = api.get(page +1, size);
+    const { data, isLoading: loading, isError } = api.get(page + 1, size);
 
     useEffect(() => {
         if (data != null) {
@@ -23,7 +23,7 @@ const usePagination = (api, columns) => {
     }, [data]);
 
     const onPageChange = useCallback((page) => {
-        console.log('pagepagepagepage',page)
+        console.log('pagepagepagepage', page);
         setPage(page);
     }, []);
 

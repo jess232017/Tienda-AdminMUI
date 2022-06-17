@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Select from 'react-select';
+import { useTranslation, Trans } from 'react-i18next';
 
 import { styled } from '@mui/system';
 import Grid from '@mui/material/Grid';
@@ -17,28 +18,54 @@ import SummarizeIcon from '@mui/icons-material/AccessibilityNewTwoTone';
 import PageCard from '@/common/PageCard';
 import useStore from '@/services/context/sidebar';
 
-const ReportBox = styled(Stack)({
+const ReportBox = styled(Stack)(({ theme }) => ({
     paddingTop: '1rem',
     paddingLeft: '1.5rem',
     paddingRight: '1.5rem',
     paddingBottom: '1.5rem',
     height: '100%',
-    backgroundColor: '#f9f8fc',
+    backgroundColor: theme.palette.background.paperSecondary,
     borderRadius: '.3rem',
     '&:hover': {
         transition: 'all .2s ease-out',
         transform: 'translate(0, -6px)',
         boxShadow: '0 0.25rem 0.25rem rgb(0 0 0 / 10%) !important',
     },
-});
+}));
+
+const optionLanguage = [
+    {
+        label: 'Ingles',
+        value: 'en',
+    },
+    {
+        label: 'Español',
+        value: 'es',
+    },
+];
 
 const Accessibility = () => {
+    const { t, i18n } = useTranslation();
     const { show, setLocale, setFont, setDarkMode, setDyslexic } = useStore();
+    const [language, setLanguage] = useState({});
+
+    const changeLanguage = (current) => {
+        setLanguage(current);
+        setLocale(current.value);
+        i18n.changeLanguage(current.value);
+    };
+
+    useEffect(() => {
+        if (Object.entries(language).length <= 0) {
+            const current = optionLanguage.find(({ value }) => value === i18n.language);
+            setLanguage(current);
+        }
+    }, [i18n.language]);
 
     return (
         <PageCard
             headerProps={{
-                title: 'Accessibilidad',
+                title: t('title'),
                 subheader: '',
                 avatar: <SummarizeIcon />,
             }}
@@ -47,10 +74,10 @@ const Accessibility = () => {
                 <Grid item xs={12} sm={6} md={4} p={2}>
                     <ReportBox component="article" spacing={2} justifyContent="space-between">
                         <Typography component="span" variant="h5">
-                            Dislexia amigable
+                            {t('dyslexia.title')}
                         </Typography>
                         <Typography component="span" variant="subtitle2">
-                            Brinda una experencia de lectura más fluida y facil, tolerable para personas con dislexia.
+                            {t('dyslexia.description')}
                         </Typography>
                         <Button fullWidth={false} onClick={setDyslexic} endIcon={<NavigateNextIcon />} variant="outlined">
                             {show?.dyslexic ? 'Desactivar' : 'Activar'}
@@ -60,10 +87,10 @@ const Accessibility = () => {
                 <Grid item xs={12} sm={6} md={4} p={2}>
                     <ReportBox component="article" spacing={2} justifyContent="space-between">
                         <Typography component="span" variant="h5">
-                            Modo Oscuro
+                            {t('darkMode.title')}
                         </Typography>
                         <Typography component="span" variant="subtitle2">
-                            Reduce la fatiga visual ocasionada por observar por mucho tiempo la pantalla.
+                            {t('darkMode.description')}
                         </Typography>
                         <Button fullWidth={false} onClick={setDarkMode} endIcon={<NavigateNextIcon />} variant="outlined">
                             {show?.darkMode ? 'Desactivar' : 'Activar'}
@@ -73,21 +100,30 @@ const Accessibility = () => {
                 <Grid item xs={12} sm={6} md={4} p={2}>
                     <ReportBox component="article" spacing={2} justifyContent="space-between">
                         <Typography component="span" variant="h5">
-                            Idioma
+                            {t('language.title')}
                         </Typography>
                         <Typography component="span" variant="subtitle2">
-                            Seleccione el idioma de su preferencia.
+                            {t('language.description')}
                         </Typography>
-                        <Select placeholder="Seleccionar" />
+                        <Select
+                            value={language}
+                            defaultValue={{
+                                label: 'Español',
+                                value: 'es',
+                            }}
+                            options={optionLanguage}
+                            placeholder="Seleccionar"
+                            onChange={changeLanguage}
+                        />
                     </ReportBox>
                 </Grid>
                 <Grid item xs={12} sm={6} md={4} p={2}>
                     <ReportBox component="article" spacing={2} justifyContent="space-between">
                         <Typography component="span" variant="h5">
-                            Escalar fuente
+                            {t('scale.title')}
                         </Typography>
                         <Typography component="span" variant="subtitle2">
-                            Aumenta o reduce el tamaño de los textos mostrados en pantalla
+                            {t('scale.description')}
                         </Typography>
                         <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
                             <Slider

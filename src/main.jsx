@@ -6,6 +6,9 @@ import { AuthProvider } from 'react-auth-kit';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
+//languages
+import './i18n';
+
 //Theme
 import 'react-phone-input-2/lib/high-res.css';
 import 'react-toastify/dist/ReactToastify.css';

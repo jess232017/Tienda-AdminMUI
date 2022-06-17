@@ -11,9 +11,7 @@ import * as Yup from 'yup';
 import Grid from '@mui/material/Grid';
 
 //Owned
-import { uploadImage } from '@/api';
 import FormDialog from '@/common/FormDialog';
-import apiProduct from '@/api/tasks/ApiProduct';
 import apiCategoria from '@/api/tasks/ApiCategory';
 import apiBrand from '@/api/tasks/ApiBrand';
 import { Input, Select, Uploader, TextArea, CheckBox } from '@/common/control';
@@ -23,11 +21,11 @@ const validationSchema = Yup.object().shape({
     name: Yup.string()
         .required('El nombre es requerido')
         .min(3, 'El nombre debe tener al menos 3 caracteres')
-        .max(40, 'El nombre no debe exceder los 40 caracteres'),
+        .max(50, 'El nombre no debe exceder los 40 caracteres'),
     slug: Yup.string()
         .required('El slug es requerido')
         .min(3, 'El slug debe tener al menos 3 caracteres')
-        .max(10, 'El slug no debe exceder los 10 caracteres'),
+        .max(60, 'El slug no debe exceder los 50 caracteres'),
     description: Yup.string()
         .required('La descripcion es requerida')
         .min(3, 'La descripcion debe tener al menos 3 caracteres')
@@ -66,6 +64,14 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
     const methods = useForm({
         resolver: yupResolver(validationSchema),
     });
+    const txtName = methods.watch('name', '');
+    methods.setValue(
+        'slug',
+        txtName
+            ?.toLowerCase()
+            ?.replace(/ /g, '-')
+            ?.replace(/[^\w-]+/g, '')
+    );
 
     //Apis
     const { mutate } = request;

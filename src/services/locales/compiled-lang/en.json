@@ -1,6 +1,25 @@
 {
-    "title": "Multi Language",
-    "home": "Home",
-    "change": "Change Language",
-    "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiatnulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollitanim id est laborum."
+    "translation": {
+        "title": "Accessibility",
+        "dyslexia": {
+            "title": "Dyslexia friendly",
+            "description": "Provides a smoother and easier reading experience tolerable for people with dyslexia."
+        },
+        "darkMode": {
+            "title": "Dark Mode",
+            "description": "Reduces eyestrain caused by looking at the screen for a long time."
+        },
+        "language": {
+            "title": "Language",
+            "description": "Select the language of your preference."
+        },
+        "scale": {
+            "title": "Scale Font",
+            "description": "Increase or reduce the size of the texts displayed on the screen"
+        },
+        "option": {
+            "title": "",
+            "description": ""
+        }
+    }
 }

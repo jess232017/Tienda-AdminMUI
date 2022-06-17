@@ -38,7 +38,7 @@ const validationSchema = Yup.object().shape({
         .required('El codigo de lote es requerido')
         .min(3, 'El codigo de lote debe tener al menos 3 caracteres')
         .max(10, 'El codigo de lote no debe exceder los 10 caracteres'),
-    expireAt: Yup.date().notRequired(),
+    expireAt: Yup.date().typeError('Ingrese una fecha validad'),
     note: Yup.string().notRequired(),
     soldOut: Yup.bool().notRequired(),
 });

@@ -14,8 +14,6 @@ import FormDialog from '@/common/FormDialog';
 import { Input, Select, TextArea, CheckBox } from '@/common/control';
 import { apiProduct, apiLote } from '../../../api/tasks';
 
-
-
 // supplierId quantity  unitPrice  totalPrice  code  expireAt  note soldOut
 const validationSchema = Yup.object().shape({
     reason: Yup.object({
@@ -39,7 +37,6 @@ const validationSchema = Yup.object().shape({
         .required('El codigo de lote es requerido')
         .min(3, 'El codigo de lote debe tener al menos 3 caracteres')
         .max(10, 'El codigo de lote no debe exceder los 10 caracteres'),*/
-    expireAt: Yup.date().notRequired(),
     note: Yup.string().notRequired(),
     soldOut: Yup.bool().notRequired(),
 });
@@ -57,7 +54,7 @@ const optionReason = [
         label: 'Estraviado',
         value: 2,
     },
-  
+
     {
         label: 'Devuelto',
         value: 3,
@@ -99,7 +96,7 @@ const FormInventario = NiceModal.create(({ data, request, title }) => {
     useEffect(() => {
         if (lotes?.data) {
             const { data } = lotes;
-            const aux = data?.map(({ id, product, code }) => ({ label: `${product} - ${code}`, value: id }))
+            const aux = data?.map(({ id, product, code }) => ({ label: `${product} - ${code}`, value: id }));
             setOptLotes(aux);
         }
     }, [lotes]);
@@ -112,20 +109,23 @@ const FormInventario = NiceModal.create(({ data, request, title }) => {
             subTotal: data?.subTotal || '',
             total: data?.total || '',
             note: data?.note || '',
-        }
+        };
         methods.reset(defaultValues);
     }, [data]);
 
     const onSubmit = (data) => {
         const loteId = data.loteId.value;
         const reason = parseInt(data.reason.value);
-        console.log({...data,reason , loteId})
-        mutate({...data, reason, loteId}, {
-            onSuccess: () => {
-                methods.reset({});
-                modal.hide();
-            },
-        });
+        console.log({ ...data, reason, loteId });
+        mutate(
+            { ...data, reason, loteId },
+            {
+                onSuccess: () => {
+                    methods.reset({});
+                    modal.hide();
+                },
+            }
+        );
     };
 
     return (
@@ -147,13 +147,13 @@ const FormInventario = NiceModal.create(({ data, request, title }) => {
                     <Input name="unitPrice" type="number" label="Costo Unitario" />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
-                    <Input name="quantity" type="number"  label="Cantidad" />
+                    <Input name="quantity" type="number" label="Cantidad" />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
-                    <Input name="subTotal" type="number"  label="SubTotal" disabled />
+                    <Input name="subTotal" type="number" label="SubTotal" disabled />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
-                    <Input name="total" type="number"  label="Total" disabled />
+                    <Input name="total" type="number" label="Total" disabled />
                 </Grid>
                 <Grid item xs={12} sm={6} md={8}>
                     <TextArea name="note" label="Nota" />

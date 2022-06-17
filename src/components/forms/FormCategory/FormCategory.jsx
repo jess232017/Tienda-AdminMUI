@@ -7,6 +7,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Stack from '@mui/material/Stack';
 
+//muiIcon
+import CategoryIcon from '@mui/icons-material/Category';
+
 //Owned
 import FormDialog from '@/common/FormDialog';
 import { Input, CheckBox, TextArea, Select } from '@/common/control';
@@ -25,7 +28,7 @@ const validationSchema = Yup.object().shape({
     slug: Yup.string()
         .required('El slug es requerido')
         .min(3, 'El slug debe tener al menos 3 caracteres')
-        .max(20, 'El slug no debe exceder los 10 caracteres'),
+        .max(60, 'El slug no debe exceder los 50 caracteres'),
     // id: Yup.number('Id debe ser de tipo entero').notRequired(),
 });
 
@@ -40,6 +43,14 @@ const FormCategory = NiceModal.create(({ data, request: { mutate }, title }) => 
         shouldUnregister: true,
         resolver: yupResolver(validationSchema),
     });
+    const txtName = methods.watch('name', '');
+    methods.setValue(
+        'slug',
+        txtName
+            ?.toLowerCase()
+            ?.replace(/ /g, '-')
+            ?.replace(/[^\w-]+/g, '')
+    );
 
     const onSubmit = (data) => {
         mutate(data, {
@@ -73,9 +84,24 @@ const FormCategory = NiceModal.create(({ data, request: { mutate }, title }) => 
     return (
         <FormDialog title={`${title} categoria`} maxWidth="xs" methods={methods} callback={methods.handleSubmit(onSubmit)} modal={modal}>
             <Stack spacing={2}>
-                <Input required label="Nombre*" name="name" type="text" placeholder="Escribe el nombre de la categoria" />
+                <Input
+                    required
+                    label="Nombre*"
+                    name="name"
+                    type="text"
+                    autoComplete="new-password"
+                    startAdornment={<CategoryIcon fontSize="small" color="secondary" />}
+                    placeholder="Escribe el nombre de la categoria"
+                />
+                <Input
+                    required
+                    label="Slug*"
+                    name="slug"
+                    type="text"
+                    autoComplete="new-password"
+                    placeholder="Escribe una frase clave de busqueda"
+                />
                 <Select label="Padre" name="parentId" loading={loading} options={options} />
-                <Input required label="Slug*" name="slug" type="text" placeholder="Escribe una frase clave de busqueda" />
                 <TextArea
                     required
                     label="Descripción*"

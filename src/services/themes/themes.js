@@ -11,6 +11,7 @@ const theme = (customization) => {
     let textHint;
     let background;
     let paper;
+    let paperSecondary;
     let menuCaption;
     let textInversePrimary;
     let header;
@@ -24,6 +25,7 @@ const theme = (customization) => {
 
         background = value.backgoundDark;
         paper = value.paperDark;
+        paperSecondary = value.paperSecondaryDark;
         header = value.paperDark;
     } else {
         textPrimary = textInversePrimary = menuCaption = value.textPrimary;
@@ -33,6 +35,7 @@ const theme = (customization) => {
 
         background = value.backgound;
         paper = value.paper;
+        paperSecondary = value.paperSecondary;
         header = value.primary;
     }
     let fontFamily = customization.dyslexic ? ['opendyslexic', 'sans-serif'].join(',') : ['Poppins', 'sans-serif'].join(',');
@@ -94,6 +97,7 @@ const theme = (customization) => {
             },
             background: {
                 paper: paper,
+                paperSecondary: paperSecondary,
                 default: background,
             },
         },

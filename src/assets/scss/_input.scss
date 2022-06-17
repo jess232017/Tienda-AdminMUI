@@ -50,6 +50,26 @@
         }
     }
 
+    &.uploader2 {
+        position: relative;
+        display: inline-flex;
+        width: 110px;
+        height: 110px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        vertical-align: middle;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0.35rem;
+        border: 1px dashed #ccd1d6;
+        overflow: hidden;
+        background-color: #f8f9fa;
+        input {
+            display: none;
+        }
+    }
+
     .relative {
         position: relative;
         .left-icon {
