@@ -120,7 +120,7 @@ const MainLayout = () => {
                                 element={
                                     <RequireRole roles={[ROLES.administrador, ROLES.vendedor, ROLES.bodeguero]} children={<Accountant />} />
                                 }
-                            />      
+                            />
 
                             <Route
                                 path="categoria"

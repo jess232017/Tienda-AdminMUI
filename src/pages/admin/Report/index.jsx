@@ -1,8 +1,7 @@
 import React from 'react';
-import PageCard from '@/common/PageCard';
+import { useNavigate } from 'react-router-dom';
 
 import { styled } from '@mui/system';
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -14,8 +13,7 @@ import SummarizeIcon from '@mui/icons-material/SummarizeTwoTone';
 
 //owned
 import reports from './data';
-import { show } from '@ebay/nice-modal-react';
-import ReportViewer from '@/common/ReportViewer';
+import PageCard from '@/common/PageCard';
 
 const ReportBox = styled(Stack)({
     paddingTop: '1rem',
@@ -33,6 +31,12 @@ const ReportBox = styled(Stack)({
 });
 
 const Reporte = () => {
+    const navigate = useNavigate();
+
+    const handleClick = (url, subtitle) => {
+        navigate('ver', { state: { url, subtitle } });
+    };
+
     return (
         <PageCard
             headerProps={{
@@ -42,7 +46,7 @@ const Reporte = () => {
             }}
         >
             <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
-                {reports.map(({ title, subtitle, link }, index) => (
+                {reports.map(({ title, subtitle, url }, index) => (
                     <Grid item xs={2} sm={4} md={4} key={index} p={2}>
                         <ReportBox component="article" spacing={2} justifyContent="space-between">
                             <Typography component="span" variant="h5">
@@ -53,7 +57,7 @@ const Reporte = () => {
                             </Typography>
                             <Button
                                 fullWidth={false}
-                                onClick={() => show(ReportViewer, { title, link })}
+                                onClick={() => handleClick(url, subtitle)}
                                 endIcon={<NavigateNextIcon />}
                                 variant="outlined"
                             >
