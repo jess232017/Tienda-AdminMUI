@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useTranslation } from 'react-i18next';
 //controls
 import { Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
@@ -39,6 +39,8 @@ const columns = [
 ];
 
 const Session = () => {
+    
+    const { t } = useTranslation();
     const { control, data, selected, isLoading, isError } = usePagination(api, columns);
     const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected);
 
@@ -50,8 +52,8 @@ const Session = () => {
     return (
         <PageCard
             headerProps={{
-                title: 'Gestión de Sesiones',
-                subheader: 'Listado de sesiones',
+                title:  t('session.title'),
+                subheader: t('session.subheader'),
                 avatar: <MonitorIcon />,
             }}
             isLoading={isLoading}
@@ -81,7 +83,7 @@ const Session = () => {
                     Eliminar
         </Button>*/}
 
-                <DropButton id="reporte" title="reporte" startIcon={<AnalyticsIcon />}>
+                <DropButton id="reporte" title={t('session.report')} startIcon={<AnalyticsIcon />}>
                     <MenuItem startIcon={<AnalyticsIcon />} onClick={onClickExpiring} children="Por vencer" />
                     <MenuItem startIcon={<AnalyticsIcon />} onClick={onClickExpired} children="Vencidos" />
                     <MenuItem startIcon={<AnalyticsIcon />} onClick={handlePrint} children="Imprimir" />

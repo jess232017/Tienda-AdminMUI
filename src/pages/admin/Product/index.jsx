@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 // controls
 import { Button } from '@mui/material';
@@ -33,6 +34,7 @@ const columns = [
 ];
 
 const Product = () => {
+    const { t } = useTranslation();
     const { control, selected, isLoading, isError, rowCount } = usePagination(api, columns);
     const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected);
 
@@ -43,8 +45,8 @@ const Product = () => {
     return (
         <PageCard
             headerProps={{
-                title: 'Gestión de productos',
-                subheader: 'Listado de productos',
+                title:  t('products.title'),
+                subheader: t('products.subheader'),
                 avatar: <CollectionsBookmarkIcon />,
             }}
             isLoading={isLoading}
@@ -52,7 +54,7 @@ const Product = () => {
         >
             <Toolbar onClickPrint={handlePrint} onClickChooser={handleChooser}>
                 <Button variant="outlined" size="small" onClick={handleAdd} startIcon={<AddIcon />}>
-                    Agregar
+                {t('crud.add')}
                 </Button>
                 <Button
                     variant="outlined"
@@ -61,7 +63,7 @@ const Product = () => {
                     onClick={handleEdit}
                     startIcon={<EditIcon />}
                 >
-                    Editar
+                    {t('crud.edit')}
                 </Button>
                 <Button
                     variant="outlined"
@@ -70,7 +72,7 @@ const Product = () => {
                     onClick={handleDelete}
                     startIcon={<DeleteIcon />}
                 >
-                    Eliminar
+                    {t('crud.delete')}
                 </Button>
             </Toolbar>
 

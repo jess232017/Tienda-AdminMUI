@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 //controls
 import { Button } from '@mui/material';
@@ -49,6 +50,8 @@ const columns = [
 ];
 
 const Employee = () => {
+    
+    const { t } = useTranslation();
     const { control, selected, isLoading, isError } = usePagination(apiEmployee, columns);
     const { handleAdd, handleEdit, handleDelete } = useCrud(apiEmployee, Form, selected);
 
@@ -57,8 +60,8 @@ const Employee = () => {
     return (
         <PageCard
             headerProps={{
-                title: 'Gestión de Empleados',
-                subheader: 'Listado de Empleados',
+                title:  t('employee.title'),
+                subheader: t('employee.subheader'),
                 avatar: <UserIcon />,
             }}
             isLoading={isLoading}
@@ -66,7 +69,7 @@ const Employee = () => {
         >
             <Toolbar onClickChooser={handleChooser}>
                 <Button size="small" variant="outlined" onClick={handleAdd} startIcon={<AddIcon />}>
-                    Agregar
+                    {t('crud.add')}
                 </Button>
                 <Button
                     variant="outlined"
@@ -75,7 +78,7 @@ const Employee = () => {
                     onClick={handleEdit}
                     startIcon={<EditIcon />}
                 >
-                    Editar
+                    {t('crud.edit')}
                 </Button>
                 <Button
                     variant="outlined"
@@ -84,7 +87,7 @@ const Employee = () => {
                     onClick={handleDelete}
                     startIcon={<DeleteIcon />}
                 >
-                    Eliminar
+                    {t('crud.delete')}
                 </Button>
             </Toolbar>
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 //controls
 import { Button } from '@mui/material';
@@ -49,6 +50,8 @@ const columns = [
 ];
 
 const Inventario = () => {
+    
+    const { t } = useTranslation();
     const { control, data, selected, isLoading, isError } = usePagination(api, columns);
     const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected);
 
@@ -62,8 +65,8 @@ const Inventario = () => {
     return (
         <PageCard
             headerProps={{
-                title: 'Gestión de inventarios',
-                subheader: 'Listado de inventarios',
+                title:  t('inventory.title'),
+                subheader: t('inventory.subheader'),
                 avatar: <InventoryIcon />,
             }}
             isLoading={isLoading}
@@ -71,7 +74,7 @@ const Inventario = () => {
         >
             <Toolbar onClickChooser={handleChooser}>
                 <Button variant="outlined" size="small" onClick={handleAdd} startIcon={<AddIcon />}>
-                    Agregar
+                {t('crud.add')}
                 </Button>
 
                 <Button
@@ -81,7 +84,7 @@ const Inventario = () => {
                     onClick={handleEdit}
                     startIcon={<EditIcon />}
                 >
-                    Editar
+                    {t('crud.edit')}
                 </Button>
                 <Button
                     variant="outlined"
@@ -90,10 +93,10 @@ const Inventario = () => {
                     onClick={handleDelete}
                     startIcon={<DeleteIcon />}
                 >
-                    Eliminar
+                    {t('crud.delete')}
                 </Button>
 
-                <DropButton id="reporte" title="reporte" startIcon={<AnalyticsIcon />}>
+                <DropButton id="reporte" title={t('inventory.report')} startIcon={<AnalyticsIcon />}>
                     <MenuItem startIcon={<AnalyticsIcon />} onClick={onClickExpiring} children="Por vencer" />
 
                     <MenuItem startIcon={<AnalyticsIcon />} onClick={onClickExpired} children="Vencidos" />

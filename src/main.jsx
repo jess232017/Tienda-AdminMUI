@@ -7,7 +7,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 //languages
-import './i18n';
+import './services/locales/i18n';
 
 //Theme
 import 'react-phone-input-2/lib/high-res.css';

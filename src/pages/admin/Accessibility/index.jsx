@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import Select from 'react-select';
-import { useTranslation, Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import { styled } from '@mui/system';
 import Grid from '@mui/material/Grid';
@@ -46,8 +46,8 @@ const optionLanguage = [
 
 const Accessibility = () => {
     const { t, i18n } = useTranslation();
-    const { show, setLocale, setFont, setDarkMode, setDyslexic } = useStore();
     const [language, setLanguage] = useState({});
+    const { show, setLocale, setFont, setDarkMode, setDyslexic } = useStore();
 
     const changeLanguage = (current) => {
         setLanguage(current);
@@ -65,7 +65,7 @@ const Accessibility = () => {
     return (
         <PageCard
             headerProps={{
-                title: t('title'),
+                title: t('accesibility.title'),
                 subheader: '',
                 avatar: <SummarizeIcon />,
             }}
@@ -74,43 +74,39 @@ const Accessibility = () => {
                 <Grid item xs={12} sm={6} md={4} p={2}>
                     <ReportBox component="article" spacing={2} justifyContent="space-between">
                         <Typography component="span" variant="h5">
-                            {t('dyslexia.title')}
+                            {t('accesibility.dyslexia.title')}
                         </Typography>
                         <Typography component="span" variant="subtitle2">
-                            {t('dyslexia.description')}
+                            {t('accesibility.dyslexia.description')}
                         </Typography>
                         <Button fullWidth={false} onClick={setDyslexic} endIcon={<NavigateNextIcon />} variant="outlined">
-                            {show?.dyslexic ? 'Desactivar' : 'Activar'}
+                            {t(show?.dyslexic ? 'accesibility.darkMode.disable' : 'accesibility.darkMode.activate')}
                         </Button>
                     </ReportBox>
                 </Grid>
                 <Grid item xs={12} sm={6} md={4} p={2}>
                     <ReportBox component="article" spacing={2} justifyContent="space-between">
                         <Typography component="span" variant="h5">
-                            {t('darkMode.title')}
+                            {t('accesibility.darkMode.title')}
                         </Typography>
                         <Typography component="span" variant="subtitle2">
-                            {t('darkMode.description')}
+                            {t('accesibility.darkMode.description')}
                         </Typography>
                         <Button fullWidth={false} onClick={setDarkMode} endIcon={<NavigateNextIcon />} variant="outlined">
-                            {show?.darkMode ? 'Desactivar' : 'Activar'}
+                            {t(show?.darkMode ? 'accesibility.darkMode.disable' : 'accesibility.darkMode.activate')}
                         </Button>
                     </ReportBox>
                 </Grid>
                 <Grid item xs={12} sm={6} md={4} p={2}>
                     <ReportBox component="article" spacing={2} justifyContent="space-between">
                         <Typography component="span" variant="h5">
-                            {t('language.title')}
+                            {t('accesibility.language.title')}
                         </Typography>
                         <Typography component="span" variant="subtitle2">
-                            {t('language.description')}
+                            {t('accesibility.language.description')}
                         </Typography>
                         <Select
                             value={language}
-                            defaultValue={{
-                                label: 'Español',
-                                value: 'es',
-                            }}
                             options={optionLanguage}
                             placeholder="Seleccionar"
                             onChange={changeLanguage}
@@ -120,10 +116,10 @@ const Accessibility = () => {
                 <Grid item xs={12} sm={6} md={4} p={2}>
                     <ReportBox component="article" spacing={2} justifyContent="space-between">
                         <Typography component="span" variant="h5">
-                            {t('scale.title')}
+                            {t('accesibility.scale.title')}
                         </Typography>
                         <Typography component="span" variant="subtitle2">
-                            {t('scale.description')}
+                            {t('accesibility.scale.description')}
                         </Typography>
                         <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
                             <Slider

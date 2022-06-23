@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { useTranslation } from 'react-i18next';
 import { Grid, Card, CardHeader, CardContent, Hidden, Typography, Divider, LinearProgress } from '@mui/material';
 
 import { styled } from '@mui/system';
@@ -33,6 +35,8 @@ const FlatCardBody = styled(CardContent)({
     },
 });
 
+    
+
 const FlatCardBlock = styled(Grid)(({ theme }) => ({
     padding: '25px 25px',
     borderLeft: '1px solid' + theme.palette.background.default,
@@ -47,6 +51,8 @@ const FlatCardBlock = styled(Grid)(({ theme }) => ({
 
 const Default = () => {
     const theme = useTheme();
+    
+const { t } = useTranslation();
 
     return (
         <Grid container spacing={gridSpacing}>
@@ -54,10 +60,11 @@ const Default = () => {
                 <Grid container spacing={gridSpacing}>
                     <Grid item lg={3} sm={6} xs={12}>
                         <ReportCard
-                            primary="C$30200"
-                            secondary="Todas las ventas"
+                            
+                            primary= {t('dashboard.primary')}
+                            secondary={t('dashboard.secondary')}
                             color={theme.palette.warning.main}
-                            footerData="10% de ganancias"
+                            footerData={t('dashboard.footerdata')}
                             iconPrimary={MonetizationOnTwoTone}
                             iconFooter={TrendingUpIcon}
                         />
@@ -65,9 +72,9 @@ const Default = () => {
                     <Grid item lg={3} sm={6} xs={12}>
                         <ReportCard
                             primary={145}
-                            secondary="Lotes vencidos"
+                            secondary={t('dashboard1.secondary')}
                             color={theme.palette.error.main}
-                            footerData="28% de perdidas"
+                            footerData={t('dashboard1.footerdata')}
                             iconPrimary={CalendarTodayTwoTone}
                             iconFooter={TrendingDownIcon}
                         />
@@ -75,9 +82,9 @@ const Default = () => {
                     <Grid item lg={3} sm={6} xs={12}>
                         <ReportCard
                             primary="290+"
-                            secondary="Clientes nuevos"
+                            secondary={t('dashboard2.secondary')}
                             color={theme.palette.success.main}
-                            footerData="1k de clientes"
+                            footerData={t('dashboard2.footerdata')}
                             iconPrimary={DescriptionTwoTone}
                             iconFooter={TrendingUpIcon}
                         />
@@ -85,9 +92,9 @@ const Default = () => {
                     <Grid item lg={3} sm={6} xs={12}>
                         <ReportCard
                             primary={500}
-                            secondary="Interacciones"
+                            secondary={t('dashboard3.secondary')}
                             color={theme.palette.primary.main}
-                            footerData="1k de interacciones"
+                            footerData={t('dashboard3.footerdata')}
                             iconPrimary={ThumbUpAltTwoTone}
                             iconFooter={TrendingUpIcon}
                         />
@@ -101,7 +108,7 @@ const Default = () => {
                             <CardHeader
                                 title={
                                     <Typography variant="h5" gutterBottom component="div">
-                                        Nuevos miembros
+                                        {t('dashboard.title')}
                                     </Typography>
                                 }
                             />
@@ -115,7 +122,7 @@ const Default = () => {
                             <CardHeader
                                 title={
                                     <Typography variant="h5" gutterBottom component="div">
-                                        Últimas transacciones
+                                        {t('dashboard.title2')}
                                     </Typography>
                                 }
                             />
@@ -131,17 +138,17 @@ const Default = () => {
                     <Grid item xs={12} sm={6} lg={8}>
                         <SalesLineCard
                             chartData={SalesLineCardData}
-                            title="Ventas en el dia"
+                            title={t('dashboard.title3')}
                             percentage="3%"
                             icon={<TrendingDownIcon />}
                             footerData={[
                                 {
                                     value: '$4230',
-                                    label: 'Total Vendido',
+                                    label: t('dashboard.label'),
                                 },
                                 {
                                     value: '321',
-                                    label: 'Cantidad Vendida',
+                                    label: t('dashboard.label1'),
                                 },
                             ]}
                         />
@@ -161,17 +168,17 @@ const Default = () => {
                                     <Grid item xs={12}>
                                         <SalesLineCard
                                             chartData={SalesLineCardData}
-                                            title="Ventas en el dia"
+                                            title="Ventas en el"
                                             percentage="3%"
                                             icon={<TrendingDownIcon />}
                                             footerData={[
                                                 {
                                                     value: '$4230',
-                                                    label: 'Total Vendido',
+                                                    label: 'Total Vendi',
                                                 },
                                                 {
                                                     value: '321',
-                                                    label: 'Cantidad Vendida',
+                                                    label: 'Cantidad Venda',
                                                 },
                                             ]}
                                         />

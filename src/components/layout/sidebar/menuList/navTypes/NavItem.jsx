@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { styled } from '@mui/system';
 import { Avatar, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
@@ -35,8 +36,9 @@ const styles = {
 };
 
 const NavItem = (props) => {
-    const { show, setOpen } = useStore();
     const { item, level } = props;
+    const { t } = useTranslation();
+    const { show, setOpen } = useStore();
 
     const Icon = item.icon;
     const fontSize = level > 0 ? 'inherit' : 'default';
@@ -72,13 +74,13 @@ const NavItem = (props) => {
             <ListItemText
                 primary={
                     <Typography variant={show.isOpen === item.id ? 'subtitle1' : 'body1'} color="inherit">
-                        {item.title}
+                        {t(item.title)}
                     </Typography>
                 }
                 secondary={
                     item.caption && (
                         <SubMenuCaption variant="caption" display="block" gutterBottom>
-                            {item.caption}
+                            {t(item.caption)}
                         </SubMenuCaption>
                     )
                 }
