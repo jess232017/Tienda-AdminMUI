@@ -21,26 +21,13 @@ import usePagination from '@/services/hooks/usePagination';
 import DropButton, { MenuItem } from '@/components/DropButton';
 import useCrud from '@/services/hooks/useCrud';
 
-const URL = import.meta.env.VITE_API_URL;
+const URL = import.meta.env.VITE_API_REPORT_URL;
 
-/*
-id: "66a35b22-5fea-4e6c-24d7-08da4a522d9f"
-loteId: "e91a05c3-94b4-4b2b-e708-08da4a522d94"
-reason: "Agregado"
-status: "Activo"
-quantity: 12
-unitPrice: 12
-subTotal: 0
-total: 144
-note: "Agregado nuevo lote"
-createdAt: "2022-06-09T19:56:43.8523358"
-updatedAt: "2022-06-09T19:56:43.852434"
-*/
 const columns = [
     { field: 'id', headerName: 'Codigo', width: 100 },
     { field: 'loteId', headerName: 'Id Lote', width: 100 },
     { field: 'reason', headerName: 'Motivo', width: 100 },
-    { field: 'createdAt', headerName: 'Fecha', width: 100 },
+    { field: 'createdAt', headerName: 'Fecha', type: 'dateTime', width: 100 },
     { field: 'status', headerName: 'Estado', width: 100 },
     { field: 'quantity', headerName: 'Cantidad', width: 100 },
     { field: 'unitPrice', headerName: 'Costo Unitario', width: 100 },
@@ -50,13 +37,14 @@ const columns = [
 ];
 
 const Inventario = () => {
-    
     const { t } = useTranslation();
     const { control, data, selected, isLoading, isError } = usePagination(api, columns);
     const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected);
 
-    const onClickExpiring = () => window.open(URL + '/reporte/productos/vence', '_blank').focus();
-    const onClickExpired = () => window.open(URL + '/reporte/productos/vencido', '_blank').focus();
+    const onClickExpiring = () =>
+        window.open(URL + '/3e8f9414-ef6d-4b47-9896-6b12a527be1b/Reportes/Productos%20a%20Vencer?showmyreports=1', '_blank').focus();
+    const onClickExpired = () =>
+        window.open(URL + '/f775b04a-6901-464a-be29-efd91a2695aa/Reportes/Productos%20Vencidos?showmyreports=1', '_blank').focus();
 
     const handleChooser = () => {};
 
@@ -65,7 +53,7 @@ const Inventario = () => {
     return (
         <PageCard
             headerProps={{
-                title:  t('inventory.title'),
+                title: t('inventory.title'),
                 subheader: t('inventory.subheader'),
                 avatar: <InventoryIcon />,
             }}
@@ -74,7 +62,7 @@ const Inventario = () => {
         >
             <Toolbar onClickChooser={handleChooser}>
                 <Button variant="outlined" size="small" onClick={handleAdd} startIcon={<AddIcon />}>
-                {t('crud.add')}
+                    {t('crud.add')}
                 </Button>
 
                 <Button

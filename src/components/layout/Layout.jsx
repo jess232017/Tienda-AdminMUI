@@ -17,6 +17,7 @@ import Header from './header/Header';
 import Sidebar from './sidebar/Sidebar';
 import { drawerWidth } from '@/services/constant';
 
+const Chat = React.lazy(() => import('@/pages/admin/Chat/Chat'));
 const Ventas = React.lazy(() => import('@/pages/admin/Venta'));
 const Accountant = React.lazy(() => import('@/pages/admin/Accountant'));
 const Session = React.lazy(() => import('@/pages/admin/Session'));
@@ -32,6 +33,7 @@ const Product = React.lazy(() => import('@/pages/admin/Product'));
 const Category = React.lazy(() => import('@/pages/admin/Category'));
 const Brand = React.lazy(() => import('@/pages/admin/Brand'));
 const Client = React.lazy(() => import('@/pages/admin/Client'));
+const Guide = React.lazy(() => import('@/pages/admin/Guide'));
 const Reporte = React.lazy(() => import('@/pages/admin/Report'));
 const ReportViewer = React.lazy(() => import('@/pages/admin/Report/ReportViewer'));
 const Setting = React.lazy(() => import('@/pages/admin/Setting'));
@@ -39,7 +41,7 @@ const NoFound = React.lazy(() => import('@/pages/error/NoFound'));
 
 const Main = styled('div')(({ theme }) => ({
     padding: theme.spacing(2.5),
-    height: 'calc(100% - 20px)',
+    height: 'calc(100% - 3.6rem)',
     [theme.breakpoints.down('sm')]: {
         padding: theme.spacing(2),
     },
@@ -167,6 +169,8 @@ const MainLayout = () => {
 
                             <Route path="sesion" element={<Session />} />
 
+                            <Route path="ayuda" element={<Guide />} />
+
                             <Route path="reporte" element={<RequireRole roles={[ROLES.administrador]} children={<Reporte />} />} />
 
                             <Route path="reporte/ver" element={<RequireRole roles={[ROLES.administrador]} children={<ReportViewer />} />} />
@@ -174,6 +178,9 @@ const MainLayout = () => {
                             <Route path="setting" element={<Setting />} />
 
                             <Route path="accessibilidad" element={<Accessibility />} />
+
+                            <Route path="chat" element={<Chat />} />
+                            <Route path="load" element={<Loader />} />
 
                             <Route path="*" element={<NoFound />} />
                         </Routes>

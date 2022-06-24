@@ -1,6 +1,6 @@
 const es = {
     translation: {
-        accesibility:{
+        accesibility: {
             title: 'Accesibilidad',
             dyslexia: {
                 title: 'Dislexia amigable',
@@ -20,20 +20,20 @@ const es = {
                 title: 'Escalar fuente',
                 description: 'Aumenta o reduce el tamaño de los textos mostrados en pantalla',
             },
-
-        },   
-        sidebar:{
+        },
+        sidebar: {
             search: 'Buscar',
             title: 'Sistema de gestion',
             caption: 'De inventario y ventas',
-            dashboard: "Panel de datos",
+            dashboard: 'Panel de datos',
             store: 'Tienda',
             sale: 'Ventas',
+            contacts: 'Contactos',
             products: 'Productos',
             inventory: 'Inventarios',
             category: 'Categorias',
-            brand:' Marcas',
-            session:'Sesiones',
+            brand: ' Marcas',
+            session: 'Sesiones',
             accountant: 'Contable',
             client: 'Clientes',
             person: 'Contactos',
@@ -42,18 +42,23 @@ const es = {
             tool: 'Herramientas',
             repors: 'Reportes',
             help: 'Ayuda',
-            accesibility: 'Accesibilidad'
+            accesibility: 'Accesibilidad',
         },
 
-        accountant:{
+        accountant: {
             title: 'Gestion Contable',
-            subheader: 'Listado de Contable'
+            subheader: 'Listado de Contable',
         },
 
-        crud:{
+        crud: {
             add: 'Agregar',
             edit: 'Editar',
-            delete: "Eliminar",
+            delete: 'Eliminar',
+        },
+
+        toolbar: {
+            print: 'Imprimir',
+            filter: 'Filtros',
         },
 
         sold: {
@@ -62,71 +67,69 @@ const es = {
             title2: 'En Espera',
             title3: 'Refrescar',
             title4: 'Gestión de Ventas',
-            subheader: 'Listado de Ventas'
+            subheader: 'Listado de Ventas',
         },
 
         products: {
             title: 'Gestion de Productos',
-            subheader: 'Listado de Productos'
+            subheader: 'Listado de Productos',
         },
 
-
-        category:{
+        category: {
             title: 'Gestion de Categorias',
-            subheader: 'Listado de Categorias'
+            subheader: 'Listado de Categorias',
         },
 
-        brand:{
+        brand: {
             title: 'Gestion de Marcas',
-            subheader: 'Listado de Marcas'
+            subheader: 'Listado de Marcas',
         },
 
-        category:{
+        category: {
             title: 'Gestion de Categoria',
-            subheader: 'Listado de Categorias'
+            subheader: 'Listado de Categorias',
         },
 
-        lote:{
+        lote: {
             title: 'Gestion de Lotes',
             subheader: 'Listado de Lotes',
-            report: 'Reportes'
+            report: 'Reportes',
         },
 
-        session:{
+        session: {
             title: 'Gestion de Sesiones',
             subheader: 'Listado de Sesiones',
-            report: 'Reportes'
+            report: 'Reportes',
         },
 
-        client:{
+        client: {
             title: 'Gestion de Clientes',
-            subheader: 'Listado de Clientes'
+            subheader: 'Listado de Clientes',
         },
 
-        supplier:{
+        supplier: {
             title: 'Gestion de Proveedores',
-            subheader: 'Listado de Proveedores'
+            subheader: 'Listado de Proveedores',
         },
 
-        employee:{
+        employee: {
             title: 'Gestion de Empleados',
-            subheader: 'Listado de Empleados'
+            subheader: 'Listado de Empleados',
         },
 
-        report:{
+        report: {
             title: 'Gestion de Reportes',
             subheader: 'Listado de Reportes',
-            view: 'Mirar Reporte'
+            view: 'Mirar Reporte',
         },
 
-        inventory:{
+        inventory: {
             title: 'Gestion de Inventario',
             subheader: 'Listado de Inventario',
-            report: 'Reportes'
-           
+            report: 'Reportes',
         },
 
-        dashboard:{
+        dashboard: {
             primary: '300567C$',
             secondary: 'Todas las ventas',
             footerdata: '10% de ganancias',
@@ -140,30 +143,24 @@ const es = {
             box2: 'Cantidad',
             box3: 'Estado',
             see: 'Ver',
-            cardheader: 'Lo mas Vendido'
+            cardheader: 'Lo mas Vendido',
         },
 
-                
-        dashboard1:{
+        dashboard1: {
             secondary: 'Lotes Expirados',
             footerdata: '28% de Perdidas',
         },
 
-        
-        dashboard2:{
+        dashboard2: {
             secondary: 'Nuevos Clientes',
             footerdata: '1k de Clientes',
         },
 
-
-        
-        dashboard3:{
+        dashboard3: {
             secondary: 'Interacciones',
             footerdata: '3k de Interacciones',
         },
-
-  
     },
-}
+};
 
 export default es;

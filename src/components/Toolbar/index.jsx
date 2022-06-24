@@ -32,9 +32,8 @@ const StackRight = styled(Stack)({
 });
 
 const Toolbar = ({ children, onClickChooser, onClickPrint }) => {
-
-    
     const { t } = useTranslation();
+
     return (
         <Box display="flex" justifyContent="space-between" mb={1}>
             <StackLeft>{children}</StackLeft>
@@ -42,13 +41,13 @@ const Toolbar = ({ children, onClickChooser, onClickPrint }) => {
             <StackRight>
                 {onClickPrint != null && (
                     <Button size="small" variant="outlined" onClick={onClickPrint} startIcon={<PrintIcon />}>
-                        {t('toolbar.title1')}
+                        {t('toolbar.print')}
                     </Button>
                 )}
 
                 {onClickChooser != null && (
                     <Button size="small" variant="outlined" onClick={onClickChooser} startIcon={<PictureInPictureIcon />}>
-                        {t('toolbar.title')}
+                        {t('toolbar.filter')}
                     </Button>
                 )}
                 <Search />

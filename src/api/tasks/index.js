@@ -55,6 +55,13 @@ export const apiEmployee = {
     getById: useAxiosQuery('get', '/Employee', 'Employee-only'),
 };
 
+export const apiSession = {
+    get: (page, size) => {
+        const fnQuery = useAxiosQuery('get', '/session', 'session');
+        return fnQuery(`?PageNumber=${page}&PageSize=${size}`);
+    },
+};
+
 export const apiIdentity = {
     Authenticate: useAxiosMutator('post', '/Identity/sign-in'),
     Register: useAxiosMutator('post', '/Identity/sign-up'),

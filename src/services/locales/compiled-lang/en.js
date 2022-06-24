@@ -1,6 +1,6 @@
 const en = {
     translation: {
-        accesibility:{
+        accesibility: {
             title: 'Accessibility',
             dyslexia: {
                 title: 'Dyslexia friendly',
@@ -20,19 +20,20 @@ const en = {
                 title: 'Scale Font',
                 description: 'Increase or reduce the size of the texts displayed on the screen',
             },
-        },   
-        sidebar:{
+        },
+        sidebar: {
             search: 'Search',
             title: 'Inventory management',
             caption: 'and sales system',
-            dashboard: "Dashboard",
+            dashboard: 'Dashboard',
             store: 'Store',
             sale: 'Sales',
+            contacts: 'Contacts',
             products: 'Products',
             inventory: 'Inventories',
             category: 'Categories',
-            brand:' Brands',
-            session:'Sessions',
+            brand: ' Brands',
+            session: 'Sessions',
             accountant: 'Accountants',
             client: 'Clients',
             person: 'Contacts',
@@ -41,16 +42,16 @@ const en = {
             tool: 'Tools',
             repors: 'Reports',
             help: 'Help',
-            accesibility: 'Accesibility' 
+            accesibility: 'Accesibility',
         },
-        accountant:{
+        accountant: {
             title: 'Accounting Management',
-            subheader: 'Income and expense details'
+            subheader: 'Income and expense details',
         },
-        crud:{
+        crud: {
             add: 'Add',
             edit: 'Edit',
-            delete: "Delete",
+            delete: 'Delete',
         },
 
         sold: {
@@ -59,70 +60,69 @@ const en = {
             title2: 'On  Hold',
             title3: 'Refresh',
             title4: 'Sales Management',
-            subheader: 'Sales listing'
+            subheader: 'Sales listing',
         },
 
         products: {
             title: 'Products Management',
-            subheader: 'Products listing'
-
+            subheader: 'Products listing',
         },
 
-        category:{
+        category: {
             title: 'Categories Management',
-            subheader: 'Categories listing'
+            subheader: 'Categories listing',
         },
 
-        brand:{
+        brand: {
             title: 'Brands Management',
-            subheader: 'Brand listing'
+            subheader: 'Brand listing',
         },
 
-        category:{
+        category: {
             title: 'Category Management',
-            subheader: 'Category listing'
+            subheader: 'Category listing',
         },
 
-        lote:{
+        lote: {
             title: 'Lotes Management',
             subheader: 'Lotes listing',
-            report: 'Report'
+            report: 'Report',
         },
 
-        session:{
+        session: {
             title: 'Sessions Management',
             subheader: 'Sessions listing',
-            report: 'Report'
+            report: 'Report',
         },
 
-        client:{
+        client: {
             title: 'Clients Management',
-            subheader: 'Clients listing'
+            subheader: 'Clients listing',
         },
 
-        supplier:{
+        supplier: {
             title: 'Suppliers Management',
-            subheader: 'Supplier listing'
+            subheader: 'Supplier listing',
         },
 
-        employee:{
+        employee: {
             title: 'Employees Management',
-            subheader: 'Employees listing'
+            subheader: 'Employees listing',
         },
 
-        report:{
+        report: {
             title: 'Reports Management',
             subheader: 'Reports listing',
-            view: 'View Report'
+            view: 'View Report',
         },
 
-        inventory:{
+        inventory: {
             title: 'Inventory Management',
             subheader: 'Inventory listing',
-            report: 'Report'
+            report: 'Report',
         },
 
-        dashboard:{
+        dashboard: {
             primary: '300567C$',
             secondary: 'All Sales',
             footerdata: '10% of wins',
@@ -136,44 +136,31 @@ const en = {
             box2: 'Quantity',
             box3: 'Status',
             see: 'See',
-            cardheader: 'Best Seller'
-
+            cardheader: 'Best Seller',
         },
 
-        
-        dashboard1:{
+        dashboard1: {
             secondary: 'Expire Lots',
             footerdata: '28% of lost',
         },
 
-        
-        dashboard2:{
+        dashboard2: {
             secondary: 'Clients News',
             footerdata: '1k of clients',
         },
 
-
-        
-        dashboard3:{
+        dashboard3: {
             secondary: 'Interactions',
             footerdata: '3k of interactions',
         },
 
-        toolbar:{
+        toolbar: {
+            print: 'Imprimir',
+            filter: 'Filtros',
+        },
 
-            title: 'Columns',
-            title1: 'Print'
-        }, 
-
-        dropbutton:{
-
-        }
-
-    
-
-
-
+        dropbutton: {},
     },
-}
+};
 
 export default en;

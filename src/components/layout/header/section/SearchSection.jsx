@@ -1,24 +1,19 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 import { styled } from '@mui/system';
 import { makeStyles } from '@mui/styles';
 
-import { Button,  InputBase, Popper, Fade, Card, CardContent, Grid } from '@mui/material';
+import { Button, InputBase, Popper, Fade, Card, CardContent, Grid } from '@mui/material';
 
 import Box from '@mui/material/Box';
-import { alpha } from '@mui/material/styles'
-
+import { alpha } from '@mui/material/styles';
 
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 import PopupState, { bindToggle, bindPopper } from 'material-ui-popup-state';
 
-
 const Search = styled('div')(({ theme }) => ({
-    
-    
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -28,8 +23,8 @@ const Search = styled('div')(({ theme }) => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(2),
     width: 'auto',
-    
-    [theme.breakpoints.down("sm")]: {
+
+    [theme.breakpoints.down('sm')]: {
         marginLeft: 0,
         marginRight: 0,
         backgroundColor: 'transparent',
@@ -38,7 +33,7 @@ const Search = styled('div')(({ theme }) => ({
         },
     },
 }));
-  
+
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
@@ -51,13 +46,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         [theme.breakpoints.up('sm')]: {
             width: '12ch',
             '&:focus': {
-            width: '20ch',
+                width: '20ch',
             },
         },
     },
 }));
-
-
 
 const PopperContainer = styled(Popper)({
     zIndex: 1100,
@@ -103,42 +96,38 @@ const SearchSection = () => {
     const { t } = useTranslation();
     return (
         <Search>
-            <Box
-                sx={{display: {sm : 'none', xs: "block"}}}
-            >
-                <PopupState variant="popper" 
-                    popupId="demo-popup-popper"
-                >
+            <Box sx={{ display: { sm: 'none', xs: 'block' } }}>
+                <PopupState variant="popper" popupId="demo-popup-popper">
                     {(popupState) => (
                         <React.Fragment>
-                            <Button aria-haspopup="true" {...bindToggle(popupState)} color="inherit"
-                                sx={{minWidth: {xs : '35px'}}}
-                            >
-                                <SearchTwoToneIcon sx={{fontSize: '1.5rem'}} />
+                            <Button aria-haspopup="true" {...bindToggle(popupState)} color="inherit" sx={{ minWidth: { xs: '35px' } }}>
+                                <SearchTwoToneIcon sx={{ fontSize: '1.5rem' }} />
                             </Button>
                             <PopperContainer
                                 {...bindPopper(popupState)}
                                 transition
                                 popperOptions={{
-                                    modifiers: [{
-                                        name: "Search",
-                                        enabled: true,
-                                        phase: 'main',
-                                        options: {
-                                            offset: {
-                                                enable: true,
-                                                offset: '0px, 10px',
+                                    modifiers: [
+                                        {
+                                            name: 'Search',
+                                            enabled: true,
+                                            phase: 'main',
+                                            options: {
+                                                offset: {
+                                                    enable: true,
+                                                    offset: '0px, 10px',
+                                                },
+                                                preventOverflow: {
+                                                    padding: 0,
+                                                },
                                             },
-                                            preventOverflow: {
-                                                padding: 0,
+                                            fn({ state }) {
+                                                if (state.placement === 'top') {
+                                                    console.log('Popper is on the top');
+                                                }
                                             },
                                         },
-                                        fn({ state }) {
-                                            if (state.placement === 'top') {
-                                                console.log('Popper is on the top');
-                                            }
-                                        },
-                                    }],
+                                    ],
                                 }}
                             >
                                 {({ TransitionProps }) => (
@@ -148,7 +137,7 @@ const SearchSection = () => {
                                                 <Grid container alignItems="center" justify="space-between">
                                                     <Grid item xs>
                                                         <Box display="flex" p={0}>
-                                                            <MobileIconWrapper sx={{color: 'text.secondary'}}>
+                                                            <MobileIconWrapper sx={{ color: 'text.secondary' }}>
                                                                 <SearchTwoToneIcon color="inherit" />
                                                             </MobileIconWrapper>
                                                             <StyledInputBase
@@ -171,14 +160,11 @@ const SearchSection = () => {
                     )}
                 </PopupState>
             </Box>
-            <Box sx={{display: {sm: 'block', xs: "none"}}}>
+            <Box sx={{ display: { sm: 'block', xs: 'none' } }}>
                 <SearchIconWrapper>
                     <SearchTwoToneIcon color="inherit" />
                 </SearchIconWrapper>
-                <StyledInputBase
-                    placeholder={t('sidebar.search')}
-                    inputProps={{ 'aria-label': 'search' }}
-                />
+                <StyledInputBase placeholder={t('sidebar.search')} inputProps={{ 'aria-label': 'search' }} />
             </Box>
         </Search>
     );

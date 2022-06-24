@@ -14,35 +14,37 @@ import MonitorIcon from '@mui/icons-material/MonitorTwoTone';
 //owned
 import PageCard from '@/common/PageCard';
 import Toolbar from '@/components/Toolbar';
-import Form from '@/components/forms/FormLote/FormLote';
-import api from '@/api/tasks/ApiInventory';
 import usePagination from '@/services/hooks/usePagination';
 import DropButton, { MenuItem } from '@/components/DropButton';
-import useCrud from '@/services/hooks/useCrud';
+import { apiSession } from '../../../api/tasks';
 
 const URL = import.meta.env.VITE_API_URL;
 
+/*
+id: "abd43e99-b381-4e83-884c-4da3fb8b13a3"
+status: "Activo"
+balance: 0
+createdAt: "2022-06-24T16:23:29.8486196"
+finalBalance: 0
+initialBalance: 0
+userName: "Admin Admin"
+name: null
+*/
 const columns = [
     { field: 'id', headerName: 'Codigo', width: 100 },
-    { field: 'movimientoId', headerName: 'Nombre', width: 300 },
-    { field: 'loteId', headerName: 'Descripcion', width: 100 },
-    { field: 'motivo', headerName: 'Defecto', width: 100 },
-    { field: 'fecha', headerName: 'Defecto', width: 100 },
-    { field: 'estado', headerName: 'Defecto', width: 100 },
-    { field: 'cantidad', headerName: 'Defecto', width: 100 },
-    { field: 'costoUnit', headerName: 'Defecto', width: 100 },
-    { field: 'subTotal', headerName: 'Defecto', width: 100 },
-    { field: 'total', headerName: 'Defecto', width: 100 },
-    { field: 'nota', headerName: 'Defecto', width: 100 },
-    { field: 'movimiento', headerName: 'Defecto', width: 100 },
-    { field: 'session', headerName: 'Defecto', width: 100 },
+    { field: 'status', headerName: 'Estado', width: 100 },
+    { field: 'ProviderDisplayName', headerName: 'Provider', width: 100 },
+    { field: 'userName', headerName: 'Usuario', width: 100 },
+    { field: 'name', headerName: 'Nombre', flex: 1 },
+    { field: 'createdAt', headerName: 'Iniciado', type: 'dateTime', width: 150 },
+    { field: 'LogoutAt', headerName: 'Finalizado', type: 'dateTime', width: 150 },
+    { field: 'balance', headerName: 'Balance', width: 100 },
+    { field: 'finalBalance', headerName: 'Balance Final', width: 100 },
 ];
 
 const Session = () => {
-    
     const { t } = useTranslation();
-    const { control, data, selected, isLoading, isError } = usePagination(api, columns);
-    const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected);
+    const { control, isLoading, isError } = usePagination(apiSession, columns);
 
     const onClickExpiring = () => window.open(URL + '/reporte/productos/vence', '_blank').focus();
     const onClickExpired = () => window.open(URL + '/reporte/productos/vencido', '_blank').focus();
@@ -52,7 +54,7 @@ const Session = () => {
     return (
         <PageCard
             headerProps={{
-                title:  t('session.title'),
+                title: t('session.title'),
                 subheader: t('session.subheader'),
                 avatar: <MonitorIcon />,
             }}

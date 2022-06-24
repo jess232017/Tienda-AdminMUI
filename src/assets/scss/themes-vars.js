@@ -17,9 +17,9 @@ const value = {
     warningDark: '#aa7000',
     warningLight: '#f6b333',
 
-    info: '#00cfd5',
-    infoDark: '#009095',
-    infoLight: '#33d8dd',
+    info: '#3380f4',
+    infoDark: '#0043a9',
+    infoLight: '#3380f4',
 
     success: '#00ac69',
     successDark: '#007849',
