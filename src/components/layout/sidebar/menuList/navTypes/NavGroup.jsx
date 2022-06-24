@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { styled } from '@mui/system';
+import { useTranslation } from 'react-i18next';
 import { List, Typography } from '@mui/material';
 
 import NavItem from './NavItem';
@@ -16,6 +17,7 @@ const SubMenuCaption = styled(Typography)(({ theme }) => ({
 
 const NavGroup = (props) => {
     const { item } = props;
+    const { t } = useTranslation();
 
     const items = item.children.map((menu) => {
         switch (menu.type) {
@@ -36,10 +38,10 @@ const NavGroup = (props) => {
         <List
             subheader={
                 <MenuCaption variant="caption" display="block" gutterBottom>
-                    {item.title}
+                    {t(item.title)}
                     {item.caption && (
                         <SubMenuCaption variant="caption" display="block" gutterBottom>
-                            {item.caption}
+                            {t(item.caption)}
                         </SubMenuCaption>
                     )}
                 </MenuCaption>

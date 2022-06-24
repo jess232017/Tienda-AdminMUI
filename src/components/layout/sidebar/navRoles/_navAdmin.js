@@ -1,5 +1,6 @@
-//
+import { useTranslation } from 'react-i18next';
 import { ROLES } from '@/services/auth/permission-maps';
+
 
 //icons
 import SettingsRemoteIcon from '@mui/icons-material/SettingsRemote';
@@ -22,14 +23,14 @@ const nav = {
     items: [
         {
             id: 'dash',
-            title: 'Sistema de gestion',
-            caption: 'De inventario y ventas',
+            title: 'sidebar.title',
+            caption: 'sidebar.caption',
             type: 'group',
             icon: NavigationOutlinedIcon,
             children: [
                 {
                     id: 'dashboard',
-                    title: 'Panel de datos',
+                    title: 'sidebar.dashboard',
                     type: 'item',
                     icon: HomeIcon,
                     url: '/admin',
@@ -38,14 +39,14 @@ const nav = {
         },
         {
             id: 'ui-element',
-            title: 'Tienda',
+            title: 'sidebar.store',
             //caption: 'Material UI Components',
             type: 'group',
             icon: HotTubIcon,
             children: [
                 {
                     id: 'ventas',
-                    title: 'Ventas',
+                    title: 'sidebar.sale',
                     type: 'item',
                     icon: LocalGroceryStoreOutlinedIcon,
                     url: '/admin/venta',
@@ -54,27 +55,27 @@ const nav = {
 
                 {
                     id: 'productos',
-                    title: 'Productos',
+                    title: 'sidebar.products',
                     type: 'collapse',
                     icon: EmojiSymbolsOutlinedIcon,
                     children: [
                         {
                             id: 'items',
-                            title: 'Productos',
+                            title: 'sidebar.products',
                             type: 'item',
                             url: '/admin/producto',
                             requireRoles: [ROLES.administrador, ROLES.bodeguero],
                         },
                         {
                             id: 'categories',
-                            title: 'Categorias',
+                            title: 'sidebar.category',
                             type: 'item',
                             url: '/admin/categoria',
                             requireRoles: [ROLES.administrador, ROLES.bodeguero],
                         },
                         {
                             id: 'brands',
-                            title: 'Marcas',
+                            title: 'sidebar.brand',
                             type: 'item',
                             url: '/admin/marca',
                             requireRoles: [ROLES.administrador, ROLES.vendedor, ROLES.bodeguero],
@@ -83,7 +84,7 @@ const nav = {
                 },
                 {
                     id: 'inventario',
-                    title: 'Inventarios',
+                    title: 'sidebar.inventory',
                     type: 'collapse',
                     icon: AssessmentOutlinedIcon,
                     children: [
@@ -103,14 +104,14 @@ const nav = {
                 },
                 {
                     id: 'session',
-                    title: 'Sesiones',
+                    title: 'sidebar.session',
                     type: 'item',
                     icon: ClassOutlinedIcon,
                     url: '/admin/sesion',
                 },
                 {
                     id: 'contador',
-                    title: 'Contable',
+                    title: 'sidebar.accountant',
                     type: 'item',
                     icon: AccountBalanceWalletIcon,
                     url: '/admin/accountant',
@@ -120,14 +121,14 @@ const nav = {
         },
         {
             id: 'personal',
-            title: 'Contactos',
+            title: 'sidebar.contacts',
             //caption: 'Material UI Components',
             type: 'group',
             icon: HotTubIcon,
             children: [
                 {
                     id: 'cliente',
-                    title: 'Clientes',
+                    title: 'sidebar.client',
                     type: 'item',
                     icon: SupervisedUserCircleOutlinedIcon,
                     url: '/admin/cliente',
@@ -135,7 +136,7 @@ const nav = {
                 },
                 {
                     id: 'empleado',
-                    title: 'Empleados',
+                    title: 'sidebar.employee',
                     type: 'item',
                     icon: SupervisorAccountOutlinedIcon,
                     url: '/admin/empleado',
@@ -143,7 +144,7 @@ const nav = {
                 },
                 {
                     id: 'proveedor',
-                    title: 'Proveedores',
+                    title: 'sidebar.providers',
                     type: 'item',
                     icon: RecentActorsOutlinedIcon,
                     url: '/admin/proveedor',
@@ -153,14 +154,14 @@ const nav = {
         },
         {
             id: 'tools',
-            title: 'Herramientas',
+            title: 'sidebar.tool',
             //caption: 'Material UI Components',
             type: 'group',
             icon: HotTubIcon,
             children: [
                 {
                     id: 'report',
-                    title: 'Reportes',
+                    title: 'sidebar.repors',
                     type: 'item',
                     icon: DescriptionIcon,
                     url: '/admin/reporte',
@@ -168,14 +169,14 @@ const nav = {
                 },
                 {
                     id: 'help',
-                    title: 'Ayuda',
+                    title: 'sidebar.help',
                     type: 'item',
                     icon: HelpOutlineOutlinedIcon,
                     url: '/admin/ayuda',
                 },
                 {
                     id: 'accessibility',
-                    title: 'Accesibilidad',
+                    title: 'sidebar.accesibility',
                     type: 'item',
                     icon: AccessibilityOutlinedIcon,
                     url: '/admin/accessibilidad',

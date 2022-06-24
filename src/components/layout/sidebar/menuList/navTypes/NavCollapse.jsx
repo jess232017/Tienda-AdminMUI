@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { styled } from '@mui/system';
+import { useTranslation } from 'react-i18next';
 import { Typography, ListItem, ListItemIcon, ListItemText, Collapse, List, Chip, Avatar } from '@mui/material';
 
 import ExpandLess from '@mui/icons-material/ExpandLess';
@@ -35,6 +36,7 @@ const styles = {
 
 const NavCollapse = (props) => {
     const { menu, level } = props;
+    const { t } = useTranslation();
     const [open, setOpen] = React.useState(false);
     const [selected, setSelected] = React.useState(null);
 
@@ -76,7 +78,7 @@ const NavCollapse = (props) => {
                 <ListItemText
                     primary={
                         <Typography variant={selected === menu.id ? 'subtitle1' : 'body1'} color="inherit">
-                            {menu.title}
+                            {t(menu.title)}
                         </Typography>
                     }
                     secondary={

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useTranslation } from 'react-i18next';
 //controls
 import { Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
@@ -26,6 +26,7 @@ const columns = [
 ];
 
 const Category = () => {
+    const { t } = useTranslation();
     const { control, data, selected, isLoading, isError } = usePagination(api, columns);
     const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected);
 
@@ -34,8 +35,8 @@ const Category = () => {
     return (
         <PageCard
             headerProps={{
-                title: 'Gestión de categorias',
-                subheader: 'Listado de categorias',
+                title:  t('category.title'),
+                subheader: t('category.subheader'),
                 avatar: <CategoryIcon />,
             }}
             isLoading={isLoading}
@@ -43,7 +44,7 @@ const Category = () => {
         >
             <Toolbar onClickChooser={handleChooser}>
                 <Button size="small" variant="outlined" onClick={handleAdd} startIcon={<AddIcon />}>
-                    Agregar
+                    {t('crud.add')}
                 </Button>
 
                 <Button
@@ -53,7 +54,7 @@ const Category = () => {
                     onClick={handleEdit}
                     startIcon={<EditIcon />}
                 >
-                    Editar
+                    {t('crud.edit')}
                 </Button>
                 <Button
                     variant="outlined"
@@ -62,7 +63,7 @@ const Category = () => {
                     onClick={handleDelete}
                     startIcon={<DeleteIcon />}
                 >
-                    Eliminar
+                    {t('crud.delete')}
                 </Button>
             </Toolbar>
 

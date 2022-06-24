@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { styled } from '@mui/system';
 import { useTheme } from '@mui/styles';
+import { useTranslation } from 'react-i18next';
 import { useMediaQuery, Box, Tooltip, TextField, MenuItem, InputAdornment, Hidden, Button } from '@mui/material';
 
 import TranslateIcon from '@mui/icons-material/Translate';
@@ -18,10 +19,6 @@ const currencies = [
         value: 'es',
         label: 'Español',
     },
-    {
-        value: 'fr',
-        label: 'français',
-    },
 ];
 
 const MenuIcon = styled(BrightnessIcon)({
@@ -36,10 +33,18 @@ const SelectIcon = styled(InputAdornment)({
 
 const Customization = () => {
     const theme = useTheme();
+    const { t, i18n } = useTranslation();
+    const [language, setLanguage] = useState({});
     const { show, setLocale, setDarkMode } = useStore();
     const matchDownSm = useMediaQuery(theme.breakpoints.down('xs'));
 
     const [currency, setCurrency] = React.useState(show.locale);
+
+    const changeLanguage = (current) => {
+        console.log(current)
+        setLanguage(current);
+        i18n.changeLanguage(current.value);
+    };
 
     const handleChange = (event) => {
         setCurrency(event.target.value);
@@ -56,39 +61,39 @@ const Customization = () => {
 
     return (
         <React.Fragment>
-            <Tooltip title="Cambiar idioma de la pagina">
-                <Box width="80px" ml={matchDownSm ? '8px' : '24px'} mr={matchDownSm ? '8px' : '24px'}>
-                    <TextField
-                        id="outlined-select-currency"
-                        select
-                        value={currency}
-                        onChange={handleChange}
-                        variant="standard"
-                        InputProps={{
-                            startAdornment: (
-                                <Hidden smDown>
-                                    <SelectIcon position="start">
-                                        <TranslateIcon color="inherit" />
-                                    </SelectIcon>
-                                </Hidden>
-                            ),
-                            disableUnderline: true,
-                        }}
-                        SelectProps={{
-                            classes: {
-                                select: 'mui-select-color',
-                                icon: 'mui-icon-select',
-                            },
-                        }}
-                    >
-                        {currencies.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                                {option.label}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                </Box>
-            </Tooltip>
+            <Box width="80px" ml={matchDownSm ? '8px' : '24px'} mr={matchDownSm ? '8px' : '24px'}>
+                <TextField
+                    id="outlined-select-currency"
+                    select
+                    value={currency}
+                    onChange={handleChange}
+                    variant="standard"
+                    InputProps={{
+                        startAdornment: (
+                            <Hidden smDown>
+                                <SelectIcon position="start">
+                                    <TranslateIcon color="inherit" />
+                                </SelectIcon>
+                            </Hidden>
+                        ),
+                        disableUnderline: true,
+                    }}
+                    SelectProps={{
+                        classes: {
+                            select: 'mui-select-color',
+                            icon: 'mui-icon-select',
+                        },
+                    }}
+                >
+                    {currencies.map((option) => (
+                        <MenuItem key={option.value} value={option.value} onClick={changeLanguage}>
+                            {option.label}
+                        </MenuItem>
+                    ))}
+                </TextField>
+            </Box>
+            {/*<Tooltip  title="Cambiar idioma de la pagina">
+            </Tooltip>*/}
             <Tooltip title="Modo Obscuro">
                 <Button color="inherit" onClick={setDarkMode} sx={{ minWidth: { xs: '35px', sm: '50px', md: '65px' } }}>
                     <MenuIcon />

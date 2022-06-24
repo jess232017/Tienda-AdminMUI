@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 //controls
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -31,6 +33,8 @@ const columns = [
 ];
 
 const Ventas = () => {
+    
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const { control, selected, isLoading, isError } = usePagination(api, columns);
 
@@ -46,17 +50,19 @@ const Ventas = () => {
 
     return (
         <PageCard
-            headerProps={{
-                title: 'Gestión de Ventas',
-                subheader: 'Listado de Ventas',
+            headerProps={{ 
+                
+                title: t('sold.title4'),
+                subheader: t('sold.subheader'),
                 avatar: <LocalMallIcon />,
             }}
             isLoading={isLoading}
             isError={isError}
         >
+             
             <Toolbar onClickChooser={handleChooser}>
                 <Button variant="outlined" size="small" onClick={onClickTomar} startIcon={<ShoppingCartIcon />}>
-                    Tomar Venta
+                {t('sold.title')}
                 </Button>
 
                 <Button
@@ -66,15 +72,15 @@ const Ventas = () => {
                     onClick={onClickDetail}
                     startIcon={<ReceiptIcon />}
                 >
-                    Ver Venta
+                {t('sold.title1')}
                 </Button>
 
                 <Button variant="outlined" size="small" onClick={onClickDetail2} startIcon={<TimerIcon />}>
-                    En Espera
+                {t('sold.title2')}
                 </Button>
 
                 <Button variant="outlined" size="small" onClick={onClickDetail2} startIcon={<UpdateIcon />}>
-                    Refrescar
+                {t('sold.title3')}
                 </Button>
             </Toolbar>
 

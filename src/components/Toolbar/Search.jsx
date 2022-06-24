@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
@@ -54,13 +55,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Search = () => {
+    
+    const { t } = useTranslation();
     return (
         <SearchWrapper>
             <SearchIconWrapper>
                 <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-                placeholder="Buscar..."
+                placeholder={t('sidebar.search')}
                 inputProps={{ 'aria-label': 'search' }}
             />
         </SearchWrapper>

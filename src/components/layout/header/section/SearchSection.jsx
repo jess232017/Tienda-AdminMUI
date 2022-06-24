@@ -1,4 +1,6 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 
 import { styled } from '@mui/system';
 import { makeStyles } from '@mui/styles';
@@ -15,6 +17,8 @@ import PopupState, { bindToggle, bindPopper } from 'material-ui-popup-state';
 
 
 const Search = styled('div')(({ theme }) => ({
+    
+    
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -52,6 +56,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         },
     },
 }));
+
+
 
 const PopperContainer = styled(Popper)({
     zIndex: 1100,
@@ -94,6 +100,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }));
 
 const SearchSection = () => {
+    const { t } = useTranslation();
     return (
         <Search>
             <Box
@@ -169,7 +176,7 @@ const SearchSection = () => {
                     <SearchTwoToneIcon color="inherit" />
                 </SearchIconWrapper>
                 <StyledInputBase
-                    placeholder="Buscar..."
+                    placeholder={t('sidebar.search')}
                     inputProps={{ 'aria-label': 'search' }}
                 />
             </Box>

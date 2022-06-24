@@ -1,10 +1,12 @@
 import React from 'react';
-
+import { useTranslation } from 'react-i18next';
 import Chart from 'react-apexcharts';
 import { useTheme } from '@mui/styles';
 import { Box, Card, CardContent, CardHeader, Divider, Hidden, Grid, Typography, useMediaQuery } from '@mui/material';
 
 const RevenuChartCard = (props) => {
+    
+    const { t } = useTranslation();
     const theme = useTheme();
     const matchDownMd = useMediaQuery(theme.breakpoints.down('sm'));
     const matchDownXs = useMediaQuery(theme.breakpoints.down('xs'));
@@ -15,7 +17,7 @@ const RevenuChartCard = (props) => {
             <CardHeader
                 title={
                     <Typography variant="h6" gutterBottom component="div">
-                        Los mas vendidos
+                        {t('dashboard.cardheader')}
                     </Typography>
                 }
             />

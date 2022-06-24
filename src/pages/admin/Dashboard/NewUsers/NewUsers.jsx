@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -10,6 +10,7 @@ import api from '@/api/tasks/ApiUser';
 import Loader from '@/components/Loader';
 
 const NewUsers = () => {
+    const { t } = useTranslation();
     const { data, isLoading: loading, isError } = api.get(1, 10);
 
     return (
@@ -34,7 +35,7 @@ const NewUsers = () => {
                                 startIcon={<VisibilityOutlined />}
                                 disableElevation
                             >
-                                Ver
+                                {t('dashboard.see')}
                             </Button>
                         </Box>
                     ))}

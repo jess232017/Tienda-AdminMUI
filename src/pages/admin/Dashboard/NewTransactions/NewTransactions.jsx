@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { VisibilityOutlined } from '@mui/icons-material';
 import { Avatar, Box, Stack, Typography, Button } from '@mui/material';
@@ -7,6 +8,7 @@ import api from '@/api/tasks/ApiOrder';
 import Loader from '@/components/Loader';
 
 const NewTransactions = () => {
+    const { t } = useTranslation();
     const { data, isLoading: loading, isError } = api.get(1, 10);
 
     return (
@@ -18,16 +20,16 @@ const NewTransactions = () => {
                     <tbody>
                         <tr>
                             <Box component="th" sx={{ textAlign: 'left' }}>
-                                Cliente
+                            {t('dashboard.box')}
                             </Box>
                             <Box component="th" sx={{ textAlign: 'left' }}>
-                                Fecha
+                            {t('dashboard.box1')}
                             </Box>
                             <Box component="th" sx={{ textAlign: 'left' }}>
-                                Cantidad
+                            {t('dashboard.box2')}
                             </Box>
                             <Box component="th" sx={{ textAlign: 'left' }}>
-                                Estado
+                            {t('dashboard.box3')}
                             </Box>
                         </tr>
                         {Array.from(Array(3)).map((_, index) => (

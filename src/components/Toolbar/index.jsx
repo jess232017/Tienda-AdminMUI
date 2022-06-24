@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 //Mui
 import { styled } from '@mui/system';
@@ -31,6 +32,9 @@ const StackRight = styled(Stack)({
 });
 
 const Toolbar = ({ children, onClickChooser, onClickPrint }) => {
+
+    
+    const { t } = useTranslation();
     return (
         <Box display="flex" justifyContent="space-between" mb={1}>
             <StackLeft>{children}</StackLeft>
@@ -38,13 +42,13 @@ const Toolbar = ({ children, onClickChooser, onClickPrint }) => {
             <StackRight>
                 {onClickPrint != null && (
                     <Button size="small" variant="outlined" onClick={onClickPrint} startIcon={<PrintIcon />}>
-                        Imprimir
+                        {t('toolbar.title1')}
                     </Button>
                 )}
 
                 {onClickChooser != null && (
                     <Button size="small" variant="outlined" onClick={onClickChooser} startIcon={<PictureInPictureIcon />}>
-                        Columnas
+                        {t('toolbar.title')}
                     </Button>
                 )}
                 <Search />

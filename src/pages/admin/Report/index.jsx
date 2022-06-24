@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { styled } from '@mui/system';
 import Grid from '@mui/material/Grid';
@@ -31,6 +32,7 @@ const ReportBox = styled(Stack)(({ theme }) => ({
 }));
 
 const Reporte = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     const handleClick = (url, subtitle) => {
@@ -40,8 +42,8 @@ const Reporte = () => {
     return (
         <PageCard
             headerProps={{
-                title: 'Reportes',
-                subheader: 'Lista de Reportes disponibles',
+                title:  t('report.title'),
+                subheader: t('report.subheader'),
                 avatar: <SummarizeIcon />,
             }}
         >
@@ -61,7 +63,7 @@ const Reporte = () => {
                                 endIcon={<NavigateNextIcon />}
                                 variant="outlined"
                             >
-                                Ver Reporte
+                                {t('report.view')}
                             </Button>
                         </ReportBox>
                     </Grid>
