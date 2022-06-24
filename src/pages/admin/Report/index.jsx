@@ -15,20 +15,20 @@ import SummarizeIcon from '@mui/icons-material/SummarizeTwoTone';
 import reports from './data';
 import PageCard from '@/common/PageCard';
 
-const ReportBox = styled(Stack)({
+const ReportBox = styled(Stack)(({ theme }) => ({
     paddingTop: '1rem',
     paddingLeft: '1.5rem',
     paddingRight: '1.5rem',
     paddingBottom: '1.5rem',
     height: '100%',
-    backgroundColor: '#f9f8fc',
+    backgroundColor: theme.palette.background.paperSecondary,
     borderRadius: '.3rem',
     '&:hover': {
         transition: 'all .2s ease-out',
         transform: 'translate(0, -6px)',
         boxShadow: '0 0.25rem 0.25rem rgb(0 0 0 / 10%) !important',
     },
-});
+}));
 
 const Reporte = () => {
     const navigate = useNavigate();

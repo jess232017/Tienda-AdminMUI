@@ -2,7 +2,7 @@ const ReportData = [
     {
         title: 'Clientes',
         subtitle: 'Listado de todos los clientes',
-        url: '/Reporte/clientes',
+        url: '/reports/864ff628-5d0b-4ce9-a8e3-d491899242e2/Reportes/List%20of%20Clients?showmyreports=1',
     },
     {
         title: 'Gastos',
@@ -32,7 +32,7 @@ const ReportData = [
     {
         title: 'Proveedores',
         subtitle: 'Listado de todos los proveedores',
-        url: '/Reporte/proveedores',
+        url: '/0fe09e2f-6741-492c-a2d8-8b1e350914c1/Reportes/List%20of%20Suppliers?showmyreports=1',
     },
     {
         title: 'Mejores Empleado',
@@ -44,11 +44,6 @@ const ReportData = [
         subtitle: 'Factura de una venta realizada',
         url: '/95f2d2e4-d5a4-447f-afcb-36637f1bd85a/Reportes/Detalle%20de%20venta?showmyreports=1',
     },
-    /*{
-        title: 'Ventas',
-        subtitle: 'Listado de todos las ventas',
-        url: '/Reporte/ventas/todas',
-    },*/
 ];
 
 export default ReportData;
