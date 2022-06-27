@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from '@mui/system/styled';
 
@@ -8,20 +8,19 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Image from 'mui-image';
 
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 //icon
-import CategoryIcon from '@mui/icons-material/Category';
-import LocalMallIcon from '@mui/icons-material/LocalMallTwoTone';
 import DeleteIcon from '@mui/icons-material/DeleteTwoTone';
+import LocalMallIcon from '@mui/icons-material/LocalMallTwoTone';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorderTwoTone';
 
 //owned
 import UriName from '@/common/global/UriName';
-import Item from '../../services/context/class/Item';
+import useItem from '@/services/hooks/useItem';
 
 const IconButton = styled(Button)({
     minWidth: 0,
@@ -32,16 +31,12 @@ const IconButton = styled(Button)({
     },
 });
 
-const ListItem = ({ data, store, width }) => {
+const ListItem = ({ data, width }) => {
     const { id, name, image, price } = data;
-    const { carrito, addItem, removeItem, editItem } = store;
+    const { cart, isFavorite, actions } = useItem(data);
+    const { handleAdd, handleEdit, handleRemove, handleFav } = actions;
+
     let mobile = width < 555;
-
-    const agregarItem = () => {
-        addItem(new Item(id, name, price, 1, 5, image));
-    };
-
-    const exist = carrito.find((value) => value.id === id);
 
     return (
         <Box
@@ -64,10 +59,9 @@ const ListItem = ({ data, store, width }) => {
                             width={mobile ? '100%' : '70%'}
                             height={mobile ? '100%' : '100%'}
                             alt={name}
-                            //errorIcon={<CategoryIcon />}
                             fit="cover"
                             errorIcon={true}
-                            src={image}
+                            src={image || ''}
                         />
                         <Box p={2} display="flex" flexDirection=" column">
                             <UriName uri={`/producto?id=${id}`}>{name}</UriName>
@@ -94,11 +88,9 @@ const ListItem = ({ data, store, width }) => {
                             </Typography>
                         </Box>
                         <br />
-                        {exist != null ? (
+                        {cart ? (
                             <Stack direction="row" spacing={2}>
                                 <TextField
-                                    id="outlined-number"
-                                    value={exist.quantity}
                                     label="Cantidad"
                                     type="number"
                                     pattern="[0-9]*"
@@ -107,26 +99,23 @@ const ListItem = ({ data, store, width }) => {
                                         shrink: true,
                                     }}
                                     fullWidth={true}
+                                    onChange={handleEdit}
+                                    value={cart.quantity}
                                     InputProps={{ inputProps: { min: 0, max: 10 } }}
-                                    onChange={(e) => {
-                                        var value = parseInt(e.target.value, 10);
-                                        editItem(exist.id, value);
-                                        console.log(value);
-                                    }}
                                 />
 
-                                <IconButton onClick={() => removeItem(exist.id)} variant="outlined" color="error">
+                                <IconButton onClick={handleRemove} variant="outlined" color="error">
                                     <DeleteIcon />
                                 </IconButton>
                             </Stack>
                         ) : (
                             <Stack direction="row" spacing={2} alignItems="center" justifyContent="flex-end">
-                                <Button variant="outlined" fullWidth={true} startIcon={<LocalMallIcon />} onClick={() => agregarItem()}>
+                                <Button variant="outlined" fullWidth={true} startIcon={<LocalMallIcon />} onClick={handleAdd}>
                                     Comprar
                                 </Button>
 
-                                <IconButton color="secondary" variant="outlined">
-                                    <FavoriteBorderIcon />
+                                <IconButton color="secondary" variant="outlined" onClick={handleFav}>
+                                    {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                                 </IconButton>
                             </Stack>
                         )}

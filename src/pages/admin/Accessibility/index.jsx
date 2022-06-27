@@ -16,7 +16,10 @@ import SummarizeIcon from '@mui/icons-material/AccessibilityNewTwoTone';
 
 //owned
 import PageCard from '@/common/PageCard';
-import useStore from '@/services/context/sidebar';
+
+//redux
+import { useSelector, useDispatch } from 'react-redux';
+import { setLocale, setDarkMode, setDyslexic, setFontSize } from '@/store/features/appSlice';
 
 const ReportBox = styled(Stack)(({ theme }) => ({
     paddingTop: '1rem',
@@ -45,22 +48,29 @@ const optionLanguage = [
 ];
 
 const Accessibility = () => {
-    const { t, i18n } = useTranslation();
-    const [language, setLanguage] = useState({});
-    const { show, setLocale, setFont, setDarkMode, setDyslexic } = useStore();
+    //redux
+    const dispatch = useDispatch();
+    const setting = useSelector((state) => state.app.setting);
 
-    const changeLanguage = (current) => {
-        setLanguage(current);
-        setLocale(current.value);
-        i18n.changeLanguage(current.value);
+    //language
+    const { t, i18n } = useTranslation();
+
+    const handleDyslexic = () => {
+        dispatch(setDyslexic(!setting.dyslexic));
     };
 
-    useEffect(() => {
-        if (Object.entries(language).length <= 0) {
-            const current = optionLanguage.find(({ value }) => value === i18n.language);
-            setLanguage(current);
-        }
-    }, [i18n.language]);
+    const handleDarkMode = () => {
+        dispatch(setDarkMode(!setting.darkMode));
+    };
+
+    const handleFontSize = ({ target }) => {
+        dispatch(setFontSize(target.value));
+    };
+
+    const handleLanguage = (current) => {
+        dispatch(setLocale(current));
+        i18n.changeLanguage(current.value);
+    };
 
     return (
         <PageCard
@@ -79,8 +89,8 @@ const Accessibility = () => {
                         <Typography component="span" variant="subtitle2">
                             {t('accesibility.dyslexia.description')}
                         </Typography>
-                        <Button fullWidth={false} onClick={setDyslexic} endIcon={<NavigateNextIcon />} variant="outlined">
-                            {t(show?.dyslexic ? 'accesibility.darkMode.disable' : 'accesibility.darkMode.activate')}
+                        <Button fullWidth={false} onClick={handleDyslexic} endIcon={<NavigateNextIcon />} variant="outlined">
+                            {t(setting?.dyslexic ? 'accesibility.darkMode.disable' : 'accesibility.darkMode.activate')}
                         </Button>
                     </ReportBox>
                 </Grid>
@@ -92,8 +102,8 @@ const Accessibility = () => {
                         <Typography component="span" variant="subtitle2">
                             {t('accesibility.darkMode.description')}
                         </Typography>
-                        <Button fullWidth={false} onClick={setDarkMode} endIcon={<NavigateNextIcon />} variant="outlined">
-                            {t(show?.darkMode ? 'accesibility.darkMode.disable' : 'accesibility.darkMode.activate')}
+                        <Button fullWidth={false} onClick={handleDarkMode} endIcon={<NavigateNextIcon />} variant="outlined">
+                            {t(setting?.darkMode ? 'accesibility.darkMode.disable' : 'accesibility.darkMode.activate')}
                         </Button>
                     </ReportBox>
                 </Grid>
@@ -105,12 +115,7 @@ const Accessibility = () => {
                         <Typography component="span" variant="subtitle2">
                             {t('accesibility.language.description')}
                         </Typography>
-                        <Select
-                            value={language}
-                            options={optionLanguage}
-                            placeholder="Seleccionar"
-                            onChange={changeLanguage}
-                        />
+                        <Select value={setting.locale} options={optionLanguage} placeholder="Seleccionar" onChange={handleLanguage} />
                     </ReportBox>
                 </Grid>
                 <Grid item xs={12} sm={6} md={4} p={2}>
@@ -124,10 +129,8 @@ const Accessibility = () => {
                         <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
                             <Slider
                                 aria-label="font-size"
-                                value={show.fontSize}
-                                onChange={(event) => {
-                                    setFont(event.target.value);
-                                }}
+                                value={setting.fontSize}
+                                onChange={handleFontSize}
                                 valueLabelDisplay="auto"
                                 step={1}
                                 marks

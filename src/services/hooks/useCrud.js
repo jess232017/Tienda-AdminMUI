@@ -1,21 +1,9 @@
 import { useCallback } from 'react';
 
 import { show } from '@ebay/nice-modal-react';
-import { useConfirm } from 'material-ui-confirm';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
-const deleteData = {
-    title: 'Acción permanente ⚠️',
-    description: '¿Seguro que quiere realizar la accion?',
-    cancellationText: 'No, Cancelar',
-    confirmationText: 'Si, Eliminar',
-    confirmationButtonProps: {
-        color: 'error',
-    },
-};
-
 const useCrud = (api, form, selected) => {
-    const confirm = useConfirm();
     const { mutate } = api.delete(`/${selected?.id}`);
     const requestEdit = api.edit(`/${selected?.id}`);
     const requestAdd = api.new();
@@ -45,10 +33,6 @@ const useCrud = (api, form, selected) => {
                     mutate({ id: selected?.id });
                 }
             });
-
-            /*confirm(deleteData).then(() => {
-                mutate({ id: selected?.id });
-            });*/
         }
     }, [selected]);
 

@@ -8,7 +8,9 @@ import { Avatar, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/m
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Chip from '@/components/Chip';
 
-import useStore from '@/services/context/sidebar';
+//redux
+import { useSelector, useDispatch } from 'react-redux';
+import { setOpen } from '@/store/features/appSlice';
 
 const SubMenuCaption = styled(Typography)(({ theme }) => ({
     ...theme.typography.subMenuCaption,
@@ -38,7 +40,10 @@ const styles = {
 const NavItem = (props) => {
     const { item, level } = props;
     const { t } = useTranslation();
-    const { show, setOpen } = useStore();
+
+    //redux
+    const dispatch = useDispatch();
+    const isOpen = useSelector((state) => state.app.setting.isOpen);
 
     const Icon = item.icon;
     const fontSize = level > 0 ? 'inherit' : 'default';
@@ -60,20 +65,20 @@ const NavItem = (props) => {
     return (
         <ListItem
             disabled={item.disabled}
-            sx={level > 1 ? styles.listItemNoBack : styles.listItem}
-            selected={show.isOpen === item.id}
+            selected={isOpen === item.id}
             component={Link}
-            onClick={() => setOpen(item.id)}
+            onClick={() => dispatch(setOpen(item.id))}
             to={item.url}
             target={itemTarget}
             button
             style={{ paddingLeft: level * 16 + 'px' }}
             {...listItemProps}
+            sx={level > 1 ? styles.listItemNoBack : styles.listItem}
         >
             <ListItemIcon sx={itemIconClass}>{itemIcon}</ListItemIcon>
             <ListItemText
                 primary={
-                    <Typography variant={show.isOpen === item.id ? 'subtitle1' : 'body1'} color="inherit">
+                    <Typography variant={isOpen === item.id ? 'subtitle1' : 'body1'} color="inherit">
                         {t(item.title)}
                     </Typography>
                 }

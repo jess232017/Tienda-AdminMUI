@@ -25,31 +25,4 @@ const Message = ({ user, message, currentUser }) => {
     );
 };
 
-/*
-const Message = ({ user, message }) => (
-    <div style={{ background: '#eee', borderRadius: '5px', padding: '0 10px' }}>
-        <p>
-            <strong>{user}</strong> says:
-        </p>
-        <p>{message}</p>
-    </div>
-);
-
-const Message = ({ user, message }) => (
-    <Box
-        sx={{
-            color: 'white',
-            padding: '10px 20px',
-            background: '#36f',
-            borderRadius: '20px 20px 20px 0px',
-        }}
-    >
-        <p>
-            <strong>{user}</strong> says:
-        </p>
-        <p>{message}</p>
-    </Box>
-);
-*/
-
 export default Message;

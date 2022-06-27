@@ -8,7 +8,9 @@ import { useMediaQuery, Box, Tooltip, TextField, MenuItem, InputAdornment, Hidde
 import TranslateIcon from '@mui/icons-material/Translate';
 import BrightnessIcon from '@mui/icons-material/Brightness6Outlined';
 
-import useStore from '@/services/context/sidebar';
+//redux
+import { useSelector, useDispatch } from 'react-redux';
+import { setLocale, setDarkMode } from '@/store/features/appSlice';
 
 const currencies = [
     {
@@ -32,41 +34,30 @@ const SelectIcon = styled(InputAdornment)({
 });
 
 const Customization = () => {
+    //redux
+    const dispatch = useDispatch();
+    const setting = useSelector((state) => state.app.setting);
+
     const theme = useTheme();
-    const { t, i18n } = useTranslation();
-    const [language, setLanguage] = useState({});
-    const { show, setLocale, setDarkMode } = useStore();
+    const { i18n } = useTranslation();
     const matchDownSm = useMediaQuery(theme.breakpoints.down('xs'));
 
-    const [currency, setCurrency] = React.useState(show.locale);
-
-    const changeLanguage = (current) => {
-        console.log(current)
-        setLanguage(current);
-        i18n.changeLanguage(current.value);
+    const handleLanguage = ({ target }) => {
+        dispatch(setLocale({ value: target.value, label: 'Hi' }));
+        i18n.changeLanguage(target.value);
     };
 
-    const handleChange = (event) => {
-        setCurrency(event.target.value);
-        setLocale(event.target.value);
+    const handleDarkMode = () => {
+        dispatch(setDarkMode(!setting.darkMode));
     };
-
-    if (show.rtlLayout) {
-        document.querySelector('body').setAttribute('dir', 'rtl');
-    }
-
-    useEffect(() => {
-        setCurrency(show.locale);
-    }, [show]);
 
     return (
         <React.Fragment>
             <Box width="80px" ml={matchDownSm ? '8px' : '24px'} mr={matchDownSm ? '8px' : '24px'}>
                 <TextField
-                    id="outlined-select-currency"
                     select
-                    value={currency}
-                    onChange={handleChange}
+                    value={setting.Locale}
+                    onChange={handleLanguage}
                     variant="standard"
                     InputProps={{
                         startAdornment: (
@@ -86,16 +77,14 @@ const Customization = () => {
                     }}
                 >
                     {currencies.map((option) => (
-                        <MenuItem key={option.value} value={option.value} onClick={changeLanguage}>
+                        <MenuItem key={option.value} value={option.value}>
                             {option.label}
                         </MenuItem>
                     ))}
                 </TextField>
             </Box>
-            {/*<Tooltip  title="Cambiar idioma de la pagina">
-            </Tooltip>*/}
             <Tooltip title="Modo Obscuro">
-                <Button color="inherit" onClick={setDarkMode} sx={{ minWidth: { xs: '35px', sm: '50px', md: '65px' } }}>
+                <Button color="inherit" onClick={handleDarkMode} sx={{ minWidth: { xs: '35px', sm: '50px', md: '65px' } }}>
                     <MenuIcon />
                 </Button>
             </Tooltip>

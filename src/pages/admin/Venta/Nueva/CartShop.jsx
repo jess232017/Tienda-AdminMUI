@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 
 //controls
 import { show } from '@ebay/nice-modal-react';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
+//mui
 import { styled } from '@mui/system';
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -12,7 +14,6 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
-import { useConfirm } from 'material-ui-confirm';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 
 //icons
@@ -30,19 +31,11 @@ import NewNote from './NewNote';
 import SelectUser from './SelectUser';
 import SelectedItem from './SelectedItem';
 import NoData from '@/pages/error/NoData';
-import useCarrito from '@/services/context/carrito';
 import FormPayment from '@/components/forms/FormPayment';
 
-const cancelData = {
-    title: 'Acción permanente ⚠️',
-    description: '¿Seguro que quiere eliminar los productos agregados al carrito?',
-    cancellationText: 'No, Cancelar',
-    confirmationText: 'Eliminar Todo',
-    confirmationButtonProps: {
-        color: 'error',
-        startIcon: <HighlightOffIcon />,
-    },
-};
+//redux
+import { useSelector, useDispatch } from 'react-redux';
+import { editItem, removeItem, nukeCart } from '@/store/features/shopSlice';
 
 const CustonSpan = styled('span')({
     padding: 0,
@@ -57,13 +50,14 @@ const CustonSpan = styled('span')({
 });
 
 const fnActions = ({ id }) => {
-    const { removeItem } = useCarrito();
+    const dispatch = useDispatch();
+
     return [
         <GridActionsCellItem
             icon={<DeleteIcon />}
             label="Delete"
             onClick={() => {
-                removeItem(id);
+                dispatch(removeItem({ id }));
             }}
         />,
     ];
@@ -83,16 +77,17 @@ const columns = [
 ];
 
 const Selecionado = ({ vendorId }) => {
-    const confirm = useConfirm();
-    const [client, setClient] = useState({});
     const [note, setNote] = useState('');
-    const { carrito, editItem, nukeItems } = useCarrito();
+    const [client, setClient] = useState({});
 
-    const total = carrito.reduce((prev, current) => prev + current.price * current.quantity, 0);
+    //redux
+    const dispatch = useDispatch();
+    const cart = useSelector((state) => state.shopping.cart);
+    const total = cart.reduce((prev, current) => prev + current.price * current.quantity, 0);
 
     //show Payment Dialog
     const handlePayment = async () => {
-        if (Object.values(carrito).length < 1) {
+        if (Object.values(cart).length < 1) {
             alert('Debe haber al menos un producto');
             return;
         }
@@ -102,21 +97,33 @@ const Selecionado = ({ vendorId }) => {
             vendorId,
             note,
             total,
-            totalItems: carrito?.length || 0,
+            totalItems: cart?.length || 0,
         });
     };
 
     //handle with edit quantity of item
-    const handleEdit = ({ value, id }) => {
-        editItem(id, value);
+    const handleEdit = ({ id, value: quantity }) => {
+        dispatch(editItem({ id, quantity }));
     };
 
     //delete all selected item
     const handleCancel = () => {
-        confirm(cancelData).then(() => {
-            setNote('');
-            nukeItems();
-            setClient({});
+        Swal.fire({
+            title: '¿Deseas cancelar la venta?',
+            text: 'Los productos agregados al carrito se eliminaran permanentemente',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3366ff',
+            confirmButtonText: '¡Si, borrarlo!',
+            cancelButtonText: 'Cancelar',
+            reverseButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                setNote('');
+                setClient({});
+                dispatch(nukeCart());
+            }
         });
     };
 
@@ -149,7 +156,7 @@ const Selecionado = ({ vendorId }) => {
                         onCellEditCommit={handleEdit}
                         getRowId={(row) => row.id}
                         columns={columns}
-                        rows={carrito}
+                        rows={cart}
                         hideFooter
                         components={{
                             NoRowsOverlay: NoData,

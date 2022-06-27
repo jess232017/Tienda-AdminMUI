@@ -40,7 +40,7 @@ const columns = [
 const Details = () => {
     //get data from api
     const orderId = useParams().invoiceId;
-    const { mutateAsync } = api.editNote(orderId);
+    const { mutate } = api.editNote(orderId);
     const { data: order } = api.getById(orderId);
     const { data: details } = api.getDetails(orderId);
     const reportURL = import.meta.env.VITE_API_URL + '/Reporte/order?Id=' + orderId;
@@ -49,18 +49,7 @@ const Details = () => {
 
     const [note, setNote] = useState(order?.note || '');
 
-    const handleNote = () => {
-        toast.promise(mutateAsync({ note }), {
-            pending: 'Guardando los cambios...',
-            success: 'Guardado correctamente',
-            error: {
-                render({ data }) {
-                    const error = data?.response?.data?.error;
-                    return error?.message || data?.message;
-                },
-            },
-        });
-    };
+    const handleNote = () => mutate({ note });
 
     return (
         <PageCard

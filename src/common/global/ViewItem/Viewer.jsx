@@ -8,10 +8,8 @@ import { useElementSize } from 'usehooks-ts';
 
 import GridItem from '@/common/global/GridItem';
 import ListItem from '@/common/global/ListItem';
-import useCarrito from '@/services/context/carrito';
 
 const Viewer = ({ view, data, page, total, handleChange }) => {
-    const store = useCarrito();
     const [squareRef, { width }] = useElementSize();
 
     return (
@@ -20,13 +18,13 @@ const Viewer = ({ view, data, page, total, handleChange }) => {
                 {view === 'grid' ? (
                     <div className="shopping-list">
                         {data?.data?.map((data) => (
-                            <GridItem data={data} store={store} width={width} key={data.id} />
+                            <GridItem data={data} width={width} key={data.id} />
                         ))}
                     </div>
                 ) : (
                     <>
                         {data?.data?.map((data) => (
-                            <ListItem data={data} store={store} width={width} key={data.id} />
+                            <ListItem data={data} width={width} key={data.id} />
                         ))}
                     </>
                 )}

@@ -1,32 +1,20 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
+import { apiOrder } from '@/api/tasks';
 
-import { useAuthUser } from 'react-auth-kit';
-import useStore from '@/services/context/carrito';
+//redux
+import { useSelector, useDispatch } from 'react-redux';
+import { nukeCart } from '@/store/features/shopSlice';
 
-import { apiPaymentMethod, apiOrder } from '@/api/tasks';
-
-const usePaymethod = (page = 1, size = 30) => {
-    const auth = useAuthUser()();
+const usePaymethod = () => {
     const { mutateAsync } = apiOrder.new();
-    const { carrito, nukeItems } = useStore();
-    const [methods, setMethods] = useState([]);
-    const { data } = apiPaymentMethod.get(page, size);
 
-    useEffect(() => {
-        if (data?.data) {
-            console.log('changing methods', data?.data);
-            setMethods(data?.data);
-        }
-    }, [data]);
-
-    const getMethod = (method) => {
-        console.log('data->payment', methods);
-        return methods.find(({ name }) => name.toUpperCase() === method.toUpperCase());
-    };
+    //redux
+    const dispatch = useDispatch();
+    const cart = useSelector((state) => state.shopping.cart);
 
     const createInvoice = async (method, paidWith, clientId, vendorId, addressId) => {
         console.log(method, paidWith, clientId, vendorId, addressId);
-        const details = carrito.map(({ id, quantity }) => ({ productId: id, quantity }));
+        const details = cart.map(({ id, quantity }) => ({ productId: id, quantity }));
 
         const data = {
             vendorId: vendorId,
@@ -42,7 +30,7 @@ const usePaymethod = (page = 1, size = 30) => {
 
         await mutateAsync(data, {
             onSuccess: () => {
-                nukeItems();
+                dispatch(nukeCart());
             },
         });
     };

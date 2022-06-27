@@ -13,13 +13,14 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 //icon
-import DeleteIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import ImageTwoToneIcon from '@mui/icons-material/ImageTwoTone';
+import DeleteIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorderTwoTone';
 
 //owned
 import UriName from '@/common/global/UriName';
-import Item from '../../services/context/class/Item';
+import useItem from '@/services/hooks/useItem';
 
 const IconButton = styled(Button)({
     minWidth: 0,
@@ -31,15 +32,10 @@ const IconButton = styled(Button)({
     },
 });
 
-const GridItem = ({ data, store }) => {
+const GridItem = ({ data }) => {
     const { id, name, image, price } = data;
-    const { carrito, addItem, removeItem, editItem } = store;
-
-    const agregarItem = () => {
-        addItem(new Item(id, name, price, 1, 5, image));
-    };
-
-    const exist = carrito.find((value) => value.id === id);
+    const { cart, isFavorite, actions } = useItem(data);
+    const { handleAdd, handleEdit, handleRemove, handleFav } = actions;
 
     return (
         <Box
@@ -67,11 +63,11 @@ const GridItem = ({ data, store }) => {
                         C$ {price}
                     </Typography>
 
-                    {exist != null ? (
+                    {cart ? (
                         <Stack direction="row" spacing={2}>
                             <TextField
                                 id="outlined-number"
-                                value={exist.quantity}
+                                value={cart.quantity}
                                 label="Cantidad"
                                 type="number"
                                 pattern="[0-9]*"
@@ -81,24 +77,21 @@ const GridItem = ({ data, store }) => {
                                     shrink: true,
                                 }}
                                 InputProps={{ inputProps: { min: 0, max: 10 } }}
-                                onChange={(e) => {
-                                    var value = parseInt(e.target.value, 10);
-                                    editItem(exist.id, value);
-                                }}
+                                onChange={handleEdit}
                             />
 
-                            <IconButton onClick={() => removeItem(exist.id)} variant="outlined" color="error">
+                            <IconButton onClick={handleRemove} variant="outlined" color="error">
                                 <DeleteIcon />
                             </IconButton>
                         </Stack>
                     ) : (
                         <Stack direction="row" spacing={2}>
-                            <Button size="small" fullWidth variant="outlined" onClick={() => agregarItem()}>
+                            <Button size="small" fullWidth variant="outlined" onClick={handleAdd}>
                                 Comprar
                             </Button>
 
-                            <IconButton size="small" color="secondary" variant="outlined" disabled={true}>
-                                <FavoriteBorderIcon />
+                            <IconButton size="small" color="secondary" variant="outlined" onClick={handleFav}>
+                                {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                             </IconButton>
                         </Stack>
                     )}

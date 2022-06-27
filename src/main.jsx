@@ -2,9 +2,13 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 
+import { Provider } from 'react-redux';
 import { AuthProvider } from 'react-auth-kit';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
+
+//stor
+import store from './store/store';
 
 //languages
 import './services/locales/i18n';
@@ -28,10 +32,12 @@ root.render(
             cookieDomain={window.location.hostname}
             cookieSecure={window.location.protocol === 'https:'}
         >
-            <QueryClientProvider client={queryClient}>
-                <App />
-                <ReactQueryDevtools />
-            </QueryClientProvider>
+            <Provider store={store}>
+                <QueryClientProvider client={queryClient}>
+                    <App />
+                    <ReactQueryDevtools />
+                </QueryClientProvider>
+            </Provider>
         </AuthProvider>
     </React.StrictMode>
 );

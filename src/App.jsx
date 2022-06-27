@@ -6,22 +6,24 @@ import { ConfirmProvider } from 'material-ui-confirm';
 
 import Routes from '@/Routes';
 import theme from '@/services/themes/themes';
-import useStore from '@/services/context/sidebar';
+
+//redux
+import { useSelector } from 'react-redux';
 
 const App = () => {
-    const { show } = useStore();
+    const setting = useSelector((state) => state.app.setting);
 
     useEffect(() => {
-        if (show.darkMode) {
+        if (setting.darkMode) {
             document.body.classList.add('dark');
         } else {
             document.body.classList.remove('dark');
         }
-    }, [show?.darkMode]);
+    }, [setting.darkMode]);
 
     return (
         <>
-            <ThemeProvider theme={theme(show)}>
+            <ThemeProvider theme={theme(setting)}>
                 <ConfirmProvider
                     defaultOptions={{
                         confirmationButtonProps: { autoFocus: true },
@@ -33,7 +35,7 @@ const App = () => {
                     <Routes />
                 </ConfirmProvider>
             </ThemeProvider>
-            <ToastContainer theme={show.darkMode ? 'dark' : 'light'} />
+            <ToastContainer theme={setting.darkMode ? 'dark' : 'light'} />
         </>
     );
 };
