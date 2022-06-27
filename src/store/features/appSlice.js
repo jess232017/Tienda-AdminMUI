@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialApp = {
     setting: {
-        isOpen: 'dashboard',
         fontSize: 0,
         darkMode: false,
         dyslexic: false,
@@ -11,6 +10,8 @@ const initialApp = {
             label: 'Español',
             value: 'es',
         },
+        isOpen: 'dashboard',
+        showBar: true,
     },
 };
 
@@ -21,6 +22,9 @@ export const shopSlice = createSlice({
     reducers: {
         setOpen: (state, action) => {
             state.setting.isOpen = action.payload;
+        },
+        setShowBar: (state, action) => {
+            state.setting.showBar = action.payload;
         },
         setLocale: (state, action) => {
             state.setting.locale = action.payload;
@@ -38,6 +42,6 @@ export const shopSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setOpen, setLocale, setDarkMode, setDyslexic, setFontSize } = shopSlice.actions;
+export const { setOpen, setShowBar, setLocale, setDarkMode, setDyslexic, setFontSize } = shopSlice.actions;
 
 export default shopSlice.reducer;

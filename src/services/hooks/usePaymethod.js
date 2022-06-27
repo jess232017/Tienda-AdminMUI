@@ -35,7 +35,7 @@ const usePaymethod = () => {
         });
     };
 
-    return { getMethod, createInvoice };
+    return { createInvoice };
 };
 
 export default usePaymethod;

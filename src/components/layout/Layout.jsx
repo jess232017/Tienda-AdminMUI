@@ -17,6 +17,10 @@ import Header from './header/Header';
 import Sidebar from './sidebar/Sidebar';
 import { drawerWidth } from '@/services/constant';
 
+//redux
+import { useSelector, useDispatch } from 'react-redux';
+import { setShowBar } from '@/store/features/appSlice';
+
 const Chat = React.lazy(() => import('@/pages/admin/Chat/Chat'));
 const Ventas = React.lazy(() => import('@/pages/admin/Venta'));
 const Accountant = React.lazy(() => import('@/pages/admin/Accountant'));
@@ -75,14 +79,17 @@ const MainLayout = () => {
     const classes = useStyles();
     const theme = useTheme();
     const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
-    const [drawerOpen, setDrawerOpen] = React.useState(false);
+
+    //redux
+    const dispatch = useDispatch();
+    const drawerOpen = useSelector((state) => state.app.setting.showBar);
 
     const handleDrawerToggle = () => {
-        setDrawerOpen(!drawerOpen);
+        dispatch(setShowBar(!drawerOpen));
     };
 
     React.useEffect(() => {
-        setDrawerOpen(matchUpMd);
+        dispatch(setShowBar(matchUpMd));
     }, [matchUpMd]);
 
     return (

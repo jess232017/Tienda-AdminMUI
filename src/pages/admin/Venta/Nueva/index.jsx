@@ -21,7 +21,7 @@ const TomarVenta = () => {
     if (matches) {
         return (
             <Box sx={{ backgroundColor: 'background.paper' }}>
-                <Splitter minWidths={[330, 330]} initialSizes={[66, 34]}>
+                <Splitter minWidths={[330, 330]} initialSizes={[66, 14]}>
                     <ViewItem />
                     <CartShop vendorId={vendorId} />
                 </Splitter>
