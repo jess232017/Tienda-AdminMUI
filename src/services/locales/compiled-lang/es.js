@@ -43,6 +43,7 @@ const es = {
             repors: 'Reportes',
             help: 'Ayuda',
             accesibility: 'Accesibilidad',
+            support: 'Soporte',
         },
 
         accountant: {

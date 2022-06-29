@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { ROLES } from '@/services/auth/permission-maps';
 
-
 //icons
 import SettingsRemoteIcon from '@mui/icons-material/SettingsRemote';
+import SupportAgentIcon from '@mui/icons-material/SupportAgentTwoTone';
 import NavigationOutlinedIcon from '@mui/icons-material/NavigationOutlined';
 import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
 import SupervisedUserCircleOutlinedIcon from '@mui/icons-material/SupervisedUserCircleOutlined';
@@ -148,6 +148,14 @@ const nav = {
                     type: 'item',
                     icon: RecentActorsOutlinedIcon,
                     url: '/admin/proveedor',
+                    requireRoles: [ROLES.administrador, ROLES.bodeguero],
+                },
+                {
+                    id: 'chat',
+                    title: 'sidebar.support',
+                    type: 'item',
+                    icon: SupportAgentIcon,
+                    url: '/admin/chat',
                     requireRoles: [ROLES.administrador, ROLES.bodeguero],
                 },
             ],

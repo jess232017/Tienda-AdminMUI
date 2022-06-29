@@ -1,45 +1,29 @@
 import React, { useEffect, useState } from 'react';
 
+import Splitter from '@devbookhq/splitter';
+
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 import Chat from '@/common/Chat';
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
 import Divider from '@mui/material/Divider';
 
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem ';
+
+import ListItem from '@mui/material/ListItemButton ';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import ImageIcon from '@mui/icons-material/Image';
 
+//icons
+import SupportAgentIcon from '@mui/icons-material/SupportAgentTwoTone';
+
 //redux
 import { useSelector, useDispatch } from 'react-redux';
 import { setRoom } from '@/store/features/chatSlice';
-
-const ChatRoom = ({ rooms, setRoom, room }) => {
-    return (
-        <List
-            sx={{
-                width: '100%',
-                maxWidth: 360,
-                bgcolor: 'background.paper',
-            }}
-        >
-            {Object.values(rooms).map((value) => (
-                <React.Fragment key={value}>
-                    <ListItem button onClick={() => setRoom(value)}>
-                        <ListItemAvatar>
-                            <Avatar>
-                                <ImageIcon />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText primary={value} secondary={new Date().toDateString()} />
-                    </ListItem>
-                    <Divider variant="inset" component="li" />
-                </React.Fragment>
-            ))}
-        </List>
-    );
-};
 
 const ChatPage = ({ chatSocket }) => {
     const dispatch = useDispatch();
@@ -54,12 +38,48 @@ const ChatPage = ({ chatSocket }) => {
     };
 
     return (
-        <Card sx={{ display: 'flex', height: '100%' }}>
-            <ChatRoom rooms={rooms} setRoom={handleRoom} room={currentRoom} />
-            <Divider orientation="vertical" flexItem />
-            <Chat chatSocket={chatSocket} messages={messages} room={currentRoom} />
+        <Card>
+            <CardHeader
+                title="Soporte técnico"
+                titleTypographyProps={{
+                    variant: 'h1',
+                }}
+                avatar={<SupportAgentIcon />}
+            />
+            <Divider />
+            <Box sx={{ backgroundColor: 'background.paper' }}>
+                <Splitter minWidths={[300, 330]} initialSizes={[34, 66]}>
+                    <ChatRoom rooms={rooms} setRoom={handleRoom} room={currentRoom} />
+                    <Chat chatSocket={chatSocket} messages={messages} room={currentRoom} />
+                </Splitter>
+            </Box>
         </Card>
     );
 };
+
+function ChatRoom({ rooms, setRoom, room }) {
+    return (
+        <List
+            sx={{
+                width: '100%',
+                bgcolor: 'background.paper',
+            }}
+        >
+            {Object.values(rooms).map((value) => (
+                <React.Fragment key={value}>
+                    <ListItem onClick={() => setRoom(value)} selected={value === room}>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <ImageIcon />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={value} secondary={new Date().toDateString()} />
+                    </ListItem>
+                    <Divider variant="inset" component="li" />
+                </React.Fragment>
+            ))}
+        </List>
+    );
+}
 
 export default ChatPage;

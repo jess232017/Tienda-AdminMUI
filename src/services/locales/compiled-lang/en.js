@@ -43,6 +43,7 @@ const en = {
             repors: 'Reports',
             help: 'Help',
             accesibility: 'Accesibility',
+            support: 'Support',
         },
         accountant: {
             title: 'Accounting Management',
