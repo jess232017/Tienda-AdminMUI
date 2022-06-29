@@ -124,6 +124,7 @@
         bottom: 1px;
         left: 1px;
         border: none;
+        background-color: var(--background);
         border-top-left-radius: 2.3rem;
         border-bottom-left-radius: 0.3rem;
         border-right: 1px solid gainsboro;
@@ -135,8 +136,10 @@
         padding-right: 1rem;
         padding-left: 0.5rem;
         padding-bottom: 1rem;
+        background-color: var(--background);
 
         .search {
+            background-color: var(--background);
             display: flex;
             align-items: center;
         }

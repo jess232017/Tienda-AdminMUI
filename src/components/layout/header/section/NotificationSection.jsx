@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 
 import { styled } from '@mui/system';
-import { toast } from 'react-toastify';
-import { useNotificationCenter } from 'react-toastify/addons/use-notification-center';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
@@ -52,7 +50,6 @@ const ActionColor = styled(Typography)(({ theme }) => ({
 
 const NotificationSection = () => {
     const [showUnreadOnly, setShowUnreadOnly] = useState(true);
-    const { notifications, clear, markAllAsRead, markAsRead, unreadCount } = useNotificationCenter();
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
 
@@ -78,13 +75,7 @@ const NotificationSection = () => {
         prevOpen.current = open;
     }, [open]);
 
-    const addNotification = () => {
-        // use a random type of notification
-        toast('Lorem ipsum dolor sit amet, consectetur adipiscing elit', {
-            type: toast.TYPE.INFO,
-            position: 'bottom-right',
-        });
-    };
+    const addNotification = () => {};
 
     return (
         <React.Fragment>
@@ -96,7 +87,7 @@ const NotificationSection = () => {
                 onClick={handleToggle}
                 color="inherit"
             >
-                <Badge badgeContent={unreadCount} color="primary">
+                <Badge badgeContent={0} color="primary">
                     <NotificationsIcon sx={{ fontSize: '1.5rem' }} />
                 </Badge>
             </Button>
@@ -160,40 +151,7 @@ const NotificationSection = () => {
                                                 padding: '12px',
                                             }}
                                             spacing={2}
-                                        >
-                                            {console.log('notifications', notifications)}
-                                            {(!notifications.length || (unreadCount === 0 && showUnreadOnly)) && (
-                                                <h4>
-                                                    No hay notificaciones{' '}
-                                                    <span role="img" aria-label="dunno what to put">
-                                                        🎉
-                                                    </span>
-                                                </h4>
-                                            )}
-                                            {(showUnreadOnly ? notifications.filter((v) => !v.read) : notifications).map((notification) => {
-                                                return (
-                                                    <Alert
-                                                        severity={notification.type || 'info'}
-                                                        action={
-                                                            notification.read ? (
-                                                                <CheckIcon />
-                                                            ) : (
-                                                                <IconButton
-                                                                    color="primary"
-                                                                    aria-label="upload picture"
-                                                                    component="span"
-                                                                    onClick={() => markAsRead(notification.id)}
-                                                                >
-                                                                    <MarkChatReadIcon />
-                                                                </IconButton>
-                                                            )
-                                                        }
-                                                    >
-                                                        {notification.content}
-                                                    </Alert>
-                                                );
-                                            })}
-                                        </Stack>
+                                        ></Stack>
 
                                         <List>
                                             <ListSubheader disableSticky>
@@ -255,13 +213,9 @@ const NotificationSection = () => {
                                             alignItems: 'center',
                                         }}
                                     >
-                                        <Button variant="contained" onClick={clear}>
-                                            Limpiar todo
-                                        </Button>
+                                        <Button variant="contained">Limpiar todo</Button>
 
-                                        <Button variant="contained" onClick={markAllAsRead}>
-                                            Marcar como leidos
-                                        </Button>
+                                        <Button variant="contained">Marcar como leidos</Button>
                                     </Box>
                                 </Box>
                             </ClickAwayListener>

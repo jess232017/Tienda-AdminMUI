@@ -21,7 +21,9 @@ import { drawerWidth } from '@/services/constant';
 import { useSelector, useDispatch } from 'react-redux';
 import { setShowBar } from '@/store/features/appSlice';
 
-const Chat = React.lazy(() => import('@/pages/admin/Chat/Chat'));
+import useSocket from '@/services/hooks/useSocket';
+
+const Chat = React.lazy(() => import('@/pages/admin/Chat'));
 const Ventas = React.lazy(() => import('@/pages/admin/Venta'));
 const Accountant = React.lazy(() => import('@/pages/admin/Accountant'));
 const Session = React.lazy(() => import('@/pages/admin/Session'));
@@ -76,8 +78,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MainLayout = () => {
-    const classes = useStyles();
     const theme = useTheme();
+    const classes = useStyles();
+    const { chatSocket, dashSocket } = useSocket();
     const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
 
     //redux
@@ -186,7 +189,7 @@ const MainLayout = () => {
 
                             <Route path="accessibilidad" element={<Accessibility />} />
 
-                            <Route path="chat" element={<Chat />} />
+                            <Route path="chat" element={<Chat chatSocket={chatSocket} />} />
                             <Route path="load" element={<Loader />} />
 
                             <Route path="*" element={<NoFound />} />

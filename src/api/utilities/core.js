@@ -19,7 +19,7 @@ const useAxiosQuery =
                 console.log('error', JSON.stringify(error));
                 const bodyError = error?.response?.data?.error;
 
-                if (import.meta.env.VITE_API_URL === 'true') {
+                if (import.meta.env.VITE_DEBUG === 'true') {
                     Swal.fire({
                         title: 'Error!',
                         text: bodyError?.message2,

@@ -53,16 +53,8 @@ const ListItem = ({ data, width }) => {
         >
             <Grid container spacing={1}>
                 <Grid item xs={mobile ? 12 : 8}>
-                    <Box display="flex" flexDirection={`${mobile ? 'column' : 'row'}`}>
-                        <Image
-                            style={{}}
-                            width={mobile ? '100%' : '70%'}
-                            height={mobile ? '100%' : '100%'}
-                            alt={name}
-                            fit="cover"
-                            errorIcon={true}
-                            src={image || ''}
-                        />
+                    <Box display="flex" flexDirection={`${mobile ? 'column' : 'row'}`} height={120}>
+                        <Image style={{}} width={250} height={120} alt={name} fit="contain" errorIcon={true} src={image || ''} />
                         <Box p={2} display="flex" flexDirection=" column">
                             <UriName uri={`/producto?id=${id}`}>{name}</UriName>
                             <Typography variant="subtitle2">

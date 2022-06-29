@@ -14,8 +14,10 @@ const App = () => {
     useEffect(() => {
         if (setting.darkMode) {
             document.body.classList.add('dark');
+            document.documentElement.style.colorScheme = 'dark';
         } else {
             document.body.classList.remove('dark');
+            document.documentElement.style.colorScheme = 'light';
         }
     }, [setting.darkMode]);
 

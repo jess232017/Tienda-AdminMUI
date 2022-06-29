@@ -66,20 +66,19 @@ const columns = [
 ];
 
 const Lote = () => {
-    
     const { t } = useTranslation();
     const { control, data, selected, isLoading, isError } = usePagination(api, columns);
     const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected);
 
-    const onClickExpiring = () => window.open(URL + '/reporte/productos/vence', '_blank').focus();
-    const onClickExpired = () => window.open(URL + '/reporte/productos/vencido', '_blank').focus();
+    const onClickExpiring = () => window.open(URL + '/api/reporte/productos/vence', '_blank').focus();
+    const onClickExpired = () => window.open(URL + '/api/reporte/productos/vencido', '_blank').focus();
     const handleChooser = () => {};
     const handlePrint = () => {};
 
     return (
         <PageCard
             headerProps={{
-                title:  t('lote.title'),
+                title: t('lote.title'),
                 subheader: t('lote.subheader'),
                 avatar: <InventoryIcon />,
             }}
@@ -88,7 +87,7 @@ const Lote = () => {
         >
             <Toolbar onClickChooser={handleChooser}>
                 <Button variant="outlined" size="small" onClick={handleAdd} startIcon={<AddIcon />}>
-                {t('crud.add')}
+                    {t('crud.add')}
                 </Button>
 
                 <Button

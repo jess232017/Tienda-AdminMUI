@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
 
 //Controls
@@ -43,7 +42,7 @@ const Details = () => {
     const { mutate } = api.editNote(orderId);
     const { data: order } = api.getById(orderId);
     const { data: details } = api.getDetails(orderId);
-    const reportURL = import.meta.env.VITE_API_URL + '/Reporte/order?Id=' + orderId;
+    const reportURL = import.meta.env.VITE_API_URL + '/api/Reporte/order?Id=' + orderId;
 
     console.log('details', details);
 

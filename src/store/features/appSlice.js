@@ -16,7 +16,7 @@ const initialApp = {
 };
 
 /* Creating a slice of the Redux store. */
-export const shopSlice = createSlice({
+export const appSlice = createSlice({
     name: 'app',
     initialState: initialApp,
     reducers: {
@@ -42,6 +42,6 @@ export const shopSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setOpen, setShowBar, setLocale, setDarkMode, setDyslexic, setFontSize } = shopSlice.actions;
+export const { setOpen, setShowBar, setLocale, setDarkMode, setDyslexic, setFontSize } = appSlice.actions;
 
-export default shopSlice.reducer;
+export default appSlice.reducer;

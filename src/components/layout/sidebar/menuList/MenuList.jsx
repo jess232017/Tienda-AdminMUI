@@ -9,7 +9,7 @@ import navRoles from '../navRoles/index';
 const MenuList = () => {
     const { jwtHeader } = useHeaderJwt();
 
-    const navItems = navRoles[jwtHeader?.role].items.map((item) => {
+    const navItems = navRoles[jwtHeader?.role]?.items.map((item) => {
         switch (item.type) {
             case 'group':
                 return <NavGroup key={item.id} item={item} />;

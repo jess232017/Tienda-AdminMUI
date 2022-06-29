@@ -16,6 +16,7 @@ const theme = (customization) => {
     let textInversePrimary;
     let header;
     let fontIncremet = customization.fontSize;
+    let disableColor;
 
     if (customization.darkMode) {
         textPrimary = menuCaption = textInversePrimary = value.textDarkPrimary;
@@ -27,6 +28,7 @@ const theme = (customization) => {
         paper = value.paperDark;
         paperSecondary = value.paperSecondaryDark;
         header = value.paperDark;
+        disableColor = '#4D4E4E';
     } else {
         textPrimary = textInversePrimary = menuCaption = value.textPrimary;
         textSecondary = value.textSecondary;
@@ -37,6 +39,7 @@ const theme = (customization) => {
         paper = value.paper;
         paperSecondary = value.paperSecondary;
         header = value.primary;
+        disableColor = '#00000042';
     }
     let fontFamily = customization.dyslexic ? ['opendyslexic', 'sans-serif'].join(',') : ['Poppins', 'sans-serif'].join(',');
 
@@ -254,10 +257,10 @@ const theme = (customization) => {
             MuiDivider: {
                 styleOverrides: {
                     border: 'none',
-                    height: '.5px',
+                    height: '.3px',
                     margin: 0,
                     flexShrink: 0,
-                    backgroundColor: 'rgba(0, 0, 0, 0.12)',
+                    backgroundColor: customization.navType !== 'dark' ? '#8c82731f' : '#171819',
                 },
             },
             MuiSvgIcon: {
@@ -418,6 +421,10 @@ const theme = (customization) => {
                     root: {
                         borderRadius: '0.30rem',
                         fontSize: '0.79rem',
+                        '&.Mui-disabled': {
+                            color: disableColor,
+                            borderColor: disableColor,
+                        },
                     },
                 },
             },

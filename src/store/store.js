@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import appReducer from './features/appSlice';
 import shopReducer from './features/shopSlice';
+import chatReducer from './features/chatSlice';
 
 //MIDDLEWARE
 const localStorageMiddleware = ({ getState }) => {
@@ -27,6 +28,7 @@ const reHydrateStore = () => {
 export default configureStore({
     reducer: {
         app: appReducer,
+        chat: chatReducer,
         shopping: shopReducer,
     },
     preloadedState: reHydrateStore(),

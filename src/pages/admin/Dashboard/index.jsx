@@ -35,8 +35,6 @@ const FlatCardBody = styled(CardContent)({
     },
 });
 
-    
-
 const FlatCardBlock = styled(Grid)(({ theme }) => ({
     padding: '25px 25px',
     borderLeft: '1px solid' + theme.palette.background.default,
@@ -51,8 +49,8 @@ const FlatCardBlock = styled(Grid)(({ theme }) => ({
 
 const Default = () => {
     const theme = useTheme();
-    
-const { t } = useTranslation();
+
+    const { t } = useTranslation();
 
     return (
         <Grid container spacing={gridSpacing}>
@@ -60,8 +58,7 @@ const { t } = useTranslation();
                 <Grid container spacing={gridSpacing}>
                     <Grid item lg={3} sm={6} xs={12}>
                         <ReportCard
-                            
-                            primary= {t('dashboard.primary')}
+                            primary={t('dashboard.primary')}
                             secondary={t('dashboard.secondary')}
                             color={theme.palette.warning.main}
                             footerData={t('dashboard.footerdata')}

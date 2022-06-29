@@ -61,12 +61,15 @@ const Login = ({ isExpired = false }) => {
     const { handleLogin } = useLogin();
 
     const enviarForm = (data) => {
-        mutate(data, {
-            onSuccess: ({ data }) => {
-                console.log('data', data);
-                handleLogin(data);
-            },
-        });
+        const isAdmin = import.meta.env.VITE_BACKOFFICE === 'true';
+        mutate(
+            { ...data, isAdmin },
+            {
+                onSuccess: ({ data }) => {
+                    handleLogin(data);
+                },
+            }
+        );
     };
 
     return (

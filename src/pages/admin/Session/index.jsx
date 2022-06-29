@@ -46,8 +46,8 @@ const Session = () => {
     const { t } = useTranslation();
     const { control, isLoading, isError } = usePagination(apiSession, columns);
 
-    const onClickExpiring = () => window.open(URL + '/reporte/productos/vence', '_blank').focus();
-    const onClickExpired = () => window.open(URL + '/reporte/productos/vencido', '_blank').focus();
+    const onClickExpiring = () => window.open(URL + '/api/reporte/productos/vence', '_blank').focus();
+    const onClickExpired = () => window.open(URL + '/api/reporte/productos/vencido', '_blank').focus();
     const handleChooser = () => {};
     const handlePrint = () => {};
 
