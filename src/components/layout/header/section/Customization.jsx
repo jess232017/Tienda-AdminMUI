@@ -56,7 +56,7 @@ const Customization = () => {
             <Box width="80px" ml={matchDownSm ? '8px' : '24px'} mr={matchDownSm ? '8px' : '24px'}>
                 <TextField
                     select
-                    value={setting.Locale}
+                    value={setting.Locale || ''}
                     onChange={handleLanguage}
                     variant="standard"
                     InputProps={{

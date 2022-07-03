@@ -6,17 +6,22 @@ import { Provider } from 'react-redux';
 import { AuthProvider } from 'react-auth-kit';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactNotifications, Store } from 'react-notifications-component';
+//import ReactNotifications from 'react-notifications-component';
 
-//stor
+//store
 import store from './store/store';
 
 //languages
 import './services/locales/i18n';
 
 //Theme
+import 'animate.css/animate.min.css';
 import 'react-phone-input-2/lib/high-res.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import 'pure-react-carousel/dist/react-carousel.es.css';
 import 'vanilla-icon-picker/dist/themes/default.min.css'; // 'default' theme
+import 'react-notifications-component/dist/theme.css';
 import '@/assets/scss/style.scss';
 
 const queryClient = new QueryClient();
@@ -33,8 +38,9 @@ root.render(
         >
             <Provider store={store}>
                 <QueryClientProvider client={queryClient}>
-                    <App />
                     <ReactQueryDevtools />
+                    <ReactNotifications />
+                    <App />
                 </QueryClientProvider>
             </Provider>
         </AuthProvider>

@@ -17,21 +17,14 @@ const support = {
             curve: 'smooth',
             width: 2,
         },
+        xaxis: {
+            categories: ['2011 Q1', '2011 Q2', '2011 Q3', '2011 Q4', '2012 Q1', '2012 Q2'],
+        },
         tooltip: {
-            fixed: {
-                enabled: false,
-            },
-            x: {
-                show: false,
-            },
-            y: {
-                title: {
-                    formatter: (seriesName) => 'Ticket ',
-                },
-            },
-            marker: {
-                show: false,
-            },
+            followCursor: true,
+        },
+        fill: {
+            opacity: 1,
         },
     },
     series: [

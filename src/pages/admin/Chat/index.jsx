@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Splitter from '@devbookhq/splitter';
+import { useAuthUser } from 'react-auth-kit';
 
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -26,6 +27,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setRoom } from '@/store/features/chatSlice';
 
 const ChatPage = ({ chatSocket }) => {
+    const auth = useAuthUser()();
     const dispatch = useDispatch();
     const rooms = useSelector((state) => state.chat.rooms);
     const currentRoom = useSelector((state) => state.chat.currentRoom);
@@ -34,7 +36,10 @@ const ChatPage = ({ chatSocket }) => {
     console.log('messages', messages);
 
     const handleRoom = (value) => {
-        dispatch(setRoom(value));
+        if (chatSocket._connectionStarted) {
+            chatSocket.invoke('AddToGroup', value, auth.username);
+            dispatch(setRoom(value));
+        }
     };
 
     return (

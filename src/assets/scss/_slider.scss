@@ -1,0 +1,107 @@
+div.carousel {
+    overflow: hidden;
+    position: relative;
+
+    button {
+        &.buttonBack___1mlaL.carousel__back-button {
+            left: -40px;
+            border-radius: 0 4px 4px 0;
+        }
+        &.buttonNext___2mOCa.carousel__next-button {
+            right: -40px;
+            border-radius: 4px 0px 0px 4px;
+        }
+
+        &.buttonNext___3Lm3s.carousel__play-button {
+            max-width: 2rem;
+            max-height: 2rem;
+            padding: 2rem;
+            border-radius: 50%;
+            visibility: hidden;
+        }
+    }
+
+    &:hover {
+        @media (min-width: 768px) {
+            button {
+                &.buttonBack___1mlaL.carousel__back-button {
+                    left: 0;
+                }
+                &.buttonNext___2mOCa.carousel__next-button {
+                    right: 0;
+                }
+                &.buttonNext___3Lm3s.carousel__play-button {
+                    visibility: visible;
+                }
+            }
+        }
+
+        div.carousel__dot-group {
+            bottom: 5px;
+        }
+    }
+}
+
+div.carousel__dot-group {
+    position: absolute;
+    bottom: -0px;
+    @media (min-width: 768px) {
+        bottom: -30px;
+    }
+    transition: all 0.3s ease-out 0s;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    .dot___3c3SI.carousel__dot {
+        --size: 7px;
+        background: #6c757d;
+        border: none;
+        width: var(--size);
+        height: var(--size);
+        border-radius: calc(var(--size) / 2);
+        margin-right: 5px;
+        &.carousel__dot--selected {
+            background: #0167f3;
+        }
+    }
+}
+
+button.buttonBack___1mlaL.carousel__back-button,
+button.buttonNext___2mOCa.carousel__next-button,
+button.buttonNext___3Lm3s.carousel__play-button {
+    width: 35px;
+    height: 60px;
+    color: #fff;
+    font-size: 17px;
+    background: #0167f3;
+    transition: all 0.3s ease-out 0s;
+    border: none;
+    padding: 2px 5px;
+    position: absolute;
+    z-index: 99;
+    top: 50%;
+    margin-top: -30px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    font-family: 'Material Icons';
+    font-size: 24px;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+    &:hover {
+        background-color: #081828;
+        color: #fff;
+    }
+}
+
+button.buttonNext___2mOCa.carousel__next-button {
+    border-radius: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+button.buttonNext___3Lm3s.carousel__play-button {
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background: #2b2b2b75;
+}
