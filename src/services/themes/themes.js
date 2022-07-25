@@ -1,47 +1,49 @@
-import value from '@/assets/scss/themes-vars';
+import value from '@/assets/scss/themes-vars'
 
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles'
 
-import grey from '@mui/material/colors/grey';
+import grey from '@mui/material/colors/grey'
 
 const theme = (customization) => {
-    let textPrimary;
-    let textSecondary;
-    let textDark;
-    let textHint;
-    let background;
-    let paper;
-    let paperSecondary;
-    let menuCaption;
-    let textInversePrimary;
-    let header;
-    let fontIncremet = customization.fontSize;
-    let disableColor;
+    let textPrimary
+    let textSecondary
+    let textDark
+    let textHint
+    let background
+    let paper
+    let paperSecondary
+    let menuCaption
+    let textInversePrimary
+    let header
+    let fontIncremet = customization.fontSize
+    let disableColor
 
     if (customization.darkMode) {
-        textPrimary = menuCaption = textInversePrimary = value.textDarkPrimary;
-        textSecondary = value.textDarkSecondary;
-        textDark = value.textDarkDark;
-        textHint = value.textHintDark;
+        textPrimary = menuCaption = textInversePrimary = value.textDarkPrimary
+        textSecondary = value.textDarkSecondary
+        textDark = value.textDarkDark
+        textHint = value.textHintDark
 
-        background = value.backgoundDark;
-        paper = value.paperDark;
-        paperSecondary = value.paperSecondaryDark;
-        header = value.paperDark;
-        disableColor = '#4D4E4E';
+        background = value.backgoundDark
+        paper = value.paperDark
+        paperSecondary = value.paperSecondaryDark
+        header = value.paperDark
+        disableColor = '#4D4E4E'
     } else {
-        textPrimary = textInversePrimary = menuCaption = value.textPrimary;
-        textSecondary = value.textSecondary;
-        textDark = value.textDark;
-        textHint = value.textHint;
+        textPrimary = textInversePrimary = menuCaption = value.textPrimary
+        textSecondary = value.textSecondary
+        textDark = value.textDark
+        textHint = value.textHint
 
-        background = value.backgound;
-        paper = value.paper;
-        paperSecondary = value.paperSecondary;
-        header = value.primary;
-        disableColor = '#00000042';
+        background = value.backgound
+        paper = value.paper
+        paperSecondary = value.paperSecondary
+        header = value.primary
+        disableColor = '#00000042'
     }
-    let fontFamily = customization.dyslexic ? ['opendyslexic', 'sans-serif'].join(',') : ['Poppins', 'sans-serif'].join(',');
+    let fontFamily = customization.dyslexic
+        ? ['opendyslexic', 'sans-serif'].join(',')
+        : ['Poppins', 'sans-serif'].join(',')
 
     return createTheme({
         direction: customization.rtlLayout ? 'rtl' : 'ltr',
@@ -429,7 +431,7 @@ const theme = (customization) => {
                 },
             },
         },
-    });
-};
+    })
+}
 
-export default theme;
+export default theme

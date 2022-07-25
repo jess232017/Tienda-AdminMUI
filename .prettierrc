@@ -1,8 +1,13 @@
 {
-    "bracketSpacing": true,
-    "printWidth": 140,
-    "singleQuote": true,
-    "trailingComma": "es5",
+    "printWidth": 120,
     "tabWidth": 4,
-    "useTabs": false
+    "useTabs": false,
+    "semi": false,
+    "bracketSpacing": true,
+    "jsxBracketSameLine": true,
+    "jsxSingleQuote": true,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "endOfLine": "auto",
+    "parser": "flow"
 }

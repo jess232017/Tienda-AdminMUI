@@ -1,10 +1,10 @@
 import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 
+import JoditEditor from 'jodit-react'
 import Typography from '@mui/material/Typography'
-import TextareaAutosize from '@mui/material/TextareaAutosize'
 
-const TextArea = ({ label, ...rest }) => {
+const RichText = ({ label, ...rest }) => {
     const {
         control,
         formState: { errors },
@@ -24,7 +24,18 @@ const TextArea = ({ label, ...rest }) => {
             <Controller
                 name={name}
                 control={control}
-                render={({ field }) => <TextareaAutosize {...rest} {...field} name={name} />}
+                render={({ field }) => (
+                    <JoditEditor
+                        config={{
+                            ...rest,
+                            disablePlugins: 'about',
+                        }}
+                        value={field.value}
+                        onBlur={(event) => {
+                            field.onChange(event)
+                        }}
+                    />
+                )}
             />
             <Typography variant='subtitle2' color='red' component='span' role='alert'>
                 {errors[name]?.message || errors[name]?.value?.message || errors[name]?.label?.message}
@@ -33,4 +44,4 @@ const TextArea = ({ label, ...rest }) => {
     )
 }
 
-export default TextArea
+export default RichText

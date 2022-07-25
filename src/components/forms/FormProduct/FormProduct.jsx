@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
 //control
-import { useForm } from 'react-hook-form';
-import NiceModal, { useModal } from '@ebay/nice-modal-react';
+import JoditEditor from 'jodit-react'
+import { useForm } from 'react-hook-form'
+import NiceModal, { useModal } from '@ebay/nice-modal-react'
 
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup'
 
 //Mui
-import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card'
+import Grid from '@mui/material/Grid'
 
 //Owned
-import FormDialog from '@/common/FormDialog';
-import apiCategoria from '@/api/tasks/ApiCategory';
-import apiBrand from '@/api/tasks/ApiBrand';
-import { Input, Select, Uploader, TextArea, CheckBox } from '@/common/control';
+import FormDialog from '@/common/FormDialog'
+import apiCategoria from '@/api/tasks/ApiCategory'
+import apiBrand from '@/api/tasks/ApiBrand'
+import { Input, Select, Uploader, RichText, TextArea, CheckBox } from '@/common/control'
 
 //descripcion categoriaId precioventa cantidad marca stockMinimo codigoqr
 const validationSchema = Yup.object().shape({
@@ -50,71 +52,73 @@ const validationSchema = Yup.object().shape({
         .required('El stock minimo es requerido')
         .positive('El stock minimo debe ser positivo'),
     isInventoriable: Yup.bool(),
-});
+})
 
 const mapOption = (data) => {
-    return data?.map(({ id, name }) => ({ label: name, value: id }));
-};
+    return data?.map(({ id, name }) => ({ label: name, value: id }))
+}
 
 const FormProducto = NiceModal.create(({ data, request, title }) => {
     //modal handle
-    const modal = useModal();
+    const modal = useModal()
 
     //validator
     const methods = useForm({
         resolver: yupResolver(validationSchema),
-    });
-    const txtName = methods.watch('name', '');
+    })
+
+    const txtName = methods.watch('name', '')
     methods.setValue(
         'slug',
         txtName
             ?.toLowerCase()
             ?.replace(/ /g, '-')
-            ?.replace(/[^\w-]+/g, '')
-    );
+            ?.replace(/[^\w-]+/g, ''),
+    )
 
     //Apis
-    const { mutate } = request;
+    const { mutate } = request
 
     //get available categories
-    const { data: dataBrand } = apiBrand.get(1, 10);
-    const { data: dataCatg } = apiCategoria.get(1, 10);
-    const [categories, setCategories] = useState([]);
-    const [sourceImg, setSourceImg] = useState('');
-    const [brands, setBrands] = useState([]);
+    const [content, setContent] = useState('')
+    const { data: dataBrand } = apiBrand.get(1, 10)
+    const { data: dataCatg } = apiCategoria.get(1, 10)
+    const [categories, setCategories] = useState([])
+    const [sourceImg, setSourceImg] = useState('')
+    const [brands, setBrands] = useState([])
 
     const onSubmit = async (data) => {
         // const image = data.image ? await uploadImage(data.image) : null;
         const {
             brandId: { value: brandId },
             categoryId: { value: categoryId },
-        } = data;
+        } = data
 
-        const final = { ...data, brandId, categoryId };
-        console.log('final', final);
+        const final = { ...data, brandId, categoryId }
+        console.log('final', final)
 
         mutate(final, {
             onSuccess: () => {
-                methods.reset({});
-                modal.hide();
+                methods.reset({})
+                modal.hide()
             },
-        });
-    };
+        })
+    }
 
     //parse data from api to be admited for select control
     useEffect(() => {
         if (dataCatg?.data) {
-            const { data } = dataCatg;
-            setCategories(mapOption(data));
+            const { data } = dataCatg
+            setCategories(mapOption(data))
         }
-    }, [dataCatg]);
+    }, [dataCatg])
 
     useEffect(() => {
         if (dataBrand?.data) {
-            const { data } = dataBrand;
-            setBrands(mapOption(data));
+            const { data } = dataBrand
+            setBrands(mapOption(data))
         }
-    }, [dataBrand]);
+    }, [dataBrand])
 
     //reset inputs when data change
     useEffect(() => {
@@ -130,62 +134,81 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
             stock: data?.stock,
             safetyStock: data?.safetyStock || '',
             id: data?.id || '',
-        };
-        setSourceImg(data?.image || '');
-        methods.reset(defaultValues);
-    }, [data]);
+        }
+        setSourceImg(data?.image || '')
+        methods.reset(defaultValues)
+    }, [data])
 
     return (
-        <FormDialog title={`${title} producto`} methods={methods} callback={methods.handleSubmit(onSubmit)} modal={modal}>
+        <FormDialog
+            title={`${title} producto`}
+            methods={methods}
+            callback={methods.handleSubmit(onSubmit)}
+            modal={modal}>
             <Grid container spacing={{ xs: 1, md: 2 }}>
-                <Grid item xs={12} sm={12} md={9}>
-                    <Grid container spacing={{ xs: 1, md: 2 }}>
-                        <Grid item xs={12} sm={6}>
-                            <Input required label="Nombre*" name="name" type="text" placeholder="Escribe el nombre del producto" />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextArea
-                                required
-                                label="Descripcion*"
-                                name="description"
-                                type="text"
-                                placeholder="Escribe una breve descripcion del producto"
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Select required label="Marca*" name="brandId" options={brands} />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Select required label="Categoria*" name="categoryId" options={categories} />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Input required label="Slug*" name="slug" type="text" placeholder="Escribe una frase clave de busqueda" />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Input required label="Precio*" name="price" type="number" />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Input required label="Cantidad actual" name="stock" type="number" defaultValue={0} disabled />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Input required label="Cantidad minima*" name="safetyStock" type="number" />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <CheckBox required label="Inventariable" name="isInventoriable" />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <CheckBox required label="Granel" name="isGranel" />
-                        </Grid>
-                    </Grid>
+                <Grid item xs={12} sm={12} md={4}>
+                    <Card variant='outlined' sx={{ p: 5 }}>
+                        <Uploader name='image' currentSrc={sourceImg} upload_preset='product_pib39m8' />
+                        <Input label='Codigo' placeholder='*Se autogenera' name='id' disabled />
+                    </Card>
                 </Grid>
-
-                <Grid item xs={12} sm={12} md={3}>
-                    <Uploader name="image" currentSrc={sourceImg} upload_preset="product_pib39m8" />
-                    <Input required label="Codigo" name="id" disabled />
+                <Grid item xs={12} sm={12} md={8}>
+                    <Card variant='outlined' sx={{ p: 5 }}>
+                        <Grid container spacing={{ xs: 1, md: 2 }}>
+                            <Grid item xs={12} sm={6}>
+                                <Input
+                                    required
+                                    label='Nombre'
+                                    name='name'
+                                    type='text'
+                                    placeholder='Escribe el nombre del producto'
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Select required label='Categoria' name='categoryId' options={categories} />
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                                <RichText
+                                    required
+                                    label='Descripcion'
+                                    name='description'
+                                    type='text'
+                                    placeholder='Escribe algo asombroso del producto...'
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Select required label='Marca' name='brandId' options={brands} />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Input
+                                    required
+                                    label='Slug'
+                                    name='slug'
+                                    type='text'
+                                    placeholder='Escribe una frase clave de busqueda'
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={4}>
+                                <Input required label='Precio' name='price' type='number' />
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={4}>
+                                <Input required label='Cantidad minima' name='safetyStock' type='number' />
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={4}>
+                                <Input label='Cantidad actual' name='stock' type='number' defaultValue={'0'} disabled />
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={4}>
+                                <CheckBox required label='Inventariable' name='isInventoriable' />
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={4}>
+                                <CheckBox required label='Granel' name='isGranel' />
+                            </Grid>
+                        </Grid>
+                    </Card>
                 </Grid>
             </Grid>
         </FormDialog>
-    );
-});
+    )
+})
 
-export default FormProducto;
+export default FormProducto

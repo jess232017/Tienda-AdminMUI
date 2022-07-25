@@ -1,11 +1,11 @@
-import React from 'react';
+import React from 'react'
 
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import Divider from '@mui/material/Divider';
+import Card from '@mui/material/Card'
+import CardHeader from '@mui/material/CardHeader'
+import CardContent from '@mui/material/CardContent'
+import Divider from '@mui/material/Divider'
 
-import ServerDown from '@/pages/error/ServerDown';
+import ServerDown from '@/pages/error/ServerDown'
 
 const PageCard = ({ headerProps = {}, isLoading = false, isError = false, children }) => {
     return (
@@ -23,7 +23,7 @@ const PageCard = ({ headerProps = {}, isLoading = false, isError = false, childr
                 {isError ? <ServerDown /> : <>{children}</>}
             </CardContent>
         </Card>
-    );
-};
+    )
+}
 
-export default PageCard;
+export default PageCard

@@ -60,6 +60,6 @@ const value = {
 
     menuHover: '#e3f2fd',
     menuHoverDark: '#3366ff14',
-};
+}
 
-export default value;
+export default value
