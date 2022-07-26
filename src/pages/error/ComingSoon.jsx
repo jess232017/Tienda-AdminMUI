@@ -6,17 +6,17 @@ import { Link } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 
-import DownImage from '@/pages/error/images/server_down.svg'
+import SecureImage from '@/pages/error/images/secure_login.svg'
 
-const ServerDown = () => {
+const NoFound = () => {
     return (
         <Box sx={{ height: '100%', display: 'flex' }}>
             <Box sx={{ width: '50%', margin: 'auto', textAlign: 'center' }}>
-                <img src={DownImage} width={350} alt='Parece que hay problemas con el servidor' />
-                <h3 className='mt-4'>Uy! Problemas con el servidor 👨🏻‍💻</h3>
+                <img src={SecureImage} width={350} alt='No tiene permiso para ver este sitio' />
+                <h3 className='mt-4'>La funcionalidad estara lista pronto 🚀</h3>
                 <p>
-                    La pagina que estas visitando presento problemas al conseguir la informacion, favor intentelo mas
-                    tarde.
+                    Esta nueva funcionalidad estara lista pronto, Por favor registrese para ser notificado cuando este
+                    listo
                 </p>
                 <Button sx={{ mt: 2 }} component={Link} to='/' variant='contained' size='large'>
                     Regresar al inicio
@@ -26,4 +26,4 @@ const ServerDown = () => {
     )
 }
 
-export default ServerDown
+export default NoFound
