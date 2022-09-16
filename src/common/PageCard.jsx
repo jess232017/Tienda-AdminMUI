@@ -19,9 +19,7 @@ const PageCard = ({ headerProps = {}, isLoading = false, isError = false, childr
             />
             <Divider />
 
-            <CardContent sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-                {isError ? <ServerDown /> : <>{children}</>}
-            </CardContent>
+            {isError ? <ServerDown /> : <>{children}</>}
         </Card>
     )
 }

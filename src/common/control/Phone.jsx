@@ -14,14 +14,14 @@ const Phone = ({ label, ...rest }) => {
 
     return (
         <div className='input-style'>
-            <label htmlFor={name}>
+            <Typography component='label' variant='subtitle2' htmlFor={name}>
                 {label}
                 {rest.required && (
                     <Typography component='span' color='error'>
                         *
                     </Typography>
                 )}
-            </label>
+            </Typography>
             <Controller
                 name={name}
                 control={control}

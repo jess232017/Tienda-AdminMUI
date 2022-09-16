@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client';
 import App from './App'
 
 import { Provider } from 'react-redux'
@@ -27,9 +27,9 @@ import '@/assets/scss/style.scss'
 
 const queryClient = new QueryClient()
 const container = document.getElementById('root')
+const root = createRoot(container!);
 
-const root = document.getElementById('root')
-render(
+root.render(
     <React.StrictMode>
         <AuthProvider
             authType={'cookie'}
@@ -44,5 +44,4 @@ render(
             </Provider>
         </AuthProvider>
     </React.StrictMode>,
-    root,
 )

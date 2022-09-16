@@ -1,7 +1,9 @@
 import value from '@/assets/scss/themes-vars'
 
-import { createTheme } from '@mui/material/styles'
+import { createTheme, alpha } from '@mui/material/styles'
 
+import shadows, { customShadows } from '../theme_s/shadows'
+import themePallete from '../theme_s/palette'
 import grey from '@mui/material/colors/grey'
 
 const theme = (customization) => {
@@ -43,7 +45,7 @@ const theme = (customization) => {
     }
     let fontFamily = customization.dyslexic
         ? ['opendyslexic', 'sans-serif'].join(',')
-        : ['Poppins', 'sans-serif'].join(',')
+        : ['Public Sans', 'sans-serif'].join(',')
 
     return createTheme({
         direction: customization.rtlLayout ? 'rtl' : 'ltr',
@@ -188,6 +190,9 @@ const theme = (customization) => {
                 fontWeight: 500,
                 fontSize: '1.rem',
                 color: textDark,
+            },
+            button: {
+                textTransform: 'capitalize',
             },
         },
         components: {
@@ -342,20 +347,6 @@ const theme = (customization) => {
                     },
                 },
             },
-            MUIDataTableSelectCell: {
-                styleOverrides: {
-                    fixedLeft: {
-                        position: 'relative',
-                    },
-                },
-            },
-            MuiTableHead: {
-                styleOverrides: {
-                    root: {
-                        background: background,
-                    },
-                },
-            },
             MuiChip: {
                 styleOverrides: {
                     colorSecondary: {
@@ -393,6 +384,20 @@ const theme = (customization) => {
                     },
                 },
             },
+            MUIDataTableSelectCell: {
+                styleOverrides: {
+                    fixedLeft: {
+                        position: 'relative',
+                    },
+                },
+            },
+            MuiTableHead: {
+                styleOverrides: {
+                    root: {
+                        background: background,
+                    },
+                },
+            },
             MuiAvatar: {
                 styleOverrides: {
                     colorDefault: {
@@ -426,6 +431,60 @@ const theme = (customization) => {
                         '&.Mui-disabled': {
                             color: disableColor,
                             borderColor: disableColor,
+                        },
+                        '&:hover': {
+                            boxShadow: 'none',
+                        },
+                    },
+                    sizeLarge: {
+                        height: 48,
+                    },
+                    containedInherit: {
+                        color: themePallete.grey[800],
+                        boxShadow: customShadows.z8,
+                        '&:hover': {
+                            backgroundColor: themePallete.grey[400],
+                        },
+                    },
+                    containedPrimary: {
+                        boxShadow: customShadows.primary,
+                    },
+                    containedSecondary: {
+                        boxShadow: customShadows.secondary,
+                    },
+                    outlinedInherit: {
+                        border: `1px solid ${themePallete.grey[500_32]}`,
+                        '&:hover': {
+                            backgroundColor: themePallete.action.hover,
+                        },
+                    },
+                    textInherit: {
+                        '&:hover': {
+                            backgroundColor: themePallete.action.hover,
+                        },
+                    },
+                },
+            },
+            MuiBackdrop: {
+                styleOverrides: {
+                    root: {
+                        background: [
+                            `rgb(22,28,36)`,
+                            `-moz-linear-gradient(75deg, ${alpha(themePallete.grey[900], 0.48)} 0%, ${alpha(
+                                themePallete.grey[900],
+                                1,
+                            )} 100%)`,
+                            `-webkit-linear-gradient(75deg, ${alpha(themePallete.grey[900], 0.48)} 0%, ${alpha(
+                                themePallete.grey[900],
+                                1,
+                            )} 100%)`,
+                            `linear-gradient(75deg, ${alpha(themePallete.grey[900], 0.48)} 0%, ${alpha(
+                                themePallete.grey[900],
+                                1,
+                            )} 100%)`,
+                        ],
+                        '&.MuiBackdrop-invisible': {
+                            background: 'transparent',
                         },
                     },
                 },

@@ -189,13 +189,13 @@ const FormProducto = NiceModal.create(({ data, request, title }) => {
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6} md={4}>
-                                <Input required label='Precio' name='price' type='number' />
+                                <Input required label='Precio Venta' name='price' type='number' />
                             </Grid>
                             <Grid item xs={12} sm={6} md={4}>
-                                <Input required label='Cantidad minima' name='safetyStock' type='number' />
+                                <Input required label='Cantidad Minima' name='safetyStock' type='number' />
                             </Grid>
                             <Grid item xs={12} sm={6} md={4}>
-                                <Input label='Cantidad actual' name='stock' type='number' defaultValue={'0'} disabled />
+                                <Input label='Cantidad Actual' name='stock' type='number' defaultValue={'0'} disabled />
                             </Grid>
                             <Grid item xs={12} sm={6} md={4}>
                                 <CheckBox required label='Inventariable' name='isInventoriable' />

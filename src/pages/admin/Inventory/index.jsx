@@ -1,27 +1,27 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 //controls
-import { Button } from '@mui/material';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { Button } from '@mui/material'
+import { DataGrid, GridToolbar } from '@mui/x-data-grid'
 
 //Icons
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AnalyticsIcon from '@mui/icons-material/Analytics';
-import InventoryIcon from '@mui/icons-material/InventoryTwoTone';
+import AddIcon from '@mui/icons-material/Add'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
+import AnalyticsIcon from '@mui/icons-material/Analytics'
+import InventoryIcon from '@mui/icons-material/InventoryTwoTone'
 
 //owned
-import PageCard from '@/common/PageCard';
-import Toolbar from '@/components/Toolbar';
-import Form from '@/components/forms/FormInventory/FormInventory';
-import api from '@/api/tasks/ApiInventory';
-import usePagination from '@/services/hooks/usePagination';
-import DropButton, { MenuItem } from '@/components/DropButton';
-import useCrud from '@/services/hooks/useCrud';
+import PageCard from '@/common/PageCard'
+import Toolbar from '@/components/Toolbar'
+import Form from '@/components/forms/FormInventory/FormInventory'
+import api from '@/api/tasks/ApiInventory'
+import usePagination from '@/services/hooks/usePagination'
+import DropButton, { MenuItem } from '@/components/DropButton'
+import useCrud from '@/services/hooks/useCrud'
 
-const URL = import.meta.env.VITE_API_REPORT_URL;
+const URL = import.meta.env.VITE_API_REPORT_URL
 
 const columns = [
     { field: 'id', headerName: 'Codigo', width: 100 },
@@ -34,21 +34,28 @@ const columns = [
     { field: 'subTotal', headerName: 'Sub Total', width: 100 },
     { field: 'total', headerName: 'Total', width: 100 },
     { field: 'note', headerName: 'Nota', width: 100 },
-];
+]
 
 const Inventario = () => {
-    const { t } = useTranslation();
-    const { control, data, selected, isLoading, isError } = usePagination(api, columns);
-    const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected);
+    const { t } = useTranslation()
+    const { control, data, selected, isLoading, isError } = usePagination(api, columns)
+    const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected)
 
     const onClickExpiring = () =>
-        window.open(URL + '/3e8f9414-ef6d-4b47-9896-6b12a527be1b/Reportes/Productos%20a%20Vencer?showmyreports=1', '_blank').focus();
+        window
+            .open(
+                URL + '/3e8f9414-ef6d-4b47-9896-6b12a527be1b/Reportes/Productos%20a%20Vencer?showmyreports=1',
+                '_blank',
+            )
+            .focus()
     const onClickExpired = () =>
-        window.open(URL + '/f775b04a-6901-464a-be29-efd91a2695aa/Reportes/Productos%20Vencidos?showmyreports=1', '_blank').focus();
+        window
+            .open(URL + '/f775b04a-6901-464a-be29-efd91a2695aa/Reportes/Productos%20Vencidos?showmyreports=1', '_blank')
+            .focus()
 
-    const handleChooser = () => {};
+    const handleChooser = () => {}
 
-    const handlePrint = () => {};
+    const handlePrint = () => {}
 
     return (
         <PageCard
@@ -58,44 +65,41 @@ const Inventario = () => {
                 avatar: <InventoryIcon />,
             }}
             isLoading={isLoading}
-            isError={isError}
-        >
+            isError={isError}>
             <Toolbar onClickChooser={handleChooser}>
-                <Button variant="outlined" size="small" onClick={handleAdd} startIcon={<AddIcon />}>
+                <Button variant='contained' size='small' onClick={handleAdd} startIcon={<AddIcon />}>
                     {t('crud.add')}
                 </Button>
 
                 <Button
-                    variant="outlined"
+                    variant='contained'
                     disabled={Object.entries(selected).length < 1}
-                    size="small"
+                    size='small'
                     onClick={handleEdit}
-                    startIcon={<EditIcon />}
-                >
+                    startIcon={<EditIcon />}>
                     {t('crud.edit')}
                 </Button>
                 <Button
-                    variant="outlined"
+                    variant='contained'
                     disabled={Object.entries(selected).length < 1}
-                    size="small"
+                    size='small'
                     onClick={handleDelete}
-                    startIcon={<DeleteIcon />}
-                >
+                    startIcon={<DeleteIcon />}>
                     {t('crud.delete')}
                 </Button>
 
-                <DropButton id="reporte" title={t('inventory.report')} startIcon={<AnalyticsIcon />}>
-                    <MenuItem startIcon={<AnalyticsIcon />} onClick={onClickExpiring} children="Por vencer" />
+                <DropButton id='reporte' title={t('inventory.report')} startIcon={<AnalyticsIcon />}>
+                    <MenuItem startIcon={<AnalyticsIcon />} onClick={onClickExpiring} children='Por vencer' />
 
-                    <MenuItem startIcon={<AnalyticsIcon />} onClick={onClickExpired} children="Vencidos" />
+                    <MenuItem startIcon={<AnalyticsIcon />} onClick={onClickExpired} children='Vencidos' />
 
-                    <MenuItem startIcon={<AnalyticsIcon />} onClick={handlePrint} children="Imprimir" />
+                    <MenuItem startIcon={<AnalyticsIcon />} onClick={handlePrint} children='Imprimir' />
                 </DropButton>
             </Toolbar>
 
             <DataGrid {...control} />
         </PageCard>
-    );
-};
+    )
+}
 
-export default Inventario;
+export default Inventario

@@ -9,23 +9,23 @@ import theme from '@/services/themes/themes';
 import { useSelector } from 'react-redux';
 
 const App = () => {
-    const setting = useSelector((state) => state.app.setting);
+  const setting = useSelector((state) => state.app.setting);
 
-    useEffect(() => {
-        if (setting.darkMode) {
-            document.body.classList.add('dark');
-            document.documentElement.style.colorScheme = 'dark';
-        } else {
-            document.body.classList.remove('dark');
-            document.documentElement.style.colorScheme = 'light';
-        }
-    }, [setting.darkMode]);
+  useEffect(() => {
+    if (setting.darkMode) {
+      document.body.classList.add('dark');
+      document.documentElement.style.colorScheme = 'dark';
+    } else {
+      document.body.classList.remove('dark');
+      document.documentElement.style.colorScheme = 'light';
+    }
+  }, [setting.darkMode]);
 
-    return (
-        <ThemeProvider theme={theme(setting)}>
-            <Routes />
-        </ThemeProvider>
-    );
+  return (
+    <ThemeProvider theme={theme(setting)}>
+      <Routes />
+    </ThemeProvider>
+  );
 };
 
 export default App;

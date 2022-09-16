@@ -1,28 +1,28 @@
-import React from 'react';
+import React from 'react'
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
 //controls
-import { Button } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
+import { Button } from '@mui/material'
+import { DataGrid } from '@mui/x-data-grid'
 
 //Icons
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AnalyticsIcon from '@mui/icons-material/Analytics';
-import InventoryIcon from '@mui/icons-material/GifBoxTwoTone';
+import AddIcon from '@mui/icons-material/Add'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
+import AnalyticsIcon from '@mui/icons-material/Analytics'
+import InventoryIcon from '@mui/icons-material/GifBoxTwoTone'
 
 //owned
-import PageCard from '@/common/PageCard';
-import Toolbar from '@/components/Toolbar';
-import Form from '@/components/forms/FormLote/FormLote';
-import usePagination from '@/services/hooks/usePagination';
-import DropButton, { MenuItem } from '@/components/DropButton';
-import useCrud from '@/services/hooks/useCrud';
-import { apiLote as api } from '../../../api/tasks/index';
+import PageCard from '@/common/PageCard'
+import Toolbar from '@/components/Toolbar'
+import Form from '@/components/forms/FormLote/FormLote'
+import usePagination from '@/services/hooks/usePagination'
+import DropButton, { MenuItem } from '@/components/DropButton'
+import useCrud from '@/services/hooks/useCrud'
+import { apiLote as api } from '../../../api/tasks/index'
 
-const URL = import.meta.env.VITE_API_URL;
+const URL = import.meta.env.VITE_API_URL
 
 /*
 id: "e91a05c3-94b4-4b2b-e708-08da4a522d94"
@@ -63,17 +63,17 @@ const columns = [
     { field: 'unitPrice', headerName: 'Precio Unidad', width: 100 },
     { field: 'totalPrice', headerName: 'Total', width: 100 },
     { field: 'note', headerName: 'Nota', width: 100 },
-];
+]
 
 const Lote = () => {
-    const { t } = useTranslation();
-    const { control, data, selected, isLoading, isError } = usePagination(api, columns);
-    const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected);
+    const { t } = useTranslation()
+    const { control, data, selected, isLoading, isError } = usePagination(api, columns)
+    const { handleAdd, handleEdit, handleDelete } = useCrud(api, Form, selected)
 
-    const onClickExpiring = () => window.open(URL + '/api/reporte/productos/vence', '_blank').focus();
-    const onClickExpired = () => window.open(URL + '/api/reporte/productos/vencido', '_blank').focus();
-    const handleChooser = () => {};
-    const handlePrint = () => {};
+    const onClickExpiring = () => window.open(URL + '/api/reporte/productos/vence', '_blank').focus()
+    const onClickExpired = () => window.open(URL + '/api/reporte/productos/vencido', '_blank').focus()
+    const handleChooser = () => {}
+    const handlePrint = () => {}
 
     return (
         <PageCard
@@ -83,42 +83,39 @@ const Lote = () => {
                 avatar: <InventoryIcon />,
             }}
             isLoading={isLoading}
-            isError={isError}
-        >
+            isError={isError}>
             <Toolbar onClickChooser={handleChooser}>
-                <Button variant="outlined" size="small" onClick={handleAdd} startIcon={<AddIcon />}>
+                <Button variant='contained' size='small' onClick={handleAdd} startIcon={<AddIcon />}>
                     {t('crud.add')}
                 </Button>
 
                 <Button
-                    variant="outlined"
+                    variant='contained'
                     disabled={Object.entries(selected).length < 1}
-                    size="small"
+                    size='small'
                     onClick={handleEdit}
-                    startIcon={<EditIcon />}
-                >
+                    startIcon={<EditIcon />}>
                     {t('crud.edit')}
                 </Button>
                 <Button
-                    variant="outlined"
+                    variant='contained'
                     disabled={Object.entries(selected).length < 1}
-                    size="small"
+                    size='small'
                     onClick={handleDelete}
-                    startIcon={<DeleteIcon />}
-                >
+                    startIcon={<DeleteIcon />}>
                     {t('crud.delete')}
                 </Button>
 
-                <DropButton id="reporte" title={t('lote.report')} startIcon={<AnalyticsIcon />}>
-                    <MenuItem startIcon={<AnalyticsIcon />} onClick={onClickExpiring} children="Por vencer" />
-                    <MenuItem startIcon={<AnalyticsIcon />} onClick={onClickExpired} children="Vencidos" />
-                    <MenuItem startIcon={<AnalyticsIcon />} onClick={handlePrint} children="Imprimir" />
+                <DropButton id='reporte' title={t('lote.report')} startIcon={<AnalyticsIcon />}>
+                    <MenuItem startIcon={<AnalyticsIcon />} onClick={onClickExpiring} children='Por vencer' />
+                    <MenuItem startIcon={<AnalyticsIcon />} onClick={onClickExpired} children='Vencidos' />
+                    <MenuItem startIcon={<AnalyticsIcon />} onClick={handlePrint} children='Imprimir' />
                 </DropButton>
             </Toolbar>
 
             <DataGrid {...control} />
         </PageCard>
-    );
-};
+    )
+}
 
-export default Lote;
+export default Lote

@@ -98,7 +98,7 @@ const Register = () => {
                                 loadingPosition='start'
                                 variant='contained'
                                 fullWidth>
-                                Resetear contraseña
+                                Restablecer contraseña
                             </LoadingButton>
                         </Stack>
                     </FormProvider>

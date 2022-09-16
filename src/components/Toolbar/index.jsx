@@ -35,7 +35,7 @@ const Toolbar = ({ children, onClickChooser, onClickPrint }) => {
     const { t } = useTranslation()
 
     return (
-        <Box display='flex' flexWrap='wrap' justifyContent='space-between' mb={1}>
+        <Box display='flex' flexWrap='wrap' justifyContent='space-between' m={2}>
             <StackLeft>{children}</StackLeft>
 
             <StackRight>

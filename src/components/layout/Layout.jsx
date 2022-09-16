@@ -10,7 +10,7 @@ import Slide from '@mui/material/Slide'
 import { useTheme } from '@mui/styles'
 import { useMediaQuery } from '@mui/material'
 
-import Header from './Header'
+import Header from '@/components/layout/Header'
 import Sidebar from './Sidebar'
 import { drawerWidth } from '@/services/constant'
 

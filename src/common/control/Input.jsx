@@ -13,14 +13,14 @@ const Input = ({ startAdornment, label, ...rest }) => {
     return (
         <div className='input-style'>
             {type !== 'hidden' && (
-                <label htmlFor={name}>
+                <Typography component='label' variant='subtitle2' htmlFor={name}>
                     {label}
                     {required && (
                         <Typography component='span' color='error'>
                             *
                         </Typography>
                     )}
-                </label>
+                </Typography>
             )}
 
             <div className='relative'>
